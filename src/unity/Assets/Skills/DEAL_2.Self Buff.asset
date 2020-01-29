@@ -10,19 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dbc63ca6b8a0e6743bf634c69760190f, type: 3}
-  m_Name: Self Buff
+  m_Name: DEAL_2.Self Buff
   m_EditorClassIdentifier: 
   skillName: "\uC790\uAE30 \uBC84\uD504"
-  description: "\uC21C\uAC04\uC801\uC73C\uB85C \uBC84\uD504"
-  skillState: 0
-  myNum: 0
+  description: "5\uCD08\uAC04 \uC790\uC2E0\uC758 \uCE58\uBA85 30, \uCE58\uBA85 \uACC4\uC218
+    0.5\uB97C \uC99D\uAC00\uC2DC\uD0B5\uB2C8\uB2E4."
+  skillState: 2
+  myNum: 2
   preDelay: 0
   postDelay: 0
-  coolDown: 5
-  proj: {fileID: 0}
+  coolDown: 15
+  proj: {fileID: 6332989940410738062, guid: f1ffe6c1057093e42a09702b86636b4e, type: 3}
   speed: 0
   range: 0
   size: {x: 0, y: 0, z: 0}
-  targetType: 0
+  targetType: 1
   targetNum: 0
-  skillEffect: {fileID: 0}
+  skillEffect: {fileID: 11400000, guid: ebca95157c35eca4993d44fc34cbfb1d, type: 2}
