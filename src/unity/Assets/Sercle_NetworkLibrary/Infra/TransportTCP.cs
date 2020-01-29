@@ -285,7 +285,7 @@ public class TransportTCP : MonoBehaviour
 		try
 		{
 			// 송신처리.
-			if (m_socket.Poll(0, SelectMode.SelectWrite))
+			if (m_isConnected && m_socket.Poll(0, SelectMode.SelectWrite))
 			{
 				byte[] buffer = new byte[s_mtu];
 
@@ -309,7 +309,7 @@ public class TransportTCP : MonoBehaviour
 		// 수신처리.
 		try
 		{
-			while (m_socket.Poll(0, SelectMode.SelectRead))
+			while (m_isConnected && m_socket.Poll(0, SelectMode.SelectRead))
 			{
 				Debug.Log("RECV1");
 				byte[] buffer = new byte[s_mtu];
