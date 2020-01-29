@@ -29,15 +29,6 @@ public class MovingManager : MonoBehaviour
 
     }
 
-    private void FixedUpdate()
-    {
-        // Test
-        if (Input.GetMouseButtonDown(0))  // 마우스가 클릭 되면
-        {
-            SendLocalMovingInfo(1, new Vector3(2, 3, 4));
-        }
-    }
-
     // 이동정보를 상대에게 전송하는 함수
     // 매개변수는 수정해도 상관 없음. 
     // 결과적으로 함수 내 MovingData의 멤버변수를 채워주기만 하면 됨.
