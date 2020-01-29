@@ -173,9 +173,10 @@ public class NetworkManager : MonoBehaviour
         {
             
             // 모듈에서 사용할 헤더 정보를 생성합니다.
+            //?????????
             PacketHeader header = new PacketHeader();
             HeaderSerializer serializer = new HeaderSerializer();
-
+            //packetid = skill, moving 등등   moving은 2
             header.packetId = (int)packet.GetPacketId();
 
             byte[] headerData = null;

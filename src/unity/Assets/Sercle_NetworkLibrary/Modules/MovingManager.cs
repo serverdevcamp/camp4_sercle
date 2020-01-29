@@ -49,7 +49,7 @@ public class MovingManager : MonoBehaviour
         movingData.destX = dest.x;
         movingData.destY = dest.y;
         movingData.destZ = dest.z;
-        Debug.Log("전송 " + movingData);
+        Debug.Log("전송전	 " + movingData);
         // 생성자로 데이터에 패킷을 연결
         MovingPacket packet = new MovingPacket(movingData);
         // UDP 전송
@@ -60,7 +60,7 @@ public class MovingManager : MonoBehaviour
     // 이동 정보 패킷 획득 함수
     public void OnReceiveMovingPacket(PacketId id, byte[] data)
     {
-        MovingPacket packet = new MovingPacket(data);
+        MovingPacket packet = new MovingPacket(data);   //바이트 데이터 역직렬화
         MovingData moving = packet.GetPacket();
         Debug.Log(moving + " 수신완료(이동)");
 
