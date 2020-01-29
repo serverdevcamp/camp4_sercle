@@ -42,9 +42,9 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1)) ClickedCharacter(characters[0]);
-        else if (Input.GetKeyDown(KeyCode.Alpha2)) ClickedCharacter(characters[1]);
-        else if (Input.GetKeyDown(KeyCode.Alpha3)) ClickedCharacter(characters[2]);
+        if (Input.GetKeyDown(KeyCode.Alpha1)) ChangeCurrentCharacter(characters[0]);
+        else if (Input.GetKeyDown(KeyCode.Alpha2)) ChangeCurrentCharacter(characters[1]);
+        else if (Input.GetKeyDown(KeyCode.Alpha3)) ChangeCurrentCharacter(characters[2]);
 
         if (!curCharacter) return;
 
@@ -86,14 +86,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void ClickedCharacter(Character character)
+    public void ChangeCurrentCharacter(Character character)
     {
         switch (inputState)
         {
             case InputState.Normal:
-                if (curCharacter) curCharacter.ChangeColor(false);
+                if (curCharacter) curCharacter.ChooseToCurrent(false);
                 curCharacter = character;
-                curCharacter.ChangeColor(true);
+                curCharacter.ChooseToCurrent(true);
                 break;
             case InputState.Action:
                 clickedCharacter = character;
@@ -101,23 +101,29 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public Vector3? GetDirection(Character caster)
+    public Vector3? GetDirection(Character caster, ref bool isValid)
     {
         Vector3? dir = null;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
+        if (curCharacter != caster)
+        {
+            isValid = false;
+            return null;
+        }
+
         if (Physics.Raycast(ray, out hit, 100))
         {
             Vector3 casterPos = caster.transform.position;
             Vector3 rawDir = hit.point - casterPos;
-            caster.ShowSkillDirection(rawDir);
+            caster.ShowSkillDirection(true, rawDir);
 
             if (Input.GetMouseButtonDown(0))
             {
                 // Debug.Log("마우스 위치 : " + hit.point + ", 시전자 위치 : " + casterPos + ", 계산된 방향 : " + rawDir);
                 dir = rawDir.normalized;
-                caster.UnhowSkillDirection();
+                caster.ShowSkillDirection(false);
             }
         }
 

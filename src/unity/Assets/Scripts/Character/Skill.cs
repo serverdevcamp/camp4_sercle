@@ -49,7 +49,11 @@ public class Skill : ScriptableObject
         {
             while (dir.HasValue == false)
             {
-                dir = GameManager.instance.GetDirection(caster);
+                bool isValid = true;
+                dir = GameManager.instance.GetDirection(caster, ref isValid);
+
+                if (isValid == false) yield break;
+
                 yield return new WaitForFixedUpdate();
             }
         }
