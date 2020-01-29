@@ -42,13 +42,14 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Alpha1)) ClickedCharacter(characters[0]);
+        else if (Input.GetKeyDown(KeyCode.Alpha2)) ClickedCharacter(characters[1]);
+        else if (Input.GetKeyDown(KeyCode.Alpha3)) ClickedCharacter(characters[2]);
+
         if (!curCharacter) return;
 
         if (Input.GetKeyDown(KeyCode.Z))
             Upgrade();
-        if (Input.GetKeyDown(KeyCode.Alpha1)) curCharacter = characters[0];
-        else if (Input.GetKeyDown(KeyCode.Alpha2)) curCharacter = characters[1];
-        else if (Input.GetKeyDown(KeyCode.Alpha3)) curCharacter = characters[2];
         if (Input.GetMouseButtonDown(1))
             ClickToMove();
         if (Input.GetKeyDown(KeyCode.Q))
