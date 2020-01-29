@@ -11,11 +11,11 @@ public class Projectile : MonoBehaviour
     [SerializeField] private float range;
     [SerializeField] private TargetType targetType;
     [SerializeField] private TargetNum targetNum;
-    [SerializeField] private SkillEffect skillEffect;
+    [SerializeField] private List<SkillEffect> skillEffects;
 
     public void Initialize(
         Character caster, Vector3 direction, float speed, float range,
-        Vector3 size, TargetType targetType, TargetNum targetNum, SkillEffect skillEffect)
+        Vector3 size, TargetType targetType, TargetNum targetNum, List<SkillEffect> skillEffects)
     {
         this.caster = caster;
         this.direction = direction;
@@ -24,11 +24,7 @@ public class Projectile : MonoBehaviour
         transform.localScale = size;
         this.targetType = targetType;
         this.targetNum = targetNum;
-        this.skillEffect = skillEffect;
-    }
-
-    private void Start()
-    {
+        this.skillEffects = skillEffects;
     }
 
     private void FixedUpdate()
@@ -51,7 +47,10 @@ public class Projectile : MonoBehaviour
 
         if (IsValidTargetType(target) == false) return;
 
-        GameManager.instance.ApplySkill(target, skillEffect.GetEffectResult(caster, target));
+        foreach(SkillEffect effect in skillEffects)
+        {
+            GameManager.instance.ApplySkill(target, effect.GetEffectResult(caster, target));
+        }
 
         if (targetNum == TargetNum.One) Destroy(gameObject);
     }

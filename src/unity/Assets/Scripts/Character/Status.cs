@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum StatusType { None, MHP, CHP, SPD, ATK, DEF, CRT, DDG }
+public enum StatusType { None, MHP, CHP, SPD, ATK, DEF, CRT, DDG, CC }
 public enum HardCCType { None, Stun }
 
 [System.Serializable]
@@ -59,6 +59,9 @@ public class Status
             case StatusType.DDG:
                 ddg += amount;
                 break;
+            case StatusType.CC:
+                cc += amount;
+                break;
             default:
                 Debug.LogError("Something is Wrong at Changing Status");
                 break;
@@ -94,6 +97,9 @@ public class Status
                 break;
             case StatusType.DDG:
                 ddg = target;
+                break;
+            case StatusType.CC:
+                cc = target;
                 break;
             default:
                 Debug.LogError("Something is Wrong at Changing Status");

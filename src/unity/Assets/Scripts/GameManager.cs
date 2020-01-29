@@ -55,12 +55,12 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q))
         {
             Debug.Log("First Skill Input");
-            curCharacter.UseSkill(0);
+            curCharacter.UseSkill(1);
         }
         else if (Input.GetKeyDown(KeyCode.W))
         {
             Debug.Log("Second Skill Input");
-            curCharacter.UseSkill(1);
+            curCharacter.UseSkill(2);
         }
     }
 

@@ -10,19 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dbc63ca6b8a0e6743bf634c69760190f, type: 3}
-  m_Name: Basic Attack_Dealer
+  m_Name: SPRT_2.Enemy Debuff
   m_EditorClassIdentifier: 
-  skillName: "\uB51C \uAE30\uBCF8 \uACF5\uACA9"
-  description: "\uD3C9\uD0C0. 1.2*\uACF5\uACA9\uB825\uC73C\uB85C \uACF5\uACA9"
+  skillName: "\uB514\uBC84\uD504"
+  description: "\uD53C\uACA9\uB41C \uC801\uC758 \uC18D\uB3C4 5, \uBC29\uC5B4 30\uC744
+    3\uCD08 \uB3D9\uC548 \uAC10\uC18C\uC2DC\uD0B5\uB2C8\uB2E4."
   skillState: 0
-  myNum: 0
+  myNum: 1
   preDelay: 0
   postDelay: 0
-  coolDown: 0.5
+  coolDown: 5
   proj: {fileID: 6332989940410738062, guid: f1ffe6c1057093e42a09702b86636b4e, type: 3}
   speed: 10
-  range: 15
-  size: {x: 0.2, y: 0.2, z: 0.2}
-  targetType: 0
+  range: 8
+  size: {x: 0.5, y: 0.5, z: 0.5}
+  targetType: 3
   targetNum: 0
-  skillEffect: {fileID: 11400000, guid: d16d518b402c16c42aeb84a860faf685, type: 2}
+  skillEffects:
+  - {fileID: 11400000, guid: 9ed027b6c17fd2243aa9e6a8925fe4b0, type: 2}
+  - {fileID: 11400000, guid: 80b3d4d3ffefa0847872c4a93763d814, type: 2}
