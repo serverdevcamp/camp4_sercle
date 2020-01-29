@@ -142,7 +142,7 @@ public class Character : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        MouseCursor.instance.State = MouseState.Select;
+        //MouseCursor.instance.State = MouseState.Select;
     }
 
     /// <summary>
@@ -157,7 +157,7 @@ public class Character : MonoBehaviour
 
     private void OnMouseExit()
     {
-        MouseCursor.instance.State = MouseState.Idle;
+        //MouseCursor.instance.State = MouseState.Idle;
     }
 
     public void SetDestination(Vector3 pos)
