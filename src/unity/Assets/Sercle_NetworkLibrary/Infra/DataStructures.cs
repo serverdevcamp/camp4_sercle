@@ -6,7 +6,15 @@ public enum PacketId
 {
     CharacterData = 0,
     SkillData,
-    MovingData
+    MovingData,
+};
+
+//매칭 패킷 데이터
+public enum MatchingPacketId
+{
+    MatchingRequest = 0,
+    MatchingResponse,
+    StartGame,
 };
 
 // 스킬 종류 식별용 열거형
@@ -146,6 +154,14 @@ public struct MovingData
     }
 };
 
+//매칭 정보
+public struct MatchingData
+{
+    //유저 고유 번호
+    public int index;
+    
+
+}
 
 // 스킬 정보
 public struct SkillData

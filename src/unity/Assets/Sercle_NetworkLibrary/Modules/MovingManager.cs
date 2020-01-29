@@ -60,7 +60,7 @@ public class MovingManager : MonoBehaviour
     // 이동 정보 패킷 획득 함수
     public void OnReceiveMovingPacket(PacketId id, byte[] data)
     {
-        MovingPacket packet = new MovingPacket(data);   //바이트 데이터 역직렬화
+        MovingPacket packet = new MovingPacket(data);   //바이트 데이터 역직렬
         MovingData moving = packet.GetPacket();
         Debug.Log(moving + " 수신완료(이동)");
 

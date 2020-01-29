@@ -1,12 +1,4 @@
-﻿/*  
- * 네트워크 관리자
- * 
- * 네트워크 연결/해제, 에러처리, 송/수신 담당.
- * 
- * FixedUpdate에서 수신
- */
-
-using UnityEngine;
+﻿using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,17 +7,11 @@ using System.Net.Sockets;
 using System.Runtime.InteropServices;
 using System.Threading;
 
-
-
-public class NetworkManager : MonoBehaviour
+public class MatchingNetworkManager : MonoBehaviour
 {
-
     // 현재 이 단말이 네트워크에 연결되어 있는가.
     [SerializeField]
     private bool isNetConnected;
-
-    // UDP
-    private TransportUDP transportUDP;
     // TCP
     private TransportTCP transportTCP;
 
@@ -38,7 +24,6 @@ public class NetworkManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        transportUDP = GetComponent<TransportUDP>();
         transportTCP = GetComponent<TransportTCP>();
     }
 
@@ -62,32 +47,6 @@ public class NetworkManager : MonoBehaviour
             ReceivePacket(packet);
         }
     }
-
-    // UDP 데이터 수신하는 함수
-    private void ReceiveData()
-    {
-        byte[] data = new byte[1400];
-
-        // 데이터 수신
-        int recvSize = transportUDP.Receive(ref data, data.Length);
-        //int recvSize = transportTCP.Receive(ref data, data.Length);
-
-        if(recvSize <= 0)
-        {
-            // 데이터를 수신한게 없음.
-            return;
-        }
-
-        string str = System.Text.Encoding.UTF8.GetString(data);
-        if (str == "request connection.")
-        {
-            // 접속 요청 패킷이므로 아무 처리 않음
-            return;
-        }
-
-        ReceivePacket(data);
-    }
-
 
     // 수신된 데이터가 어느 데이터 구조에 적합한지 판단후 등록된 함수 호출
     public void ReceivePacket(byte[] data)
@@ -134,38 +93,6 @@ public class NetworkManager : MonoBehaviour
         notifier.Add(index, _notifier);
     }
 
-    // 데이터를 서버로 전송(UDP)
-    public int SendUnreliable<T>(IPacket<T> packet)
-    {
-        int sendSize = 0;
-        
-        if(transportUDP != null)
-        {
-            // 헤더 정보 생성
-            PacketHeader header = new PacketHeader();
-            HeaderSerializer serializer = new HeaderSerializer();
-
-            // FIX THIS : 명시적 형변환 해줌. 소스코드와 다름
-            header.packetId = (int)packet.GetPacketId();
-
-            byte[] headerData = null;
-            if(serializer.Serialize(header) == true)
-            {
-                headerData = serializer.GetSerializedData();
-            }
-            byte[] packetData = packet.GetData();
-
-            byte[] data = new byte[headerData.Length + packetData.Length];
-
-            int headerSize = Marshal.SizeOf(typeof(PacketHeader));
-            Buffer.BlockCopy(headerData, 0, data, 0, headerSize);
-            Buffer.BlockCopy(packetData, 0, data, headerSize, packetData.Length);
-
-            sendSize = transportUDP.Send(data, data.Length);
-        }
-        return sendSize;
-    }
-
     // 데이터를 서버로 전송(TCP)
     public int SendReliable<T>(IPacket<T> packet)
     {
@@ -173,7 +100,7 @@ public class NetworkManager : MonoBehaviour
 
         if (transportTCP != null)
         {
-            
+
             // 모듈에서 사용할 헤더 정보를 생성합니다.
             PacketHeader header = new PacketHeader();
             HeaderSerializer serializer = new HeaderSerializer();
@@ -186,7 +113,7 @@ public class NetworkManager : MonoBehaviour
                 headerData = serializer.GetSerializedData();
             }
 
-            byte[] packetData = packet.GetData();   //움직임 정보 들은 데이
+            byte[] packetData = packet.GetData();   //움직임 정보 들은 데이터
             byte[] data = new byte[headerData.Length + packetData.Length];
 
             int headerSize = Marshal.SizeOf(typeof(PacketHeader));
@@ -212,7 +139,7 @@ public class NetworkManager : MonoBehaviour
             //SetNetConnectionStatus(transportUDP.Connect("127.0.0.1", 3098));
             //if (GetNetConnectionStatus())
             //    Time.timeScale = 1f;
-            SetNetConnectionStatus(transportTCP.Connect("127.0.0.1", 3098));
+            SetNetConnectionStatus(transportTCP.Connect("127.0.0.1", 20001));
             //transportTCP.Send(System.Text.Encoding.UTF8.GetBytes("PLEASEE"), 10);
             if (GetNetConnectionStatus())
             {
