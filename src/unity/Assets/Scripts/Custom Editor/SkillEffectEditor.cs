@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿#if UNITY_EDITOR
+using UnityEditor;
 using UnityEngine;
 
 [CustomEditor(typeof(SkillEffect)), CanEditMultipleObjects]
@@ -68,3 +69,4 @@ public class SkillEffectEditor : Editor
         serializedObject.ApplyModifiedProperties();
     }
 }
+#endif
