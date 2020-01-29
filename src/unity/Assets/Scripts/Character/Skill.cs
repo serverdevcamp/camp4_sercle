@@ -30,7 +30,7 @@ public class Skill : ScriptableObject
     public Vector3 size;
     public TargetType targetType;
     public TargetNum targetNum;
-    public SkillEffect skillEffect;
+    public List<SkillEffect> skillEffects;
 
     public IEnumerator Use(Character caster, Vector3? dir = null)
     {
@@ -89,6 +89,6 @@ public class Skill : ScriptableObject
     {
         Vector3 spawnPos = caster.transform.position + new Vector3(0, 1.1f, 0);
         Projectile projectile = Instantiate(proj, spawnPos, Quaternion.identity);
-        projectile.Initialize(caster, dir, speed, range, size, targetType, targetNum, skillEffect);
+        projectile.Initialize(caster, dir, speed, range, size, targetType, targetNum, skillEffects);
     }
 }

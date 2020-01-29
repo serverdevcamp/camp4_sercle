@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 993bfb0b062e00344b63c128b040e246, type: 3}
-  m_Name: SPRT_2.Enemy Debuff
+  m_Name: DEAL_2.Self Buff_1
   m_EditorClassIdentifier: 
   skillType: 2
-  coefficient: 3
+  coefficient: 3.5
   ccType: 0
-  statusType: 3
+  statusType: 6
   hardCCType: 0
-  amount: -5
-  duration: 3
+  amount: 30
+  duration: 5

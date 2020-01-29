@@ -25,4 +25,5 @@ MonoBehaviour:
   size: {x: 0.8, y: 1, z: 0.8}
   targetType: 3
   targetNum: 0
-  skillEffect: {fileID: 11400000, guid: b87917a464b62e148bb7aaf6a91cefee, type: 2}
+  skillEffects:
+  - {fileID: 11400000, guid: b87917a464b62e148bb7aaf6a91cefee, type: 2}
