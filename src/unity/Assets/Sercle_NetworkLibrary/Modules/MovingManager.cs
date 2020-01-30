@@ -29,15 +29,6 @@ public class MovingManager : MonoBehaviour
 
     }
 
-    private void FixedUpdate()
-    {
-        // Test
-        if (Input.GetMouseButtonDown(0))  // 마우스가 클릭 되면
-        {
-            SendLocalMovingInfo(1, new Vector3(2, 3, 4));
-        }
-    }
-
     // 이동정보를 상대에게 전송하는 함수
     // 매개변수는 수정해도 상관 없음. 
     // 결과적으로 함수 내 MovingData의 멤버변수를 채워주기만 하면 됨.
@@ -49,7 +40,11 @@ public class MovingManager : MonoBehaviour
         movingData.destX = dest.x;
         movingData.destY = dest.y;
         movingData.destZ = dest.z;
+<<<<<<< HEAD
         Debug.Log("전송전송 " + movingData);
+=======
+        Debug.Log("전송전	 " + movingData);
+>>>>>>> 6d83b3a053acb78bc9264776a9a30f92b44da692
         // 생성자로 데이터에 패킷을 연결
         MovingPacket packet = new MovingPacket(movingData);
         // UDP 전송
@@ -60,7 +55,7 @@ public class MovingManager : MonoBehaviour
     // 이동 정보 패킷 획득 함수
     public void OnReceiveMovingPacket(PacketId id, byte[] data)
     {
-        MovingPacket packet = new MovingPacket(data);
+        MovingPacket packet = new MovingPacket(data);   //바이트 데이터 역직렬
         MovingData moving = packet.GetPacket();
         Debug.Log(moving + " 수신완료(이동)");
 

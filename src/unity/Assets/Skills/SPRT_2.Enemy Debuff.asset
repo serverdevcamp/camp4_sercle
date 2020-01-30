@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbc63ca6b8a0e6743bf634c69760190f, type: 3}
+  m_Name: SPRT_2.Enemy Debuff
+  m_EditorClassIdentifier: 
+  skillName: "\uB514\uBC84\uD504"
+  description: "\uD53C\uACA9\uB41C \uC801\uC758 \uC18D\uB3C4 5, \uBC29\uC5B4 30\uC744
+    3\uCD08 \uB3D9\uC548 \uAC10\uC18C\uC2DC\uD0B5\uB2C8\uB2E4."
+  skillState: 0
+  myNum: 1
+  preDelay: 0
+  postDelay: 0
+  coolDown: 5
+  proj: {fileID: 6332989940410738062, guid: f1ffe6c1057093e42a09702b86636b4e, type: 3}
+  speed: 10
+  range: 8
+  size: {x: 0.5, y: 0.5, z: 0.5}
+  targetType: 3
+  targetNum: 0
+  skillEffects:
+  - {fileID: 11400000, guid: 9ed027b6c17fd2243aa9e6a8925fe4b0, type: 2}
+  - {fileID: 11400000, guid: 80b3d4d3ffefa0847872c4a93763d814, type: 2}

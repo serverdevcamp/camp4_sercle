@@ -10,7 +10,7 @@ public enum TargetNum { One, All }
 [CreateAssetMenu(fileName = "New Skill", menuName = "Skill/Skill")]
 public class Skill : ScriptableObject
 {
-    public enum SkillState { Idle, Ready, Fire, CoolDown }
+    public enum SkillState { Idle, Ready, PreDelay, Fire, PostDelay, CoolDown }
 
     [Header("Basic Info")]
     public string skillName;
@@ -30,7 +30,7 @@ public class Skill : ScriptableObject
     public Vector3 size;
     public TargetType targetType;
     public TargetNum targetNum;
-    public SkillEffect skillEffect;
+    public List<SkillEffect> skillEffects;
 
     public IEnumerator Use(Character caster, Vector3? dir = null)
     {
@@ -59,18 +59,22 @@ public class Skill : ScriptableObject
         }
         #endregion
 
-        skillState = SkillState.Fire;
+        // skillState = SkillState.Fire;
 
         Debug.Log("Use " + skillName + " to " + dir);
 
         #region Wait for Pre delay
         if (targetType != TargetType.Auto) caster.usingSkill = true;
+        // 스킬 발사 상태 변경 2020 01 30
+        skillState = SkillState.PreDelay;
         yield return new WaitForSeconds(preDelay);
         #endregion
 
         #region 투사체 발사
         // GM에게 index 번째 캐릭터의 num번째 스킬을 dir 방향으로 사용한다고 알려준다.
         GameManager.instance.FireProjectile(caster.index, myNum, dir.Value);
+        // 스킬 발사 상태 변경 2020 01 30
+        skillState = SkillState.Fire;
         #endregion
 
         #region Wait for Post Delay
@@ -89,6 +93,6 @@ public class Skill : ScriptableObject
     {
         Vector3 spawnPos = caster.transform.position + new Vector3(0, 1.1f, 0);
         Projectile projectile = Instantiate(proj, spawnPos, Quaternion.identity);
-        projectile.Initialize(caster, dir, speed, range, size, targetType, targetNum, skillEffect);
+        projectile.Initialize(caster, dir, speed, range, size, targetType, targetNum, skillEffects);
     }
 }

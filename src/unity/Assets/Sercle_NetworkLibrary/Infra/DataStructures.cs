@@ -6,12 +6,34 @@ public enum PacketId
 {
     CharacterData = 0,
     SkillData,
-    MovingData
+    MovingData,
+    MatchingData,
+};
+
+//매칭 패킷 데이터
+public enum MatchingPacketId
+{
+    MatchingRequest = 0,
+    MatchingAccept,
+    MatchingReject,
 };
 
 // 스킬 종류 식별용 열거형
 
-
+//매칭 정보
+public struct MatchingData
+{
+    //유저 고유 번호
+    public int index;       //로그인 번호
+    public int roomNum;
+    public MatchingPacketId matchingPacketId;
+    public override string ToString()
+    {
+        string str = "";
+        str += "index:" + index;
+        return str;
+    }
+}
 // 데이터의 헤더에 패킷을 붙힌다.
 // Fix this : 네트워크에 사용할 구조체는 한곳에 몰아놓기.
 public struct PacketHeader
@@ -145,7 +167,6 @@ public struct MovingData
         return str;
     }
 };
-
 
 // 스킬 정보
 public struct SkillData
