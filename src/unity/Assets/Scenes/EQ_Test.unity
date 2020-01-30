@@ -6008,6 +6008,7 @@ GameObject:
   - component: {fileID: 7504230493878790319}
   - component: {fileID: 7504230493878790318}
   - component: {fileID: 7504230493878790317}
+  - component: {fileID: 7504230493878790320}
   m_Layer: 8
   m_Name: SPRT
   m_TagString: Untagged
@@ -6087,6 +6088,19 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &7504230493878790320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7504230493878790316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfc305c4dd7071f4ba2077b3ff45b6e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterState: 0
 --- !u!1 &7504236536508857902
 GameObject:
   m_ObjectHideFlags: 0
@@ -7519,7 +7533,7 @@ Animator:
   m_GameObject: {fileID: 7504230493878790316}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: f13349cc09b03d447a26b54d406aaa8e, type: 3}
-  m_Controller: {fileID: 9100000, guid: f45794a980ce9da498297f8393877ffa, type: 2}
+  m_Controller: {fileID: 22100000, guid: 13c735448ffedb34e861017a1ec94a36, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -9034,8 +9048,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8965763910933885257}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children:
   - {fileID: 8969130802474251663}
@@ -9295,7 +9309,7 @@ Animator:
   m_GameObject: {fileID: 8966662900568057445}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: f13349cc09b03d447a26b54d406aaa8e, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f45794a980ce9da498297f8393877ffa, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
