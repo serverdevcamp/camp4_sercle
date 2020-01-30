@@ -49,7 +49,7 @@ public class MovingManager : MonoBehaviour
         movingData.destX = dest.x;
         movingData.destY = dest.y;
         movingData.destZ = dest.z;
-        Debug.Log("전송 " + movingData);
+        Debug.Log("전송전송 " + movingData);
         // 생성자로 데이터에 패킷을 연결
         MovingPacket packet = new MovingPacket(movingData);
         // UDP 전송

@@ -8,6 +8,7 @@
 
 using UnityEngine;
 using System;
+using System.Text;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
@@ -192,7 +193,7 @@ public class NetworkManager : MonoBehaviour
             Buffer.BlockCopy(packetData, 0, data, headerSize, packetData.Length);
 
             string str = "Send reliable packet[" + header.packetId + "]";
-
+            Debug.Log("awdsd : " + Encoding.Default.GetString(data));
             sendSize = transportTCP.Send(data, data.Length);
             //Debug.Log(data.Length + " 전송");
         }
