@@ -65,14 +65,7 @@ public class MatchingManager : MonoBehaviour
     // 매칭 시작 버튼 클릭 함수
     public void MatchingRequest()
     {
-        MatchingData requestData = new MatchingData();
-
-        requestData.index = 1;          ///로그인 한 아이디가 들어가야함.&**&********
-        requestData.roomNum = -1;
-        requestData.matchingPacketId = MatchingPacketId.MatchingRequest;
-
-        MatchingPacket packet = new MatchingPacket(requestData);
-        
+        SendLocalMatchingRequest(1);
         Debug.Log("매칭 해주세요 버튼 클릭");
     }
 
@@ -99,6 +92,7 @@ public class MatchingManager : MonoBehaviour
         MatchingData matchingData = new MatchingData();
         matchingData.index = index;
         matchingData.roomNum = -1;
+        matchingData.matchingPacketId = MatchingPacketId.MatchingRequest;
 
         MatchingPacket packet = new MatchingPacket(matchingData);
 
