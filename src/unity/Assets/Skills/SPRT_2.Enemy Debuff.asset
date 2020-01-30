@@ -16,7 +16,7 @@ MonoBehaviour:
   description: "\uD53C\uACA9\uB41C \uC801\uC758 \uC18D\uB3C4 5, \uBC29\uC5B4 30\uC744
     3\uCD08 \uB3D9\uC548 \uAC10\uC18C\uC2DC\uD0B5\uB2C8\uB2E4."
   skillState: 0
-  myNum: 1
+  myNum: 2
   preDelay: 0
   postDelay: 0
   coolDown: 5
