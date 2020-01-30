@@ -4438,6 +4438,7 @@ GameObject:
   - component: {fileID: 3496573211690820101}
   - component: {fileID: 3496573211690820100}
   - component: {fileID: 3496573211690820099}
+  - component: {fileID: 3496573211690820102}
   m_Layer: 8
   m_Name: DEAL
   m_TagString: Untagged
@@ -4517,6 +4518,19 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &3496573211690820102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3496573211690820098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfc305c4dd7071f4ba2077b3ff45b6e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterState: 0
 --- !u!1 &3496609356999179728
 GameObject:
   m_ObjectHideFlags: 0
@@ -5759,10 +5773,10 @@ Animator:
   m_GameObject: {fileID: 3496573211690820098}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: f13349cc09b03d447a26b54d406aaa8e, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5b1aa2d6ddca3124d94931d3adcce107, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
