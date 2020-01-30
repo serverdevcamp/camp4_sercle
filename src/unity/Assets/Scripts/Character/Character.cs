@@ -142,7 +142,7 @@ public class Character : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        MouseCursor.instance.State = MouseState.Select;
+        //MouseCursor.instance.State = MouseState.Select;
     }
 
     /// <summary>
@@ -152,12 +152,12 @@ public class Character : MonoBehaviour
     private void OnMouseDown()
     {
         Debug.Log("You click " + name);
-        GameManager.instance.ClickedCharacter(this);
+        GameManager.instance.ChangeCurrentCharacter(this);
     }
 
     private void OnMouseExit()
     {
-        MouseCursor.instance.State = MouseState.Idle;
+        //MouseCursor.instance.State = MouseState.Idle;
     }
 
     public void SetDestination(Vector3 pos)
@@ -195,14 +195,21 @@ public class Character : MonoBehaviour
     }
 
     /// <summary>
-    /// 캐릭터가 선택된 상태라는 것을 알려주기 위해 임시로 만든 함수.
-    /// 선택되면 빨간색이 된다.
+    /// 해당 캐릭터를 선택/해제할 때 상태를 바꿔주는 함수
     /// </summary>
-    /// <param name="isClicked">true면 선택된 것.</param>
-    public void ChangeColor(bool isClicked)
+    /// <param name="choose">true면 선택되는 시점에 콜. false면 해제되는 시점에 콜.</param>
+    public void ChooseToCurrent(bool choose)
     {
-        if (isClicked) transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().material.color = Color.red;
-        else transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().material.color = Color.white;
+        if (choose)
+        {
+            transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().material.color = Color.red;
+        }
+        else
+        {
+            transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().material.color = Color.white;
+            ShowSkillRange(false);
+            ShowSkillDirection(false);
+        }
     }
 
     /// <summary>
@@ -233,7 +240,7 @@ public class Character : MonoBehaviour
     /// </summary>
     /// <param name="show">true면 표시, false면 표시하지 않는다.</param>
     /// <param name="range">스킬의 사거리. 기본값은 0이다.</param>
-    public void ShowSkillRnage(bool show, float range = 0)
+    public void ShowSkillRange(bool show, float range = 0)
     {
         skillRangeCircle.SetupCircle(range);
 
@@ -241,15 +248,15 @@ public class Character : MonoBehaviour
         else skillRangeCircle.gameObject.SetActive(false);
     }
 
-    public void ShowSkillDirection(Vector3 dir)
+    /// <summary>
+    /// 해당 스킬의 방향을 표시해주는 함수.
+    /// </summary>
+    /// <param name="show">true면 보여준다. false면 안보여준다.</param>
+    /// <param name="dir">표시할 방향</param>
+    public void ShowSkillDirection(bool show, Vector3 dir = default)
     {
-        skillDirRect.gameObject.SetActive(true);
+        skillDirRect.gameObject.SetActive(show);
         float angle = Mathf.Atan2(dir.z, dir.x) * Mathf.Rad2Deg + transform.rotation.eulerAngles.y;
         skillDirRect.localRotation = Quaternion.Euler(0, 0, angle);
-    }
-
-    public void UnhowSkillDirection()
-    {
-        skillDirRect.gameObject.SetActive(false);
     }
 }

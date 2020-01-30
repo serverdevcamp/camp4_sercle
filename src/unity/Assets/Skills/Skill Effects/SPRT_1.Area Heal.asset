@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 993bfb0b062e00344b63c128b040e246, type: 3}
-  m_Name: Basic Attack_Tanker
-  m_EditorClassIdentifier: Assembly-CSharp::AttackSkill
-  skillType: 0
-  coefficient: 0.9
+  m_Name: SPRT_1.Area Heal
+  m_EditorClassIdentifier: 
+  skillType: 1
+  coefficient: 3
   ccType: 0
   statusType: 0
   hardCCType: 0

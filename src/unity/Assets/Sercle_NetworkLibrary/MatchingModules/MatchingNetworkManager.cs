@@ -139,7 +139,7 @@ public class MatchingNetworkManager : MonoBehaviour
             //SetNetConnectionStatus(transportUDP.Connect("127.0.0.1", 3098));
             //if (GetNetConnectionStatus())
             //    Time.timeScale = 1f;
-            SetNetConnectionStatus(transportTCP.Connect("127.0.0.1", 20001));
+            SetNetConnectionStatus(transportTCP.Connect("127.0.0.1", 3098));
             //transportTCP.Send(System.Text.Encoding.UTF8.GetBytes("PLEASEE"), 10);
             if (GetNetConnectionStatus())
             {

@@ -2,6 +2,7 @@
  * 캐릭터패킷,
  * 채팅패킷,
  * 이동패킷,
+ * 매칭패킷,
  * 공격패킷 전부 작성해주어야함.
  * 
  * Packets
@@ -75,6 +76,74 @@ public class MovingPacket : IPacket<MovingData>
             ret &= Deserialize(ref element.destY);
             ret &= Deserialize(ref element.destZ);
 
+            return ret;
+        }
+    }
+}
+
+public class MatchingPacket : IPacket<MatchingData>
+{
+    MatchingData packet;
+
+    public MatchingPacket(MatchingData data)
+    {
+        packet = data;
+    }
+
+    public MatchingPacket(byte[] data)
+    {
+        MatchingSerializer serializer = new MatchingSerializer();
+
+        serializer.SetDeserializedData(data);
+        serializer.Deserialize(ref packet);
+    }
+
+    public PacketId GetPacketId()
+    {
+        return PacketId.MatchingData;
+    }
+
+    // 게임에서 사용할 패킷 데이터 획득
+    public MatchingData GetPacket()
+    {
+        return packet;
+    }
+
+    // 송신용 byte[] 형 데이터 획득
+    public byte[] GetData()
+    {
+        MatchingSerializer serializer = new MatchingSerializer();
+        serializer.Serialize(packet);
+        return serializer.GetSerializedData();
+    }
+
+    class MatchingSerializer : Serializer
+    {
+        public bool Serialize(MatchingData packet)
+        {
+            bool ret = true;
+            ret &= Serialize(packet.index);
+            ret &= Serialize(packet.roomNum);
+            int request = (int)packet.matchingPacketId;
+            ret &= Serialize(request);
+            return ret;
+        }
+
+        public bool Deserialize(ref MatchingData element)
+        {
+            // 데이터가 정의되어있지 않다면
+            if (GetDataSize() == 0)
+            {
+                return false;
+            }
+
+            bool ret = true;
+
+            int request = 0;
+            ret &= Deserialize(ref request);
+            element.matchingPacketId = (MatchingPacketId)request;
+
+            ret &= Deserialize(ref element.index);
             return ret;
         }
     }

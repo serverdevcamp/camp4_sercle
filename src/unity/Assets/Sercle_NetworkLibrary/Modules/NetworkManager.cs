@@ -173,7 +173,6 @@ public class NetworkManager : MonoBehaviour
 
         if (transportTCP != null)
         {
-            
             // 모듈에서 사용할 헤더 정보를 생성합니다.
             PacketHeader header = new PacketHeader();
             HeaderSerializer serializer = new HeaderSerializer();

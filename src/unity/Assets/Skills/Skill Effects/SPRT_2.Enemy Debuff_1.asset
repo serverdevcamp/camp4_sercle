@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 993bfb0b062e00344b63c128b040e246, type: 3}
-  m_Name: Speed Buff
+  m_Name: SPRT_2.Enemy Debuff_1
   m_EditorClassIdentifier: 
   skillType: 2
-  coefficient: 0
+  coefficient: 3
   ccType: 0
   statusType: 3
   hardCCType: 0
-  amount: 12
-  duration: 0.5
+  amount: -5
+  duration: 3
