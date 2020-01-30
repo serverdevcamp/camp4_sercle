@@ -15,7 +15,7 @@ MonoBehaviour:
   skillName: "\uC790\uAE30 \uBC84\uD504"
   description: "5\uCD08\uAC04 \uC790\uC2E0\uC758 \uCE58\uBA85 30, \uCE58\uBA85 \uACC4\uC218
     0.5\uB97C \uC99D\uAC00\uC2DC\uD0B5\uB2C8\uB2E4."
-  skillState: 2
+  skillState: 0
   myNum: 2
   preDelay: 0
   postDelay: 0
