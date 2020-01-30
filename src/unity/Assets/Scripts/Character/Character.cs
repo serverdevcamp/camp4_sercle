@@ -259,4 +259,10 @@ public class Character : MonoBehaviour
         float angle = Mathf.Atan2(dir.z, dir.x) * Mathf.Rad2Deg + transform.rotation.eulerAngles.y;
         skillDirRect.localRotation = Quaternion.Euler(0, 0, angle);
     }
+
+    // EffectController에서 CharacterState를 받아오게끔 하는 함수. 200130 작성
+    public CharacterState GetCharacterState()
+    {
+        return state;
+    }
 }
