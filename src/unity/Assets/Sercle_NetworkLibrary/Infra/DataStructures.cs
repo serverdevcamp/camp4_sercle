@@ -24,9 +24,9 @@ public enum MatchingPacketId
 public struct MatchingData
 {
     //유저 고유 번호
+    public MatchingPacketId matchingPacketId;
     public int index;       //로그인 번호
     public int roomNum;
-    public MatchingPacketId matchingPacketId;
     public override string ToString()
     {
         string str = "";
