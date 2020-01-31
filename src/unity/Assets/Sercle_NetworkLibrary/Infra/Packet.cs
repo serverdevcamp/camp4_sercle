@@ -122,9 +122,12 @@ public class MatchingPacket : IPacket<MatchingData>
         public bool Serialize(MatchingData packet)
         {
             bool ret = true;
+
             int request = (int)packet.matchingPacketId;
             ret &= Serialize(request);
+
             ret &= Serialize(packet.index);
+
             ret &= Serialize(packet.roomNum);
             return ret;
         }
