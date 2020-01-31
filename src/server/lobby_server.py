@@ -43,9 +43,9 @@ class Lobby:
                 if not message:
                     self.remove(user_socket)
                     break
-
-                packet_data = self.deserialize(message)        # 해독된 data
-                self.divide_process(packet_data, user_socket)
+                #packet_data = self.deserialize(message)        # 해독된 data
+                packet_data = MatchingData(message).deserialize()
+                self.divide_process(packet_data.packet, user_socket)
             except Exception as e:
                 print(e)
                 continue
@@ -67,23 +67,17 @@ class Lobby:
             print("awd")
 
     def request_matching(self, packet_data, user_socket):
-        self.matching_list.append(packet_data.index)        #매칭 요청 유저 리스트에 삽입
+        self.matching_list.append(packet_data.index)        # 매칭 요청 유저 리스트에 삽입
         # response 전송
-        print()
+        response = MatchingResponseData(MatchingResult.success, packet_data.matching_packet_id)
+        user_socket[0].send(response)
+        print("매칭 응답 전송")
 
     def accept_matching(self, packet_data):
         print("asd")
 
     def reject_matching(self, packet_data):
         print("asd")
-
-    @staticmethod
-    def deserialize(message):
-        #받은 패킷 해독
-        matching_data = MatchingData(int.from_bytes(message[0:4], byteorder='big'),
-                                     int.from_bytes(message[4:8], byteorder='big'),
-                                     int.from_bytes(message[8:12], byteorder='big'))
-        return matching_data
 
     def remove(self, connection):
         if connection in self.user_list:
