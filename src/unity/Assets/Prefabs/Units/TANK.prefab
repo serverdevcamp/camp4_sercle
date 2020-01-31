@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 95975236}
   - component: {fileID: 95975235}
   - component: {fileID: 95975234}
+  - component: {fileID: 1554733917}
   m_Layer: 8
   m_Name: Character Status Canvas
   m_TagString: Untagged
@@ -99,6 +100,20 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &1554733917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 95975232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23598f9458c8b744ca34a8efc6ce02a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 1960942594}
+  bar: {fileID: 1687635573}
 --- !u!1 &1687635571
 GameObject:
   m_ObjectHideFlags: 0
@@ -183,7 +198,6 @@ GameObject:
   - component: {fileID: 1960942594}
   - component: {fileID: 1960942596}
   - component: {fileID: 1960942595}
-  - component: {fileID: 722296214}
   m_Layer: 8
   m_Name: Health Bar
   m_TagString: Untagged
@@ -247,18 +261,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &722296214
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1960942593}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23598f9458c8b744ca34a8efc6ce02a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2299677618536167501
 GameObject:
   m_ObjectHideFlags: 0

@@ -59,7 +59,7 @@ public class UIManager : MonoBehaviour
     /// <param name="charIndex">현재 캐릭터 번호</param>
     private void DisplayCurrentCharacterInfo(int charIndex)
     {
-        curCharacter = GameManager.instance.characters[charIndex];
+        curCharacter = GameManager.instance.myCharacters[charIndex];
 
         // 좌상단 Profile Panel의 HP 표시
         curHealthBar.fillAmount = (float)curCharacter.status.CHP / curCharacter.status.MHP;
@@ -102,7 +102,7 @@ public class UIManager : MonoBehaviour
     /// <param name="uiIndex">표시할 UI 번호</param>
     private void DisplayFriendCharacterInfo(int charIndex, int uiIndex)
     {
-        Character character = GameManager.instance.characters[charIndex];
+        Character character = GameManager.instance.myCharacters[charIndex];
 
         Image healthBar = friendHealthBars[uiIndex];
         Image QSkill = friendQSkillCool[uiIndex];

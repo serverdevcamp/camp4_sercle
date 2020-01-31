@@ -8,7 +8,8 @@ public enum InputState { Normal, Action, Direction }
 public class GameManager : MonoBehaviour
 {
     [Header("Characters")]
-    public List<Character> characters;
+    public List<Character> myCharacters;
+    public List<Character> enemyCharacters;
 
     [Tooltip("초당 CP 증가량")]
     [SerializeField] private float cps;
@@ -33,21 +34,22 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i < characters.Count; i++)
+        for (int i = 0; i < myCharacters.Count; i++)
         {
-            characters[i].index = i;
+            myCharacters[i].index = i;
+            myCharacters[i].isFriend = true;
         }
 
-        if (curCharacter == null) ChangeCurrentCharacter(characters[0]);
+        if (curCharacter == null) ChangeCurrentCharacter(myCharacters[0]);
 
         myCP = 50;
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1)) ChangeCurrentCharacter(characters[0]);
-        else if (Input.GetKeyDown(KeyCode.Alpha2)) ChangeCurrentCharacter(characters[1]);
-        else if (Input.GetKeyDown(KeyCode.Alpha3)) ChangeCurrentCharacter(characters[2]);
+        if (Input.GetKeyDown(KeyCode.Alpha1)) ChangeCurrentCharacter(myCharacters[0]);
+        else if (Input.GetKeyDown(KeyCode.Alpha2)) ChangeCurrentCharacter(myCharacters[1]);
+        else if (Input.GetKeyDown(KeyCode.Alpha3)) ChangeCurrentCharacter(myCharacters[2]);
 
         if (!curCharacter) return;
 
@@ -161,13 +163,13 @@ public class GameManager : MonoBehaviour
     /// <param name="destination">목표 지점</param>
     public void MoveCharacter(int index, Vector3 destination)
     {
-        characters[index].SetDestination(destination);
+        myCharacters[index].SetDestination(destination);
         MovingManager.instance.SendLocalMovingInfo(index, destination);
     }
 
     public void FireProjectile(int index, int num, Vector3 dir)
     {
-        characters[index].FireProjectile(num, dir);
+        myCharacters[index].FireProjectile(num, dir);
         SkillManager.instance.SendLocalSkillInfo(index, num, dir);
     }
     
