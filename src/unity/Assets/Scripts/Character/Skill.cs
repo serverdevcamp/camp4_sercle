@@ -22,8 +22,8 @@ public class Skill : ScriptableObject
     public float preDelay;
     public float postDelay;
     public float coolDown;
-    private float remainingCool;
-    public float RemaingCool { get { return remainingCool; } }
+    private float remainCool;
+    public float RemainCool { get { return remainCool; } }
 
     [Header("Projectile Info")]
     public Projectile proj;
@@ -87,15 +87,15 @@ public class Skill : ScriptableObject
         skillState = SkillState.CoolDown;
 
         #region Cool Down...
-        remainingCool = 0;
+        remainCool = coolDown;
 
-        while (remainingCool < coolDown)
+        while (remainCool > 0)
         {
-            remainingCool += Time.fixedDeltaTime;
+            remainCool -= Time.fixedDeltaTime;
             yield return new WaitForFixedUpdate();
         }
 
-        remainingCool = coolDown;
+        remainCool = 0;
         #endregion
 
         skillState = SkillState.Idle;
@@ -106,5 +106,12 @@ public class Skill : ScriptableObject
         Vector3 spawnPos = caster.transform.position + new Vector3(0, 1.1f, 0);
         Projectile projectile = Instantiate(proj, spawnPos, Quaternion.identity);
         projectile.Initialize(caster, dir, speed, range, size, targetType, targetNum, skillEffects);
+    }
+
+    public void Initialize(int num)
+    {
+        skillState = SkillState.Idle;
+        remainCool = 0f;
+        myNum = num;
     }
 }

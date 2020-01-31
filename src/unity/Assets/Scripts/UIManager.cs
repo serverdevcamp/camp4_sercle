@@ -21,28 +21,35 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        DisplayCurrentCharacterStatus();
+        DisplayCurrentCharacterInfo();
+        DisplayFriendCharacterInfo();
     }
 
-    private void DisplayCurrentCharacterStatus()
+    /// <summary>
+    /// 현재 캐릭터의 정보를 나타내는 함수.
+    /// 체력바, 스탯 정보, 스킬 쿨타임 표시.
+    /// </summary>
+    private void DisplayCurrentCharacterInfo()
     {
         curCharacter = GameManager.instance.CurCharacter;
         if (curCharacter == null) return;
 
-        // health bar
+        // 좌상단 Profile Panel의 HP 표시
         curHealthBar.fillAmount = (float)curCharacter.status.CHP / curCharacter.status.MHP;
-        // status
+
+        // 좌상단 Profile Panel의 Status 표시
         for (int i = 0; i < statusText.Count; i++)
         {
             statusText[i].text = curCharacter.status.Value((StatusType)(i + 3)).ToString();
         }
-        // skill cool time
+
+        // 중앙하단 Skill Panel의 Skill 쿨타임 표시
         for (int i = 0; i < skillCool.Count; i++)
         {
             Skill skill = curCharacter.skills[i];
             Image image = skillCool[i];
 
-            image.fillAmount = skill.RemaingCool / skill.coolDown;
+            image.fillAmount = 1f - (skill.RemainCool / skill.coolDown);
             switch (skill.skillState)
             {
                 case Skill.SkillState.Idle:
@@ -59,5 +66,10 @@ public class UIManager : MonoBehaviour
                     break;
             }
         }
+    }
+
+    private void DisplayFriendCharacterInfo()
+    {
+
     }
 }
