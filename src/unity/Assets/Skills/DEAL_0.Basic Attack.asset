@@ -16,8 +16,8 @@ MonoBehaviour:
   description: "1.2 * \uACF5\uACA9\uB825\uC73C\uB85C \uC801\uC744 \uACF5\uACA9\uD569\uB2C8\uB2E4."
   skillState: 0
   myNum: 0
-  preDelay: 0
-  postDelay: 0
+  preDelay: 0.1
+  postDelay: 0.1
   coolDown: 0.5
   proj: {fileID: 6332989940410738062, guid: f1ffe6c1057093e42a09702b86636b4e, type: 3}
   speed: 15

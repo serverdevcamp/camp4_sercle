@@ -3,6 +3,8 @@
  * 
  * 애니메이션 : 부착된 캐릭터의 State, 그리고 skillState에 따라 제어.
  * 
+ * 원격캐릭터는 통신지연이 있으므로 rtt만큼 또 빠르게 보간해줘야 할것으로 보임.
+ * 
  */ 
 
 
@@ -96,6 +98,19 @@ public class EffectController : MonoBehaviour
             
         }
         */
+        // 씩씩이 테스트
+        // Character의 상태가 HardCC가 되면, 애니메이션 재생. 
+        // 상태가 다시 Idle로 바뀌게 되면 그 즉시 Idle 애니메이션 재생한다.
+        if (animator.GetBool("CCTest"))
+        {
+            if (!stateMap["HardCC"])
+            {
+                SetAnimStateMap("HardCC");
+            }
+            animator.SetBool("CCTest", false);
+            return;
+        }
+
         // 사용한 스킬의 상태(idle~cooldown)에 따라 애니메이션 재생
         for (int i = 0; i < 3; i++)
         {
@@ -111,7 +126,7 @@ public class EffectController : MonoBehaviour
                     PlayPreDelayAnim(i);
                     return;
                 case Skill.SkillState.Fire:
-                    PlayFireAnim();
+                    PlayFireAnim(i);
                     return;
 
                 // 현재 Skill 에서 Fire 후 대기시간 없이 바로 PostDelay로 넘어가므로 Fire 애니메이션은 실행치 못한다.
@@ -146,22 +161,37 @@ public class EffectController : MonoBehaviour
         }
         else if (animator.GetCurrentAnimatorStateInfo(0).IsName(skillName + "_PreDelay"))
         {
+            Debug.Log("프리딜레이");
             // 선딜 시간에 맞춰 애니메이션 속도를 바꾸는데 필요없을거같은..?
             // SyncManager로부터 얻은 Rtt
-            float rtt = 0.4f;
-            float op = rtt > skills[index].preDelay ? rtt : skills[index].preDelay;
+            //float rtt = 0.4f;
+            //float op = rtt > skills[index].preDelay ? rtt : skills[index].preDelay;
             // 1/offset은 애니메이션 재생 속도
-            float offset = op / animator.GetCurrentAnimatorClipInfo(0)[0].clip.length;
-            Debug.Log(offset + animator.GetCurrentAnimatorClipInfo(0)[0].clip.name);
-            animator.SetFloat("PreDelayOffset", 1f / offset);
+            //float offset = op / animator.GetCurrentAnimatorClipInfo(0)[0].clip.length;
+            Debug.Log(animator.GetCurrentAnimatorClipInfo(0)[0].clip.name + " , " + animator.GetCurrentAnimatorClipInfo(0)[0].clip.length);
+            //animator.SetFloat("PreDelayOffset", 1f / offset);
+            if(skills[index].preDelay > 0f)
+                animator.SetFloat("PreDelayOffset", 1f / (skills[index].preDelay / animator.GetCurrentAnimatorClipInfo(0)[0].clip.length));
         }
+        
     }
     // 스킬 발사 애니메이션
-    private void PlayFireAnim()
+    private void PlayFireAnim(int index)
     {
         if (!stateMap["Fire"])
         {
             SetAnimStateMap("Fire");
+            animator.SetFloat("PostDelayOffset", 1f);
+        }
+        else if (animator.GetCurrentAnimatorStateInfo(0).IsName("Skill_" + index.ToString() + "_Fire"))
+        {
+            // PostDelay가 끝났을 때 애니메이션도 완전히 끝나도록 속도 조정한다.
+            // Debug.Log(animator.GetCurrentAnimatorClipInfo(0)[0].clip.length + ", " + skills[index].postDelay);
+
+            // 클립이 없을경우, 딜레이가 0일경우(?) 예외처리 해야함. 나누기 0 
+            if(skills[index].postDelay > 0f)
+                animator.SetFloat("PostDelayOffset", 1f / (skills[index].postDelay / animator.GetCurrentAnimatorClipInfo(0)[0].clip.length));
+            // animator.SetFloat("PostDelayOffset", 0.5f);
         }
     }
 
