@@ -43,8 +43,7 @@ public class Character : MonoBehaviour
         status.ChangeStat(StatusType.CHP, status.MHP);
         for(int i = 0; i < skills.Count; i++)
         {
-            skills[i].skillState = Skill.SkillState.Idle;
-            skills[i].myNum = i;
+            skills[i].Initialize(i);
         }
     }
 

@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private InputState inputState = InputState.Normal;
     public InputState InputState { set { inputState = value; } }
     [SerializeField] private Character curCharacter;
+    public Character CurCharacter { get { return curCharacter; } }
     [SerializeField] private Character clickedCharacter;
 
     [Header("Display")]

@@ -29,6 +29,27 @@ public class Status
     public float CC { get { return cc; } }
     public HardCCType HardCC { get { return hardCC; } }
 
+    public float Value(StatusType type)
+    {
+        switch (type)
+        {
+            case StatusType.SPD:
+                return SPD;
+            case StatusType.ATK:
+                return ATK;
+            case StatusType.DEF:
+                return DEF;
+            case StatusType.CRT:
+                return CRT;
+            case StatusType.DDG:
+                return DDG;
+            case StatusType.CC:
+                return CC;
+        }
+        Debug.LogError("Something wrong during getting status value.");
+        return 0;
+    }
+
     /// <summary>
     /// 해당 유닛의 Status를 amount만큼 변경합니다. amount가 양수일 경우 더해지고 음수일 경우 뺍니다.
     /// </summary>
