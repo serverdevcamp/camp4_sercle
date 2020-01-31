@@ -38,8 +38,8 @@ public struct MatchingData
     {
         string str = "";
         
-        str += "index:" + index + "matchingpacketid: " + matchingPacketId +
-            "roomNum: " + roomNum;
+        str += "index:" + index + " matchingpacketid: " + matchingPacketId +
+            " roomNum: " + roomNum;
         return str;
     }
 }
