@@ -35,9 +35,9 @@ def client_thread(user_socket):
 
 def broadcast(message, user_socket):
     #print("a : " + str("awdasdawd".encode()))
-    print(str(int.from_bytes(message[0:4], byteorder='big')) +
-          str(int.from_bytes(message[4:8], byteorder='big')) +
-          str(int.from_bytes(message[8:12], byteorder='big')))
+   # print(str(int.from_bytes(message[0:4], byteorder='big')) +
+    #      str(int.from_bytes(message[4:8], byteorder='big')) +
+     #     str(int.from_bytes(message[8:12], byteorder='big')))
 
     for clients in list_of_clients:
 
