@@ -1876,6 +1876,7 @@ GameObject:
   - component: {fileID: 2301305443361534428}
   - component: {fileID: 2301305443361534419}
   - component: {fileID: 2301305443361534418}
+  - component: {fileID: 1164788799}
   m_Layer: 8
   m_Name: TANK
   m_TagString: Untagged
@@ -1911,7 +1912,7 @@ Animator:
   m_GameObject: {fileID: 2301305443361534417}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: f13349cc09b03d447a26b54d406aaa8e, type: 3}
-  m_Controller: {fileID: 9100000, guid: f45794a980ce9da498297f8393877ffa, type: 2}
+  m_Controller: {fileID: 22100000, guid: 4b214e5564973564cb414532d9730ef6, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -1992,6 +1993,19 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6a1da30191cee3e459e0aedfdb975f66, type: 2}
   skillRangeCircle: {fileID: 7169763030526139751}
   skillDirRect: {fileID: 7169763030302405788}
+--- !u!114 &1164788799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2301305443361534417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfc305c4dd7071f4ba2077b3ff45b6e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterState: 0
 --- !u!1 &2301313882409591565
 GameObject:
   m_ObjectHideFlags: 0

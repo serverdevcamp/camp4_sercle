@@ -15,10 +15,10 @@ MonoBehaviour:
   skillName: "\uAD11\uC5ED \uC2A4\uD134"
   description: "\uC8FC\uBCC0\uC758 \uC801\uB4E4\uC744 \uC2A4\uD134 \uC0C1\uD0DC\uB85C
     \uB9CC\uB4ED\uB2C8\uB2E4."
-  skillState: 0
+  skillState: 5
   myNum: 2
   preDelay: 1
-  postDelay: 0.5
+  postDelay: 1
   coolDown: 2
   proj: {fileID: 6332989940410738062, guid: f1ffe6c1057093e42a09702b86636b4e, type: 3}
   speed: 0
