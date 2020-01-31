@@ -8,6 +8,7 @@ public enum PacketId
     SkillData,
     MovingData,
     MatchingData,
+    MatchingRequest,
 };
 
 //매칭 패킷 데이터
@@ -18,9 +19,15 @@ public enum MatchingPacketId
     MatchingReject,
 };
 
+//매칭 요청 결과
+public enum MatchingResult
+{
+    Success = 0,
+    Fail,
+}
 // 스킬 종류 식별용 열거형
 
-//매칭 정보
+//매칭 요청 정보
 public struct MatchingData
 {
     //유저 고유 번호
@@ -34,6 +41,14 @@ public struct MatchingData
         return str;
     }
 }
+
+//매칭 응답 정보
+public struct MatchingResponseData
+{
+    public MatchingResult result;
+    public MatchingPacketId request;
+}
+
 // 데이터의 헤더에 패킷을 붙힌다.
 // Fix this : 네트워크에 사용할 구조체는 한곳에 몰아놓기.
 public struct PacketHeader

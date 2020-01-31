@@ -150,6 +150,75 @@ public class MatchingPacket : IPacket<MatchingData>
     }
 }
 
+//Matching응답 패킷
+public class MatchingResponsePacket : IPacket<MatchingResponseData>
+{
+    MatchingResponseData packet;
+
+    public MatchingResponsePacket(MatchingResponseData data)
+    {
+        packet = data;
+    }
+    public MatchingResponsePacket(byte[] data)
+    {
+        MatchingResponseSerializer serializer = new MatchingResponseSerializer();
+
+        serializer.SetDeserializedData(data);
+        serializer.Deserialize(ref packet);
+    }
+
+    public PacketId GetPacketId()
+    {
+        return PacketId.MatchingRequest;
+    }
+
+    public MatchingResponseData GetPacket()
+    {
+        return packet;
+    }
+
+    public byte[] GetData()
+    {
+        MatchingResponseSerializer serializer = new MatchingResponseSerializer();
+        serializer.Serialize(packet);
+        return serializer.GetSerializedData();
+    }
+
+    class MatchingResponseSerializer : Serializer
+    {
+        public bool Serialize(MatchingResponseData packet)
+        {
+            bool ret = true;
+            int result = (int)packet.result;
+            ret &= Serialize(result);
+
+            int request = (int)packet.request;
+            ret &= Serialize(request);
+
+            return ret;
+        }
+
+        public bool Deserialize(ref MatchingResponseData element)
+        {
+            if(GetDataSize() == 0) {
+                // 데이터가 설정되어 있지 않습니다.
+                return false;
+            }
+
+            bool ret = true;
+
+            int result = 0;
+            ret &= Deserialize(ref result);
+            element.result = (MatchingResult)result;
+
+            int request = 0;
+            ret &= Deserialize(ref request);
+            element.request = (MatchingPacketId)request;
+
+            return ret;
+        }
+    }
+}
 // Skill Data 전송용 Packet
 public class SkillPacket : IPacket<SkillData>
 {
