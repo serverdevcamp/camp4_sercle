@@ -91,7 +91,7 @@ public class MatchingManager : MonoBehaviour
     {
         MatchingData matchingData = new MatchingData();
         matchingData.index = 5;
-        matchingData.roomNum = 0;
+        matchingData.roomNum = 2;
         matchingData.matchingPacketId = MatchingPacketId.MatchingRequest;
 
         Debug.Log("매칭 데이터 : " + matchingData);

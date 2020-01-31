@@ -52,24 +52,27 @@ class Lobby:
 
     def divide_process(self, packet_data, user_socket):
         # 클라이언트로부터 매칭 시작 요청
-        if packet_data[0] is MatchingPacketId.matching_request.value:
+        if packet_data[1] == MatchingPacketId.matching_request.value:
             print("매칭 요청")
             self.request_matching(packet_data, user_socket)
 
         # 클라이언트로부터 매칭 수락
-        elif packet_data[0] is MatchingPacketId.matching_accept.value:
+        elif packet_data[1] == MatchingPacketId.matching_accept.value:
             self.accept_matching(packet_data)
             print("asd")
 
         # 클라이언트로부터 매칭 거절
-        elif packet_data[0] is MatchingPacketId.matching_accept.value:
+        elif packet_data[1] == MatchingPacketId.matching_accept.value:
             self.reject_matching(packet_data)
             print("awd")
 
     def request_matching(self, packet_data, user_socket):
         self.matching_list.append(packet_data[1])        # 매칭 요청 유저 리스트에 삽입
         # response 전송
-        response = MatchingResponseData(packet_data[0], MatchingResult.success)
+        print(PacketId.matching_response.value)
+        response = MatchingResponseData(PacketId.matching_response.value,
+                                        packet_data[0],
+                                        MatchingResult.success.value).serialize()
         user_socket[0].send(response)
         print("매칭 응답 전송")
 
