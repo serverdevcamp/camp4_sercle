@@ -22,6 +22,8 @@ public class Skill : ScriptableObject
     public float preDelay;
     public float postDelay;
     public float coolDown;
+    private float remainingCool;
+    public float RemaingCool { get { return remainingCool; } }
 
     [Header("Projectile Info")]
     public Projectile proj;
@@ -84,7 +86,17 @@ public class Skill : ScriptableObject
 
         skillState = SkillState.CoolDown;
 
-        yield return new WaitForSeconds(coolDown);
+        #region Cool Down...
+        remainingCool = 0;
+
+        while (remainingCool < coolDown)
+        {
+            remainingCool += Time.fixedDeltaTime;
+            yield return new WaitForFixedUpdate();
+        }
+
+        remainingCool = coolDown;
+        #endregion
 
         skillState = SkillState.Idle;
     }
