@@ -169,7 +169,7 @@ public class MatchingResponsePacket : IPacket<MatchingResponseData>
 
     public PacketId GetPacketId()
     {
-        return PacketId.MatchingRequest;
+        return PacketId.MatchingResponse;
     }
 
     public MatchingResponseData GetPacket()
@@ -189,11 +189,12 @@ public class MatchingResponsePacket : IPacket<MatchingResponseData>
         public bool Serialize(MatchingResponseData packet)
         {
             bool ret = true;
-            int result = (int)packet.result;
-            ret &= Serialize(result);
 
             int request = (int)packet.request;
             ret &= Serialize(request);
+
+            int result = (int)packet.result;
+            ret &= Serialize(result);
 
             return ret;
         }
@@ -207,13 +208,13 @@ public class MatchingResponsePacket : IPacket<MatchingResponseData>
 
             bool ret = true;
 
-            int result = 0;
-            ret &= Deserialize(ref result);
-            element.result = (MatchingResult)result;
-
             int request = 0;
             ret &= Deserialize(ref request);
             element.request = (MatchingPacketId)request;
+
+            int result = 0;
+            ret &= Deserialize(ref result);
+            element.result = (MatchingResult)result;
 
             return ret;
         }

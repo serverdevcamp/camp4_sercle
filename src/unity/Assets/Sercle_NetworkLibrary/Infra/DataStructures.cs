@@ -8,7 +8,7 @@ public enum PacketId
     SkillData,
     MovingData,
     MatchingData,
-    MatchingRequest,
+    MatchingResponse,
 };
 
 //매칭 패킷 데이터
@@ -45,8 +45,16 @@ public struct MatchingData
 //매칭 응답 정보
 public struct MatchingResponseData
 {
-    public MatchingResult result;
     public MatchingPacketId request;
+    public MatchingResult result;
+
+    public override string ToString()
+    {
+        string str = "";
+        str += "matchingpacketid:" + request;
+        str += " matchingresult:" + result;
+        return str;
+    }
 }
 
 // 데이터의 헤더에 패킷을 붙힌다.

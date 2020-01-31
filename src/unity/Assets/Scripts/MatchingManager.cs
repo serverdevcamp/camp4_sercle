@@ -28,7 +28,7 @@ public class MatchingManager : MonoBehaviour
     {
         isMatchMakingCompleted = false;
         networkManager = GetComponent<MatchingNetworkManager>();
-        networkManager.RegisterReceiveNotification(PacketId.MatchingData, OnReceiveMatchingPacket);
+        networkManager.RegisterReceiveNotification(PacketId.MatchingResponse, OnReceiveMatchingResponsePacket);
     }
 
     public void testButton()
@@ -99,8 +99,17 @@ public class MatchingManager : MonoBehaviour
         networkManager.SendReliable<MatchingData>(packet);
     }
 
-    public void OnReceiveMatchingPacket(PacketId id, byte[] data)
+    //매칭 응답 패킷 받기
+    public void OnReceiveMatchingResponsePacket(PacketId id, byte[] data)
     {
+        MatchingResponsePacket packet = new MatchingResponsePacket(data);
+        MatchingResponseData packetData = packet.GetPacket();
+        Debug.Log(packetData);
+
+        if(packetData.result == MatchingResult.Success)
+        {
+            Debug.Log("매칭중~~~~~~~");
+        }
         //요청 완료되면 화면을 매칭중으로 전환 아니면 오류 띄우기
 
     }
