@@ -10,6 +10,7 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
+        curCharacter = GameManager.instance.CurCharacter;
         distance -= Input.mouseScrollDelta.y * 0.3f;
         dir.y = MappingDirection(distance);
 

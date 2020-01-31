@@ -8,7 +8,7 @@ public enum InputState { Normal, Action, Direction }
 public class GameManager : MonoBehaviour
 {
     [Header("Characters")]
-    [SerializeField] private List<Character> characters;
+    public List<Character> characters;
 
     [Tooltip("초당 CP 증가량")]
     [SerializeField] private float cps;
@@ -37,6 +37,8 @@ public class GameManager : MonoBehaviour
         {
             characters[i].index = i;
         }
+
+        if (curCharacter == null) ChangeCurrentCharacter(characters[0]);
 
         myCP = 50;
     }

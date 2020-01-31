@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 8612570950949117817}
   - component: {fileID: 8612570950949117816}
   m_Layer: 5
-  m_Name: Value
+  m_Name: cc Value
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -389,7 +389,7 @@ GameObject:
   - component: {fileID: 8612570951059954920}
   - component: {fileID: 8612570951059954839}
   m_Layer: 5
-  m_Name: Value
+  m_Name: CRT Value
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -648,6 +648,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c800c567de337584192ae4972d0a945a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  curHealthBar: {fileID: 8612570952305298248}
+  statusText:
+  - {fileID: 8612570952788694625}
+  - {fileID: 8612570952331295956}
+  - {fileID: 8612570951856703673}
+  - {fileID: 8612570951059954839}
+  - {fileID: 8612570952872229488}
+  - {fileID: 8612570950949117816}
+  skillCool:
+  - {fileID: 8612570951264190350}
+  - {fileID: 8612570951011086026}
+  - {fileID: 8612570951288825363}
+  friendHealthBars:
+  - {fileID: 8612570951838828981}
+  - {fileID: 8612570951297772008}
+  friendQSkillCool:
+  - {fileID: 8612570952343459930}
+  - {fileID: 8612570952917558691}
+  friendWSkillCool:
+  - {fileID: 8612570952666414191}
+  - {fileID: 8612570952078061657}
 --- !u!1 &8612570951213109830
 GameObject:
   m_ObjectHideFlags: 0
@@ -1560,7 +1581,7 @@ GameObject:
   - component: {fileID: 8612570951856703674}
   - component: {fileID: 8612570951856703673}
   m_Layer: 5
-  m_Name: Value
+  m_Name: DEF Value
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2287,7 +2308,7 @@ GameObject:
   - component: {fileID: 8612570952331295957}
   - component: {fileID: 8612570952331295956}
   m_Layer: 5
-  m_Name: Value
+  m_Name: ATK Value
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3117,7 +3138,7 @@ GameObject:
   - component: {fileID: 8612570952788694626}
   - component: {fileID: 8612570952788694625}
   m_Layer: 5
-  m_Name: Value
+  m_Name: SPD Value
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3194,7 +3215,7 @@ GameObject:
   - component: {fileID: 8612570952872229489}
   - component: {fileID: 8612570952872229488}
   m_Layer: 5
-  m_Name: Value
+  m_Name: DDG Value
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
