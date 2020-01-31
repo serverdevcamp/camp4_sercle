@@ -1,16 +1,7 @@
 fileFormatVersion: 2
-guid: 22010d3c414994f41aab69c316bf13f5
+guid: 334c01e952e23664dbb1c973c750ace3
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: -859847774263036302
-    second: progress_sliced_0
-  - first:
-      213: -8780965367572152680
-    second: progress_sliced_1
-  - first:
-      213: -6043150218925349057
-    second: progress_sliced_2
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -49,13 +40,13 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
-  spriteBorder: {x: 52, y: 48, z: 59, w: 26}
+  spritePixelsToUnits: 200
+  spriteBorder: {x: 0, y: 84, z: 0, w: 191}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -117,70 +108,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: progress_sliced_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 46
-        width: 525
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7a2a9452b3a9ab64991469796d4d3fbc
-      internalID: -859847774263036302
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: progress_sliced_1
-      rect:
-        serializedVersion: 2
-        x: 53
-        y: 36
-        width: 412
-        height: 20
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d8d400b0938f7af418570112b4b2b2c4
-      internalID: -8780965367572152680
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: progress_sliced_2
-      rect:
-        serializedVersion: 2
-        x: 53
-        y: 16
-        width: 412
-        height: 20
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 166916cc3cbcea440acb93791f4d0439
-      internalID: -6043150218925349057
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []
