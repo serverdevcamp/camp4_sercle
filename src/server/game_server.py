@@ -42,12 +42,12 @@ def clientthread(conn, addr):
         except:
             continue
 
+
 def broadcast(message, connection):
     for clients in list_of_clients:
         if clients[1] != connection:
             clients[0].send(message)
  
-            
 
 def remove(connection):
     if connection in list_of_clients:

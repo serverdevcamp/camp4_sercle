@@ -45,31 +45,31 @@ class Lobby:
                     break
                 #packet_data = self.deserialize(message)        # 해독된 data
                 packet_data = MatchingData(message).deserialize()
-                self.divide_process(packet_data.packet, user_socket)
+                print(packet_data)
+                self.divide_process(packet_data, user_socket)
             except Exception as e:
                 print(e)
-                continue
 
     def divide_process(self, packet_data, user_socket):
         # 클라이언트로부터 매칭 시작 요청
-        if packet_data.matching_packet_id is MatchingPacketId.matching_request.value:
+        if packet_data[0] is MatchingPacketId.matching_request.value:
             print("매칭 요청")
             self.request_matching(packet_data, user_socket)
 
         # 클라이언트로부터 매칭 수락
-        elif packet_data.matching_packet_id is MatchingPacketId.matching_accept.value:
+        elif packet_data[0] is MatchingPacketId.matching_accept.value:
             self.accept_matching(packet_data)
             print("asd")
 
         # 클라이언트로부터 매칭 거절
-        elif packet_data.matching_packet_id is MatchingPacketId.matching_accept.value:
+        elif packet_data[0] is MatchingPacketId.matching_accept.value:
             self.reject_matching(packet_data)
             print("awd")
 
     def request_matching(self, packet_data, user_socket):
-        self.matching_list.append(packet_data.index)        # 매칭 요청 유저 리스트에 삽입
+        self.matching_list.append(packet_data[1])        # 매칭 요청 유저 리스트에 삽입
         # response 전송
-        response = MatchingResponseData(MatchingResult.success, packet_data.matching_packet_id)
+        response = MatchingResponseData(packet_data[0], MatchingResult.success)
         user_socket[0].send(response)
         print("매칭 응답 전송")
 
@@ -84,3 +84,5 @@ class Lobby:
             self.user_list.remove(connection)
             print(connection[2].decode() + "님이 나가셨습니다.")
 
+server = Lobby()
+Lobby.start_server()

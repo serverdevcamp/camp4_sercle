@@ -29,8 +29,8 @@ class MatchingData:
 
 # 클라이언트로 보낼 패킷
 class MatchingResponseData:
-    def __init__(self, matching_result, matching_request):
-        self.data = [matching_result, matching_request]
+    def __init__(self, matching_request, matching_result):
+        self.data = [matching_request, matching_result]
         #바이트로 변환해야함
 
     def serialize(self):
