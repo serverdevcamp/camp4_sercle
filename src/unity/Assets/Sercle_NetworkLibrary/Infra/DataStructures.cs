@@ -37,7 +37,9 @@ public struct MatchingData
     public override string ToString()
     {
         string str = "";
-        str += "index:" + index;
+        
+        str += "index:" + index + "matchingpacketid: " + matchingPacketId +
+            "roomNum: " + roomNum;
         return str;
     }
 }

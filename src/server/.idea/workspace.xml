@@ -2,12 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a6773141-f159-48c5-8a95-0bded0823707" name="Default Changelist" comment="">
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/server.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data_structure.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_structure.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game_server.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_server.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lobby_server.py" beforeDir="false" afterPath="$PROJECT_DIR$/lobby_server.py" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/../unity/Assets/Sercle_NetworkLibrary/Infra/DataStructures.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../unity/Assets/Sercle_NetworkLibrary/Infra/DataStructures.cs" afterDir="false" />
+>>>>>>> b68b0aa794761428772526a9866bec52b6a99b23
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -123,9 +127,15 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
+<<<<<<< HEAD
     <option name="x" value="-7" />
     <option name="width" value="974" />
     <option name="height" value="1047" />
+=======
+    <option name="y" value="23" />
+    <option name="width" value="960" />
+    <option name="height" value="877" />
+>>>>>>> b68b0aa794761428772526a9866bec52b6a99b23
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -299,7 +309,11 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
+<<<<<<< HEAD
     <frame x="-7" y="0" width="974" height="1047" extended-state="0" />
+=======
+    <frame x="0" y="23" width="960" height="877" extended-state="0" />
+>>>>>>> b68b0aa794761428772526a9866bec52b6a99b23
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1431624" />
@@ -307,7 +321,11 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
+<<<<<<< HEAD
       <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.26177436" />
+=======
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.18980892" />
+>>>>>>> b68b0aa794761428772526a9866bec52b6a99b23
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />

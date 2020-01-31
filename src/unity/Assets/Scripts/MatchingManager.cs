@@ -94,6 +94,7 @@ public class MatchingManager : MonoBehaviour
         matchingData.roomNum = -1;
         matchingData.matchingPacketId = MatchingPacketId.MatchingRequest;
 
+        Debug.Log("매칭 데이터 : " + matchingData);
         MatchingPacket packet = new MatchingPacket(matchingData);
 
         networkManager.SendReliable<MatchingData>(packet);
