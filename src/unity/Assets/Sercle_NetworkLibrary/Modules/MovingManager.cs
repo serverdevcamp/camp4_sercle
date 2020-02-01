@@ -56,7 +56,12 @@ public class MovingManager : MonoBehaviour
         Debug.Log(moving + " 수신완료(이동)");
 
         Vector3 destination = new Vector3(moving.destX, moving.destY, moving.destZ);
-        GameManager.instance.MoveCharacter(moving.index, destination);
+
+        // 2020 02 01상대 단말에서 상대의 로컬 캐릭터가 이동했을 때 송신한 정보를 수신한 것이므로 내 단말에서 리모트 캐릭터를 이동시킨다.
+        GameManager.instance.MoveRemoteCharacter(moving.index, destination);
+
+        // 2020 02 01 주석처리
+        // GameManager.instance.MoveCharacter(moving.index, destination);
         
         // 수신 후 사용 예
         // navAgent(moving.index).destinaion(new Vector3(moving.destX, moving.destY, moving.dextZ);

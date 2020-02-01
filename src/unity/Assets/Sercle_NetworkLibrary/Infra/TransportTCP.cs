@@ -185,6 +185,9 @@ public class TransportTCP : MonoBehaviour
 			state.result = NetEventResult.Success;
 			m_handler(state);
 		}
+
+		// 스레드 강제종료 시킴(2020 02 01 추가)
+		m_thread.Abort();
 	}
 
 	// 송신처리.
@@ -248,7 +251,7 @@ public class TransportTCP : MonoBehaviour
 		while (m_threadLoop)
 		{
 			// 클라이언트로부터의 접속을 기다립니다. 
-			AcceptClient();
+			// AcceptClient();
 
 			// 클라이언트와의 송수신을 처리합니다.
 			if (m_socket != null && m_isConnected == true)

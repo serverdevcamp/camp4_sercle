@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dbc63ca6b8a0e6743bf634c69760190f, type: 3}
-  m_Name: TANK_2.Area Stun
+  m_Name: SPRT_1.Area Heal_Enemy
   m_EditorClassIdentifier: 
-  skillName: "\uAD11\uC5ED \uC2A4\uD134"
-  description: "\uC8FC\uBCC0\uC758 \uC801\uB4E4\uC744 \uC2A4\uD134 \uC0C1\uD0DC\uB85C
-    \uB9CC\uB4ED\uB2C8\uB2E4."
+  skillName: "\uC8FC\uBCC0 _Enemy"
+  description: "\uC790\uC2E0 \uC8FC\uBCC0\uC758 \uC544\uAD70\uC758 \uCCB4\uB825\uC744
+    3.0\xD7\uACF5\uACA9\uB825\uB9CC\uD07C \uD68C\uBCF5\uC2DC\uD0B5\uB2C8\uB2E4."
   skillState: 0
-  myNum: 2
+  myNum: 1
   preDelay: 1
   postDelay: 1
-  coolDown: 2
+  coolDown: 5
   proj: {fileID: 6332989940410738062, guid: f1ffe6c1057093e42a09702b86636b4e, type: 3}
   speed: 0
   range: 0
-  size: {x: 5, y: 1, z: 5}
-  targetType: 3
+  size: {x: 3, y: 0, z: 3}
+  targetType: 2
   targetNum: 1
   skillEffects:
-  - {fileID: 11400000, guid: 52db2dbaa1ac7a947bf2b1d5bf7b6286, type: 2}
+  - {fileID: 11400000, guid: cb0c86e30b5ede041a41373e3d349d15, type: 2}

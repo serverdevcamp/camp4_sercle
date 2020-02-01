@@ -25,6 +25,9 @@ public class NetworkManager : MonoBehaviour
     [SerializeField]
     private bool isNetConnected;
 
+    // 이 단말의 고유 번호. 테스트 용도로 true/ false
+    public bool clientID;
+
     // UDP
     private TransportUDP transportUDP;
     // TCP

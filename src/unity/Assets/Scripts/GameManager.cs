@@ -40,6 +40,31 @@ public class GameManager : MonoBehaviour
             myCharacters[i].isFriend = true;
         }
 
+        // 2020 02 01 적 캐릭터에도 인덱스, 아군정보 할당
+        for(int i = 0; i < enemyCharacters.Count; i++)
+        {
+            enemyCharacters[i].index = i;
+            enemyCharacters[i].isFriend = false;
+        }
+
+        // 2020 02 01 테스트용으로 clientID가 true면 아래서부터 시작, false면 위에서부터 시작. 테스트 빌드시 하나는 true로, 하나는 false.
+        if (GameObject.Find("NetworkManager").GetComponent<NetworkManager>().clientID)
+        {
+            for(int i = 0; i < 3; i++)
+            {
+                myCharacters[i].transform.position = new Vector3(10f - i * 5, 0.000333339f, 0f);
+                enemyCharacters[i].transform.position = new Vector3(10f - i * 5, 0.000333339f, 15f);
+            }      
+        }
+        else
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                enemyCharacters[i].transform.position = new Vector3(10f - i * 5, 0.000333339f, 0f);
+                myCharacters[i].transform.position = new Vector3(10f - i * 5, 0.000333339f, 15f);
+            }
+        }
+
         if (curCharacter == null) ChangeCurrentCharacter(myCharacters[0]);
 
         myCP = 50;
@@ -167,12 +192,34 @@ public class GameManager : MonoBehaviour
         MovingManager.instance.SendLocalMovingInfo(index, destination);
     }
 
+    // 2020 02 01 수신한 원격 캐릭터 이동 패킷을 원격캐릭터에 적용 한다.
+    public void MoveRemoteCharacter(int index, Vector3 destination)
+    {
+        enemyCharacters[index].SetDestination(destination);
+    }
+
+
     public void FireProjectile(int index, int num, Vector3 dir)
     {
         myCharacters[index].FireProjectile(num, dir);
         SkillManager.instance.SendLocalSkillInfo(index, num, dir);
     }
     
+    // 2020 02 01 수신한 원격 캐릭터 스킬사용 패킷을 원격캐릭터에 적용한다.
+    public void UseRemoteSkill(int index, int num, Vector3 dir)
+    {
+        // enemyCharacters[index].FireProjectile(num, dir);
+        Debug.Log(index + ", " + num + ", " + dir);
+        Debug.Log(enemyCharacters[index].skills[num].skillName);
+        StartCoroutine(enemyCharacters[index].skills[num].Use(enemyCharacters[index], dir));
+    }
+
+    // 2020 02 01 원격 캐릭터가 투사체 발사하도록 한다.
+    public void FireRemoteProjectile(int index, int num, Vector3 dir)
+    {
+        enemyCharacters[index].FireProjectile(num, dir);
+    }
+
     /// <summary>
     /// 임시로 만들어둔 캐릭터를 강화시키는 함수. 현재는 Z키를 누르면 CP를 20 소모하고 현재 선택된 캐릭터의 공격력이 20 증가.
     /// </summary>

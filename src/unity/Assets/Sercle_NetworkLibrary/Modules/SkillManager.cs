@@ -71,7 +71,11 @@ public class SkillManager : MonoBehaviour
         Debug.Log(skill + " 수신완료(스킬).");
 
         Vector3 dir = new Vector3(skill.dirX, skill.dirY, skill.dirZ);
-        GameManager.instance.FireProjectile(skill.index, skill.num, dir);
+
+        // 2020 02 01상대 단말의 로컬 캐릭터가 스킬 사용했다는 정보를 내 단말에서 수신 한것이므로, 내 단말의 상대 캐릭터가 스킬사용했다고 해줘야함.
+        GameManager.instance.UseRemoteSkill(skill.index, skill.num, dir);
+        
+        // GameManager.instance.FireProjectile(skill.index, skill.num, dir);
 
         // 수신 후 사용 예
         // navAgent(moving.index).destinaion(new Vector3(moving.destX, moving.destY, moving.dextZ);

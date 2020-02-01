@@ -36,6 +36,7 @@ public class Skill : ScriptableObject
 
     public IEnumerator Use(Character caster, Vector3? dir = null)
     {
+
         #region Check Cool Time
         if (skillState != SkillState.Idle) yield break;
         #endregion
@@ -74,7 +75,11 @@ public class Skill : ScriptableObject
 
         #region 투사체 발사
         // GM에게 index 번째 캐릭터의 num번째 스킬을 dir 방향으로 사용한다고 알려준다.
-        GameManager.instance.FireProjectile(caster.index, myNum, dir.Value);
+        // 2020 02 01, 로컬 캐릭터가 쓴 스킬일 경우 FireProjectile, 원격캐릭터가 쓴 스킬인 경우 RemoteProjectile
+        if (!skillName.Contains("_Enemy"))
+            GameManager.instance.FireProjectile(caster.index, myNum, dir.Value);
+        else
+            GameManager.instance.FireRemoteProjectile(caster.index, myNum, dir.Value);
         // 스킬 발사 상태 변경 2020 01 30
         skillState = SkillState.Fire;
         #endregion

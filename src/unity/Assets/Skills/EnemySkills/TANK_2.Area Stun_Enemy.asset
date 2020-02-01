@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dbc63ca6b8a0e6743bf634c69760190f, type: 3}
-  m_Name: TANK_2.Area Stun
+  m_Name: TANK_2.Area Stun_Enemy
   m_EditorClassIdentifier: 
-  skillName: "\uAD11\uC5ED \uC2A4\uD134"
+  skillName: "\uAD11\uC5ED \uC2A4\uD134_Enemy"
   description: "\uC8FC\uBCC0\uC758 \uC801\uB4E4\uC744 \uC2A4\uD134 \uC0C1\uD0DC\uB85C
     \uB9CC\uB4ED\uB2C8\uB2E4."
   skillState: 0
