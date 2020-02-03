@@ -10,8 +10,9 @@ class PacketId(Enum):
 class MatchingPacketId(Enum):
     matching_request = 0
     matching_response = 1
-    matching_accept = 2
-    matching_reject = 3
+    matching_catch = 2
+    matching_accept = 3
+    matching_reject = 4
 
 
 # 클라이언트로 보내는 응답 ID
@@ -20,7 +21,7 @@ class MatchingResult(Enum):
     fail = 1
 
 
-# 클라이언트로부터 받는 패킷
+# 클라이언트로부터 받는 매칭 요청 패킷
 class MatchingData:
     def __init__(self, message):
         self.message = message
@@ -36,7 +37,7 @@ class MatchingData:
         return packet
 
 
-# 클라이언트로 보낼 패킷
+# 클라이언트로 보낼 매칭 요청 응답 패킷
 class MatchingResponseData:
     def __init__(self, packet_id, matching_request, matching_result):
         self.data = [packet_id, matching_request, matching_result]
@@ -46,6 +47,10 @@ class MatchingResponseData:
         packet = self.data[0].to_bytes(4, byteorder='big') + self.data[1].to_bytes(4, byteorder='big') + self.data[2].to_bytes(4, byteorder='big')
         return packet
 
+
+# 클라이언트로 보낼 매칭 성립 응답 패킷
+#class MatchingCatchData:
+#    def __init__(self):
 #packet = [1, 1]
 #a = packet[0].to_bytes(4, byteorder='big')
 #print(a)
