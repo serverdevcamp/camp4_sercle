@@ -17,6 +17,7 @@ public enum MatchingPacketId
 {
     MatchingRequest = 0,
     MatchingResponse,
+    MatchingCatch,
     MatchingAccept,
     MatchingReject,
 };

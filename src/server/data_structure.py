@@ -36,8 +36,12 @@ class MatchingData:
 
         return packet
 
+<<<<<<< HEAD
 
 # 클라이언트로 보낼 매칭 요청 응답 패킷
+=======
+# 클라이언트로 보낼 패킷
+>>>>>>> e3c1b70ec0248f04dfae82e935b225fd36877534
 class MatchingResponseData:
     def __init__(self, packet_id, matching_request, matching_result):
         self.data = [packet_id, matching_request, matching_result]
