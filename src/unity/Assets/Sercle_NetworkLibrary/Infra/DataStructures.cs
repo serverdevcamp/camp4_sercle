@@ -10,6 +10,7 @@ public enum PacketId
     MovingData,
     MatchingData,
     MatchingResponse,
+    GameServerJoin,
 };
 
 //매칭 패킷 데이터
@@ -34,15 +35,11 @@ public enum MatchingResult
 public struct MatchingData
 {
     //유저 고유 번호
-    public MatchingPacketId matchingPacketId;
-    public int index;       //로그인 번호
-    public int roomNum;
+    public MatchingPacketId request;
     public override string ToString()
     {
         string str = "";
-        
-        str += "index:" + index + " matchingpacketid: " + matchingPacketId +
-            " roomNum: " + roomNum;
+        str += "matchingpacketid:" + request;
         return str;
     }
 }
@@ -52,6 +49,7 @@ public struct MatchingResponseData
 {
     public MatchingPacketId request;
     public MatchingResult result;
+    public int room;
 
     public override string ToString()
     {

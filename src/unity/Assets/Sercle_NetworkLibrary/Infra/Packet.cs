@@ -124,12 +124,8 @@ public class MatchingPacket : IPacket<MatchingData>
         {
             bool ret = true;
 
-            int request = (int)packet.matchingPacketId;
+            int request = (int)packet.request;
             ret &= Serialize(request);
-
-            ret &= Serialize(packet.index);
-
-            ret &= Serialize(packet.roomNum);
             return ret;
         }
 
@@ -145,10 +141,8 @@ public class MatchingPacket : IPacket<MatchingData>
 
             int request = 0;
             ret &= Deserialize(ref request);
-            element.matchingPacketId = (MatchingPacketId)request;
+            element.request = (MatchingPacketId)request;
 
-            ret &= Deserialize(ref element.index);
-            ret &= Deserialize(ref element.roomNum);
             return ret;
         }
     }
