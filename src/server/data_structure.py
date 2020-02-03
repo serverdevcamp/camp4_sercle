@@ -35,7 +35,6 @@ class MatchingData:
 
         return packet
 
-
 # 클라이언트로 보낼 패킷
 class MatchingResponseData:
     def __init__(self, packet_id, matching_request, matching_result):

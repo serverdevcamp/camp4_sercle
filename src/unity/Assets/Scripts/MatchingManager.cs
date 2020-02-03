@@ -103,6 +103,7 @@ public class MatchingManager : MonoBehaviour
     //매칭 응답 패킷 받기
     public void OnReceiveMatchingResponsePacket(PacketId id, byte[] data)
     {
+        //MatchingPacketId에 대한 처리해주기
         MatchingResponsePacket packet = new MatchingResponsePacket(data);
         MatchingResponseData packetData = packet.GetPacket();
         Debug.Log(packetData);
