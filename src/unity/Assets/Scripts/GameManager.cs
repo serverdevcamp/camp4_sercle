@@ -30,6 +30,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        bool is1P = GameObject.Find("NetworkManager").GetComponent<NetworkManager>().clientID;
+
         #region 캐릭터 생성 및 번호/ID 부여
         // 현재는 캐릭터가 3개 밖에 없으므로 자동으로 생성
         // 나중에는 서버에서 받아와야 함
@@ -58,13 +60,26 @@ public class GameManager : MonoBehaviour
 
         #region 캐릭터 배치
         // 회전도 해줘야 할까?
-        myCharacters[0].transform.position = new Vector3(0, 0, 0);
-        myCharacters[1].transform.position = new Vector3(1, 0, -1);
-        myCharacters[2].transform.position = new Vector3(-1, 0, -1);
+        if (is1P)
+        {
+            myCharacters[0].transform.position = new Vector3(0, 0, 0);
+            myCharacters[1].transform.position = new Vector3(1, 0, -1);
+            myCharacters[2].transform.position = new Vector3(-1, 0, -1);
 
-        enemyCharacters[0].transform.position = new Vector3(12, 0, 18);
-        enemyCharacters[1].transform.position = new Vector3(13, 0, 19);
-        enemyCharacters[2].transform.position = new Vector3(11, 0, 19);
+            enemyCharacters[0].transform.position = new Vector3(12, 0, 18);
+            enemyCharacters[1].transform.position = new Vector3(13, 0, 19);
+            enemyCharacters[2].transform.position = new Vector3(11, 0, 19);
+        }
+        else
+        {
+            enemyCharacters[0].transform.position = new Vector3(0, 0, 0);
+            enemyCharacters[1].transform.position = new Vector3(1, 0, -1);
+            enemyCharacters[2].transform.position = new Vector3(-1, 0, -1);
+
+            myCharacters[0].transform.position = new Vector3(12, 0, 18);
+            myCharacters[1].transform.position = new Vector3(13, 0, 19);
+            myCharacters[2].transform.position = new Vector3(11, 0, 19);
+        }
         #endregion
 
         #region 시작 세팅
