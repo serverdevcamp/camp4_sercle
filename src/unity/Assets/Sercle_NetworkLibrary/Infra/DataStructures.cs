@@ -2,6 +2,7 @@
 using System.Collections;
 
 // 패킷 데이터 식별용 열거형
+// 모든 경우의 request, response, Data를 붙여야함.
 public enum PacketId
 {
     CharacterData = 0,
@@ -67,7 +68,6 @@ public struct PacketHeader
     // 패킷 ID
     public int packetId;
 };
-
 
 // 마우스 정보 데이터
 public struct MouseData
@@ -170,8 +170,6 @@ public struct InputData
     public CharacterData[] charDatum;
     */
 };
-
-
 
 // 이동 정보
 public struct MovingData

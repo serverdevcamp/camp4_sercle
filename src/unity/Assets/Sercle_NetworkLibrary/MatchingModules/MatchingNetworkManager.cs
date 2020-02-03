@@ -101,10 +101,10 @@ public class MatchingNetworkManager : MonoBehaviour
 
         if (transportTCP != null)
         {
-
             // 모듈에서 사용할 헤더 정보를 생성합니다.
             PacketHeader header = new PacketHeader();
             HeaderSerializer serializer = new HeaderSerializer();
+
             //packetid = skill, moving 등등   moving은 2
             header.packetId = (int)packet.GetPacketId();
 
@@ -124,24 +124,17 @@ public class MatchingNetworkManager : MonoBehaviour
             string str = "Send reliable packet[" + header.packetId + "]";
 
             sendSize = transportTCP.Send(data, data.Length);
-            //Debug.Log(data.Length + " 전송");
         }
 
         return sendSize;
     }
 
-    // UDP 연결 요청
     // FIX THIS : 지금은 그저 Connect결과가 true면 성공으로 간주.(200122)
     public void ConnectIP()
     {
         if (!isNetConnected)
         {
-            //Debug.Log("UDP 연결 버튼 클릭됨.");
-            //SetNetConnectionStatus(transportUDP.Connect("127.0.0.1", 3098));
-            //if (GetNetConnectionStatus())
-            //    Time.timeScale = 1f;
             SetNetConnectionStatus(transportTCP.Connect("127.0.0.1", 3098));
-            //transportTCP.Send(System.Text.Encoding.UTF8.GetBytes("PLEASEE"), 10);
             if (GetNetConnectionStatus())
             {
                 Time.timeScale = 1f;

@@ -81,6 +81,7 @@ public class MovingPacket : IPacket<MovingData>
     }
 }
 
+//클라이언트가 서버로 전송할 패킷
 public class MatchingPacket : IPacket<MatchingData>
 {
     MatchingData packet;
@@ -153,7 +154,7 @@ public class MatchingPacket : IPacket<MatchingData>
     }
 }
 
-//Matching응답 패킷
+//서버가 클라이언트로 전송한 패킷
 public class MatchingResponsePacket : IPacket<MatchingResponseData>
 {
     MatchingResponseData packet;
