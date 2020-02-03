@@ -1893,9 +1893,53 @@ MonoBehaviour:
     m_Bits: 256
   usingSkill: 0
   skills:
-  - {fileID: 11400000, guid: 2b4ea645d41b09846bc20d5e1a8a5d5a, type: 2}
-  - {fileID: 11400000, guid: 13c959b247815664fa3de6527c7da053, type: 2}
-  - {fileID: 11400000, guid: 77b303b168291e144b381986132eeb7b, type: 2}
+  - skillName: Basic Attack
+    description: "1.2 * \uACF5\uACA9\uB825\uC73C\uB85C \uC801\uC744 \uACF5\uACA9\uD569\uB2C8\uB2E4."
+    skillState: 0
+    myNum: 0
+    preDelay: 0.1
+    postDelay: 0.1
+    coolDown: 0.5
+    proj: {fileID: 6332989940410738062, guid: f1ffe6c1057093e42a09702b86636b4e, type: 3}
+    speed: 15
+    range: 10
+    size: {x: 0.2, y: 0.2, z: 0.2}
+    targetType: 0
+    targetNum: 0
+    skillEffects:
+    - {fileID: 11400000, guid: d16d518b402c16c42aeb84a860faf685, type: 2}
+  - skillName: Critical Shot
+    description: "3.5 * \uACF5\uACA9\uB825\uC73C\uB85C \uC801\uC744 \uACF5\uACA9\uD569\uB2C8\uB2E4."
+    skillState: 0
+    myNum: 1
+    preDelay: 0.3
+    postDelay: 0.5
+    coolDown: 3
+    proj: {fileID: 6332989940410738062, guid: f1ffe6c1057093e42a09702b86636b4e, type: 3}
+    speed: 10
+    range: 11
+    size: {x: 0.8, y: 1, z: 0.8}
+    targetType: 3
+    targetNum: 0
+    skillEffects:
+    - {fileID: 11400000, guid: b87917a464b62e148bb7aaf6a91cefee, type: 2}
+  - skillName: Stim Pack
+    description: "5\uCD08\uAC04 \uC790\uC2E0\uC758 \uCE58\uBA85 30, \uCE58\uBA85 \uACC4\uC218
+      0.5\uB97C \uC99D\uAC00\uC2DC\uD0B5\uB2C8\uB2E4."
+    skillState: 0
+    myNum: 2
+    preDelay: 1
+    postDelay: 0.4
+    coolDown: 15
+    proj: {fileID: 6332989940410738062, guid: f1ffe6c1057093e42a09702b86636b4e, type: 3}
+    speed: 0
+    range: 0
+    size: {x: 0, y: 0, z: 0}
+    targetType: 1
+    targetNum: 0
+    skillEffects:
+    - {fileID: 11400000, guid: ebca95157c35eca4993d44fc34cbfb1d, type: 2}
+    - {fileID: 11400000, guid: 93292a980cf2b0a4faa993813a559086, type: 2}
   skillRangeCircle: {fileID: 756976012324554487}
   skillDirRect: {fileID: 756976013020224191}
 --- !u!114 &4181314504358160414

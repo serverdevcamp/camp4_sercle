@@ -85,7 +85,11 @@ public class Character : MonoBehaviour
 
     public void FireProjectile(int num, Vector3 dir)
     {
-        skills[num].Fire(this, dir);
+        ProjectileInfo info = skills[num].ProjectileInfo(this, dir);
+        Vector3 spawnPos = transform.position + new Vector3(0, 1.1f, 0);
+
+        Projectile projectile = Instantiate(skills[num].proj, spawnPos, Quaternion.identity);
+        projectile.Initialize(info);
     }
 
     private void StateMachine()

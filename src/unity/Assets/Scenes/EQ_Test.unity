@@ -2599,6 +2599,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isNetConnected: 0
+  clientID: 0
 --- !u!4 &1721859997
 Transform:
   m_ObjectHideFlags: 0

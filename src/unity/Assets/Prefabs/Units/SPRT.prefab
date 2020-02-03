@@ -540,9 +540,54 @@ MonoBehaviour:
     m_Bits: 256
   usingSkill: 0
   skills:
-  - {fileID: 11400000, guid: 93f4758b996490d4b82306d2ec002a9e, type: 2}
-  - {fileID: 11400000, guid: ca67ebed9227d264ab66315a7b792410, type: 2}
-  - {fileID: 11400000, guid: 6bcf5a2a1c1939e4e885bcead8778cad, type: 2}
+  - skillName: Basic Attack
+    description: "1.0 * \uACF5\uACA9\uB825\uC73C\uB85C \uC801\uC744 \uACF5\uACA9\uD569\uB2C8\uB2E4."
+    skillState: 0
+    myNum: 0
+    preDelay: 0
+    postDelay: 0
+    coolDown: 0.5
+    proj: {fileID: 6332989940410738062, guid: f1ffe6c1057093e42a09702b86636b4e, type: 3}
+    speed: 10
+    range: 10
+    size: {x: 0.2, y: 0.2, z: 0.2}
+    targetType: 0
+    targetNum: 0
+    skillEffects:
+    - {fileID: 11400000, guid: 2fe064db4631a4d4daba1f1677eb7848, type: 2}
+  - skillName: Area Heal
+    description: "\uC790\uC2E0 \uC8FC\uBCC0 \uC544\uAD70\uC758 \uCCB4\uB825\uC744
+      3.0*\uACF5\uACA9\uB825\uB9CC\uD07C \uD68C\uBCF5\uC2DC\uD0B5\uB2C8\uB2E4."
+    skillState: 0
+    myNum: 1
+    preDelay: 1
+    postDelay: 1
+    coolDown: 5
+    proj: {fileID: 6332989940410738062, guid: f1ffe6c1057093e42a09702b86636b4e, type: 3}
+    speed: 0
+    range: 0
+    size: {x: 3, y: 0, z: 3}
+    targetType: 2
+    targetNum: 1
+    skillEffects:
+    - {fileID: 11400000, guid: cb0c86e30b5ede041a41373e3d349d15, type: 2}
+  - skillName: Debuff
+    description: "\uD53C\uACA9\uB41C \uC801\uC758 \uC18D\uB3C4 5, \uBC29\uC5B4 30\uC744
+      3\uCD08 \uB3D9\uC548 \uAC10\uC18C\uC2DC\uD0B5\uB2C8\uB2E4."
+    skillState: 0
+    myNum: 2
+    preDelay: 0.5
+    postDelay: 0.5
+    coolDown: 5
+    proj: {fileID: 6332989940410738062, guid: f1ffe6c1057093e42a09702b86636b4e, type: 3}
+    speed: 10
+    range: 8
+    size: {x: 0.5, y: 0.5, z: 0.5}
+    targetType: 3
+    targetNum: 0
+    skillEffects:
+    - {fileID: 11400000, guid: 9ed027b6c17fd2243aa9e6a8925fe4b0, type: 2}
+    - {fileID: 11400000, guid: 80b3d4d3ffefa0847872c4a93763d814, type: 2}
   skillRangeCircle: {fileID: 8830665146232650571}
   skillDirRect: {fileID: 8830665144606292957}
 --- !u!114 &1344521068759169048

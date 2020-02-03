@@ -8,7 +8,8 @@ public enum TargetType { Auto, Self, Friend, Enemy }
 public enum TargetNum { One, All }
 
 [CreateAssetMenu(fileName = "New Skill", menuName = "Skill/Skill")]
-public class Skill : ScriptableObject
+[System.Serializable]
+public class Skill
 {
     public enum SkillState { Idle, Ready, PreDelay, Fire, PostDelay, CoolDown }
 
@@ -106,11 +107,10 @@ public class Skill : ScriptableObject
         skillState = SkillState.Idle;
     }
 
-    public void Fire(Character caster, Vector3 dir)
+    public ProjectileInfo ProjectileInfo(Character caster, Vector3 dir)
     {
-        Vector3 spawnPos = caster.transform.position + new Vector3(0, 1.1f, 0);
-        Projectile projectile = Instantiate(proj, spawnPos, Quaternion.identity);
-        projectile.Initialize(caster, dir, speed, range, size, targetType, targetNum, skillEffects);
+        ProjectileInfo info = new ProjectileInfo(caster, dir, speed, range, size, targetType, targetNum, skillEffects);
+        return info;
     }
 
     public void Initialize(int num)

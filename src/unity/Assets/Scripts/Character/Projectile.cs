@@ -2,6 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public struct ProjectileInfo
+{
+    public Character caster;
+    public Vector3 direction;
+    public float speed;
+    public float range;
+    public Vector3 size;
+    public TargetType targetType;
+    public TargetNum targetNum;
+    public List<SkillEffect> skillEffects;
+
+    public ProjectileInfo(Character caster, Vector3 direction, float speed, float range,
+                        Vector3 size, TargetType targetType, TargetNum targetNum,
+                        List<SkillEffect> skillEffects)
+    {
+        this.caster = caster;
+        this.direction = direction;
+        this.speed = speed;
+        this.range = range;
+        this.size = size;
+        this.targetType = targetType;
+        this.targetNum = targetNum;
+        this.skillEffects = skillEffects;
+    }
+}
+
 [RequireComponent(typeof(BoxCollider))]
 public class Projectile : MonoBehaviour
 {
@@ -13,18 +39,16 @@ public class Projectile : MonoBehaviour
     [SerializeField] private TargetNum targetNum;
     [SerializeField] private List<SkillEffect> skillEffects;
 
-    public void Initialize(
-        Character caster, Vector3 direction, float speed, float range,
-        Vector3 size, TargetType targetType, TargetNum targetNum, List<SkillEffect> skillEffects)
+    public void Initialize(ProjectileInfo info)
     {
-        this.caster = caster;
-        this.direction = direction;
-        this.speed = speed;
-        this.range = range;
-        transform.localScale = size;
-        this.targetType = targetType;
-        this.targetNum = targetNum;
-        this.skillEffects = skillEffects;
+        caster = info.caster;
+        direction = info.direction;
+        speed = info.speed;
+        range = info.range;
+        transform.localScale = info.size;
+        targetType = info.targetType;
+        targetNum = info.targetNum;
+        skillEffects = info.skillEffects;
     }
 
     private void FixedUpdate()

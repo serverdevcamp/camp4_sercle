@@ -2003,9 +2003,52 @@ MonoBehaviour:
     m_Bits: 256
   usingSkill: 0
   skills:
-  - {fileID: 11400000, guid: 94e90361989abf344af09bfc4ea660c5, type: 2}
-  - {fileID: 11400000, guid: b0b9fda0708c1c44abc8147e02e845a2, type: 2}
-  - {fileID: 11400000, guid: 6a1da30191cee3e459e0aedfdb975f66, type: 2}
+  - skillName: Basic Attack
+    description: "0.9 * \uACF5\uACA9\uB825\uC73C\uB85C \uC801\uC744 \uACF5\uACA9\uD569\uB2C8\uB2E4."
+    skillState: 0
+    myNum: 0
+    preDelay: 0
+    postDelay: 0
+    coolDown: 0.5
+    proj: {fileID: 6332989940410738062, guid: f1ffe6c1057093e42a09702b86636b4e, type: 3}
+    speed: 15
+    range: 7
+    size: {x: 0.2, y: 0.2, z: 0.2}
+    targetType: 0
+    targetNum: 0
+    skillEffects:
+    - {fileID: 11400000, guid: 55da594632857834fbf919e074bc8fe4, type: 2}
+  - skillName: Leg Reinforce
+    description: "0.5\uCD08 \uB3D9\uC548 \uC774\uB3D9\uC18D\uB3C4\uAC00 12 \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    skillState: 0
+    myNum: 1
+    preDelay: 0.7
+    postDelay: 0
+    coolDown: 5
+    proj: {fileID: 6332989940410738062, guid: f1ffe6c1057093e42a09702b86636b4e, type: 3}
+    speed: 0
+    range: 0
+    size: {x: 0, y: 0, z: 0}
+    targetType: 1
+    targetNum: 0
+    skillEffects:
+    - {fileID: 11400000, guid: e7fd75c4d5f64f340b761856e347faf1, type: 2}
+  - skillName: Area Stun
+    description: "\uC8FC\uBCC0\uC758 \uC801\uB4E4\uC744 \uC2A4\uD134 \uC0C1\uD0DC\uB85C
+      \uB9CC\uB4ED\uB2C8\uB2E4."
+    skillState: 0
+    myNum: 2
+    preDelay: 1
+    postDelay: 1
+    coolDown: 3
+    proj: {fileID: 6332989940410738062, guid: f1ffe6c1057093e42a09702b86636b4e, type: 3}
+    speed: 0
+    range: 0
+    size: {x: 5, y: 1, z: 5}
+    targetType: 3
+    targetNum: 1
+    skillEffects:
+    - {fileID: 11400000, guid: 52db2dbaa1ac7a947bf2b1d5bf7b6286, type: 2}
   skillRangeCircle: {fileID: 7169763030526139751}
   skillDirRect: {fileID: 7169763030302405788}
 --- !u!114 &1164788799
