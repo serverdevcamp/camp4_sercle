@@ -108,10 +108,25 @@ public class MatchingManager : MonoBehaviour
         MatchingResponseData packetData = packet.GetPacket();
         Debug.Log(packetData);
 
-        if(packetData.result == MatchingResult.Success)
+        if(packetData.request == MatchingPacketId.MatchingResponse)
         {
-            Debug.Log("매칭중~~~~~~~");
+            if (packetData.result == MatchingResult.Success)
+            {
+                Debug.Log("매칭중~~~~~~~");
+            }
+            else
+            {
+                Debug.Log("매칭 실패");
+            }
         }
+        else if(packetData.request == MatchingPacketId.MatchingCatch)
+        {
+            if(packetData.result == MatchingResult.Success)
+            {
+                isMatchMakingCompleted = true;
+            }
+        }
+        
         //요청 완료되면 화면을 매칭중으로 전환 아니면 오류 띄우기
 
     }
