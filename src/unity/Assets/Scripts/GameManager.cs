@@ -8,6 +8,7 @@ public enum InputState { Normal, Action, Direction }
 public class GameManager : MonoBehaviour
 {
     [Header("Characters")]
+    public List<GameObject> characterPrefabs;
     public List<Character> myCharacters;
     public List<Character> enemyCharacters;
 
@@ -34,40 +35,47 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i < myCharacters.Count; i++)
+        #region 캐릭터 생성 및 번호/ID 부여
+        // 현재는 캐릭터가 3개 밖에 없으므로 자동으로 생성
+        // 나중에는 서버에서 받아와야 함
+        myCharacters = new List<Character>();
+        for (int i = 0; i < 3; i++)
         {
-            myCharacters[i].index = i;
-            myCharacters[i].isFriend = true;
+            Character _character = Instantiate(characterPrefabs[i]).GetComponent<Character>();
+            _character.index = i;
+            _character.isFriend = true;
+
+            myCharacters.Add(_character); ;
         }
 
-        // 2020 02 01 적 캐릭터에도 인덱스, 아군정보 할당
-        for(int i = 0; i < enemyCharacters.Count; i++)
+        enemyCharacters = new List<Character>();
+        for (int i = 0; i < 3; i++)
         {
-            enemyCharacters[i].index = i;
-            enemyCharacters[i].isFriend = false;
-        }
+            Character _character = Instantiate(characterPrefabs[i]).GetComponent<Character>();
+            _character.index = i;
+            _character.isFriend = false;
 
-        // 2020 02 01 테스트용으로 clientID가 true면 아래서부터 시작, false면 위에서부터 시작. 테스트 빌드시 하나는 true로, 하나는 false.
-        if (GameObject.Find("NetworkManager").GetComponent<NetworkManager>().clientID)
-        {
-            for(int i = 0; i < 3; i++)
-            {
-                myCharacters[i].transform.position = new Vector3(10f - i * 5, 0.000333339f, 0f);
-                enemyCharacters[i].transform.position = new Vector3(10f - i * 5, 0.000333339f, 15f);
-            }      
+            enemyCharacters.Add(_character);
         }
-        else
-        {
-            for (int i = 0; i < 3; i++)
-            {
-                enemyCharacters[i].transform.position = new Vector3(10f - i * 5, 0.000333339f, 0f);
-                myCharacters[i].transform.position = new Vector3(10f - i * 5, 0.000333339f, 15f);
-            }
-        }
+        #endregion
 
-        if (curCharacter == null) ChangeCurrentCharacter(myCharacters[0]);
+        #region 캐릭터 배치
+        // 회전도 해줘야 할까?
+        myCharacters[0].transform.position = new Vector3(0, 0, 0);
+        myCharacters[1].transform.position = new Vector3(1, 0, -1);
+        myCharacters[2].transform.position = new Vector3(-1, 0, -1);
+
+        enemyCharacters[0].transform.position = new Vector3(12, 0, 18);
+        enemyCharacters[1].transform.position = new Vector3(13, 0, 19);
+        enemyCharacters[2].transform.position = new Vector3(11, 0, 19);
+        #endregion
+
+        #region 시작 세팅
+        // 자신의 첫번째 캐릭터로 고정
+        ChangeCurrentCharacter(myCharacters[0]);
 
         myCP = 50;
+        #endregion
     }
 
     private void Update()
