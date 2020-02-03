@@ -29,15 +29,15 @@ class MatchingData:
     def deserialize(self):
         print(self.message)
         packet_id = int.from_bytes(self.message[0:4], byteorder='big')
-        matching_packet_id = int.from_bytes(self.message[4:8], byteorder='big')
-        index = int.from_bytes(self.message[8:12], byteorder='big')
-        room_num = int.from_bytes(self.message[12:16], byteorder='big')
-        packet = [packet_id, matching_packet_id, index, room_num]
+        matching_request = int.from_bytes(self.message[4:8], byteorder='big')
+        matching_result = int.from_bytes(self.message[8:12], byteorder='big')
+
+        packet = [packet_id, matching_request, matching_result]
 
         return packet
 
-# 클라이언트로 보낼 매칭 요청 응답 패킷
 
+# 클라이언트로 보낼 매칭 요청 응답 패킷
 # 클라이언트로 보낼 패킷
 class MatchingResponseData:
     def __init__(self, packet_id, matching_request, matching_result):
