@@ -1,7 +1,7 @@
 import socket
-from queue import Queue
 from _thread import *
 from data_structure import *
+import time
 
 HOST = '127.0.0.1'
 PORT = 3098
@@ -18,15 +18,24 @@ class Lobby:
         self.matching_list = []         # 매칭 요청한 유저들 담을 큐 객체
         self.user_list = []             # 서버에 접속한 유저 소켓 저장할 리스트
 
-        self.start_server()             # 서버 시작
+        try:
+            self.start_server()
+        except Exception as e:
+            print(e)
+
+    def start_matching_thread(self):
+        print("start matching queue")
+        start_new_thread(self.matching_queue_thread, ())
 
     # 서버 시작
     def start_server(self):
+        self.start_matching_thread()
+
         print('Lobby server start')
         print('waiting new client..')
         #매칭 큐 쓰레드
-
         testidx = 1
+
         while True:
             client_socket, addr = self.server_socket.accept()  # 소켓
             print(addr[0] + ' ' + str(addr[1]) + ' connected')
@@ -41,21 +50,25 @@ class Lobby:
     # 매칭 쓰레드
     def matching_queue_thread(self):
         room_num = 1
+
         while True:
-            if len(self.user_list) >= 2:
+            time.sleep(2)
+            if len(self.matching_list) >= 2:
                 #유저 추출
                 users = []
-                users.append(self.user_list[0])
-                users.append(self.user_list[1])
-                self.user_list.remove(0)
-                self.user_list.remove(1)
+                users.append(self.matching_list[0])
+                del self.matching_list[0]
+                users.append(self.matching_list[0])
+                del self.matching_list[0]
+
                 self.matching_catch(users)
+                print("매칭 잡힘")
 
     def matching_catch(self, users):
         for user in users:
             # 각 클라이언트에게 매칭이 잡혔다는 메시지를 전달
             response = MatchingResponseData(PacketId.matching_response.value,
-                                            MatchingPacketId.matching_catch,
+                                            MatchingPacketId.matching_catch.value,
                                             MatchingResult.success.value).serialize()
             user[0].send(response)
 
@@ -96,7 +109,7 @@ class Lobby:
         # response 전송
         print(PacketId.matching_response.value)
         response = MatchingResponseData(PacketId.matching_response.value,
-                                        MatchingPacketId.matching_response,
+                                        MatchingPacketId.matching_response.value,
                                         MatchingResult.success.value).serialize()
         user_socket[0].send(response)
         print("매칭 응답 전송")
@@ -112,5 +125,16 @@ class Lobby:
             self.user_list.remove(connection)
             print(connection[2].decode() + "님이 나가셨습니다.")
 
+def a():
+    while True:
+        time.sleep(2)
+        print("1")
+def b():
+    while True:
+        time.sleep(2)
+        print("2")
 server = Lobby()
-Lobby.start_server()
+
+#start_new_thread(a, ())
+#start_new_thread(b,())
+#input()
