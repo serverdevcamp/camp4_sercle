@@ -24,26 +24,6 @@ public class SkillManager : MonoBehaviour
         networkManager.RegisterReceiveNotification(PacketId.SkillData, OnReceiveSkillPacket);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        /*
-        // 우클릭시
-        if (Input.GetMouseButtonDown(1))
-        {
-            SkillData data = new SkillData();
-            data.index = 1;
-            data.duration = 1.5f;
-            data.amount = 3;
-            data.count = 2;
-            data.types = new int[2];
-            data.types[0] = (int)StatusType.ATK;
-            data.types[1] = (int)StatusType.SPD;
-            SendLocalSkillInfo(data);
-        }*/
-    }
-
-
     // 스킬 정보를 상대에게 전송하는 함수
     public void SendLocalSkillInfo(int index, int num, Vector3 dir)
     {
@@ -73,11 +53,6 @@ public class SkillManager : MonoBehaviour
         Vector3 dir = new Vector3(skill.dirX, skill.dirY, skill.dirZ);
 
         // 2020 02 01상대 단말의 로컬 캐릭터가 스킬 사용했다는 정보를 내 단말에서 수신 한것이므로, 내 단말의 상대 캐릭터가 스킬사용했다고 해줘야함.
-        GameManager.instance.UseRemoteSkill(skill.index, skill.num, dir);
-        
-        // GameManager.instance.FireProjectile(skill.index, skill.num, dir);
-
-        // 수신 후 사용 예
-        // navAgent(moving.index).destinaion(new Vector3(moving.destX, moving.destY, moving.dextZ);
+        GameManager.instance.FireRemoteProjectile(skill.index, skill.num, dir);
     }
 }

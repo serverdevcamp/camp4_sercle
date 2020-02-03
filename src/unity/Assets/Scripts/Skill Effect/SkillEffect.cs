@@ -27,7 +27,7 @@ public struct EffectResult
     }
 }
 
-[CreateAssetMenu(fileName = "New Skill Effect", menuName = "Skill/Skill Effect")]
+[CreateAssetMenu(fileName = "New Skill Effect", menuName = "Skill Effect")]
 [System.Serializable]
 public class SkillEffect : ScriptableObject
 {

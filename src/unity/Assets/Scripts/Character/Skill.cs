@@ -7,7 +7,6 @@ public enum RangeType { Self, Around, Direction }
 public enum TargetType { Auto, Self, Friend, Enemy }
 public enum TargetNum { One, All }
 
-[CreateAssetMenu(fileName = "New Skill", menuName = "Skill/Skill")]
 [System.Serializable]
 public class Skill
 {
@@ -63,10 +62,14 @@ public class Skill
         }
         #endregion
 
-        // skillState = SkillState.Fire;
+        Debug.Log(caster.name + " Use " + skillName + " to " + dir);
 
-        Debug.Log("Use " + skillName + " to " + dir);
+        // GM에게 index 번째 캐릭터의 num번째 스킬을 dir 방향으로 사용한다고 알려준다.
+        GameManager.instance.FireProjectile(caster.index, myNum, dir.Value);
+    }
 
+    public IEnumerator Fire(Character caster, Vector3 dir)
+    {
         #region Wait for Pre delay
         if (targetType != TargetType.Auto) caster.usingSkill = true;
         // 스킬 발사 상태 변경 2020 01 30
@@ -75,14 +78,14 @@ public class Skill
         #endregion
 
         #region 투사체 발사
-        // GM에게 index 번째 캐릭터의 num번째 스킬을 dir 방향으로 사용한다고 알려준다.
-        // 2020 02 01, 로컬 캐릭터가 쓴 스킬일 경우 FireProjectile, 원격캐릭터가 쓴 스킬인 경우 RemoteProjectile
-        if (!skillName.Contains("_Enemy"))
-            GameManager.instance.FireProjectile(caster.index, myNum, dir.Value);
-        else
-            GameManager.instance.FireRemoteProjectile(caster.index, myNum, dir.Value);
         // 스킬 발사 상태 변경 2020 01 30
         skillState = SkillState.Fire;
+
+        ProjectileInfo info = ProjectileInfo(caster, dir);
+        Vector3 spawnPos = caster.transform.position + new Vector3(0, 1.1f, 0);
+
+        Projectile projectile = UnityEngine.Object.Instantiate(proj, spawnPos, Quaternion.identity);
+        projectile.Initialize(info);
         #endregion
 
         #region Wait for Post Delay

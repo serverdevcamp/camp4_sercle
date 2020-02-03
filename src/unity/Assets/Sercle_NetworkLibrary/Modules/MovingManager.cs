@@ -40,7 +40,7 @@ public class MovingManager : MonoBehaviour
         movingData.destX = dest.x;
         movingData.destY = dest.y;
         movingData.destZ = dest.z;
-        Debug.Log("전송전송 " + movingData);
+        //Debug.Log("전송전송 " + movingData);
         // 생성자로 데이터에 패킷을 연결
         MovingPacket packet = new MovingPacket(movingData);
         // UDP 전송
@@ -58,7 +58,7 @@ public class MovingManager : MonoBehaviour
         Vector3 destination = new Vector3(moving.destX, moving.destY, moving.destZ);
 
         // 2020 02 01상대 단말에서 상대의 로컬 캐릭터가 이동했을 때 송신한 정보를 수신한 것이므로 내 단말에서 리모트 캐릭터를 이동시킨다.
-        GameManager.instance.MoveRemoteCharacter(moving.index, destination);
+        GameManager.instance.MoveEnemyCharacter(moving.index, destination);
 
         // 2020 02 01 주석처리
         // GameManager.instance.MoveCharacter(moving.index, destination);

@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public enum InputState { Normal, Action, Direction }
-
 public class GameManager : MonoBehaviour
 {
     [Header("Characters")]
@@ -16,11 +14,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float cps;
     [SerializeField] private float myCP;
 
-    [SerializeField] private InputState inputState = InputState.Normal;
-    public InputState InputState { set { inputState = value; } }
     [SerializeField] private Character curCharacter;
     public Character CurCharacter { get { return curCharacter; } }
-    [SerializeField] private Character clickedCharacter;
 
     [Header("Display")]
     [SerializeField] private RectTransform moveCircle;
@@ -42,6 +37,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             Character _character = Instantiate(characterPrefabs[i]).GetComponent<Character>();
+            _character.name = characterPrefabs[i].name;
             _character.index = i;
             _character.isFriend = true;
 
@@ -52,6 +48,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             Character _character = Instantiate(characterPrefabs[i]).GetComponent<Character>();
+            _character.name = "Enemy_" + characterPrefabs[i].name;
             _character.index = i;
             _character.isFriend = false;
 
@@ -108,35 +105,11 @@ public class GameManager : MonoBehaviour
         myCP += cps * Time.fixedDeltaTime;
     }
 
-    public Character ClickedCharacter()
-    {
-        switch (inputState)
-        {
-            case InputState.Normal:
-                Debug.LogError("Normal 상태인데 Clicked Character 정보가 필요해?");
-                return null;
-            case InputState.Action:
-                Character temp = clickedCharacter;
-                clickedCharacter = null;
-                return temp;
-            default:
-                return null;
-        }
-    }
-
     public void ChangeCurrentCharacter(Character character)
     {
-        switch (inputState)
-        {
-            case InputState.Normal:
-                if (curCharacter) curCharacter.ChooseToCurrent(false);
-                curCharacter = character;
-                curCharacter.ChooseToCurrent(true);
-                break;
-            case InputState.Action:
-                clickedCharacter = character;
-                break;
-        }
+        if (curCharacter) curCharacter.ChooseToCurrent(false);
+        curCharacter = character;
+        curCharacter.ChooseToCurrent(true);
     }
 
     public Vector3? GetDirection(Character caster, ref bool isValid)
@@ -201,25 +174,15 @@ public class GameManager : MonoBehaviour
     }
 
     // 2020 02 01 수신한 원격 캐릭터 이동 패킷을 원격캐릭터에 적용 한다.
-    public void MoveRemoteCharacter(int index, Vector3 destination)
+    public void MoveEnemyCharacter(int index, Vector3 destination)
     {
         enemyCharacters[index].SetDestination(destination);
     }
-
 
     public void FireProjectile(int index, int num, Vector3 dir)
     {
         myCharacters[index].FireProjectile(num, dir);
         SkillManager.instance.SendLocalSkillInfo(index, num, dir);
-    }
-    
-    // 2020 02 01 수신한 원격 캐릭터 스킬사용 패킷을 원격캐릭터에 적용한다.
-    public void UseRemoteSkill(int index, int num, Vector3 dir)
-    {
-        // enemyCharacters[index].FireProjectile(num, dir);
-        Debug.Log(index + ", " + num + ", " + dir);
-        Debug.Log(enemyCharacters[index].skills[num].skillName);
-        StartCoroutine(enemyCharacters[index].skills[num].Use(enemyCharacters[index], dir));
     }
 
     // 2020 02 01 원격 캐릭터가 투사체 발사하도록 한다.

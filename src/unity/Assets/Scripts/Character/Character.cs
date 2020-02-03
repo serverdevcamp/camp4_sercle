@@ -74,6 +74,7 @@ public class Character : MonoBehaviour
 
     private void BasicAttackActivate()
     {
+        if (isFriend == false) return;
         Vector3 dir = target.transform.position - transform.position;
         StartCoroutine(skills[0].Use(this, dir.normalized));
     }
@@ -85,11 +86,7 @@ public class Character : MonoBehaviour
 
     public void FireProjectile(int num, Vector3 dir)
     {
-        ProjectileInfo info = skills[num].ProjectileInfo(this, dir);
-        Vector3 spawnPos = transform.position + new Vector3(0, 1.1f, 0);
-
-        Projectile projectile = Instantiate(skills[num].proj, spawnPos, Quaternion.identity);
-        projectile.Initialize(info);
+        StartCoroutine(skills[num].Fire(this, dir));        
     }
 
     private void StateMachine()
@@ -158,6 +155,8 @@ public class Character : MonoBehaviour
     /// </summary>
     private void OnMouseDown()
     {
+        if (isFriend == false) return;
+
         Debug.Log("You click " + name);
         GameManager.instance.ChangeCurrentCharacter(this);
     }
