@@ -81,6 +81,7 @@ public class MovingPacket : IPacket<MovingData>
     }
 }
 
+//클라이언트가 서버로 전송할 패킷
 public class MatchingPacket : IPacket<MatchingData>
 {
     MatchingData packet;
@@ -122,9 +123,8 @@ public class MatchingPacket : IPacket<MatchingData>
         public bool Serialize(MatchingData packet)
         {
             bool ret = true;
-            ret &= Serialize(packet.index);
-            ret &= Serialize(packet.roomNum);
-            int request = (int)packet.matchingPacketId;
+
+            int request = (int)packet.request;
             ret &= Serialize(request);
             return ret;
         }
@@ -141,14 +141,83 @@ public class MatchingPacket : IPacket<MatchingData>
 
             int request = 0;
             ret &= Deserialize(ref request);
-            element.matchingPacketId = (MatchingPacketId)request;
+            element.request = (MatchingPacketId)request;
 
-            ret &= Deserialize(ref element.index);
             return ret;
         }
     }
 }
 
+//서버가 클라이언트로 전송한 패킷
+public class MatchingResponsePacket : IPacket<MatchingResponseData>
+{
+    MatchingResponseData packet;
+
+    public MatchingResponsePacket(MatchingResponseData data)
+    {
+        packet = data;
+    }
+    public MatchingResponsePacket(byte[] data)
+    {
+        MatchingResponseSerializer serializer = new MatchingResponseSerializer();
+
+        serializer.SetDeserializedData(data);
+        serializer.Deserialize(ref packet);
+    }
+
+    public PacketId GetPacketId()
+    {
+        return PacketId.MatchingResponse;
+    }
+
+    public MatchingResponseData GetPacket()
+    {
+        return packet;
+    }
+
+    public byte[] GetData()
+    {
+        MatchingResponseSerializer serializer = new MatchingResponseSerializer();
+        serializer.Serialize(packet);
+        return serializer.GetSerializedData();
+    }
+
+    class MatchingResponseSerializer : Serializer
+    {
+        public bool Serialize(MatchingResponseData packet)
+        {
+            bool ret = true;
+
+            int request = (int)packet.request;
+            ret &= Serialize(request);
+
+            int result = (int)packet.result;
+            ret &= Serialize(result);
+
+            return ret;
+        }
+
+        public bool Deserialize(ref MatchingResponseData element)
+        {
+            if(GetDataSize() == 0) {
+                // 데이터가 설정되어 있지 않습니다.
+                return false;
+            }
+
+            bool ret = true;
+
+            int request = 0;
+            ret &= Deserialize(ref request);
+            element.request = (MatchingPacketId)request;
+
+            int result = 0;
+            ret &= Deserialize(ref result);
+            element.result = (MatchingResult)result;
+
+            return ret;
+        }
+    }
+}
 // Skill Data 전송용 Packet
 public class SkillPacket : IPacket<SkillData>
 {

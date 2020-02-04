@@ -28,7 +28,7 @@ public class MatchingManager : MonoBehaviour
     {
         isMatchMakingCompleted = false;
         networkManager = GetComponent<MatchingNetworkManager>();
-        networkManager.RegisterReceiveNotification(PacketId.MatchingData, OnReceiveMatchingPacket);
+        networkManager.RegisterReceiveNotification(PacketId.MatchingResponse, OnReceiveMatchingResponsePacket);
     }
 
     public void testButton()
@@ -65,14 +65,7 @@ public class MatchingManager : MonoBehaviour
     // 매칭 시작 버튼 클릭 함수
     public void MatchingRequest()
     {
-        MatchingData requestData = new MatchingData();
-
-        requestData.index = 1;          ///로그인 한 아이디가 들어가야함.&**&********
-        requestData.roomNum = -1;
-        requestData.matchingPacketId = MatchingPacketId.MatchingRequest;
-
-        MatchingPacket packet = new MatchingPacket(requestData);
-        
+        SendLocalMatchingRequest(1);
         Debug.Log("매칭 해주세요 버튼 클릭");
     }
 
@@ -94,19 +87,91 @@ public class MatchingManager : MonoBehaviour
 
     //private void Matching
 
+    //수락, 요청, 거절 -> 서버로 전송
     public void SendLocalMatchingRequest(int index)
     {
         MatchingData matchingData = new MatchingData();
-        matchingData.index = index;
-        matchingData.roomNum = -1;
+        matchingData.request = MatchingPacketId.MatchingRequest;
 
+        Debug.Log("매칭 데이터 : " + matchingData);
         MatchingPacket packet = new MatchingPacket(matchingData);
 
         networkManager.SendReliable<MatchingData>(packet);
     }
 
-    public void OnReceiveMatchingPacket(PacketId id, byte[] data)
+    public void SendLocalMatchingAccept()
     {
+        MatchingData matchingData = new MatchingData();
+        matchingData.request = MatchingPacketId.MatchingAccept;
+
+        Debug.Log("매칭 데이터 : " + matchingData);
+        MatchingPacket packet = new MatchingPacket(matchingData);
+
+        networkManager.SendReliable<MatchingData>(packet);
+    }
+
+    public void SendLocalMatchingReject()
+    {
+        MatchingData matchingData = new MatchingData();
+        matchingData.request = MatchingPacketId.MatchingReject;
+
+        Debug.Log("매칭 데이터 : " + matchingData);
+        MatchingPacket packet = new MatchingPacket(matchingData);
+
+        networkManager.SendReliable<MatchingData>(packet);
+    }
+    //매칭 응답 패킷 받기
+    //매칭관련된 모든 기능 여기 함수에 구현.
+    public void OnReceiveMatchingResponsePacket(PacketId id, byte[] data)
+    {
+        //MatchingPacketId에 대한 처리해주기
+        MatchingResponsePacket packet = new MatchingResponsePacket(data);
+        MatchingResponseData packetData = packet.GetPacket();
+        Debug.Log(packetData);
+
+        if (packetData.request == MatchingPacketId.MatchingResponse)
+        {
+            if (packetData.result == MatchingResult.Success)
+            {
+                Debug.Log("매칭중~~~~~~~");
+                //매칭 중인것을 클라이언트에 표시해야 함.
+            }
+            else
+            {
+                Debug.Log("매칭 실패");
+            }
+        }
+        //매칭이 잡힘
+        else if(packetData.request == MatchingPacketId.MatchingCatch)
+        {
+            if(packetData.result == MatchingResult.Success)
+            {
+                isMatchMakingCompleted = true;
+                //수락 여부 버튼 띄우기.
+            }
+            else
+            {
+                Debug.Log("매칭 잡힘 실패");
+            }
+        }
+        //매칭 수락
+        else if(packetData.request == MatchingPacketId.MatchingAccept)
+        {
+            if(packetData.result == MatchingResult.Success)
+            {
+                Debug.Log("매칭 성공");
+                //다음 작업
+                //게임 서버로 바로 접속
+            }
+        }
+        //매칭 거절
+        else if(packetData.request == MatchingPacketId.MatchingReject)
+        {
+            if(packetData.result == MatchingResult.Success)
+            {
+                Debug.Log("매칭 거절");
+            }
+        }
         //요청 완료되면 화면을 매칭중으로 전환 아니면 오류 띄우기
 
     }

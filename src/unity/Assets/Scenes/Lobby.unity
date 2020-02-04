@@ -1692,8 +1692,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 837589332}
-        m_MethodName: testButton
+      - m_Target: {fileID: 837589334}
+        m_MethodName: ConnectIP
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
