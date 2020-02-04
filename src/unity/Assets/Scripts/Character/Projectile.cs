@@ -85,18 +85,18 @@ public class Projectile : MonoBehaviour
         {
             case TargetType.Auto:
                 if (target == caster) return false;
-                if (!target.isFriend) return true;
+                if (caster.isFriend != target.isFriend) return true;
                 break;
             case TargetType.Self:
                 if (target == caster) return true;
                 break;
             case TargetType.Friend:
                 if (target == caster) return false;
-                if (target.isFriend) return true;
+                if (caster.isFriend == target.isFriend) return true;
                 break;
             case TargetType.Enemy:
                 if (target == caster) return false;
-                if (!target.isFriend) return true;
+                if (caster.isFriend != target.isFriend) return true;
                 break;
         }
 
