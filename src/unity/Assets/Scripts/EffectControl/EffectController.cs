@@ -232,45 +232,35 @@ public class EffectController : MonoBehaviour
     // 스킬 이펙트 파티클
     private void PlayPreDelayParticle(int skillNumber)
     {
-        if (particles.Count == 0)
+        if (preParticles[skillNumber] == null)
             return;
         
         if (stateMap["Skill_" + skillNumber.ToString()])
             return;
         
+        // 탱커
         if (GetComponent<Character>().index == 0)
         {
             if(skillNumber == 1)
             {
-                if (particles[skillNumber].isPlaying)
-                    particles[skillNumber].Stop();
-
-                if (particles[skillNumber] != null)
-                {
-                    
-                    
-                    particles[skillNumber].Play(true);
-                }
+               
             }
             else if(skillNumber == 2)
             {
-                if (preParticles.Count == 0) return;
-                ParticleSystem.MainModule psMain = preParticles[skillNumber].GetComponent<ParticleSystem>().main;
-                psMain.startLifetime = skills[skillNumber].preDelay;
-                preParticles[skillNumber].GetComponent<ParticleSystem>().Play();
-                //  particles[skillNumber].shape.ra
+
             }
         }
+        // 딜러
         else if(GetComponent<Character>().index == 1)
         {
             if(skillNumber == 1)
             {
-                if (preParticles.Count == 0) return;
                 ParticleSystem.MainModule psMain = preParticles[skillNumber].GetComponent<ParticleSystem>().main;
                 psMain.startLifetime = skills[skillNumber].preDelay;
                 preParticles[skillNumber].GetComponent<ParticleSystem>().Play();
             }
         }
+        // 서포터
         else
         {
             if(skillNumber == 1)
@@ -286,7 +276,7 @@ public class EffectController : MonoBehaviour
 
     private void PlayFireParticle(int skillNumber)
     {
-        if (particles.Count == 0)
+        if (particles[skillNumber] == null)
             return;
         
         if (stateMap["Fire"])
@@ -299,7 +289,7 @@ public class EffectController : MonoBehaviour
                 particles[skillNumber].Stop();
 
             ParticleSystem.MainModule psMain = particles[skillNumber].GetComponent<ParticleSystem>().main;
-            //psMain.startLifetime = skills[skillNumber].postDelay;
+            
             particles[skillNumber].GetComponent<ParticleSystem>().Play();
         }
         // 1번째 캐릭터(딜러)
@@ -312,7 +302,7 @@ public class EffectController : MonoBehaviour
 
             StartCoroutine(PlayContinuousParticle(skillNumber));
         }
-        // 2번째 캐릭터(서폿)
+        // 2번째 캐릭터(서포터)
         else if(GetComponent<Character>().index == 2)
         {
             if (particles[skillNumber] == null) return;
@@ -325,24 +315,28 @@ public class EffectController : MonoBehaviour
     }
 
 
-    // 지속시간 있는 버프같은것 처리
+    // 지속시간 있는 스킬 처리
     private IEnumerator PlayContinuousParticle(int index)
     {
+        // 딜러
         if(GetComponent<Character>().index == 1)
         {
             particles[index].GetComponent<ParticleSystem>().Play();
+
+            // 치명타 올리는 스킬 발동시 5초간의 지속시간을 가진다.
             if (index == 2)
                 yield return new WaitForSeconds(5f);
             else
                 yield return new WaitForSeconds(0.01f);
+
             particles[index].GetComponent<ParticleSystem>().Stop();
         }
+        // 서포터
         else if(GetComponent<Character>().index == 2)
-        
         {
+            // 광역 힐
             if(index == 1)
             {
-               
                 ParticleSystem.ShapeModule psShape = preParticles[index].GetComponent<ParticleSystem>().shape;
                 psShape.radius = 1f;
                 preParticles[index].Play();
@@ -357,6 +351,7 @@ public class EffectController : MonoBehaviour
                 yield return new WaitForSeconds(0.3f);
                 preParticles[index].Stop();
             }
+            // 상대에게 저주 발사
             else if(index == 2)
             {
                 preParticles[index].Play();

@@ -2098,7 +2098,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterState: 0
-  preParticles: []
+  preParticles:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   particles:
   - {fileID: 0}
   - {fileID: 4057053292330864819}
