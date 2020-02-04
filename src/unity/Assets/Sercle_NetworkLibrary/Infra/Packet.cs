@@ -194,6 +194,9 @@ public class MatchingResponsePacket : IPacket<MatchingResponseData>
             int result = (int)packet.result;
             ret &= Serialize(result);
 
+            ret &= Serialize(packet.room);
+            ret &= Serialize(packet.myInfo);
+            ret &= Serialize(packet.opponentInfo);
             return ret;
         }
 
@@ -214,6 +217,116 @@ public class MatchingResponsePacket : IPacket<MatchingResponseData>
             ret &= Deserialize(ref result);
             element.result = (MatchingResult)result;
 
+            ret &= Deserialize(ref element.room);
+            ret &= Deserialize(ref element.myInfo);
+            ret &= Deserialize(ref element.opponentInfo);
+
+            return ret;
+        }
+    }
+}
+
+public class MatchingRejectPacket : IPacket<MatchingRejectData>
+{
+    MatchingRejectData packet;
+    public MatchingRejectPacket(MatchingRejectData data)
+    {
+        packet = data;
+    }
+    public MatchingRejectPacket(byte[] data)
+    {
+        MatchingRejectSerializer serializer = new MatchingRejectSerializer();
+        serializer.Serialize(packet);
+        serializer.Deserialize(ref packet);
+    }
+    public PacketId GetPacketId()
+    {
+        return PacketId.MatchingReject;
+    }
+    public MatchingRejectData GetPacket()
+    {
+        return packet;
+    }
+    public byte[] GetData()
+    {
+        MatchingRejectSerializer serializer = new MatchingRejectSerializer();
+        serializer.Serialize(packet);
+        return serializer.GetSerializedData();
+    }
+    class MatchingRejectSerializer : Serializer
+    {
+        public bool Serialize(MatchingRejectData packet)
+        {
+            bool ret = true;
+
+            ret &= Serialize(packet.myinfo);
+            ret &= Serialize(packet.opponentInfo);
+
+            return ret;
+        }
+        public bool Deserialize(ref MatchingRejectData element)
+        {
+            if(GetDataSize() == 0)
+            {
+                return false;
+            }
+            bool ret = true;
+            ret = Deserialize(ref element.myinfo);
+            ret = Deserialize(ref element.opponentInfo);
+
+            return ret;
+        }
+
+    }
+}
+
+public class MatchingRetryPacket : IPacket<MatchingRetryData>
+{
+    MatchingRetryData packet;
+    public MatchingRetryPacket(MatchingRetryData data)
+    {
+        packet = data;
+    }
+    public MatchingRetryPacket(byte[] data)
+    {
+        MatchingRetrySerializer serializer = new MatchingRetrySerializer();
+        serializer.Serialize(packet);
+        serializer.Deserialize(ref packet);
+    }
+    public PacketId GetPacketId()
+    {
+        return PacketId.MatchingRetry;
+    }
+    public MatchingRetryData GetPacket()
+    {
+        return packet;
+    }
+    public  byte[] GetData()
+    {
+        MatchingRetrySerializer serializer = new MatchingRetrySerializer();
+        serializer.Serialize(packet);
+        return serializer.GetSerializedData();
+    }
+    class MatchingRetrySerializer : Serializer
+    {
+        public bool Serialize(MatchingRetryData packet)
+        {
+            bool ret = true;
+            int result = (int)packet.result;
+            ret &= Serialize(result);
+            return ret;
+        }
+
+        public bool Deserialize(ref MatchingRetryData element)
+        {
+            if(GetDataSize() == 0)
+            {
+                return false;
+            }
+            bool ret = true;
+            int result = 0;
+            ret &= Deserialize(ref result);
+            element.result = (MatchingResult)result;
             return ret;
         }
     }

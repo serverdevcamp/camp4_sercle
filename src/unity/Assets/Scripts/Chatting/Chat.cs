@@ -8,8 +8,8 @@ public class Chat : MonoBehaviour
 {
     public InputField inputField;
     public Button button;
-
-    //[TextArea]
+    public HTTPManager httpManager;
+    public UserInfo userInfo;
     public Text history;
 
     // TCP
@@ -26,8 +26,11 @@ public class Chat : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        httpManager = new HTTPManager();
+        userInfo = GameObject.Find("UserInfoObject").GetComponent<UserInfo>();
+        Debug.Log("유저 : " + userInfo.userData.token);
         // 서버에 접속
-        socket.Connect(address, port);
+
         // 통신 스레드 시작. Thread를 쓸 것이냐, Coroutine을 쓸 것이냐 선택해야함. 스레드는 일시정지 불가
         //socket.LaunceThread();
 

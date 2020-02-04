@@ -702,6 +702,7 @@ GameObject:
   m_Component:
   - component: {fileID: 447134164}
   - component: {fileID: 447134163}
+  - component: {fileID: 447134165}
   m_Layer: 0
   m_Name: ChattingManager
   m_TagString: Untagged
@@ -738,6 +739,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &447134165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 447134162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c611896d5f7f1e4b9f6a91b4eca4b9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &491626100
 GameObject:
   m_ObjectHideFlags: 0
@@ -1055,6 +1068,8 @@ MonoBehaviour:
   completeMatchMakingUI: {fileID: 2011368250}
   waitMatchMakingUI: {fileID: 1860128388}
   isMatchMakingCompleted: 0
+  myInfo: 0
+  opponentInfo: 0
 --- !u!114 &837589333
 MonoBehaviour:
   m_ObjectHideFlags: 0
