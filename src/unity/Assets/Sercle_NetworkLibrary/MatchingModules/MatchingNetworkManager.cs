@@ -134,7 +134,7 @@ public class MatchingNetworkManager : MonoBehaviour
     {
         if (!isNetConnected)
         {
-            SetNetConnectionStatus(transportTCP.Connect("10.99.13.48", 3098));
+            SetNetConnectionStatus(transportTCP.Connect("127.0.0.1", 3098));
             if (GetNetConnectionStatus())
             {
                 Time.timeScale = 1f;

@@ -11,19 +11,21 @@ public class ChattingManager : MonoBehaviour
 {
     // server ip, port
     private string address = "127.0.0.1";
-    private int port = 3098;
+    private int port = 3000;
 
     public InputField inputField;
     public UserInfo userInfo;
     public HTTPManager httpManager;
     public Text dialogue;
     public ScrollRect scrollbar;
-    private TransportTCP socket = new TransportTCP();
+    public bool userInfoFlag = false;
+    private TransportTCP socket;
 
     void Start()
     {
         httpManager = new HTTPManager();
         userInfo = GameObject.Find("UserInfoObject").GetComponent<UserInfo>();
+        socket = GetComponent<TransportTCP>();
         Debug.Log("유저 : " + userInfo.userData.token);
         socket.Connect(address, port);
 
@@ -32,28 +34,49 @@ public class ChattingManager : MonoBehaviour
 
     void Update()
     {
-        // 아무 입력이 없다면
-        if(inputField.text.Length == 0)
+        if (userInfoFlag == false)
         {
-            return;
+            SendData(userInfo.userData.email);
+            userInfoFlag = true;
         }
 
-        ReceiveMessage();
+        ReceiveMessage();       //메세지 수신
 
         // 입력 텍스트의 마지막 문자가 엔터라면
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            string msg = "[" + DateTime.Now.ToString("HH:mm:ss") + "] " + inputField.text;
-            byte[] buffer = System.Text.Encoding.UTF8.GetBytes(msg);
-            socket.Send(buffer, buffer.Length);
-
-            dialogue.text += inputField.text;
-            dialogue.text += "\n";
-            inputField.text = "";
-            scrollbar.verticalNormalizedPosition = 0f;
-            
+            // 아무 입력이 없다면
+            if (inputField.text.Length == 0)
+            {
+                Debug.Log("문자가 없음");
+                return;
+            }
+            if (CheckUser(userInfo.userData.email, userInfo.userData.token))
+            {
+                Debug.Log("zzzzz");
+                string msg = "[" + DateTime.Now.ToString("HH:mm:ss") + "] " + inputField.text;
+                SendData(msg);
+            }
         }
-        
+    }
+
+    private void SendData(string msg)
+    {
+        byte[] buffer = System.Text.Encoding.UTF8.GetBytes(msg);
+        socket.Send(buffer, buffer.Length);
+        Debug.Log("유저 정보 전송");
+    }
+    private Boolean CheckUser(string email, string token)
+    {
+        if (httpManager.UserCacheReq(email) == token)
+            return true;
+        return false;
+    }
+
+    private void OnDestroy()
+    {
+        Debug.Log("socket Disconnect");
+        socket.Disconnect();
     }
 
     private void ReceiveMessage()
@@ -63,7 +86,10 @@ public class ChattingManager : MonoBehaviour
 
         if(recvSize > 0)
         {
-            string msg = System.Text.Encoding.UTF8.GetString(buffer);
+            string endcode = Convert.ToBase64String(buffer);
+            byte[] decode = Convert.FromBase64String(endcode);
+
+            string msg = System.Text.Encoding.UTF8.GetString(decode);
             Debug.Log("Recv data : " + msg);
             AddMessage(msg);
         }
@@ -71,8 +97,11 @@ public class ChattingManager : MonoBehaviour
 
     void AddMessage(string message)
     {
-        dialogue.text += message;
-        dialogue.text += "\n";
+        ///string a =  message.ToString() + "1";
+       // Debug.Log("메세지1 : " + a);
+        //Debug.Log("메세지2 : " + message);
+        dialogue.text += "a";
+
         inputField.text = "";
         scrollbar.verticalNormalizedPosition = 0f;
     }

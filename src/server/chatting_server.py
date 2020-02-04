@@ -3,7 +3,7 @@ from _thread import *
 import marshal
 
 HOST = '127.0.0.1'
-PORT = 3098
+PORT = 3000
 #소켓 서버 설정
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -22,10 +22,10 @@ def client_thread(user_socket):
         try:
             #클라이언트에서 온 데이터 수신
             message = user_socket[0].recv(1024)
+            print(message)
             if not message:
                 remove(user_socket)
                 break
-            #print(str(str(user_socket[2].decode()) + ":").encode() + message)
             #클라이언트에서 온 데이터를 다른 클라이언트에게도 전달
             broadcast(message, user_socket)
         except Exception as e:
@@ -34,17 +34,10 @@ def client_thread(user_socket):
 
 
 def broadcast(message, user_socket):
-    #print("a : " + str("awdasdawd".encode()))
-   # print(str(int.from_bytes(message[0:4], byteorder='big')) +
-    #      str(int.from_bytes(message[4:8], byteorder='big')) +
-     #     str(int.from_bytes(message[8:12], byteorder='big')))
-
     for clients in list_of_clients:
-
         try:
-            if clients[1][1] != user_socket[1][1]:
-                clients[0].send(message)
-            #clients[0].send(str(str(user_socket[2].decode()) + ":").encode() + message)
+            #if clients[1][1] != user_socket[1][1]:
+            clients[0].send(message)
         except:
             clients[0].close()
             remove(clients)
@@ -62,6 +55,7 @@ while True:
     print(addr[0] + ' ' + str(addr[1]) + ' connected')
     user_email = client_socket.recv(1024)
 
+    print('유저 이메일 송신')
     list_of_clients.append([client_socket, addr, user_email])
     #쓰레드 시작
     start_new_thread(client_thread, (list_of_clients[-1],))

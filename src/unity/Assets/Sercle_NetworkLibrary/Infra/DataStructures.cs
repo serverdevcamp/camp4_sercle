@@ -22,8 +22,6 @@ public enum MatchingPacketId
     MatchingRequest = 0,
     MatchingResponse,
     MatchingCatch,
-    MatchingAccept,
-    MatchingReject,
 };
 
 //매칭 요청 결과

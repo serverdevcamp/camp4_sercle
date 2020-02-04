@@ -28,6 +28,8 @@ public class MatchingManager : MonoBehaviour
         networkManager = GetComponent<MatchingNetworkManager>();
         networkManager.RegisterReceiveNotification(PacketId.MatchingResponse,
             OnReceiveMatchingResponsePacket);
+        networkManager.RegisterReceiveNotification(PacketId.MatchingRetry,
+            OnReceiveMatchingRetryPacket);
     }
 
     public void testButton()
@@ -100,6 +102,11 @@ public class MatchingManager : MonoBehaviour
         networkManager.SendReliable<MatchingData>(packet);
     }
 
+    //매칭 수락
+    public void SendLocalMatchingAccept()
+    {
+
+    }
     //매칭 거절
     public void SendLocalMatchingReject()
     {
@@ -107,14 +114,14 @@ public class MatchingManager : MonoBehaviour
         matchingRejectData.myinfo = myInfo;
         matchingRejectData.opponentInfo = opponentInfo;
 
-        Debug.Log("매칭 데이터 : " + matchingRejectData);
+        Debug.Log("myinfo : " + myInfo + " opponentInfo : " + opponentInfo);
         MatchingRejectPacket packet = new MatchingRejectPacket(matchingRejectData);
 
         networkManager.SendReliable<MatchingRejectData>(packet);
     }
 
     //매칭 응답 패킷 받기
-    //매칭관련된 모든 기능 여기 함수에 구현.
+    //매칭 중, 매칭 잡힘 처리
     public void OnReceiveMatchingResponsePacket(PacketId id, byte[] data)
     {
         //MatchingPacketId에 대한 처리해주기
@@ -127,7 +134,7 @@ public class MatchingManager : MonoBehaviour
             if (packetData.result == MatchingResult.Success)
             {
                 Debug.Log("매칭중~~~~~~~");
-                //매칭 중인것을 클라이언트에 표시해야 함.
+                //매칭 중인것을 클라이언트에 표시해야 함
             }
             else
             {
@@ -149,33 +156,13 @@ public class MatchingManager : MonoBehaviour
             {
                 Debug.Log("매칭 잡힘 실패");
             }
-        }
-        //매칭 수락
-        else if(packetData.request == MatchingPacketId.MatchingAccept)
-        {
-            if(packetData.result == MatchingResult.Success)
-            {
-                Debug.Log("매칭 성공");
-                //다음 작업
-                //게임 서버로 바로 접속
-                //매칭 성공용 패킷 만들기 -> 방번호, 내 정
-            }
-        }
-        //매칭 거절
-        else if(packetData.request == MatchingPacketId.MatchingReject)
-        {
-            if(packetData.result == MatchingResult.Success)
-            {
-                //내 정보, 상대 정보를 보내서 처리
-                Debug.Log("매칭 거절");
-            }
-        }
-        //요청 완료되면 화면을 매칭중으로 전환 아니면 오류 띄우기
-
+        }  
     }
 
+    //상대방이 매칭을 거절했을시 재매치 
     public void OnReceiveMatchingRetryPacket(PacketId id, byte[] data)
     {
+        Debug.Log("retryPacket");
         MatchingRetryPacket packet = new MatchingRetryPacket(data);
         MatchingRetryData packetData = packet.GetPacket();
 
@@ -183,6 +170,16 @@ public class MatchingManager : MonoBehaviour
         if(packetData.result == MatchingResult.Success)
         {
 
+            Debug.Log("재매칭 중");
+            //재매칭중 띄우기.
+            isMatchMakingCompleted = false;
+            //
         }
+    }
+
+    //매칭 수락후 서버에서 게임 접속 메세지
+    public void OnReceiveGameStart(PacketId id, byte[] data)
+    {
+
     }
 }

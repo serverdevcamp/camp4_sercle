@@ -4,15 +4,16 @@ from enum import Enum
 class PacketId(Enum):
     matching_data = 3       #클라이언트에서는 게임에 있는 패킷도 있지만 매칭서버는 매칭만 신경쓰면 됨
     matching_response = 4
-    matching_reject = 5
+    matching_accept = 5
+    matching_reject = 6
+    matching_retry = 7
 
 
 class MatchingPacketId(Enum):
     matching_request = 0
     matching_response = 1
     matching_catch = 2
-    matching_accept = 3
-    matching_reject = 4
+
 
 
 # 클라이언트로 보내는 응답 ID
@@ -59,15 +60,19 @@ class MatchingRejectData:
 
     def deserialize(self):
         packet_id = int.from_bytes(self.message[0:4], byteorder='big')
-        my_info = int.from_bytes(self.message[8:12], byteorder='big')
-        opponent_info = int.from_bytes(self.message[12:16], byteorder='big')
+        my_info = int.from_bytes(self.message[4:8], byteorder='big')
+        opponent_info = int.from_bytes(self.message[8:12], byteorder='big')
 
         packet = [packet_id, my_info, opponent_info]
         return packet
 
+
+# 클라이언트로 보낼 재매치 메세지 패킷
+class MatchingRetryData:
+    def __init__(self, packet_id, matching_result):
+        self.data = [packet_id, matching_result]
+
+    def serialize(self):
+        packet = self.data[0].to_bytes(4, byteorder='big') + self.data[1].to_bytes(4, byteorder='big')
+        return packet
 # 클라이언트로 보낼 매칭 성립 응답 패킷
-#class MatchingCatchData:
-#    def __init__(self):
-#packet = [1, 1]
-#a = packet[0].to_bytes(4, byteorder='big')
-#print(a)
