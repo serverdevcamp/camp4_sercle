@@ -1010,9 +1010,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterPrefabs:
-  - {fileID: 2301305443361534417, guid: 477223f7c0ad5d34883ac8fc2d3fc598, type: 3}
-  - {fileID: 4181314504358160410, guid: bdc399ae25c1de744987d9a80d23b5bd, type: 3}
-  - {fileID: 1344521068759169028, guid: 16f542a6c4681c042b20e2ad1d71004b, type: 3}
+  - {fileID: 2301305443361534417, guid: d436fa08ecbdd3b44b85e6d0960b5427, type: 3}
+  - {fileID: 4181314504358160410, guid: db5855e50fabc894ba40a3012835f11f, type: 3}
+  - {fileID: 1344521068759169028, guid: 9ef58e05bc511a8408f99dd5def44aae, type: 3}
   myCharacters: []
   enemyCharacters: []
   cps: 3

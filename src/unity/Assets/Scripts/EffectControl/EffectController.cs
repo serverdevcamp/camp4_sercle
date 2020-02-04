@@ -35,6 +35,7 @@ public class EffectController : MonoBehaviour
     [SerializeField]
     private Dictionary<string, bool> stateMap = new Dictionary<string, bool>();
 
+    public GameObject[] projectilePrefabs = new GameObject[3];
 
     // Start is called before the first frame update
     void Start()
@@ -265,6 +266,8 @@ public class EffectController : MonoBehaviour
             if(skillNumber == 1)
             {
                 if (preParticles.Count == 0) return;
+                ParticleSystem.MainModule psMain = preParticles[skillNumber].GetComponent<ParticleSystem>().main;
+                psMain.startLifetime = skills[skillNumber].preDelay;
                 preParticles[skillNumber].GetComponent<ParticleSystem>().Play();
             }
         }
@@ -296,7 +299,7 @@ public class EffectController : MonoBehaviour
                 particles[skillNumber].Stop();
 
             ParticleSystem.MainModule psMain = particles[skillNumber].GetComponent<ParticleSystem>().main;
-            psMain.startLifetime = skills[skillNumber].postDelay;
+            //psMain.startLifetime = skills[skillNumber].postDelay;
             particles[skillNumber].GetComponent<ParticleSystem>().Play();
         }
         // 1번째 캐릭터(딜러)
