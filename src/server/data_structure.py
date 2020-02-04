@@ -1,10 +1,10 @@
 from enum import Enum
 
-
 # 클라이언트에서 받는 요청 ID
 class PacketId(Enum):
     matching_data = 3       #클라이언트에서는 게임에 있는 패킷도 있지만 매칭서버는 매칭만 신경쓰면 됨
     matching_response = 4
+    matching_reject = 5
 
 
 class MatchingPacketId(Enum):
@@ -27,12 +27,10 @@ class MatchingData:
         self.message = message
 
     def deserialize(self):
-        print(self.message)
         packet_id = int.from_bytes(self.message[0:4], byteorder='big')
         matching_request = int.from_bytes(self.message[4:8], byteorder='big')
-        matching_result = int.from_bytes(self.message[8:12], byteorder='big')
 
-        packet = [packet_id, matching_request, matching_result]
+        packet = [packet_id, matching_request]
 
         return packet
 
@@ -40,14 +38,32 @@ class MatchingData:
 # 클라이언트로 보낼 매칭 요청 응답 패킷
 # 클라이언트로 보낼 패킷
 class MatchingResponseData:
-    def __init__(self, packet_id, matching_request, matching_result):
-        self.data = [packet_id, matching_request, matching_result]
+    def __init__(self, packet_id, matching_request, matching_result, room, my_info, opponent_info):
+        self.data = [packet_id, matching_request, matching_result, room, my_info, opponent_info]
         #바이트로 변환해야함
 
     def serialize(self):
-        packet = self.data[0].to_bytes(4, byteorder='big') + self.data[1].to_bytes(4, byteorder='big') + self.data[2].to_bytes(4, byteorder='big')
+        packet = self.data[0].to_bytes(4, byteorder='big') + \
+                 self.data[1].to_bytes(4, byteorder='big') + \
+                 self.data[2].to_bytes(4, byteorder='big') + \
+                 self.data[3].to_bytes(4, byteorder='big') + \
+                 self.data[4].to_bytes(4, byteorder='big') + \
+                 self.data[5].to_bytes(4, byteorder='big')
         return packet
 
+
+# 클라이언트로부터 매칭 거절 메시지 수신 패킷
+class MatchingRejectData:
+    def __init__(self, message):
+        self.message = message
+
+    def deserialize(self):
+        packet_id = int.from_bytes(self.message[0:4], byteorder='big')
+        my_info = int.from_bytes(self.message[8:12], byteorder='big')
+        opponent_info = int.from_bytes(self.message[12:16], byteorder='big')
+
+        packet = [packet_id, my_info, opponent_info]
+        return packet
 
 # 클라이언트로 보낼 매칭 성립 응답 패킷
 #class MatchingCatchData:
