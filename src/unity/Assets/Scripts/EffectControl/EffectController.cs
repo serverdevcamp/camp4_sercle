@@ -27,6 +27,10 @@ public class EffectController : MonoBehaviour
     // 캐릭터의 스킬들
     private readonly Skill[] skills = new Skill[3];
 
+    // 캐릭터의 파티클
+    public List<ParticleSystem> preParticles = new List<ParticleSystem>();
+    public List<ParticleSystem> particles = new List<ParticleSystem>();
+
     // 상태 - 부울 딕셔너리
     [SerializeField]
     private Dictionary<string, bool> stateMap = new Dictionary<string, bool>();
@@ -123,9 +127,12 @@ public class EffectController : MonoBehaviour
             switch (skills[i].skillState)
             {
                 case Skill.SkillState.PreDelay:
+                    PlayPreDelayParticle(i);
                     PlayPreDelayAnim(i);
+                    
                     return;
                 case Skill.SkillState.Fire:
+                    PlayFireParticle(i);
                     PlayFireAnim(i);
                     return;
 
@@ -172,8 +179,7 @@ public class EffectController : MonoBehaviour
             //animator.SetFloat("PreDelayOffset", 1f / offset);
             if(skills[index].preDelay > 0f)
                 animator.SetFloat("PreDelayOffset", 1f / (skills[index].preDelay / animator.GetCurrentAnimatorClipInfo(0)[0].clip.length));
-        }
-        
+        }        
     }
     // 스킬 발사 애니메이션
     private void PlayFireAnim(int index)
@@ -222,4 +228,140 @@ public class EffectController : MonoBehaviour
         }
     }
 
+    // 스킬 이펙트 파티클
+    private void PlayPreDelayParticle(int skillNumber)
+    {
+        if (particles.Count == 0)
+            return;
+        
+        if (stateMap["Skill_" + skillNumber.ToString()])
+            return;
+        
+        if (GetComponent<Character>().index == 0)
+        {
+            if(skillNumber == 1)
+            {
+                if (particles[skillNumber].isPlaying)
+                    particles[skillNumber].Stop();
+
+                if (particles[skillNumber] != null)
+                {
+                    
+                    
+                    particles[skillNumber].Play(true);
+                }
+            }
+            else if(skillNumber == 2)
+            {
+                if (preParticles.Count == 0) return;
+                ParticleSystem.MainModule psMain = preParticles[skillNumber].GetComponent<ParticleSystem>().main;
+                psMain.startLifetime = skills[skillNumber].preDelay;
+                preParticles[skillNumber].GetComponent<ParticleSystem>().Play();
+                //  particles[skillNumber].shape.ra
+            }
+        }
+        else if(GetComponent<Character>().index == 1)
+        {
+            if(skillNumber == 1)
+            {
+                if (preParticles.Count == 0) return;
+                preParticles[skillNumber].GetComponent<ParticleSystem>().Play();
+            }
+        }
+        else
+        {
+            if(skillNumber == 1)
+            {
+                StartCoroutine(PlayContinuousParticle(skillNumber));
+            }
+            else if(skillNumber == 2)
+            {
+                StartCoroutine(PlayContinuousParticle(skillNumber));
+            }
+        }
+    }
+
+    private void PlayFireParticle(int skillNumber)
+    {
+        if (particles.Count == 0)
+            return;
+        
+        if (stateMap["Fire"])
+            return;
+
+        // 0번째 캐릭터(탱커)
+        if (GetComponent<Character>().index == 0)
+        {
+            if (particles[skillNumber].isPlaying)
+                particles[skillNumber].Stop();
+
+            ParticleSystem.MainModule psMain = particles[skillNumber].GetComponent<ParticleSystem>().main;
+            psMain.startLifetime = skills[skillNumber].postDelay;
+            particles[skillNumber].GetComponent<ParticleSystem>().Play();
+        }
+        // 1번째 캐릭터(딜러)
+        else if (GetComponent<Character>().index == 1)
+        {
+            if (particles[skillNumber] == null) return;
+
+            if (particles[skillNumber].isPlaying)
+                particles[skillNumber].Stop();
+
+            StartCoroutine(PlayContinuousParticle(skillNumber));
+        }
+        // 2번째 캐릭터(서폿)
+        else if(GetComponent<Character>().index == 2)
+        {
+            if (particles[skillNumber] == null) return;
+
+            if (particles[skillNumber].isPlaying)
+                particles[skillNumber].Stop();
+
+            particles[skillNumber].GetComponent<ParticleSystem>().Play();
+        }
+    }
+
+
+    // 지속시간 있는 버프같은것 처리
+    private IEnumerator PlayContinuousParticle(int index)
+    {
+        if(GetComponent<Character>().index == 1)
+        {
+            particles[index].GetComponent<ParticleSystem>().Play();
+            if (index == 2)
+                yield return new WaitForSeconds(5f);
+            else
+                yield return new WaitForSeconds(0.01f);
+            particles[index].GetComponent<ParticleSystem>().Stop();
+        }
+        else if(GetComponent<Character>().index == 2)
+        
+        {
+            if(index == 1)
+            {
+               
+                ParticleSystem.ShapeModule psShape = preParticles[index].GetComponent<ParticleSystem>().shape;
+                psShape.radius = 1f;
+                preParticles[index].Play();
+                float tmp = 0f;
+                while (tmp < skills[index].preDelay - .3f)
+                {
+                    psShape.radius += 0.05f;
+                    yield return new WaitForSeconds(.9f);
+                    tmp += 0.9f;
+                }
+                psShape.radius = 3f;
+                yield return new WaitForSeconds(0.3f);
+                preParticles[index].Stop();
+            }
+            else if(index == 2)
+            {
+                preParticles[index].Play();
+                yield return new WaitForSeconds(skills[index].preDelay);
+                preParticles[index].Stop();
+            }
+            
+            
+        }
+    }
 }
