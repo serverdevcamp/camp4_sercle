@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class UIManager_Matching : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class UIManager_Matching : MonoBehaviour
     [SerializeField] private List<CustomSlider> statusSliders;
     [SerializeField] private List<Image> skillIcons;
 
+    [SerializeField] private Transform circleImage;
+
     [Header("Character Skill Info")]
     [SerializeField] private GameObject skillInfoPanel;
     [SerializeField] private Text skillName;
@@ -23,6 +26,8 @@ public class UIManager_Matching : MonoBehaviour
     {
         characterInfoPanel.SetActive(false);
         skillInfoPanel.SetActive(false);
+
+        circleImage.DOLocalRotate(new Vector3(0, 0, 180), 2f).SetLoops(-1, LoopType.Incremental).SetEase(Ease.Linear);
     }
 
 
@@ -33,7 +38,8 @@ public class UIManager_Matching : MonoBehaviour
 
         Character character = characters[num];
 
-        characterName.text = character.name;
+        characterName.text = "";
+        characterName.DOText(character.name, 0.5f);
 
         for(int i = 0; i < statusSliders.Count; i++)
         {
