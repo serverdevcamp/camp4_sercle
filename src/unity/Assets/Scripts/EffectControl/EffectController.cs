@@ -37,6 +37,9 @@ public class EffectController : MonoBehaviour
 
     public GameObject[] projectilePrefabs = new GameObject[3];
 
+    // 지속시간 있는 스킬이 발동중인지 알려주는 변수
+    private bool[] isSkillActiveted = new bool[2];
+
     // Start is called before the first frame update
     void Start()
     {
@@ -299,8 +302,10 @@ public class EffectController : MonoBehaviour
 
             if (particles[skillNumber].isPlaying)
                 particles[skillNumber].Stop();
-
-            StartCoroutine(PlayContinuousParticle(skillNumber));
+            if (skillNumber == 1)
+                particles[skillNumber].Play();
+            else if (skillNumber == 2)
+                StartCoroutine(PlayContinuousParticle(skillNumber));
         }
         // 2번째 캐릭터(서포터)
         else if(GetComponent<Character>().index == 2)
@@ -323,6 +328,9 @@ public class EffectController : MonoBehaviour
         {
             particles[index].GetComponent<ParticleSystem>().Play();
 
+            // 치명타 스킬 발동 부울 변수 on
+            isSkillActiveted[index - 1] = true;
+
             // 치명타 올리는 스킬 발동시 5초간의 지속시간을 가진다.
             if (index == 2)
                 yield return new WaitForSeconds(5f);
@@ -330,6 +338,9 @@ public class EffectController : MonoBehaviour
                 yield return new WaitForSeconds(0.01f);
 
             particles[index].GetComponent<ParticleSystem>().Stop();
+            
+            // 치명타 스킬 발동 부울 변수 off
+            isSkillActiveted[index - 1] = false;
         }
         // 서포터
         else if(GetComponent<Character>().index == 2)
@@ -355,11 +366,17 @@ public class EffectController : MonoBehaviour
             else if(index == 2)
             {
                 preParticles[index].Play();
-                yield return new WaitForSeconds(skills[index].preDelay);
+                yield return new WaitForSeconds(skills[index].preDelay -.3f);
                 preParticles[index].Stop();
             }
             
             
         }
+    }
+
+    // 스킬이 발동중 여부를 리턴하는 함수
+    public bool SkillState(int index)
+    {
+        return isSkillActiveted[index - 1] ? true : false;
     }
 }

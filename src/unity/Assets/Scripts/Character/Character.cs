@@ -76,6 +76,8 @@ public class Character : MonoBehaviour
     {
         if (isFriend == false) return;
         Vector3 dir = target.transform.position - transform.position;
+        // 발사체 오브젝트 교체
+        ChangeProjectile();
         StartCoroutine(skills[0].Use(this, dir.normalized));
     }
 
@@ -270,5 +272,17 @@ public class Character : MonoBehaviour
     public CharacterState GetCharacterState()
     {
         return state;
+    }
+
+    // 지속시간 있는 버프 스킬 발동시 투사체 변환
+    private void ChangeProjectile() 
+    {
+        if (index == 1)
+        {
+            if (GetComponent<EffectController>().SkillState(2))
+                skills[0].proj = GetComponent<EffectController>().projectilePrefabs[2].GetComponent<Projectile>();
+            else
+                skills[0].proj = GetComponent<EffectController>().projectilePrefabs[0].GetComponent<Projectile>();
+        }
     }
 }
