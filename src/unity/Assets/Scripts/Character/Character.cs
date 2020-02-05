@@ -215,8 +215,6 @@ public class Character : MonoBehaviour
         else
         {
             transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().material.color = Color.white;
-            ShowSkillRange(false);
-            ShowSkillDirection(false);
         }
     }
 
@@ -241,31 +239,6 @@ public class Character : MonoBehaviour
         yield return new WaitForSeconds(effect.duration);
 
         status.ApplyCC(HardCCType.None);
-    }
-
-    /// <summary>
-    /// 해당 스킬의 사거리를 표시해주는 함수.
-    /// </summary>
-    /// <param name="show">true면 표시, false면 표시하지 않는다.</param>
-    /// <param name="range">스킬의 사거리. 기본값은 0이다.</param>
-    public void ShowSkillRange(bool show, float range = 0)
-    {
-        skillRangeCircle.SetupCircle(range);
-
-        if (show) skillRangeCircle.gameObject.SetActive(true);
-        else skillRangeCircle.gameObject.SetActive(false);
-    }
-
-    /// <summary>
-    /// 해당 스킬의 방향을 표시해주는 함수.
-    /// </summary>
-    /// <param name="show">true면 보여준다. false면 안보여준다.</param>
-    /// <param name="dir">표시할 방향</param>
-    public void ShowSkillDirection(bool show, Vector3 dir = default)
-    {
-        skillDirRect.gameObject.SetActive(show);
-        float angle = Mathf.Atan2(dir.z, dir.x) * Mathf.Rad2Deg + transform.rotation.eulerAngles.y;
-        skillDirRect.localRotation = Quaternion.Euler(0, 0, angle);
     }
 
     // EffectController에서 CharacterState를 받아오게끔 하는 함수. 200130 작성

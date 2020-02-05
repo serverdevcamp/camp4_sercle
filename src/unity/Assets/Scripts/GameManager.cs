@@ -143,13 +143,13 @@ public class GameManager : MonoBehaviour
         {
             Vector3 casterPos = caster.transform.position;
             Vector3 rawDir = hit.point - casterPos;
-            caster.ShowSkillDirection(true, rawDir);
+            //caster.ShowSkillDirection(true, rawDir);
 
             if (Input.GetMouseButtonDown(0))
             {
                 // Debug.Log("마우스 위치 : " + hit.point + ", 시전자 위치 : " + casterPos + ", 계산된 방향 : " + rawDir);
                 dir = rawDir.normalized;
-                caster.ShowSkillDirection(false);
+                //caster.ShowSkillDirection(false);
             }
         }
 
