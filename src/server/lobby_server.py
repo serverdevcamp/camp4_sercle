@@ -20,6 +20,8 @@ class Lobby:
         self.matching_list = []         # 매칭 요청한 유저들 담을 큐 객체
         self.user_list = []             # 서버에 접속한 유저 소켓 저장할 리스트
         self.room_num = 1
+        self.accept_dic = {}
+
         try:
             self.start_server()
         except Exception as e:
@@ -40,8 +42,11 @@ class Lobby:
             client_socket, addr = self.server_socket.accept()  # 소켓
             print(addr[0] + ' ' + str(addr[1]) + ' connected')
 
+            # user_id = client_socket.recv(10)
+
             # addr[0] : IP,  addr[1] : port,  testidx : 유저 DB id
-            self.user_list.append([client_socket, addr, testidx])
+            # self.user_list.append([client_socket, addr, user_id])      #로그인 전용
+            self.user_list.append([client_socket, addr, testidx])       #테스트 전용
             testidx += 1
             # 유저 정보 리스트에 저장
             start_new_thread(self.client_thread, (self.user_list[-1],))     # 쓰레드 시작
@@ -49,7 +54,7 @@ class Lobby:
     # 매칭 쓰레드
     def matching_queue_thread(self):
         while True:
-            time.sleep(2)
+            time.sleep(0.5)
             if len(self.matching_list) >= 2:
                 #유저 추출
                 users = []
@@ -58,23 +63,56 @@ class Lobby:
                 users.append(self.matching_list[0])
                 del self.matching_list[0]
 
-                self.matching_catch(users)
+                #매칭된 두 유저 dic 0으로 초기화 -> 클라이언트로부터 수락 요청시 1, 거절 요청시 -1 처리
+                self.accept_dic[users[0][2]] = 0
+                self.accept_dic[users[1][2]] = 0
+                start_new_thread(self.matching_catch_thread, (users[0], users[1]))
                 print("매칭 잡힘")
 
-    def matching_catch(self, users):
-        for my_info in users:
-            # 각 클라이언트에게 매칭이 잡혔다는 메시지를 전달
-            # 유저 리스트 자체를 전달
-            for opponent_info in users:
-                if my_info is not opponent_info:
-                    response = MatchingResponseData(PacketId.matching_response.value,
-                                                    MatchingPacketId.matching_catch.value,
-                                                    MatchingResult.success.value,
-                                                    self.room_num,
-                                                    my_info[2],
-                                                    opponent_info[2]).serialize()
-                    my_info[0].send(response)
-                    self.room_num += 1
+    def accept_response(self, my_socket, opponent_socket):
+        message = MatchingCompleteData(PacketId.matching_complete.value, self.room_num, my_socket[2])
+        my_socket[0].send(message)
+        message = MatchingCompleteData(PacketId.matching_complete.value, self.room_num, opponent_socket[2])
+        opponent_socket[0].send(message)
+
+    def reject_response(self, user_socket):
+        #매칭 잡힌 후 10초뒤에 전달되는 메시지
+        message = MatchingRejectData(PacketId.matching_reject.value, MatchingResult.success.value)
+        user_socket[0].send(message)
+
+    def matching_catch_thread(self, my_socket, opponent_socket):
+        response = MatchingResponseData(PacketId.matching_response.value,
+                                        MatchingPacketId.matching_request.value,
+                                        MatchingResult.success.value,
+                                        my_socket[2])
+        my_socket[0].send(response)
+        response = MatchingResponseData(PacketId.matching_response.value,
+                                        MatchingPacketId.matching_request.value,
+                                        MatchingResult.success.value,
+                                        opponent_socket[2])
+        opponent_socket[0].send(response)
+
+        times = 0
+        while times < 20:
+            # 둘다  매칭 수락함.
+            if self.accept_dic[my_socket[2]] == 1 and self.accept_dic[opponent_socket[2]] == 1:
+                self.accept_response(my_socket, opponent_socket)
+                return 0
+            times += 1
+            time.sleep(0.5)
+
+        #10초가 지나면
+        #내가 수락 상대방 거절
+        if self.accept_dic[my_socket[2]] == 1 and (self.accept_dic[opponent_socket] == 0 or
+                                                   self.accept_dic[opponent_socket] == -1):
+            self.retry_request_matching(my_socket)
+            self.reject_response(opponent_socket)
+            #retry 메시지
+        #내가 거절 상대방 수락
+        elif self.accept_dic[opponent_socket[2]] == 1 and (self.accept_dic[my_socket] == 0 or
+                                                           self.accept_dic[my_socket] == -1):
+            self.retry_request_matching(opponent_socket)
+            self.reject_response(my_socket)
 
     # 각 클라이언트 소켓 쓰레드
     def client_thread(self, user_socket):
@@ -96,54 +134,52 @@ class Lobby:
             if packet_data[1] == MatchingPacketId.matching_request.value:
                 print("매칭 요청")
                 self.request_matching(user_socket, TRY_MATCH)
-        # 클라이언트로부터 매칭 거절 요청
-        elif packet_id == PacketId.matching_reject.value:
-            print("reject~~!~!~!~!~!")
-            packet_data = MatchingRejectData(message).deserialize()
-            self.reject_matching(packet_data)
+        # 클라이언트로부터 매칭 수락, 거절 여부 메시지
+        elif packet_id == PacketId.matching_decision:
+            packet_data = MatchingDecisionData(message).deserialize()
+
+            #수락 눌렀을 시
+            if packet_data[1] == MatchingDecision.matching_accept.value:
+                self.accept_matching(packet_data)
+            elif packet_data[1] == MatchingDecision.matching_reject.value:
+                self.reject_matching(packet_data)
+
+    def retry_request_matching(self, retry_user_socket):
+        for user in self.user_list:         #모든 유저 리스트
+            if user[2] == retry_user_socket:
+                print("제발 집가자")
+                self.request_matching(user, RETRY_MATCH)
 
     # 매칭 등록
     def request_matching(self, user_socket, match_type):
         self.matching_list.append(user_socket)        # 매칭 요청 유저 리스트에 삽입
         # response 전송
-        if match_type == TRY_MATCH:         # 매칭 요청으로 매칭 메세지 전송
+        if match_type == TRY_MATCH:                   # 매칭 요청으로 매칭 메세지 전송
             response = MatchingResponseData(PacketId.matching_response.value,
                                             MatchingPacketId.matching_response.value,
                                             MatchingResult.success.value,
-                                            0, 0, 0).serialize()
+                                            user_socket[2]).serialize()
             user_socket[0].send(response)
 
-        elif match_type == RETRY_MATCH:     # 상대방이 거절한 유저 재매칭 메세지 전송
-            print("retry matching 진입")
+        elif match_type == RETRY_MATCH:              # 상대방이 거절한 유저 재매칭 메세지 전송
             response = MatchingRetryData(PacketId.matching_retry.value, MatchingResult.success.value).serialize()
             user_socket[0].send(response)
         print("매칭 응답 전송")
 
-    def accept_matching(self, packet_data, user_socket):
-        response = MatchingResponseData(PacketId.matching_response.value,
-                                        MatchingPacketId.matching_accept.value,
-                                        MatchingResult.success.value,
-                                        self.room_num).serialize()
-        user_socket[0].send(response)
-        print("매칭 수락 응답 전송")
+    def accept_matching(self, packet_data):
+        self.accept_dic[packet_data[1]] = 1     #수락했다고 알림
+        print("매칭 수락")
 
-    # 내 자신이 매칭 거절 누를시 상대방에게 재매치 메시지 전달
     def reject_matching(self, packet_data):
-        print(str(packet_data[1]) + "매칭 취소")
-        print("상대 아이디 : " + str(packet_data[2]))
-        opponent_info = packet_data[2]          # 상대방 아이디
-        self.retry_request_matching(opponent_info)
+        self.accept_dic[packet_data[1]] = -1    #거절했다 알림
+        print("매칭 거절")
 
-    def retry_request_matching(self, opponent_info):
-        for user in self.user_list:
-            print("유저 반복 : " + str(user[2]))
-            if user[2] == opponent_info:
-                print("제발 집가자")
-                self.request_matching(user, RETRY_MATCH)
+
 
     def remove(self, connection):
         if connection in self.user_list:
             self.user_list.remove(connection)
             print(connection[2].decode() + "님이 나가셨습니다.")
+
 
 server = Lobby()

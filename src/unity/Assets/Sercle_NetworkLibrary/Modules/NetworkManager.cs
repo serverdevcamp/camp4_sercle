@@ -1,12 +1,4 @@
-﻿/*  
- * 네트워크 관리자
- * 
- * 네트워크 연결/해제, 에러처리, 송/수신 담당.
- * 
- * FixedUpdate에서 수신
- */
-
-using UnityEngine;
+﻿using UnityEngine;
 using System;
 using System.Text;
 using System.Collections;
@@ -15,8 +7,6 @@ using System.Net;
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
 using System.Threading;
-
-
 
 public class NetworkManager : MonoBehaviour
 {

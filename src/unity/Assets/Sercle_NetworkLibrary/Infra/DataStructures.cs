@@ -10,9 +10,10 @@ public enum PacketId
     MovingData,
     MatchingData,
     MatchingResponse,
-    MatchingAccept,
-    MatchingReject,
+    MatchingDecision,
     MatchingRetry,
+    MatchingComplete,
+    MatchingReject,
     GameServerJoin,
 };
 
@@ -32,6 +33,11 @@ public enum MatchingResult
 }
 // 스킬 종류 식별용 열거형
 
+public enum MatchingDecision
+{
+    Accept = 0,
+    Reject,
+}
 
 //매칭 요청 정보
 public struct MatchingData
@@ -57,10 +63,7 @@ public struct MatchingResponseData
 {
     public MatchingPacketId request;
     public MatchingResult result;
-    public int room;    
-    public int myInfo;              //내 정보
-    public int opponentInfo;        //상대 정
-
+    public int myInfo;
     public override string ToString()
     {
         string str = "";
@@ -70,10 +73,10 @@ public struct MatchingResponseData
     }
 }
 
-public struct MatchingRejectData
-{ 
+public struct MatchingDecisionData
+{
+    public MatchingDecision decision;
     public int myinfo;
-    public int opponentInfo;
 }
 // 데이터의 헤더에 패킷을 붙힌다.
 // Fix this : 네트워크에 사용할 구조체는 한곳에 몰아놓기.
@@ -108,6 +111,16 @@ public struct MouseData
 
 };
 
+public struct MatchingCompleteData
+{
+    public int roomId;
+    public int myInfo;
+}
+
+public struct MatchingRejectData
+{
+    public MatchingResult result;
+}
 // 일반공격, 스킬 포함 데이터
 // 
 public struct AttackData

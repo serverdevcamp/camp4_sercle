@@ -5,16 +5,19 @@ using UnityEngine.UI;
 
 public class MatchingManager : MonoBehaviour
 {
+    public GameObject MatchingResponseWaitUI;
     // 매치메이킹이 완료되었을 때 화면에 등장할, 거절/수락 버튼을 가진 UI.
     public GameObject completeMatchMakingUI;
     // 매치메이킹이 완료되지 않았을 때 화면에 등장할 채팅창 등을 가진 UI. 
     public GameObject waitMatchMakingUI;
     // 매치메이킹이 완료되었는지 판단하는 변수
     public bool isMatchMakingCompleted;
+    public bool isMatchingResponseWait;
     private MatchingNetworkManager networkManager;
     public static MatchingManager instance;
     public int myInfo;
     public int opponentInfo;
+    public int roomNum;
 
     private void Awake()
     {
@@ -25,48 +28,61 @@ public class MatchingManager : MonoBehaviour
     void Start()
     {
         isMatchMakingCompleted = false;
+        isMatchingResponseWait = false;
         networkManager = GetComponent<MatchingNetworkManager>();
         networkManager.RegisterReceiveNotification(PacketId.MatchingResponse,
             OnReceiveMatchingResponsePacket);
         networkManager.RegisterReceiveNotification(PacketId.MatchingRetry,
             OnReceiveMatchingRetryPacket);
+        networkManager.RegisterReceiveNotification(PacketId.MatchingReject,
+            OnReceiveMatchingRejectPacket);
     }
 
-    public void testButton()
-    {
-        networkManager.ConnectIP();     //서버와 연결.
-        Debug.Log("소켓 연결 Awd");
-    }
     // Update is called once per frame
     void Update()
     {
-        // 매치메이킹이 성공되어 true로 되었다면, 꺼져있던 매치메이킹 관련 UI가 화면에 등장.
+        if(isMatchingResponseWait == true)
+        {
+            if (!MatchingResponseWaitUI.activeSelf)
+            {
+                MatchingResponseWaitUI.SetActive(true);
+                waitMatchMakingUI.SetActive(false);
+                completeMatchMakingUI.SetActive(false);
+            }
+        }
+        else
+        {
+            MatchingResponseWaitUI.SetActive(false);
+        }
+        
         if(isMatchMakingCompleted == true)
         {
             // 꺼져있다면
             if (!completeMatchMakingUI.activeSelf)
             {
-                // UI 켠다.
                 completeMatchMakingUI.SetActive(true);
-                // 다른 UI는 끈다.
                 waitMatchMakingUI.SetActive(false);
+                MatchingResponseWaitUI.SetActive(false);
             }
         }
         else
         {
-            if (!waitMatchMakingUI.activeSelf)
+            completeMatchMakingUI.SetActive(false);
+        }
+
+        if(isMatchingResponseWait == false && isMatchMakingCompleted == false)
+        {
+            if (!waitMatchMakingUI)
             {
                 waitMatchMakingUI.SetActive(true);
-                completeMatchMakingUI.SetActive(false);
             }
         }
     }
 
-
     // 매칭 시작 버튼 클릭 함수
     public void MatchingRequest()
     {
-        SendLocalMatchingRequest(1);
+        SendLocalMatchingRequest();
         Debug.Log("매칭 해주세요 버튼 클릭");
     }
 
@@ -74,50 +90,52 @@ public class MatchingManager : MonoBehaviour
     public void AccpetMatchMakingResult()
     {
         Debug.Log("매칭 결과 수락 버튼 클릭");
-        
+        SendLocalMatchingAccept();
+
+        // 상대방 매칭 대기중 메시지 띄우기
         // 게임 씬으로 이동
     }
+
     // 매치메이킹 거절
     public void RefuseMatchMakingResult()
     {
         Debug.Log("매칭 결과 거절 버튼 클릭");
         // 초기 로비 화면으로 돌아감
         SendLocalMatchingReject();
-        isMatchMakingCompleted = false;
-        
     }
 
-
-    //private void Matching
-
     //매칭 요청
-    public void SendLocalMatchingRequest(int index)
+    public void SendLocalMatchingRequest()
     {
         MatchingData matchingData = new MatchingData();
         matchingData.request = MatchingPacketId.MatchingRequest;
-
         Debug.Log("매칭 데이터 : " + matchingData);
         MatchingPacket packet = new MatchingPacket(matchingData);
-
         networkManager.SendReliable<MatchingData>(packet);
     }
 
     //매칭 수락
     public void SendLocalMatchingAccept()
     {
-
+        MatchingDecisionData matchingDecisionData = new MatchingDecisionData();
+        matchingDecisionData.decision = MatchingDecision.Accept;
+        matchingDecisionData.myinfo = myInfo;
+        MatchingDecisionPacket packet = new MatchingDecisionPacket(matchingDecisionData);
+        networkManager.SendReliable<MatchingDecisionData>(packet);
+        isMatchingResponseWait = true;
+        isMatchMakingCompleted = false;
     }
+
     //매칭 거절
     public void SendLocalMatchingReject()
     {
-        MatchingRejectData matchingRejectData = new MatchingRejectData();
-        matchingRejectData.myinfo = myInfo;
-        matchingRejectData.opponentInfo = opponentInfo;
-
-        Debug.Log("myinfo : " + myInfo + " opponentInfo : " + opponentInfo);
-        MatchingRejectPacket packet = new MatchingRejectPacket(matchingRejectData);
-
-        networkManager.SendReliable<MatchingRejectData>(packet);
+        MatchingDecisionData matchingDecisionData = new MatchingDecisionData();
+        matchingDecisionData.decision = MatchingDecision.Reject;
+        matchingDecisionData.myinfo = myInfo;
+        MatchingDecisionPacket packet = new MatchingDecisionPacket(matchingDecisionData);
+        networkManager.SendReliable<MatchingDecisionData>(packet);
+        isMatchingResponseWait = true;
+        isMatchMakingCompleted = false;
     }
 
     //매칭 응답 패킷 받기
@@ -141,13 +159,14 @@ public class MatchingManager : MonoBehaviour
                 Debug.Log("매칭 실패");
             }
         }
-        //매칭이 잡힘
+        //매칭이 잡힘 
         else if(packetData.request == MatchingPacketId.MatchingCatch)
         {
+            myInfo = -1;
+
             if(packetData.result == MatchingResult.Success)
             {
                 myInfo = packetData.myInfo;
-                opponentInfo = packetData.opponentInfo;
                 isMatchMakingCompleted = true;
                 //내 정보 상대 정보 저장.
                 //수락 여부 버튼 띄우기.
@@ -159,7 +178,7 @@ public class MatchingManager : MonoBehaviour
         }  
     }
 
-    //상대방이 매칭을 거절했을시 재매치 
+    //상대방이 매칭을 거절했을시 재매치
     public void OnReceiveMatchingRetryPacket(PacketId id, byte[] data)
     {
         Debug.Log("retryPacket");
@@ -169,7 +188,6 @@ public class MatchingManager : MonoBehaviour
         //
         if(packetData.result == MatchingResult.Success)
         {
-
             Debug.Log("재매칭 중");
             //재매칭중 띄우기.
             isMatchMakingCompleted = false;
@@ -177,6 +195,25 @@ public class MatchingManager : MonoBehaviour
         }
     }
 
+    public void OnReceiveMatchingRejectPacket(PacketId id, byte[] data)
+    {
+        Debug.Log("rejectPacket");
+        MatchingRejectPacket packet = new MatchingRejectPacket(data);
+        MatchingRejectData packetData = packet.GetPacket();
+
+        if(packetData.result == MatchingResult.Success)
+        {
+            Debug.Log("매칭 거절 됌");
+            isMatchingResponseWait = false;
+        }
+    }
+    //둘 다 매칭을 수락했을 때의 메세지
+    public void OnReceiveMatchingCompletePacket(PacketId id, byte[] data)
+    {
+        MatchingCompletePacket packet = new MatchingCompletePacket(data);
+        MatchingCompleteData packetData = packet.GetPacket();
+        Debug.Log("둘 다 매칭 수락 게임을 시작합니다.");
+    }
     //매칭 수락후 서버에서 게임 접속 메세지
     public void OnReceiveGameStart(PacketId id, byte[] data)
     {
