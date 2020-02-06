@@ -113,4 +113,14 @@ public class UIManager : MonoBehaviour
         WSkill.fillAmount = 1f - (character.skills[2].RemainCool / character.skills[2].coolDown);
 
     }
+
+    public void ShowSkillIndicator(int num)
+    {
+        curCharacter.ShowSkillIndicator(num, false);
+    }
+
+    public void HideSkillIndicator()
+    {
+        curCharacter.HideSkillIndicator();
+    }
 }

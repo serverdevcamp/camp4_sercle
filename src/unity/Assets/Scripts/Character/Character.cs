@@ -94,9 +94,13 @@ public class Character : MonoBehaviour
         StartCoroutine(skills[num].Fire(this, dir));        
     }
 
-    public void ShowSkillIndicator(int num)
+    public void ShowSkillIndicator(int num, bool activate)
     {
-        Splats.SelectSpellIndicator(skills[num].indicator.name);
+        if (skills[num].indicator)
+        {
+            Splats.GetSpellIndicator(skills[num].indicator.name).activate = activate;
+            Splats.SelectSpellIndicator(skills[num].indicator.name);
+        }
     }
 
     public void HideSkillIndicator()

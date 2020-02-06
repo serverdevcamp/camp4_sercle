@@ -52,7 +52,7 @@ public class Skill
         }
         else
         {
-            caster.ShowSkillIndicator(myNum);
+            caster.ShowSkillIndicator(myNum, true);
             while (dir.HasValue == false)
             {
                 bool isValid = true;

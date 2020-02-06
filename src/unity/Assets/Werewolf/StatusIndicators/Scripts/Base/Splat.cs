@@ -39,8 +39,12 @@ namespace Werewolf.StatusIndicators.Components {
 		[SerializeField]
 		protected float width;
 
-		// Properties
-
+		/// <summary>
+		/// 스킬 정보를 보려고 하면 false, 스킬을 사용하는 상태라면 true
+		/// </summary>
+		[SerializeField]
+		public bool activate;
+		
 		/// <summary>
 		/// The manager should contain all the splats for the character.
 		/// </summary>
