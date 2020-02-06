@@ -124,6 +124,7 @@ public class GameManager : MonoBehaviour
     {
         if (curCharacter) curCharacter.ChooseToCurrent(false);
         curCharacter = character;
+        Camera.main.GetComponent<CameraController>().FocusCharacter(CurCharacter);
         curCharacter.ChooseToCurrent(true);
     }
 

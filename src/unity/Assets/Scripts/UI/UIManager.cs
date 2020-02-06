@@ -123,4 +123,14 @@ public class UIManager : MonoBehaviour
     {
         curCharacter.HideSkillIndicator();
     }
+
+    public void MoveCamera(string direction)
+    {
+        Camera.main.GetComponent<CameraController>().MoveCamera(direction, true);
+    }
+
+    public void StopCamera(string direction)
+    {
+        Camera.main.GetComponent<CameraController>().MoveCamera(direction, false);
+    }
 }
