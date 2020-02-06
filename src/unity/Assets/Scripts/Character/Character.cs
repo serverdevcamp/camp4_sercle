@@ -91,6 +91,7 @@ public class Character : MonoBehaviour
 
     public void FireProjectile(int num, Vector3 dir)
     {
+        transform.rotation = Quaternion.LookRotation(dir);
         StartCoroutine(skills[num].Fire(this, dir));        
     }
 
