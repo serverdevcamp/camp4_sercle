@@ -25,11 +25,14 @@ public class MatchingNetworkManager : MonoBehaviour
     void Start()
     {
         transportTCP = GetComponent<TransportTCP>();
+        transportTCP.Connect("10.99.13.48", 3098);
     }
 
     // Update is called once per frame
     void Update()
     {
+
+
         if (transportTCP.IsConnected())
         {
             ReceiveReliableData();

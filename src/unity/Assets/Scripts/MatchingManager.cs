@@ -27,6 +27,8 @@ public class MatchingManager : MonoBehaviour
     public int myInfo;
     public int opponentInfo;
     public int roomNum;
+    public UserInfo userInfo;
+    private TransportTCP socket;
 
     // 매치메이킹 State 열거형.
     private enum MatchingState { Nothing, WaitMatchingResult, SelectMatchingResult, AcceptMatchingResult, RefuseMatchingResult}
@@ -43,10 +45,14 @@ public class MatchingManager : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("asdsad");
+        userInfo = GameObject.Find("UserInfoObject").GetComponent<UserInfo>();
+
         isMatchMakingCompleted = false;
         isMatchingResponseWait = false;
         isMatchingRequestBtnClicked = false;
 
+        
         // 현재 매치메이킹 진행 state 초기화
         matchingState = MatchingState.Nothing;
 
@@ -59,11 +65,18 @@ public class MatchingManager : MonoBehaviour
             OnReceiveMatchingRejectPacket);
         networkManager.RegisterReceiveNotification(PacketId.MatchingComplete,
             OnReceiveMatchingCompletePacket);
+
     }
 
     // 업데이트 처리 후 late update 실행.
     void LateUpdate()
     {
+
+        //if (userInfoFlag == false)
+        //{
+        //    SendData(userInfo.userData.email);
+        //    userInfoFlag = true;
+        //}
         #region OldCodes(~20.02.06)
         //// 내가 '수락' or '거절' 버튼 클릭시
         //if (isMatchingResponseWait == true)
