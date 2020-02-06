@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using System.Text;
 
 public class ChattingManager : MonoBehaviour
 {
@@ -53,8 +54,8 @@ public class ChattingManager : MonoBehaviour
             }
             if (CheckUser(userInfo.userData.email, userInfo.userData.token))
             {
-                Debug.Log("zzzzz");
-                string msg = "[" + DateTime.Now.ToString("HH:mm:ss") + "] " + inputField.text;
+                StringBuilder sb = new StringBuilder("[" + DateTime.Now.ToString("HH:mm:ss") + "] " + inputField.text, 100);
+                string msg = inputField.text;
                 SendData(msg);
             }
         }
@@ -83,24 +84,25 @@ public class ChattingManager : MonoBehaviour
     {
         byte[] buffer = new byte[1024];
         int recvSize = socket.Receive(ref buffer, buffer.Length);
-
+ 
         if(recvSize > 0)
         {
-            string endcode = Convert.ToBase64String(buffer);
-            byte[] decode = Convert.FromBase64String(endcode);
-
-            string msg = System.Text.Encoding.UTF8.GetString(decode);
-            Debug.Log("Recv data : " + msg);
+            string msg = System.Text.Encoding.UTF8.GetString(buffer);
+            Debug.Log("Recv data : " + msg + msg);
             AddMessage(msg);
         }
     }
 
     void AddMessage(string message)
     {
-        ///string a =  message.ToString() + "1";
-       // Debug.Log("메세지1 : " + a);
-        //Debug.Log("메세지2 : " + message);
-        dialogue.text += "a";
+        string a = message.Substring(message.IndexOf(""));
+        Debug.Log(message[1000]);
+        if(message == "aaa")
+        {
+            Debug.Log("시발");
+        }
+
+        dialogue.text += a;
 
         inputField.text = "";
         scrollbar.verticalNormalizedPosition = 0f;
