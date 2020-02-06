@@ -1011,7 +1011,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterPrefabs:
   - {fileID: 2301305443361534417, guid: d436fa08ecbdd3b44b85e6d0960b5427, type: 3}
-  - {fileID: 4181314504358160410, guid: db5855e50fabc894ba40a3012835f11f, type: 3}
+  - {fileID: 1653011094770450315, guid: db5855e50fabc894ba40a3012835f11f, type: 3}
   - {fileID: 1344521068759169028, guid: 9ef58e05bc511a8408f99dd5def44aae, type: 3}
   myCharacters: []
   enemyCharacters: []
