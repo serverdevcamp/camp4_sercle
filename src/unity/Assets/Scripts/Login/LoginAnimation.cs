@@ -79,7 +79,7 @@ public class LoginAnimation : MonoBehaviour
     // 다음 캐릭터 게임오브젝트를 선정.
     private void ChangeCharacter()
     {
-        nextCharacterPtr = ++nextCharacterPtr % 3;
+        nextCharacterPtr = ++nextCharacterPtr % characterPrefabs.Count;
         character = characterPrefabs[nextCharacterPtr];
     }
 
@@ -92,7 +92,9 @@ public class LoginAnimation : MonoBehaviour
             return;
         }
 
-        character.transform.DOMove(stagePos, 3f, false);     
+        character.transform.DOMove(stagePos, 3f, false);
+        if (!character.GetComponent<Animator>().GetBool("Walking"))
+            character.GetComponent<Animator>().SetBool("Walking", true);
     }
 
     // 백 스테이지로 걸어가는 상태
@@ -105,6 +107,8 @@ public class LoginAnimation : MonoBehaviour
         }
 
         character.transform.DOMove(backStagePos, 3f, false);
+        if (!character.GetComponent<Animator>().GetBool("Walking"))
+            character.GetComponent<Animator>().SetBool("Walking", true);
     }
 
     // 스테이지에서 Idle 애니메이션 재생하는 상태
@@ -113,6 +117,7 @@ public class LoginAnimation : MonoBehaviour
         if (!character.GetComponent<Animator>().GetBool("Idle"))
         {
             character.GetComponent<Animator>().SetBool("Idle", true);
+            character.GetComponent<Animator>().SetBool("Walking", false);
             StartCoroutine(WaitForNextState());   
         }
     }
@@ -146,6 +151,7 @@ public class LoginAnimation : MonoBehaviour
         if (!character.GetComponent<Animator>().GetBool("Skill"))
         {
             character.GetComponent<Animator>().SetBool("Skill", true);
+            character.GetComponent<Animator>().SetBool("Walking", false);
             StartCoroutine(WaitForNextState());
         }
     }
