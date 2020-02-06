@@ -63,8 +63,6 @@ public class MatchingNetworkManager : MonoBehaviour
         int headerSize = sizeof(int);
         byte[] packetData = new byte[data.Length - headerSize];
         Buffer.BlockCopy(data, headerSize, packetData, 0, packetData.Length);
-
-        Debug.Log("b : " + packetId);
         // 등록된 적절한 receive함수 호출
         notifier[packetId]((PacketId)packetId, packetData);
     }
@@ -85,7 +83,6 @@ public class MatchingNetworkManager : MonoBehaviour
     public void RegisterReceiveNotification(PacketId id, RecvNotifier _notifier)
     {
         int index = (int)id;
-        Debug.Log("a : " + index);
         if (notifier.ContainsKey(index))
         {
             notifier.Remove(index);

@@ -311,7 +311,6 @@ public class TransportTCP : MonoBehaviour
 		{
 			while (m_isConnected && m_socket.Poll(0, SelectMode.SelectRead))
 			{
-				Debug.Log("RECV1");
 				byte[] buffer = new byte[s_mtu];
 
 				int recvSize = m_socket.Receive(buffer, buffer.Length, SocketFlags.None);

@@ -36,6 +36,8 @@ public class MatchingManager : MonoBehaviour
             OnReceiveMatchingRetryPacket);
         networkManager.RegisterReceiveNotification(PacketId.MatchingReject,
             OnReceiveMatchingRejectPacket);
+        networkManager.RegisterReceiveNotification(PacketId.MatchingComplete,
+            OnReceiveMatchingCompletePacket);
     }
 
     // Update is called once per frame
@@ -145,7 +147,6 @@ public class MatchingManager : MonoBehaviour
         //MatchingPacketId에 대한 처리해주기
         MatchingResponsePacket packet = new MatchingResponsePacket(data);
         MatchingResponseData packetData = packet.GetPacket();
-        Debug.Log(packetData);
 
         if (packetData.request == MatchingPacketId.MatchingResponse)
         {
@@ -191,6 +192,7 @@ public class MatchingManager : MonoBehaviour
             Debug.Log("재매칭 중");
             //재매칭중 띄우기.
             isMatchMakingCompleted = false;
+            isMatchingResponseWait = false;
             //
         }
     }
@@ -205,6 +207,7 @@ public class MatchingManager : MonoBehaviour
         {
             Debug.Log("매칭 거절 됌");
             isMatchingResponseWait = false;
+            isMatchMakingCompleted = false;
         }
     }
     //둘 다 매칭을 수락했을 때의 메세지
@@ -213,6 +216,8 @@ public class MatchingManager : MonoBehaviour
         MatchingCompletePacket packet = new MatchingCompletePacket(data);
         MatchingCompleteData packetData = packet.GetPacket();
         Debug.Log("둘 다 매칭 수락 게임을 시작합니다.");
+        isMatchingResponseWait = false;
+        isMatchMakingCompleted = false;
     }
     //매칭 수락후 서버에서 게임 접속 메세지
     public void OnReceiveGameStart(PacketId id, byte[] data)
