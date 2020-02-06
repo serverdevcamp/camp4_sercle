@@ -186,7 +186,7 @@ public class MatchingManager : MonoBehaviour
     public void MatchingCancel()
     {
         Debug.Log("매칭 취소 하겠습니다 버튼 클릭 ");
-        isMatchingRequestBtnClicked = false;
+        SendLocalMatchingCancel();
 
         ChangeMatchingState(MatchingState.Nothing);
     }
@@ -224,6 +224,15 @@ public class MatchingManager : MonoBehaviour
         networkManager.SendReliable<MatchingData>(packet);
     }
 
+    //매칭 취소
+    public void SendLocalMatchingCancel()
+    {
+        MatchingCancelData matchingCancelData = new MatchingCancelData();
+        matchingCancelData.myInfo = 0;
+        MatchingCancelPacket packet = new MatchingCancelPacket(matchingCancelData);
+        networkManager.SendReliable<MatchingCancelData>(packet);
+        isMatchingRequestBtnClicked = false;
+    }
     //매칭 수락
     public void SendLocalMatchingAccept()
     {

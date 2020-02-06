@@ -3,7 +3,7 @@ from _thread import *
 from data_structure import *
 import time
 
-HOST = '127.0.0.1'
+HOST = '0.0.0.0'
 PORT = 3098
 TRY_MATCH = 0
 RETRY_MATCH = 1
@@ -151,6 +151,14 @@ class Lobby:
             elif packet_data[1] == MatchingDecision.matching_reject.value:
                 print("거절")
                 self.reject_matching(packet_data)
+        # 클라이언트로부터 매칭 취소
+        elif packet_id == PacketId.matching_cancel.value:
+            self.cancel_matching(user_socket)
+
+    def cancel_matching(self, cancel_user_socket):
+        for user in self.matching_list:
+            if user == cancel_user_socket:
+                self.matching_list.remove(cancel_user_socket)
 
     def retry_request_matching(self, retry_user_socket):
         for user in self.user_list:         #모든 유저 리스트
