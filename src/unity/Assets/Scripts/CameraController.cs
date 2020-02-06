@@ -8,16 +8,25 @@ public class CameraController : MonoBehaviour
     [SerializeField] private Vector3 dir;
     [SerializeField] private float distance;
 
+    private Character focusCharacter;
     private Vector3 targetPosition;
     private Vector3 moveDir = Vector3.zero;
     private float moveSpeed = 20f;
     float maxDis = 15f;
     float minDis = 3f;
 
+    private void Start()
+    {
+        focusCharacter = null;
+    }
+
     private void Update()
     {
         distance = Mathf.Clamp(distance - Input.mouseScrollDelta.y * 0.3f, minDis, maxDis);
         dir.y = MappingDirection(distance);
+
+        if(focusCharacter) targetPosition = focusCharacter.transform.position;
+
         targetPosition += moveDir * moveSpeed * Time.fixedDeltaTime;
 
         transform.DOMove(targetPosition + dir.normalized * distance, 0.3f);
@@ -25,7 +34,7 @@ public class CameraController : MonoBehaviour
 
     public void FocusCharacter(Character character)
     {
-        targetPosition = character.transform.position;
+        focusCharacter = character;
         transform.rotation = Quaternion.LookRotation(-dir, Vector3.up);
     }
 
@@ -42,6 +51,7 @@ public class CameraController : MonoBehaviour
             return;
         }
 
+        focusCharacter = null;
         float angle = Mathf.Abs(transform.rotation.eulerAngles.y);
 
         switch (direction)
