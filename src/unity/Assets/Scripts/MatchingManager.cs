@@ -180,10 +180,6 @@ public class MatchingManager : MonoBehaviour
         Debug.Log("매칭 해주세요 버튼 클릭");
 
         isMatchingRequestBtnClicked = true;
-
-
-        
-
     }
     
     // 매칭중이고 상대의 응답을 기다리는 중에 나타나는 '매칭취소' 버튼 클릭 함수

@@ -87,7 +87,7 @@ public class ChattingManager : MonoBehaviour
  
         if(recvSize > 0)
         {
-            string msg = System.Text.Encoding.UTF8.GetString(buffer);
+            string msg = System.Text.Encoding.Default.GetString(buffer);
             Debug.Log("Recv data : " + msg + msg);
             AddMessage(msg);
         }
@@ -95,14 +95,12 @@ public class ChattingManager : MonoBehaviour
 
     void AddMessage(string message)
     {
-        string a = message.Substring(message.IndexOf(""));
-        Debug.Log(message[1000]);
         if(message == "aaa")
         {
             Debug.Log("시발");
         }
 
-        dialogue.text += a;
+        dialogue.text += message;
 
         inputField.text = "";
         scrollbar.verticalNormalizedPosition = 0f;

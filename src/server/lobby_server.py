@@ -187,7 +187,7 @@ class Lobby:
             self.matching_list.remove(connection)
         if connection in self.user_list:
             self.user_list.remove(connection)
-            print(connection[2].decode() + "님이 나가셨습니다.")
+            print(str(connection[2]) + "님이 나가셨습니다.")
 
 
 server = Lobby()

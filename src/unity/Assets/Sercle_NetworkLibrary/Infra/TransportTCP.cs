@@ -343,4 +343,9 @@ public class TransportTCP : MonoBehaviour
 	{
 		return m_isConnected;
 	}
+
+    public void OnDisable()
+    {
+        Disconnect();
+    }
 }
