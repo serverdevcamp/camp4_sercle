@@ -14,6 +14,7 @@ public enum PacketId
     MatchingRetry,
     MatchingComplete,
     MatchingReject,
+    MatchingCancel,
     GameServerJoin,
 };
 
@@ -52,6 +53,10 @@ public struct MatchingData
     }
 }
 
+public struct MatchingCancelData
+{
+    public int myInfo;
+}
 //상대방이 매칭 거절 했을시 전달할 데이터
 //서버 -> 클라이언트
 public struct MatchingRetryData

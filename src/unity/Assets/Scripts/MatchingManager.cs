@@ -180,17 +180,13 @@ public class MatchingManager : MonoBehaviour
         Debug.Log("매칭 해주세요 버튼 클릭");
 
         isMatchingRequestBtnClicked = true;
-
-
-        
-
     }
     
     // 매칭중이고 상대의 응답을 기다리는 중에 나타나는 '매칭취소' 버튼 클릭 함수
     public void MatchingCancel()
     {
         Debug.Log("매칭 취소 하겠습니다 버튼 클릭 ");
-        isMatchingRequestBtnClicked = false;
+        SendLocalMatchingCancel();
 
         ChangeMatchingState(MatchingState.Nothing);
     }
@@ -228,6 +224,15 @@ public class MatchingManager : MonoBehaviour
         networkManager.SendReliable<MatchingData>(packet);
     }
 
+    //매칭 취소
+    public void SendLocalMatchingCancel()
+    {
+        MatchingCancelData matchingCancelData = new MatchingCancelData();
+        matchingCancelData.myInfo = 0;
+        MatchingCancelPacket packet = new MatchingCancelPacket(matchingCancelData);
+        networkManager.SendReliable<MatchingCancelData>(packet);
+        isMatchingRequestBtnClicked = false;
+    }
     //매칭 수락
     public void SendLocalMatchingAccept()
     {

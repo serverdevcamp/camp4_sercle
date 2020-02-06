@@ -148,6 +148,56 @@ public class MatchingPacket : IPacket<MatchingData>
     }
 }
 
+public class MatchingCancelPacket : IPacket<MatchingCancelData>
+{
+    MatchingCancelData packet;
+    public MatchingCancelPacket(MatchingCancelData data)
+    {
+        packet = data;
+    }
+
+    public MatchingCancelPacket(byte[] data)
+    {
+        MatchingCancelSerializer serializer = new MatchingCancelSerializer();
+        serializer.SetDeserializedData(data);
+        serializer.Deserialize(ref packet);
+    }
+    public PacketId GetPacketId()
+    {
+        return PacketId.MatchingCancel;
+    }
+    public MatchingCancelData GetPacket()
+    {
+        return packet;
+    }
+    public byte[] GetData()
+    {
+        MatchingCancelSerializer serializer = new MatchingCancelSerializer();
+        serializer.Serialize(packet);
+        return serializer.GetSerializedData();
+    }
+    class MatchingCancelSerializer : Serializer
+    {
+        public bool Serialize(MatchingCancelData packet)
+        {
+            bool ret = true;
+
+            ret &= Serialize(packet.myInfo);
+            return ret;
+        }
+        public bool Deserialize(ref MatchingCancelData element)
+        {
+            if(GetDataSize() == 0)
+            {
+                return false;
+            }
+            bool ret = true;
+
+            ret &= Deserialize(ref element.myInfo);
+            return ret;
+        }
+    }
+}
 //서버가 클라이언트로 전송한 패킷
 public class MatchingResponsePacket : IPacket<MatchingResponseData>
 {
@@ -431,6 +481,7 @@ public class MatchingRejectPacket : IPacket<MatchingRejectData>
     }
 
 }
+
 // Skill Data 전송용 Packet
 public class SkillPacket : IPacket<SkillData>
 {

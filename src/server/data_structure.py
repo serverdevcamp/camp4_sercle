@@ -9,6 +9,7 @@ class PacketId(Enum):
     matching_retry = 6
     matching_complete = 7
     matching_reject = 8
+    matching_cancel = 9
 
 
 class MatchingPacketId(Enum):
@@ -39,6 +40,16 @@ class MatchingData:
 
         packet = [packet_id, matching_request]
 
+        return packet
+
+
+class MatchingCancelData:
+    def __init__(self, message):
+        self.message = message
+
+    def deserialize(self):
+        packet_id = int.from_bytes(self.message[0:4], byteorder='big')
+        packet = [packet_id]
         return packet
 
 
