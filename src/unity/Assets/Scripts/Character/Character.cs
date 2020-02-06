@@ -96,16 +96,28 @@ public class Character : MonoBehaviour
 
     public void ShowSkillIndicator(int num, bool activate)
     {
-        if (skills[num].indicator)
+        Splat splat = skills[num].indicator;
+        if (splat)
         {
-            Splats.GetSpellIndicator(skills[num].indicator.name).activate = activate;
-            Splats.SelectSpellIndicator(skills[num].indicator.name);
+            if (splat.GetComponent<SpellIndicator>())
+            {
+                if (splat.GetComponent<LineMissile>())
+                {
+                    splat.GetComponent<LineMissile>().activate = activate;
+                }
+                Splats.SelectSpellIndicator(splat.name);
+            }
+            else if (splat.GetComponent<RangeIndicator>())
+            {
+                Splats.SelectRangeIndicator(splat.name);
+            }
         }
     }
 
     public void HideSkillIndicator()
     {
         Splats.CancelSpellIndicator();
+        Splats.CancelRangeIndicator();
     }
 
     private void StateMachine()

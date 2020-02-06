@@ -14,6 +14,11 @@ namespace Werewolf.StatusIndicators.Components {
 		public GameObject ArrowHead;
 		public float MinimumRange;
 
+		/// <summary>
+		/// 스킬 정보를 보려고 하면 false, 스킬을 사용하는 상태라면 true
+		/// </summary>
+		public bool activate;
+
 		// Properties
 
 		public override ScalingType Scaling { get { return ScalingType.LengthOnly; } }

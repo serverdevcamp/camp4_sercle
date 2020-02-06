@@ -52,9 +52,9 @@ public class Skill
         }
         else
         {
-            caster.ShowSkillIndicator(myNum, true);
             while (dir.HasValue == false)
             {
+                caster.ShowSkillIndicator(myNum, true);
                 bool isValid = true;
                 dir = GameManager.instance.GetDirection(caster, ref isValid);
 

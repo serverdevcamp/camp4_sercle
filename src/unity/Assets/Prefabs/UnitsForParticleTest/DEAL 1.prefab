@@ -2051,11 +2051,11 @@ MonoBehaviour:
   progress: 0
   scale: 3
   width: 3
-  activate: 0
   RangeIndicator: {fileID: 7202287827398960593}
   range: 10
   ArrowHead: {fileID: 2476652975607441771}
   MinimumRange: 1
+  activate: 0
 --- !u!1 &3240251653233525561
 GameObject:
   m_ObjectHideFlags: 0
@@ -2411,7 +2411,6 @@ MonoBehaviour:
   progress: 0
   scale: 10
   width: 0
-  activate: 0
   DefaultScale: 7
 --- !u!1 &4149504087551218649
 GameObject:
@@ -2511,11 +2510,11 @@ MonoBehaviour:
   progress: 0
   scale: 2
   width: 2
-  activate: 0
   RangeIndicator: {fileID: 7202287827398960593}
   range: 11
   ArrowHead: {fileID: 4149504087551302793}
   MinimumRange: 1
+  activate: 0
 --- !u!1 &4149504087551302793
 GameObject:
   m_ObjectHideFlags: 0
