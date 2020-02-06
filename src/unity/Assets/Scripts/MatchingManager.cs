@@ -203,7 +203,7 @@ public class MatchingManager : MonoBehaviour
 
 
         ChangeMatchingState(MatchingState.AcceptMatchingResult);
-
+        MatchingResponseWaitUI.transform.GetChild(1).GetComponent<Text>().text = "상대방을 기다려 주세요.\n매칭 수락 클릭됨..";
         // 상대방 매칭 대기중 메시지 띄우기
         // 게임 씬으로 이동
     }
@@ -214,8 +214,8 @@ public class MatchingManager : MonoBehaviour
         Debug.Log("매칭 결과 거절 버튼 클릭");
         // 초기 로비 화면으로 돌아감
         SendLocalMatchingReject();
-
-        ChangeMatchingState(MatchingState.Nothing);
+        ChangeMatchingState(MatchingState.RefuseMatchingResult);
+        MatchingResponseWaitUI.transform.GetChild(1).GetComponent<Text>().text = "상대방을 기다려 주세요.\n매칭 거절 클릭됨..";
     }
 
     //매칭 요청
@@ -292,6 +292,7 @@ public class MatchingManager : MonoBehaviour
             else
             {
                 Debug.Log("매칭 잡힘 실패");
+                ChangeMatchingState(MatchingState.Nothing);
             }
         }  
     }
@@ -328,7 +329,6 @@ public class MatchingManager : MonoBehaviour
             Debug.Log("매칭 거절 됌");
             isMatchingResponseWait = false;
             isMatchMakingCompleted = false;
-
             ChangeMatchingState(MatchingState.Nothing);
         }
     }
