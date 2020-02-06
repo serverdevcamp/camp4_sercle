@@ -143,7 +143,6 @@ public class GameManager : MonoBehaviour
         {
             Vector3 casterPos = caster.transform.position;
             Vector3 rawDir = hit.point - casterPos;
-            //caster.ShowSkillDirection(true, rawDir);
 
             if (Input.GetMouseButtonDown(0))
             {

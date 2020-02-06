@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Werewolf.StatusIndicators.Components;
 
 public enum RangeType { Self, Around, Direction }
 public enum TargetType { Auto, Self, Friend, Enemy }
@@ -16,6 +17,7 @@ public class Skill
     public string skillName;
     public string description;
     public SkillState skillState;
+    public Splat indicator;
     public int myNum;
 
     [Header("Time")]
@@ -50,6 +52,7 @@ public class Skill
         }
         else
         {
+            caster.ShowSkillIndicator(myNum);
             while (dir.HasValue == false)
             {
                 bool isValid = true;
@@ -59,6 +62,7 @@ public class Skill
 
                 yield return new WaitForFixedUpdate();
             }
+            caster.HideSkillIndicator();
         }
         #endregion
 

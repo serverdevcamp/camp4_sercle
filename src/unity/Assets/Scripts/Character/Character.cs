@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Werewolf.StatusIndicators.Components;
 
 public enum CharacterState { Idle, Move, Attack, Skill, Die }
 
@@ -19,9 +20,7 @@ public class Character : MonoBehaviour
     public bool usingSkill;
     public List<Skill> skills;
 
-    [Header("Skill UI")]
-    [SerializeField] private CircleRenderer skillRangeCircle;
-    [SerializeField] private RectTransform skillDirRect;
+    public SplatManager Splats { get; set; }
 
     private NavMeshAgent agent;
     private bool isAttacking = false;
@@ -36,6 +35,8 @@ public class Character : MonoBehaviour
     {
         FindNearestTarget();
         StateMachine();
+
+        if (Splats == null) return;
     }
 
     private void InitialSetting()
@@ -45,6 +46,8 @@ public class Character : MonoBehaviour
         {
             skills[i].Initialize(i);
         }
+
+        Splats = GetComponentInChildren<SplatManager>();
     }
 
     private void FindNearestTarget()
@@ -89,6 +92,16 @@ public class Character : MonoBehaviour
     public void FireProjectile(int num, Vector3 dir)
     {
         StartCoroutine(skills[num].Fire(this, dir));        
+    }
+
+    public void ShowSkillIndicator(int num)
+    {
+        Splats.SelectSpellIndicator(skills[num].indicator.name);
+    }
+
+    public void HideSkillIndicator()
+    {
+        Splats.CancelSpellIndicator();
     }
 
     private void StateMachine()

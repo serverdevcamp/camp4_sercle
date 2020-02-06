@@ -32,7 +32,9 @@ namespace Werewolf.StatusIndicators.Components {
 				if(v != Vector3.zero) {
 					Manager.transform.rotation = Quaternion.LookRotation(v);
 				}
-				Scale = Mathf.Clamp((Manager.Get3DMousePosition() - Manager.transform.position).magnitude, MinimumRange, Range - ArrowHeadDistance()) * 2;
+				// Scale = Mathf.Clamp((Manager.Get3DMousePosition() - Manager.transform.position).magnitude, MinimumRange, Range - ArrowHeadDistance()) * 2;
+				// 원래 MinimumRange였는데 길이 조절이 불가능하게 하고 싶어서 둘이 같은 값으로 바꿈.
+				Scale = Mathf.Clamp((Manager.Get3DMousePosition() - Manager.transform.position).magnitude, Range - ArrowHeadDistance(), Range - ArrowHeadDistance()) * 2;
 				ArrowHead.transform.localPosition = new Vector3(0, (Scale * 0.5f) + ArrowHeadDistance() - 0.12f, 0);
 			}
 		}
