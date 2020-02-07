@@ -2,7 +2,7 @@ import socket
 from _thread import *
 import marshal
 
-HOST = '127.0.0.1'
+HOST = '0.0.0.0'
 PORT = 3000
 #소켓 서버 설정
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

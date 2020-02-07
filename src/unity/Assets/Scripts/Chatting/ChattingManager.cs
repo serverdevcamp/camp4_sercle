@@ -22,6 +22,11 @@ public class ChattingManager : MonoBehaviour
     public bool userInfoFlag = false;
     private TransportTCP socket;
 
+    // 스크롤이 적용될 content. content의 child object로 전송받은 msg들이 생긴다.
+    public Transform contentTr;
+    // msg prefab
+    public GameObject msgPrefab;
+
     void Start()
     {
         httpManager = new HTTPManager();
@@ -61,6 +66,21 @@ public class ChattingManager : MonoBehaviour
         }
     }
 
+    private void LateUpdate()
+    {
+        // 테스트 코드.
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            string[] str = new string[3];
+            str[0] = "테스트1 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ";
+            str[1] = "테스트2 ggggggggggggggggggㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ";
+            str[2] = "테스트3 ㅋㅋㅋ";
+            
+            AddMessage(str[UnityEngine.Random.Range(0,3)]);
+        }
+
+    }
+
     private void SendData(string msg)
     {
         byte[] buffer = System.Text.Encoding.UTF8.GetBytes(msg);
@@ -95,15 +115,17 @@ public class ChattingManager : MonoBehaviour
 
     void AddMessage(string message)
     {
-        if(message == "aaa")
-        {
-            Debug.Log("시발");
-        }
-
-        dialogue.text += message;
-
+        
         inputField.text = "";
-        scrollbar.verticalNormalizedPosition = 0f;
+        GameObject msg = Instantiate(msgPrefab);
+        msg.transform.SetParent(contentTr);
+        msg.GetComponent<Text>().text = message;
+  
+        msg.GetComponent<RectTransform>().localScale = Vector3.one;
+
+        // 스크롤바를 항상 맨 아래로 지정.
+       // scrollbar.verticalNormalizedPosition = 0f;
+        scrollbar.verticalScrollbar.value = 0f;
     }
     
 
