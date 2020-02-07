@@ -42,11 +42,11 @@ class Lobby:
             client_socket, addr = self.server_socket.accept()  # 소켓
             print(addr[0] + ' ' + str(addr[1]) + ' connected')
 
-            # user_id = client_socket.recv(10)
-
+            user_id = client_socket.recv(20)
+            print("userid : " + str(int(user_id)))
             # addr[0] : IP,  addr[1] : port,  testidx : 유저 DB id
-            # self.user_list.append([client_socket, addr, user_id])      #로그인 전용
-            self.user_list.append([client_socket, addr, testidx])       #테스트 전용
+            self.user_list.append([client_socket, addr, int(user_id)])      #로그인 전용
+            #self.user_list.append([client_socket, addr, testidx])       #테스트 전용
             testidx += 1
             # 유저 정보 리스트에 저장
             start_new_thread(self.client_thread, (self.user_list[-1],))     # 쓰레드 시작
@@ -138,7 +138,7 @@ class Lobby:
         if packet_id == PacketId.matching_data.value:
             packet_data = MatchingData(message).deserialize()
             if packet_data[1] == MatchingPacketId.matching_request.value:
-                print("매칭 요청")
+                print(str(user_socket[2]) + " : 매칭 요청")
                 self.request_matching(user_socket, TRY_MATCH)
         # 클라이언트로부터 매칭 수락, 거절 여부 메시지
         elif packet_id == PacketId.matching_decision.value:
@@ -159,11 +159,11 @@ class Lobby:
         for user in self.matching_list:
             if user == cancel_user_socket:
                 self.matching_list.remove(cancel_user_socket)
+                print(str(cancel_user_socket[2]) + " : 매칭 취소 처리")
 
     def retry_request_matching(self, retry_user_socket):
         for user in self.user_list:         #모든 유저 리스트
             if user == retry_user_socket:
-                print("제발 집가자")
                 self.request_matching(user, RETRY_MATCH)
 
     # 매칭 등록
@@ -180,15 +180,15 @@ class Lobby:
         elif match_type == RETRY_MATCH:              # 상대방이 거절한 유저 재매칭 메세지 전송
             response = MatchingRetryData(PacketId.matching_retry.value, MatchingResult.success.value).serialize()
             user_socket[0].send(response)
-        print("매칭 응답 전송")
+        print(str(user_socket[2]) + " : 매칭 응답 전송")
 
     def accept_matching(self, packet_data):
         self.accept_dic[packet_data[2]] = 1     #수락했다고 알림
-        print("매칭 수락")
+        print(str(packet_data[2]) + " : 매칭 수락")
 
     def reject_matching(self, packet_data):
         self.accept_dic[packet_data[2]] = -1    #거절했다 알림
-        print("매칭 거절")
+        print(str(packet_data[2]) + " : 매칭 거절")
 
     def remove(self, connection):
         if connection in self.matching_list:
