@@ -202,7 +202,7 @@ public class NetworkManager : MonoBehaviour
             //SetNetConnectionStatus(transportUDP.Connect("127.0.0.1", 3098));
             //if (GetNetConnectionStatus())
             //    Time.timeScale = 1f;
-            SetNetConnectionStatus(transportTCP.Connect("127.0.0.1", 3098));
+            SetNetConnectionStatus(transportTCP.Connect("10.99.13.48", 1000));
             //transportTCP.Send(System.Text.Encoding.UTF8.GetBytes("PLEASEE"), 10);
             if (GetNetConnectionStatus())
             {

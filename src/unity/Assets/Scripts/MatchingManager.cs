@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MatchingManager : MonoBehaviour
 {
@@ -365,6 +366,9 @@ public class MatchingManager : MonoBehaviour
         isMatchMakingCompleted = false;
 
         MatchingResponseWaitUI.transform.GetChild(1).GetComponent<Text>().text = "잠시 후 게임씬으로 넘어갑니다..";
+        SceneManager.LoadScene("EQ_Test");
+        //방번호와 내 정보 수신
+
     }
     //매칭 수락후 서버에서 게임 접속 메세지
     public void OnReceiveGameStart(PacketId id, byte[] data)

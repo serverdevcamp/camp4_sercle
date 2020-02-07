@@ -36,7 +36,6 @@ class Lobby:
         self.start_matching_thread()        # 매칭 큐 쓰레드
         print('Lobby server start')
         print('waiting new client..')
-        testidx = 1
 
         while True:
             client_socket, addr = self.server_socket.accept()  # 소켓
@@ -47,7 +46,6 @@ class Lobby:
             # addr[0] : IP,  addr[1] : port,  testidx : 유저 DB id
             self.user_list.append([client_socket, addr, int(user_id)])      #로그인 전용
             #self.user_list.append([client_socket, addr, testidx])       #테스트 전용
-            testidx += 1
             # 유저 정보 리스트에 저장
             start_new_thread(self.client_thread, (self.user_list[-1],))     # 쓰레드 시작
 
@@ -74,6 +72,7 @@ class Lobby:
         my_socket[0].send(message)
         message = MatchingCompleteData(PacketId.matching_complete.value, self.room_num, opponent_socket[2]).serialize()
         opponent_socket[0].send(message)
+        self.room_num += 1      #각 방번호 부여
 
     def reject_response(self, user_socket):
         #매칭 잡힌 후 10초뒤에 전달되는 메시지
