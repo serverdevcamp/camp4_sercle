@@ -66,21 +66,6 @@ public class ChattingManager : MonoBehaviour
         }
     }
 
-    private void LateUpdate()
-    {
-        // 테스트 코드.
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            string[] str = new string[3];
-            str[0] = "테스트1 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ";
-            str[1] = "테스트2 ggggggggggggggggggㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ";
-            str[2] = "테스트3 ㅋㅋㅋ";
-            
-            AddMessage(str[UnityEngine.Random.Range(0,3)]);
-        }
-
-    }
-
     private void SendData(string msg)
     {
         byte[] buffer = System.Text.Encoding.UTF8.GetBytes(msg);
