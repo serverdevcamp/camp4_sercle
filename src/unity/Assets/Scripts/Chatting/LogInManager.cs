@@ -30,7 +30,6 @@ public class LogInManager : MonoBehaviour
     public void SignInBtn()
     {
         userInfo.userData = JsonUtility.FromJson<UserData>(httpManager.LoginReq(idInput.text, pwInput.text));
-        Debug.Log(userInfo.userData.login);
         //로그인 성공시
         if (userInfo.userData.login == "true")
         {

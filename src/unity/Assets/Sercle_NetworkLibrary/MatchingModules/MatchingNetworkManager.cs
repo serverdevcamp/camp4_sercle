@@ -25,14 +25,12 @@ public class MatchingNetworkManager : MonoBehaviour
     void Start()
     {
         transportTCP = GetComponent<TransportTCP>();
-        transportTCP.Connect("10.99.13.48", 3098);
+        ConnectIP();
     }
 
     // Update is called once per frame
     void Update()
     {
-
-
         if (transportTCP.IsConnected())
         {
             ReceiveReliableData();
@@ -129,6 +127,10 @@ public class MatchingNetworkManager : MonoBehaviour
         return sendSize;
     }
 
+    public int SendData(byte[] data)
+    {
+        return transportTCP.Send(data, data.Length);
+    }
     // FIX THIS : 지금은 그저 Connect결과가 true면 성공으로 간주.(200122)
     public void ConnectIP()
     {
