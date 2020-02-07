@@ -12,7 +12,7 @@ public class CameraController : MonoBehaviour
     private Vector3 targetPosition;
     private Vector3 moveDir = Vector3.zero;
     private float moveSpeed = 20f;
-    float maxDis = 15f;
+    float maxDis = 50f;
     float minDis = 3f;
 
     private void Start()
@@ -23,7 +23,6 @@ public class CameraController : MonoBehaviour
     private void Update()
     {
         distance = Mathf.Clamp(distance - Input.mouseScrollDelta.y * 0.3f, minDis, maxDis);
-        dir.y = MappingDirection(distance);
 
         if(focusCharacter) targetPosition = focusCharacter.transform.position;
 
@@ -36,11 +35,6 @@ public class CameraController : MonoBehaviour
     {
         focusCharacter = character;
         transform.rotation = Quaternion.LookRotation(-dir, Vector3.up);
-    }
-
-    private float MappingDirection(float distance)
-    {
-        return (distance - minDis) * 0.2f;
     }
 
     public void MoveCamera(string direction, bool start)
