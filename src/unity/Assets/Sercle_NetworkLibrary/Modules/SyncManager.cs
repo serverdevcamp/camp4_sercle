@@ -53,7 +53,7 @@ public class SyncManager : MonoBehaviour
     {
         SyncPacket packet = new SyncPacket(data);
         SyncData sync = packet.GetPacket();
-        Debug.Log(sync + " 수신완료(싱크).");
+        // Debug.Log(sync + " 수신완료(싱크).");
 
         TimeSpan elapsedSpan = new TimeSpan(DateTime.UtcNow.Ticks - sync.sendTime);
 

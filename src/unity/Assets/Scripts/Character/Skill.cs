@@ -75,21 +75,34 @@ public class Skill
     public IEnumerator Fire(Character caster, Vector3 dir)
     {
         #region Wait for Pre delay
+
         if (targetType != TargetType.Auto) caster.usingSkill = true;
+
         // 스킬 발사 상태 변경 2020 01 30
         skillState = SkillState.PreDelay;
-        yield return new WaitForSeconds(preDelay);
+
+        // 20 02 09 내 캐릭터의 경우, preDelay + Rtt 만큼 더 기다림.
+        yield return caster.isFriend ? new WaitForSeconds(preDelay + SyncManager.instance.GetAvgRemoteRtt()) : new WaitForSeconds(preDelay);
+
         #endregion
 
         #region 투사체 발사
-        // 스킬 발사 상태 변경 2020 01 30
-        skillState = SkillState.Fire;
 
-        ProjectileInfo info = ProjectileInfo(caster, dir);
-        Vector3 spawnPos = caster.transform.position + new Vector3(0, 1.1f, 0);
+        // 20 02 09 체력이 0 이상이고, CC기 맞은 상태가 아닐 경우 투사체 발사.
+        // cc기 피격 또는 사망시 코루틴을 아예 중지해 버리면 쿨타임 계산을 다시 해주어야 하므로 투사체만 발사하지 않는것으로 작성.
+        // 상기 상황시 Character.cs 에서 character state 바뀌고, character state에 따라 EffectController.cs에서 사망/CC 애니메이션 재생함
+        if (caster.GetCharacterState() != CharacterState.Die && caster.GetCharacterState() != CharacterState.CC)
+        {
+            // 스킬 발사 상태 변경 2020 01 30
+            skillState = SkillState.Fire;
 
-        Projectile projectile = UnityEngine.Object.Instantiate(proj, spawnPos, Quaternion.identity);
-        projectile.Initialize(info);
+            ProjectileInfo info = ProjectileInfo(caster, dir);
+            Vector3 spawnPos = caster.transform.position + new Vector3(0, 1.1f, 0);
+
+            Projectile projectile = UnityEngine.Object.Instantiate(proj, spawnPos, Quaternion.identity);
+            projectile.Initialize(info);
+        }
+        
         #endregion
 
         #region Wait for Post Delay

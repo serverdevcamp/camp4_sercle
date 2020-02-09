@@ -56,7 +56,7 @@ public class MovingManager : MonoBehaviour
     {
         MovingPacket packet = new MovingPacket(data);   //바이트 데이터 역직렬
         MovingData moving = packet.GetPacket();
-        Debug.Log(moving + " 수신완료(이동)");
+        // Debug.Log(moving + " 수신완료(이동)");
 
         Vector3 destination = new Vector3(moving.destX, moving.destY, moving.destZ);
 

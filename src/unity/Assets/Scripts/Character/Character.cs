@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using Werewolf.StatusIndicators.Components;
 
-public enum CharacterState { Idle, Move, Attack, Skill, Die }
+public enum CharacterState { Idle, Move, Attack, Skill, CC, Die }
 
 public class Character : MonoBehaviour
 {
@@ -132,6 +132,9 @@ public class Character : MonoBehaviour
             // CC기에 따른 행동
             // 현재는 Stun 밖에 없음
             agent.destination = transform.position;
+
+            // 20 02 09 CharacterState에 CC 추가.
+            state = CharacterState.CC;
         }
         else if (usingSkill)
         {
@@ -171,6 +174,10 @@ public class Character : MonoBehaviour
                 break;
             case CharacterState.Die:
                 Destroy(gameObject);
+                break;
+            // 20 02 09 CC switch-case 추가.
+            case CharacterState.CC:
+                Debug.Log("CC 피격 상태로 전환됨.");
                 break;
             default:
                 break;
