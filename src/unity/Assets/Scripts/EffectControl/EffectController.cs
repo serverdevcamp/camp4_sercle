@@ -172,14 +172,13 @@ public class EffectController : MonoBehaviour
         }
         else if (animator.GetCurrentAnimatorStateInfo(0).IsName(skillName + "_PreDelay"))
         {
-            Debug.Log("프리딜레이");
             // 선딜 시간에 맞춰 애니메이션 속도를 바꾸는데 필요없을거같은..?
             // SyncManager로부터 얻은 Rtt
             //float rtt = 0.4f;
             //float op = rtt > skills[index].preDelay ? rtt : skills[index].preDelay;
             // 1/offset은 애니메이션 재생 속도
             //float offset = op / animator.GetCurrentAnimatorClipInfo(0)[0].clip.length;
-            Debug.Log(animator.GetCurrentAnimatorClipInfo(0)[0].clip.name + " , " + animator.GetCurrentAnimatorClipInfo(0)[0].clip.length);
+            // Debug.Log(animator.GetCurrentAnimatorClipInfo(0)[0].clip.name + " , " + animator.GetCurrentAnimatorClipInfo(0)[0].clip.length);
             //animator.SetFloat("PreDelayOffset", 1f / offset);
             if(skills[index].preDelay > 0f)
                 animator.SetFloat("PreDelayOffset", 1f / (skills[index].preDelay / animator.GetCurrentAnimatorClipInfo(0)[0].clip.length));

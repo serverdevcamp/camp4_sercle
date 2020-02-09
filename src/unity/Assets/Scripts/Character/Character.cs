@@ -161,7 +161,8 @@ public class Character : MonoBehaviour
                 agent.speed = 0;
                 break;
             case CharacterState.Move:
-                agent.speed = status.SPD;
+                // 20 02 07 상대 캐릭터의 속도를 보정된 값으로 지정.
+                agent.speed = isFriend ? status.SPD : MovingManager.instance.GetInterpolatedSpeed(index);
                 break;
             case CharacterState.Attack:
                 BasicAttackActivate();

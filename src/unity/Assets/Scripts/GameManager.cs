@@ -194,6 +194,14 @@ public class GameManager : MonoBehaviour
         enemyCharacters[index].SetDestination(destination);
     }
 
+    // 2020 02 07 목적지와 현 위치의 거리를 보정한 원격 캐릭터의 속도 계산.
+    public float SetInterpolatedSpeed(int index, Vector3 destination)
+    {
+        float prevTime = Vector3.Distance(enemyCharacters[index].GetComponent<Transform>().position, destination) / enemyCharacters[index].status.SPD;
+
+        return (enemyCharacters[index].status.SPD) * (prevTime + SyncManager.instance.GetAvgRemoteRtt()) / prevTime;
+    }
+
     public void FireProjectile(int index, int num, Vector3 dir)
     {
         myCharacters[index].FireProjectile(num, dir);

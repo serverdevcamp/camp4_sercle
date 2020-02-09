@@ -11,6 +11,7 @@ public enum PacketId
     MatchingData,
     MatchingResponse,
     GameServerJoin,
+    SyncData
 };
 
 //매칭 패킷 데이터
@@ -67,6 +68,18 @@ public struct PacketHeader
     // 패킷 ID
     public int packetId;
 };
+
+// 현재시각 보내는 Sync 정보
+public struct SyncData
+{
+    public long sendTime;
+    public override string ToString()
+    {
+        string str = "";
+        str += "sendtime:" + sendTime;
+        return str;
+    }
+}
 
 // 마우스 정보 데이터
 public struct MouseData

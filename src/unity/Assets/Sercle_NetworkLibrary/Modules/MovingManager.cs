@@ -14,6 +14,9 @@ public class MovingManager : MonoBehaviour
     // 네트워크 매니저
     private NetworkManager networkManager;
 
+    // 원격 캐릭터의 agent의 속도
+    private float[] remoteAgentSpeed = new float[3];
+
     private void Awake()
     {
         if (instance == null) instance = this;
@@ -57,13 +60,15 @@ public class MovingManager : MonoBehaviour
 
         Vector3 destination = new Vector3(moving.destX, moving.destY, moving.destZ);
 
-        // 2020 02 01상대 단말에서 상대의 로컬 캐릭터가 이동했을 때 송신한 정보를 수신한 것이므로 내 단말에서 리모트 캐릭터를 이동시킨다.
+        // 2020 02 01 상대 단말에서 상대의 로컬 캐릭터가 이동했을 때 송신한 정보를 수신한 것이므로 내 단말에서 리모트 캐릭터를 이동시킨다.
         GameManager.instance.MoveEnemyCharacter(moving.index, destination);
+        // 2020 02 07 상대의 캐릭터의 이동속도 보정값을 저장.
+        remoteAgentSpeed[moving.index] = GameManager.instance.SetInterpolatedSpeed(moving.index, destination);
+    }
 
-        // 2020 02 01 주석처리
-        // GameManager.instance.MoveCharacter(moving.index, destination);
-        
-        // 수신 후 사용 예
-        // navAgent(moving.index).destinaion(new Vector3(moving.destX, moving.destY, moving.dextZ);
+    // rtt가 고려된 보정된 속도를 반환
+    public float GetInterpolatedSpeed(int index)
+    {
+        return remoteAgentSpeed[index];
     }
 }
