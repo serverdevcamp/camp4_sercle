@@ -38,6 +38,15 @@ public class HTTPManager
         return ReceiveData(request);
         
     }
+
+    public string DestroyUserCache(string email)
+    {
+        request = Init("delet");
+        request.Method = "POST";
+        postData = string.Format("email={0}", email);
+        SendData(postData);
+        return ReceiveData(request);
+    }
     //URL Path를 입력받아 request객체 생성
     private HttpWebRequest Init(string req)
     {

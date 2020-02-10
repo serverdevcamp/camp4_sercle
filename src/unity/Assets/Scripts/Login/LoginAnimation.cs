@@ -9,7 +9,7 @@ public class LoginAnimation : MonoBehaviour
    
     private void LateUpdate()
     {
-        Debug.Log(canon.localEulerAngles);
+        //Debug.Log(canon.localEulerAngles);
         if (canon.localEulerAngles.x == 347.6f)
         {
             if (!canonBall.isPlaying)

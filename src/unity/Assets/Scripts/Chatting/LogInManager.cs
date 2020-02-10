@@ -34,8 +34,14 @@ public class LogInManager : MonoBehaviour
         {
             SceneManager.LoadScene("Lobby");
         }
+        else if(userInfo.userData.login == "overlap")
+        {
+            Debug.Log("이미 접속해있습니다.");
+            infoText.SetActive(true);
+        }
         else
         {
+            Debug.Log("아이디 또는 비밀번호가 틀렸습니다.");
             infoText.SetActive(true);
         }
     }
