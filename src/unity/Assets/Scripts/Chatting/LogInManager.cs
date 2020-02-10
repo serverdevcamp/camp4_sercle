@@ -9,21 +9,19 @@ using UnityEngine.SceneManagement;
 
 public class LogInManager : MonoBehaviour
 {
-    UserInfo userInfo;
-    HTTPManager httpManager;
-    [Header("InputFields")]
-    public InputField idInput;
-    public InputField pwInput;
+    [SerializeField] private InputField idInput;
+    [SerializeField] private InputField pwInput;
+    [SerializeField] private GameObject infoText;
 
-    [Header("Buttons")]
-    public Button signInButton;
-    public Button signUpButton;
-    
-    // Start is called before the first frame update
-    void Start()
+    private UserInfo userInfo;
+    private HTTPManager httpManager;
+
+    private void Start()
     {
         userInfo = GameObject.Find("UserInfoObject").GetComponent<UserInfo>();
         httpManager = new HTTPManager();
+
+        infoText.SetActive(false);
     }
     
     // 로그인 버튼 클릭시 이벤트 발생 함수
@@ -36,6 +34,10 @@ public class LogInManager : MonoBehaviour
         {
             SceneManager.LoadScene("Lobby");
         }
+        else
+        {
+            infoText.SetActive(true);
+        }
     }
 
     // 회원가입 버튼 클릭시 이벤트 발생 함수
@@ -43,6 +45,4 @@ public class LogInManager : MonoBehaviour
     {
         // 회원가입 페이지 or 씬으로 이동.
     }
-
-
 }

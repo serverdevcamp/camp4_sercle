@@ -98,6 +98,9 @@ public class GameManager : MonoBehaviour
 
         if (!curCharacter) return;
 
+        // 20 02 10 사망한 캐릭터/ hard cc 상황인 캐릭터로는 조작이 불가하도록 함.
+        if (curCharacter.GetCharacterState() == CharacterState.Die || curCharacter.GetCharacterState() == CharacterState.CC) return;
+
         if (Input.GetKeyDown(KeyCode.Z))
             Upgrade();
         if (Input.GetMouseButtonDown(1))
