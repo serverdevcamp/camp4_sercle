@@ -173,11 +173,11 @@ public class Character : MonoBehaviour
             case CharacterState.Skill:
                 break;
             case CharacterState.Die:
-                Destroy(gameObject);
+                OnDeadStateActivate();
+                // Destroy(gameObject);
                 break;
             // 20 02 09 CC switch-case 추가.
             case CharacterState.CC:
-                Debug.Log("CC 피격 상태로 전환됨.");
                 break;
             default:
                 break;
@@ -295,5 +295,18 @@ public class Character : MonoBehaviour
             else
                 skills[0].proj = GetComponent<EffectController>().projectilePrefabs[0].GetComponent<Projectile>();
         }
+    }
+
+    // 20 02 10 Die 상황시 컴포넌트 비활성화
+    private void OnDeadStateActivate()
+    {
+        gameObject.GetComponent<CapsuleCollider>().enabled = false;
+        gameObject.GetComponent<NavMeshAgent>().enabled = false;
+        List<Canvas> canvasList = new List<Canvas>(transform.GetComponentsInChildren<Canvas>());
+        for(int i = 0; i < canvasList.Count; i++)
+        {
+            canvasList[i].enabled = false;
+        }
+        this.enabled = false;
     }
 }

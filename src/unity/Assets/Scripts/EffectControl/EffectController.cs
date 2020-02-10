@@ -218,6 +218,7 @@ public class EffectController : MonoBehaviour
         if (!stateMap["Die"])
         {
             SetAnimStateMap("Die");
+            this.enabled = false;
         }
     }
 
@@ -226,7 +227,6 @@ public class EffectController : MonoBehaviour
     {
         if (!stateMap["HardCC"])
         {
-            Debug.Log("CC 상황 애니메이션 재생 시작함. 자세한 애니메이션, CC기 탈출 로직은 작성 필요.");
             SetAnimStateMap("HardCC");
         }
     }
