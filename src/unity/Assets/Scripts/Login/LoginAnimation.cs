@@ -12,7 +12,6 @@ public class LoginAnimation : MonoBehaviour
         Debug.Log(canon.localEulerAngles);
         if (canon.localEulerAngles.x == 347.6f)
         {
-            Debug.Log("?");
             if (!canonBall.isPlaying)
                 canonBall.Play();
         }
