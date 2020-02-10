@@ -68,13 +68,13 @@ public class EffectController : MonoBehaviour
     {
         stateMap.Add("Idle", false);
         stateMap.Add("Moving", false);
-        //stateMap.Add("PreDelay", false);
         stateMap.Add("Fire", false);
         stateMap.Add("PostDelay", false);
         stateMap.Add("HardCC", false);
         stateMap.Add("Skill_0", false);
         stateMap.Add("Skill_1", false);
         stateMap.Add("Skill_2", false);
+        stateMap.Add("Die", false);
     }
 
     // 상태맵에서 원하는 상태만 True로 전환
@@ -102,7 +102,7 @@ public class EffectController : MonoBehaviour
         // 사망 애니메이션 재생
         if(characterState == CharacterState.Die)
         {
-            Debug.Log("Die 애니메이션 재생 구현 필요.");
+            PlayDieAnim();
             return;
         }
 
@@ -134,9 +134,6 @@ public class EffectController : MonoBehaviour
                     PlayFireAnim(i);
                     return;
 
-                // 현재 Skill 에서 Fire 후 대기시간 없이 바로 PostDelay로 넘어가므로 Fire 애니메이션은 실행치 못한다.
-                // 따라서 후딜 애니메이션은 따로 안넣고 Fire애니메이션으로 퉁치기 했음.
-                // 후딜 시간도 후딜 애니메이션에 반영하려면 Fire에서 잠시 stop해야함.
                 case Skill.SkillState.PostDelay:
                     PlayPostDelayAnim();
                     return;
@@ -212,6 +209,15 @@ public class EffectController : MonoBehaviour
         if (!stateMap["Idle"])
         {
             SetAnimStateMap("Idle");
+        }
+    }
+
+    // Die 애니메이션
+    private void PlayDieAnim()
+    {
+        if (!stateMap["Die"])
+        {
+            SetAnimStateMap("Die");
         }
     }
 
