@@ -12,6 +12,69 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 
+// SyncData 전송용 Packet
+public class SyncPacket : IPacket<SyncData>
+{
+    SyncData packet;
+
+    public SyncPacket(SyncData data)
+    {
+        packet = data;
+    }
+    // 바이너리 데이터를 패킷 데이터로 역직렬화하는 생성자
+    public SyncPacket(byte[] data)
+    {
+        SyncSerializer serializer = new SyncSerializer();
+
+        serializer.SetDeserializedData(data);
+        serializer.Deserialize(ref packet);
+    }
+
+    public PacketId GetPacketId()
+    {
+        return PacketId.SyncData;
+    }
+
+    // 게임에서 사용할 패킷 데이터 획득
+    public SyncData GetPacket()
+    {
+        return packet;
+    }
+
+    // 송신용 byte[] 형 데이터 획득
+    public byte[] GetData()
+    {
+        SyncSerializer serializer = new SyncSerializer();
+        serializer.Serialize(packet);
+        return serializer.GetSerializedData();
+    }
+
+    class SyncSerializer : Serializer
+    {
+        public bool Serialize(SyncData packet)
+        {
+            bool ret = true;
+            ret &= Serialize(packet.sendTime);
+
+            return ret;
+        }
+
+        public bool Deserialize(ref SyncData element)
+        {
+            // 데이터가 정의되어있지 않다면
+            if (GetDataSize() == 0)
+            {
+                return false;
+            }
+
+            bool ret = true;
+            ret &= Deserialize(ref element.sendTime);
+
+            return ret;
+        }
+    }
+}
+
 // Moving Data 전송용 Packet
 public class MovingPacket : IPacket<MovingData>
 {

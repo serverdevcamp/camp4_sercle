@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using Werewolf.StatusIndicators.Components;
 
-public enum CharacterState { Idle, Move, Attack, Skill, Die }
+public enum CharacterState { Idle, Move, Attack, Skill, CC, Die }
 
 public class Character : MonoBehaviour
 {
@@ -132,6 +132,9 @@ public class Character : MonoBehaviour
             // CC기에 따른 행동
             // 현재는 Stun 밖에 없음
             agent.destination = transform.position;
+
+            // 20 02 09 CharacterState에 CC 추가.
+            state = CharacterState.CC;
         }
         else if (usingSkill)
         {
@@ -161,7 +164,8 @@ public class Character : MonoBehaviour
                 agent.speed = 0;
                 break;
             case CharacterState.Move:
-                agent.speed = status.SPD;
+                // 20 02 07 상대 캐릭터의 속도를 보정된 값으로 지정.
+                agent.speed = isFriend ? status.SPD : MovingManager.instance.GetInterpolatedSpeed(index);
                 break;
             case CharacterState.Attack:
                 BasicAttackActivate();
@@ -170,6 +174,10 @@ public class Character : MonoBehaviour
                 break;
             case CharacterState.Die:
                 Destroy(gameObject);
+                break;
+            // 20 02 09 CC switch-case 추가.
+            case CharacterState.CC:
+                Debug.Log("CC 피격 상태로 전환됨.");
                 break;
             default:
                 break;

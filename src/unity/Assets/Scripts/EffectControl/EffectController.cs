@@ -99,23 +99,17 @@ public class EffectController : MonoBehaviour
     // 분기별로 나누었으므로 해당 분기에서 사운드 등 적용 가능
     private void PlayAnimation()
     {
-        // FixThis : 하드 CC 등 급박하게 애니메이션 바꿔야 하는 경우 탈출할 수 있도록 코드 작성 필요.
-        /*
-        if(characterState == CharacterState.HardCC)
+        // 사망 애니메이션 재생
+        if(characterState == CharacterState.Die)
         {
-            
+            Debug.Log("Die 애니메이션 재생 구현 필요.");
+            return;
         }
-        */
-        // 씩씩이 테스트
-        // Character의 상태가 HardCC가 되면, 애니메이션 재생. 
-        // 상태가 다시 Idle로 바뀌게 되면 그 즉시 Idle 애니메이션 재생한다.
-        if (animator.GetBool("CCTest"))
+
+        // CC 애니메이션 재생
+        if(characterState == CharacterState.CC)
         {
-            if (!stateMap["HardCC"])
-            {
-                SetAnimStateMap("HardCC");
-            }
-            animator.SetBool("CCTest", false);
+            PlayCCAnim();
             return;
         }
 
@@ -172,17 +166,9 @@ public class EffectController : MonoBehaviour
         }
         else if (animator.GetCurrentAnimatorStateInfo(0).IsName(skillName + "_PreDelay"))
         {
-            Debug.Log("프리딜레이");
-            // 선딜 시간에 맞춰 애니메이션 속도를 바꾸는데 필요없을거같은..?
-            // SyncManager로부터 얻은 Rtt
-            //float rtt = 0.4f;
-            //float op = rtt > skills[index].preDelay ? rtt : skills[index].preDelay;
-            // 1/offset은 애니메이션 재생 속도
-            //float offset = op / animator.GetCurrentAnimatorClipInfo(0)[0].clip.length;
-            Debug.Log(animator.GetCurrentAnimatorClipInfo(0)[0].clip.name + " , " + animator.GetCurrentAnimatorClipInfo(0)[0].clip.length);
-            //animator.SetFloat("PreDelayOffset", 1f / offset);
-            if(skills[index].preDelay > 0f)
-                animator.SetFloat("PreDelayOffset", 1f / (skills[index].preDelay / animator.GetCurrentAnimatorClipInfo(0)[0].clip.length));
+            // PreDelay 시간에 맞추어 애니메이션 재생속도를 조정한다.
+            if (skills[index].preDelay > 0f)
+                animator.SetFloat("PreDelayOffset", 1f / ((GetComponent<Character>().isFriend ? skills[index].preDelay + SyncManager.instance.GetAvgRemoteRtt() : skills[index].preDelay) / animator.GetCurrentAnimatorClipInfo(0)[0].clip.length));
         }        
     }
     // 스킬 발사 애니메이션
@@ -196,9 +182,6 @@ public class EffectController : MonoBehaviour
         else if (animator.GetCurrentAnimatorStateInfo(0).IsName("Skill_" + index.ToString() + "_Fire"))
         {
             // PostDelay가 끝났을 때 애니메이션도 완전히 끝나도록 속도 조정한다.
-            // Debug.Log(animator.GetCurrentAnimatorClipInfo(0)[0].clip.length + ", " + skills[index].postDelay);
-
-            // 클립이 없을경우, 딜레이가 0일경우(?) 예외처리 해야함. 나누기 0 
             if(skills[index].postDelay > 0f)
                 animator.SetFloat("PostDelayOffset", 1f / (skills[index].postDelay / animator.GetCurrentAnimatorClipInfo(0)[0].clip.length));
             // animator.SetFloat("PostDelayOffset", 0.5f);
@@ -229,6 +212,16 @@ public class EffectController : MonoBehaviour
         if (!stateMap["Idle"])
         {
             SetAnimStateMap("Idle");
+        }
+    }
+
+    // CC 피격 애니메이션
+    private void PlayCCAnim()
+    {
+        if (!stateMap["HardCC"])
+        {
+            Debug.Log("CC 상황 애니메이션 재생 시작함. 자세한 애니메이션, CC기 탈출 로직은 작성 필요.");
+            SetAnimStateMap("HardCC");
         }
     }
 

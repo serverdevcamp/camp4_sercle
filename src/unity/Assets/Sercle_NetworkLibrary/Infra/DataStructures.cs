@@ -80,6 +80,7 @@ public struct MatchingResponseData
 
 public struct MatchingDecisionData
 {
+<<<<<<< HEAD
     public MatchingDecision decision;
     public int myinfo;
 }

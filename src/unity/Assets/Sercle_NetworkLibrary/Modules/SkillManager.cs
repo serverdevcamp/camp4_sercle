@@ -34,7 +34,7 @@ public class SkillManager : MonoBehaviour
         skillData.dirX = dir.x;
         skillData.dirY = dir.y;
         skillData.dirZ = dir.z;
-        Debug.Log("전송 " + skillData);
+        // Debug.Log("전송 " + skillData);
         // 생성자로 데이터에 패킷을 연결
         SkillPacket packet = new SkillPacket(skillData);
         // UDP 전송
@@ -48,7 +48,7 @@ public class SkillManager : MonoBehaviour
     {
         SkillPacket packet = new SkillPacket(data);
         SkillData skill = packet.GetPacket();
-        Debug.Log(skill + " 수신완료(스킬).");
+        // Debug.Log(skill + " 수신완료(스킬).");
 
         Vector3 dir = new Vector3(skill.dirX, skill.dirY, skill.dirZ);
 
