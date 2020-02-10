@@ -6,4 +6,5 @@ public class UserData
     public string email;
     public string id;
     public string token;
+    public int roomNum;
 }

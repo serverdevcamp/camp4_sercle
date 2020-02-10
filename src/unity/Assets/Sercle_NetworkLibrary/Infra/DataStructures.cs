@@ -54,6 +54,12 @@ public struct MatchingData
     }
 }
 
+//서버->클라이언
+public struct GameJoinData
+{
+    public int id;
+    public int roomNum;
+}
 public struct MatchingCancelData
 {
     public int myInfo;

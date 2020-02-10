@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
             _character.index = i;
             _character.isFriend = true;
 
-            myCharacters.Add(_character); ;
+            myCharacters.Add(_character); 
         }
 
         enemyCharacters = new List<Character>();

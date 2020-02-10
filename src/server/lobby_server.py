@@ -1,6 +1,6 @@
 import socket
 from _thread import *
-from data_structure import *
+from matching_data_structure import *
 import time
 
 HOST = '0.0.0.0'
@@ -67,6 +67,7 @@ class Lobby:
                 start_new_thread(self.matching_catch_thread, (users[0], users[1]))
                 print("매칭 잡힘")
 
+    #매칭 둘다 완료
     def accept_response(self, my_socket, opponent_socket):
         message = MatchingCompleteData(PacketId.matching_complete.value, self.room_num, my_socket[2]).serialize()
         my_socket[0].send(message)
