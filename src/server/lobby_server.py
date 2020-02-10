@@ -179,7 +179,6 @@ class Lobby:
         elif match_type == RETRY_MATCH:              # 상대방이 거절한 유저 재매칭 메세지 전송
             response = MatchingRetryData(PacketId.matching_retry.value, MatchingResult.success.value).serialize()
             user_socket[0].send(response)
-        print(str(user_socket[2]) + " : 매칭 응답 전송")
 
     def accept_matching(self, packet_data):
         self.accept_dic[packet_data[2]] = 1     #수락했다고 알림
