@@ -5,13 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/EQ_Test.unity
-    guid: d60dbed23d410c64788a22dbdb79d094
   - enabled: 1
     path: Assets/Scenes/LogIn.unity
     guid: 9832955b7c859a64b8800d7f09dd1368
   - enabled: 1
     path: Assets/Scenes/Lobby.unity
     guid: 5781a1abba4fe4175ac12235595adcb0
+  - enabled: 1
+    path: Assets/Scenes/EQ_Test.unity
+    guid: d60dbed23d410c64788a22dbdb79d094
   m_configObjects: {}
