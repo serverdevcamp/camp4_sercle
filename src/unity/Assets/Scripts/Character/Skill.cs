@@ -66,6 +66,9 @@ public class Skill
         }
         #endregion
 
+        // 스킬 쿨타임 정보 UI 애니메이팅 
+        UIManager.instance.DisplaySkillInputAnimation(myNum);
+
         Debug.Log(caster.name + " Use " + skillName + " to " + dir);
 
         // GM에게 index 번째 캐릭터의 num번째 스킬을 dir 방향으로 사용한다고 알려준다.

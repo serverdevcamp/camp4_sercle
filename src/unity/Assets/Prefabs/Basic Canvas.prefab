@@ -669,6 +669,9 @@ MonoBehaviour:
   friendWSkillCool:
   - {fileID: 8612570952666414191}
   - {fileID: 8612570952078061657}
+  skill_Base: {fileID: 844422691}
+  skill_Q: {fileID: 856358074}
+  skill_W: {fileID: 1504714118}
 --- !u!1 &8612570951213109830
 GameObject:
   m_ObjectHideFlags: 0
@@ -908,6 +911,7 @@ GameObject:
   - component: {fileID: 8612570951256410512}
   - component: {fileID: 8612570951256410527}
   - component: {fileID: 1094913334341415906}
+  - component: {fileID: 856358074}
   m_Layer: 5
   m_Name: Skill_Q
   m_TagString: Untagged
@@ -1015,6 +1019,25 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!95 &856358074
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8612570951256410525}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4e79c062ff7c35a41ad92c45e6a13d7e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8612570951264190348
 GameObject:
   m_ObjectHideFlags: 0
@@ -1400,6 +1423,7 @@ GameObject:
   - component: {fileID: 8612570951703238252}
   - component: {fileID: 8612570951703238251}
   - component: {fileID: 4861442777019438975}
+  - component: {fileID: 1504714118}
   m_Layer: 5
   m_Name: Skill_W
   m_TagString: Untagged
@@ -1507,6 +1531,25 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!95 &1504714118
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8612570951703238249}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4e79c062ff7c35a41ad92c45e6a13d7e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8612570951781367617
 GameObject:
   m_ObjectHideFlags: 0
@@ -2206,6 +2249,7 @@ GameObject:
   - component: {fileID: 8612570952281722845}
   - component: {fileID: 8612570952281722844}
   - component: {fileID: 1383653037868445488}
+  - component: {fileID: 844422691}
   m_Layer: 5
   m_Name: Skill_Base
   m_TagString: Untagged
@@ -2241,7 +2285,7 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8612570952281722842}
-  m_CullTransparentMesh: 0
+  m_CullTransparentMesh: 1
 --- !u!114 &8612570952281722844
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2313,6 +2357,25 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!95 &844422691
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8612570952281722842}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4e79c062ff7c35a41ad92c45e6a13d7e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8612570952285880819
 GameObject:
   m_ObjectHideFlags: 0
