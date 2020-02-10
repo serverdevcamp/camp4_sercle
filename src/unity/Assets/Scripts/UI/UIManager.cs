@@ -17,6 +17,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] private List<Image> friendQSkillCool;
     [SerializeField] private List<Image> friendWSkillCool;
 
+    [Header("Skill Input Profile")]
+    [SerializeField] private Animator skill_Base;
+    [SerializeField] private Animator skill_Q;
+    [SerializeField] private Animator skill_W;
+
     private Character curCharacter;
     private void Awake()
     {
@@ -29,6 +34,25 @@ public class UIManager : MonoBehaviour
         curCharacter = GameManager.instance.CurCharacter;
 
         DisplayCharactersInfo(curCharacter);
+    }
+
+    // 20 02 10 스킬 발동 버튼이 눌렸을 경우, 그 스킬의 UI를 약간 Scale up한다.
+    public void DisplaySkillInputAnimation(int skillNum)
+    {
+        switch (skillNum)
+        {
+            case 0:
+                skill_Base.SetTrigger("Input");
+                break;
+            case 1:
+                skill_Q.SetTrigger("Input");
+                break;
+            case 2:
+                skill_W.SetTrigger("Input");
+                break;
+            default:
+                break;
+        }
     }
 
     private void DisplayCharactersInfo(Character current)
@@ -77,6 +101,14 @@ public class UIManager : MonoBehaviour
             Image image = skillCool[i];
 
             image.fillAmount = 1f - (skill.RemainCool / skill.coolDown);
+
+            // 20 02 10 이 캐릭터가 CC기에 피격된 상태일 경우, 스킬 쿨타임 UI의 색을 빨간색으로 한다. 
+            if(curCharacter.GetCharacterState() == CharacterState.CC)
+            {
+                image.color = Color.red;
+                continue;
+            }
+
             switch (skill.skillState)
             {
                 case Skill.SkillState.Idle:

@@ -75,6 +75,60 @@ public class SyncPacket : IPacket<SyncData>
     }
 }
 
+public class GameJoinPacket : IPacket<GameJoinData>
+{
+    GameJoinData packet;
+
+    public GameJoinPacket(GameJoinData data)
+    {
+        packet = data;
+    }
+
+    public GameJoinPacket(byte[] data)
+    {
+        GameJoinSerializer serializer = new GameJoinSerializer();
+
+        serializer.SetDeserializedData(data);
+        serializer.Deserialize(ref packet);
+    }
+
+    public PacketId GetPacketId()
+    {
+        return PacketId.GameServerJoin;
+    }
+
+    public GameJoinData GetPacket()
+    {
+        return packet;
+    }
+    public byte[] GetData()
+    {
+        GameJoinSerializer serializer = new GameJoinSerializer();
+        serializer.Serialize(packet);
+        return serializer.GetSerializedData();
+    }
+    class GameJoinSerializer : Serializer
+    {
+        public bool Serialize(GameJoinData packet)
+        {
+            bool ret = true;
+            ret &= Serialize(packet.id);
+            ret &= Serialize(packet.roomNum);
+            return ret;
+        }
+        public bool Deserialize(ref GameJoinData element)
+        {
+            if(GetDataSize() == 0)
+            {
+                return false;
+            }
+            bool ret = true;
+            ret &= Deserialize(ref element.id);
+            ret &= Deserialize(ref element.roomNum);
+            return ret;
+        }
+    }
+}
 // Moving Data 전송용 Packet
 public class MovingPacket : IPacket<MovingData>
 {

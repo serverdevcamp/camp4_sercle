@@ -29,6 +29,7 @@ public class LogInManager : MonoBehaviour
     {
         userInfo.userData = JsonUtility.FromJson<UserData>(httpManager.LoginReq(idInput.text, pwInput.text));
         //로그인 성공시
+        Debug.Log("방번호 : " + userInfo.userData.roomNum);
         if (userInfo.userData.login == "true")
         {
             SceneManager.LoadScene("Lobby");
