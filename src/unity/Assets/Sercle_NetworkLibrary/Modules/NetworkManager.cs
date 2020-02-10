@@ -1,12 +1,4 @@
-﻿/*  
- * 네트워크 관리자
- * 
- * 네트워크 연결/해제, 에러처리, 송/수신 담당.
- * 
- * FixedUpdate에서 수신
- */
-
-using UnityEngine;
+﻿using UnityEngine;
 using System;
 using System.Text;
 using System.Collections;
@@ -15,8 +7,6 @@ using System.Net;
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
 using System.Threading;
-
-
 
 public class NetworkManager : MonoBehaviour
 {
@@ -215,7 +205,7 @@ public class NetworkManager : MonoBehaviour
             //SetNetConnectionStatus(transportUDP.Connect("127.0.0.1", 3098));
             //if (GetNetConnectionStatus())
             //    Time.timeScale = 1f;
-            SetNetConnectionStatus(transportTCP.Connect("127.0.0.1", 3098));
+            SetNetConnectionStatus(transportTCP.Connect("10.99.13.48", 1000));
             //transportTCP.Send(System.Text.Encoding.UTF8.GetBytes("PLEASEE"), 10);
             if (GetNetConnectionStatus())
             {

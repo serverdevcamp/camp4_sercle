@@ -25,6 +25,7 @@ public class MatchingNetworkManager : MonoBehaviour
     void Start()
     {
         transportTCP = GetComponent<TransportTCP>();
+        ConnectIP();
     }
 
     // Update is called once per frame
@@ -63,8 +64,6 @@ public class MatchingNetworkManager : MonoBehaviour
         int headerSize = sizeof(int);
         byte[] packetData = new byte[data.Length - headerSize];
         Buffer.BlockCopy(data, headerSize, packetData, 0, packetData.Length);
-
-        Debug.Log("b : " + packetId);
         // 등록된 적절한 receive함수 호출
         notifier[packetId]((PacketId)packetId, packetData);
     }
@@ -85,7 +84,6 @@ public class MatchingNetworkManager : MonoBehaviour
     public void RegisterReceiveNotification(PacketId id, RecvNotifier _notifier)
     {
         int index = (int)id;
-        Debug.Log("a : " + index);
         if (notifier.ContainsKey(index))
         {
             notifier.Remove(index);
@@ -129,12 +127,16 @@ public class MatchingNetworkManager : MonoBehaviour
         return sendSize;
     }
 
+    public int SendData(byte[] data)
+    {
+        return transportTCP.Send(data, data.Length);
+    }
     // FIX THIS : 지금은 그저 Connect결과가 true면 성공으로 간주.(200122)
     public void ConnectIP()
     {
         if (!isNetConnected)
         {
-            SetNetConnectionStatus(transportTCP.Connect("127.0.0.1", 3098));
+            SetNetConnectionStatus(transportTCP.Connect("10.99.13.48", 3098));
             if (GetNetConnectionStatus())
             {
                 Time.timeScale = 1f;
