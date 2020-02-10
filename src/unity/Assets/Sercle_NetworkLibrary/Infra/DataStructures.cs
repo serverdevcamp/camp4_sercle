@@ -16,6 +16,7 @@ public enum PacketId
     MatchingReject,
     MatchingCancel,
     GameServerJoin,
+    SyncData
 };
 
 //매칭 패킷 데이터
@@ -80,7 +81,6 @@ public struct MatchingResponseData
 
 public struct MatchingDecisionData
 {
-<<<<<<< HEAD
     public MatchingDecision decision;
     public int myinfo;
 }
@@ -116,6 +116,18 @@ public struct MouseData
     }
 
 };
+
+// 동기화 데이터
+public struct SyncData
+{
+    public long sendTime;
+    public override string ToString()
+    {
+        string str = "";
+        str += "Sendtime:" + sendTime;
+        return str;
+    }
+}
 
 public struct MatchingCompleteData
 {
