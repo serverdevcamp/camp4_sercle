@@ -1,6 +1,5 @@
 import socket
 from _thread import *
-import marshal
 
 HOST = '0.0.0.0'
 PORT = 3000
