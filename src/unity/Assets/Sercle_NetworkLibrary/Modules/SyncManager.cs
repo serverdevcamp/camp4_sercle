@@ -69,8 +69,6 @@ public class SyncManager : MonoBehaviour
     // 주기적으로 RTT 측정용 패킷을 송신한다.
     private IEnumerator SendLocalSyncInfo()
     {
-
-        // while(newtworkmanager.isconnected())
         while (true)
         {
             SyncData data = new SyncData();
