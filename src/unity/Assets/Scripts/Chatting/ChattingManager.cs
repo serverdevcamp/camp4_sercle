@@ -14,14 +14,16 @@ public class ChattingManager : MonoBehaviour
     private string address = "10.99.13.48";
     private int port = 3000;
 
-    public InputField inputField;
+    
     public UserInfo userInfo;
     public HTTPManager httpManager;
-    public Text dialogue;
-    public ScrollRect scrollbar;
+    
     public bool userInfoFlag = false;
     private TransportTCP socket;
 
+    [Header("UI Holder")]
+    public InputField inputField;
+    public ScrollRect scrollbar;
     // 스크롤이 적용될 content. content의 child object로 전송받은 msg들이 생긴다.
     public Transform contentTr;
     // msg prefab
@@ -34,8 +36,6 @@ public class ChattingManager : MonoBehaviour
         socket = GetComponent<TransportTCP>();
         Debug.Log("유저 : " + userInfo.userData.token);
         socket.Connect(address, port);
-
-        dialogue.text = "";
     }
 
     void Update()
@@ -47,22 +47,21 @@ public class ChattingManager : MonoBehaviour
         }
 
         ReceiveMessage();       //메세지 수신
+    }
 
-        // 입력 텍스트의 마지막 문자가 엔터라면
-        if (Input.GetKeyDown(KeyCode.Return))
+    public void OnEndEdit()
+    {
+        // 아무 입력이 없다면
+        if (inputField.text.Length == 0)
         {
-            // 아무 입력이 없다면
-            if (inputField.text.Length == 0)
-            {
-                Debug.Log("문자가 없음");
-                return;
-            }
-            if (CheckUser(userInfo.userData.email, userInfo.userData.token))
-            {
-                StringBuilder sb = new StringBuilder("[" + DateTime.Now.ToString("HH:mm:ss") + "] " + inputField.text, 100);
-                string msg = inputField.text;
-                SendData(msg);
-            }
+            Debug.Log("문자가 없음");
+            return;
+        }
+        if (CheckUser(userInfo.userData.email, userInfo.userData.token))
+        {
+            StringBuilder sb = new StringBuilder("[" + DateTime.Now.ToString("HH:mm:ss") + "] " + inputField.text, 100);
+            string msg = inputField.text;
+            SendData(msg);
         }
     }
 
@@ -72,7 +71,7 @@ public class ChattingManager : MonoBehaviour
         socket.Send(buffer, buffer.Length);
         Debug.Log("유저 정보 전송");
     }
-    private Boolean CheckUser(string email, string token)
+    private bool CheckUser(string email, string token)
     {
         if (httpManager.UserCacheReq(email) == token)
             return true;
@@ -100,7 +99,6 @@ public class ChattingManager : MonoBehaviour
 
     void AddMessage(string message)
     {
-        
         inputField.text = "";
         GameObject msg = Instantiate(msgPrefab);
         msg.transform.SetParent(contentTr);
@@ -112,6 +110,4 @@ public class ChattingManager : MonoBehaviour
        // scrollbar.verticalNormalizedPosition = 0f;
         scrollbar.verticalScrollbar.value = 0f;
     }
-    
-
 }
