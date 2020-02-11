@@ -164,6 +164,9 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void ClickToMove()
     {
+        // 20 02 11 현재 캐릭터가 스킬 사용중이라면 이동 불가
+        if (curCharacter.usingSkill) return;
+
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         RaycastHit hit;

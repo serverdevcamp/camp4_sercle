@@ -596,7 +596,7 @@ MonoBehaviour:
     skillState: 0
     indicator: {fileID: 5542897307311328380}
     myNum: 0
-    preDelay: 0
+    preDelay: 0.5
     postDelay: 0
     coolDown: 0.5
     proj: {fileID: 6332989940410738062, guid: 732b25df5dc5dcf44a354fb10a6cd888, type: 3}
