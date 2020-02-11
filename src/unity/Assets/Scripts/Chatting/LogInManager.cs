@@ -27,7 +27,8 @@ public class LogInManager : MonoBehaviour
     // 로그인 버튼 클릭시 이벤트 발생 함수
     public void SignInBtn()
     {
-        userInfo.userData = JsonUtility.FromJson<UserData>(httpManager.LoginReq(idInput.text, pwInput.text));
+        userInfo.userData = JsonUtility.FromJson<UserData>(httpManager.LoginReq("bluetwintail@naver.com", "1q2w3e4r!"));
+        //userInfo.userData = JsonUtility.FromJson<UserData>(httpManager.LoginReq(idInput.text, pwInput.text));
         //로그인 성공시
         Debug.Log("방번호 : " + userInfo.userData.roomNum);
         if (userInfo.userData.login == "true")

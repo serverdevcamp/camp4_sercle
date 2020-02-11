@@ -105,9 +105,5 @@ public class ChattingManager : MonoBehaviour
         msg.GetComponent<Text>().text = message;
   
         msg.GetComponent<RectTransform>().localScale = Vector3.one;
-
-        // 스크롤바를 항상 맨 아래로 지정.
-       // scrollbar.verticalNormalizedPosition = 0f;
-        scrollbar.verticalScrollbar.value = 0f;
     }
 }
