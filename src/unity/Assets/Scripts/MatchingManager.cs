@@ -6,14 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class MatchingManager : MonoBehaviour
 {
-    [Header("UI Holder")]
-    // 매칭이 완료되었을 때 '수락' or '거절' 버튼을 눌렀을 때 화면에 등장할 UI. 
-    public GameObject MatchingResponseWaitUI;
-    // 매치메이킹이 완료되었을 때 화면에 등장할, 거절/수락 버튼을 가진 UI.
-    public GameObject completeMatchMakingUI;
-    // 매치메이킹이 완료되지 않았을 때 화면에 등장할 채팅창 등을 가진 UI. 
-    public GameObject waitMatchMakingUI;
-
     [Header("Info Holder")]
     private MatchingNetworkManager networkManager;
     public static MatchingManager instance;
@@ -25,11 +17,12 @@ public class MatchingManager : MonoBehaviour
     public bool userInfoFlag;
 
     // 매치메이킹 State 열거형.
-    private enum MatchingState { Nothing, WaitMatchingResult, SelectMatchingResult, AcceptMatchingResult, RefuseMatchingResult}
+    public enum MatchingState { Nothing, WaitMatchingResult, SelectMatchingResult, AcceptMatchingResult, RefuseMatchingResult}
 
     // 매치메이킹 진행 State
     [SerializeField]
     private MatchingState matchingState;
+    public MatchingState MatchState { get { return matchingState; } }
 
     private void Awake()
     {
@@ -66,8 +59,6 @@ public class MatchingManager : MonoBehaviour
             SendData(userInfo.userData.id);
             userInfoFlag = true;
         }
-
-        ShowMatchingUI();
     }
 
     private void SendData(string msg)
@@ -75,42 +66,6 @@ public class MatchingManager : MonoBehaviour
         byte[] buffer = System.Text.Encoding.UTF8.GetBytes(msg);
         networkManager.SendData(buffer);
         Debug.Log("매칭 유저 정보 전송");
-    }
-    // 매치메이킹 요청 등의 결과와 현재 State에 따라 화면에 출력되는 UI를 결정하는 함수.
-    private void ShowMatchingUI()
-    {
-        switch (matchingState)
-        {
-            case MatchingState.Nothing:
-                waitMatchMakingUI.SetActive(false);
-                completeMatchMakingUI.SetActive(false);
-                MatchingResponseWaitUI.SetActive(false);
-                break;
-
-            case MatchingState.WaitMatchingResult:
-                waitMatchMakingUI.SetActive(true);
-                completeMatchMakingUI.SetActive(false);
-                MatchingResponseWaitUI.SetActive(false);
-                break;
-
-            case MatchingState.SelectMatchingResult:
-                waitMatchMakingUI.SetActive(false);
-                completeMatchMakingUI.SetActive(true);
-                MatchingResponseWaitUI.SetActive(false);
-                break;
-
-            case MatchingState.AcceptMatchingResult:
-                waitMatchMakingUI.SetActive(false);
-                completeMatchMakingUI.SetActive(false);
-                MatchingResponseWaitUI.SetActive(true);
-                break;
-
-            case MatchingState.RefuseMatchingResult:
-                waitMatchMakingUI.SetActive(false);
-                completeMatchMakingUI.SetActive(false);
-                MatchingResponseWaitUI.SetActive(true);
-                break;
-        }
     }
 
     private void ChangeMatchingState(MatchingState st)
@@ -142,7 +97,6 @@ public class MatchingManager : MonoBehaviour
 
 
         ChangeMatchingState(MatchingState.AcceptMatchingResult);
-        MatchingResponseWaitUI.transform.GetChild(1).GetComponent<Text>().text = "Waiting For Opponent...";
         // 상대방 매칭 대기중 메시지 띄우기
         // 게임 씬으로 이동
     }
@@ -154,7 +108,6 @@ public class MatchingManager : MonoBehaviour
         // 초기 로비 화면으로 돌아감
         SendLocalMatchingReject();
         ChangeMatchingState(MatchingState.RefuseMatchingResult);
-        MatchingResponseWaitUI.transform.GetChild(1).GetComponent<Text>().text = "Cancel...";
     }
 
     //매칭 요청
@@ -263,7 +216,7 @@ public class MatchingManager : MonoBehaviour
 
         if(packetData.result == MatchingResult.Success)
         {
-            Debug.Log("매칭 거절 됌");
+            Debug.Log("매칭 거절 됨");
             ChangeMatchingState(MatchingState.Nothing);
         }
     }
@@ -277,7 +230,7 @@ public class MatchingManager : MonoBehaviour
         MatchingCompleteData packetData = packet.GetPacket();
         Debug.Log("둘 다 매칭 수락 게임을 시작합니다.");
         userInfo.userData.roomNum = (int)packetData.roomId;     //방번호 저장
-        MatchingResponseWaitUI.transform.GetChild(1).GetComponent<Text>().text = "잠시 후 게임씬으로 넘어갑니다..";
+        //MatchingResponseWaitUI.transform.GetChild(1).GetComponent<Text>().text = "잠시 후 게임씬으로 넘어갑니다..";
         SceneManager.LoadScene("EQ_Test");
         //방번호와 내 정보 수신
 
