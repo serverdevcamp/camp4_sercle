@@ -1,6 +1,6 @@
 import socket
 from _thread import *
-from ..game_data_structure import *
+from game_data_structure import *
 import time
 
 HOST = '0.0.0.0'
@@ -76,3 +76,6 @@ class Game:
         if connection in self.user_list:
             self.user_list.remove(connection)
             print(str(connection[2]) + "님이 나가셨습니다.")
+
+
+start = Game()
