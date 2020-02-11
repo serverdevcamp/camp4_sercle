@@ -13,9 +13,9 @@ public class MatchingManager : MonoBehaviour
     // 매치메이킹이 완료되지 않았을 때 화면에 등장할 채팅창 등을 가진 UI. 
     public GameObject waitMatchMakingUI;
     // 매치메이킹 요청을 했고, 상대의 응답을 기다리는 상황에서 등장할 매칭 요청 취소 UI.
-    public GameObject cancelMatchingRequestUI;
+    // public GameObject cancelMatchingRequestUI;
     // 매칭 시작 버튼(매칭 요청 버튼)의 게임 오브젝트
-    public GameObject matchingRequestBtn;
+    // public GameObject matchingRequestBtn;
 
     // 매치메이킹이 완료되었는지 판단하는 변수
     public bool isMatchMakingCompleted;
@@ -146,43 +146,43 @@ public class MatchingManager : MonoBehaviour
         switch (matchingState)
         {
             case MatchingState.Nothing:
-                waitMatchMakingUI.SetActive(true);
-                matchingRequestBtn.SetActive(true);
+                waitMatchMakingUI.SetActive(false);
+                //matchingRequestBtn.SetActive(true);
                 completeMatchMakingUI.SetActive(false);
                 MatchingResponseWaitUI.SetActive(false);
-                cancelMatchingRequestUI.SetActive(false);
+                //cancelMatchingRequestUI.SetActive(false);
                 break;
 
             case MatchingState.WaitMatchingResult:
                 waitMatchMakingUI.SetActive(true);
-                matchingRequestBtn.SetActive(false);
+                //matchingRequestBtn.SetActive(false);
                 completeMatchMakingUI.SetActive(false);
                 MatchingResponseWaitUI.SetActive(false);
-                cancelMatchingRequestUI.SetActive(true);
+                //cancelMatchingRequestUI.SetActive(true);
                 break;
 
             case MatchingState.SelectMatchingResult:
                 waitMatchMakingUI.SetActive(false);
-                matchingRequestBtn.SetActive(false);
+                //matchingRequestBtn.SetActive(false);
                 completeMatchMakingUI.SetActive(true);
                 MatchingResponseWaitUI.SetActive(false);
-                cancelMatchingRequestUI.SetActive(false);
+                //cancelMatchingRequestUI.SetActive(false);
                 break;
 
             case MatchingState.AcceptMatchingResult:
                 waitMatchMakingUI.SetActive(false);
-                matchingRequestBtn.SetActive(false);
+                //matchingRequestBtn.SetActive(false);
                 completeMatchMakingUI.SetActive(false);
                 MatchingResponseWaitUI.SetActive(true);
-                cancelMatchingRequestUI.SetActive(false);
+                //cancelMatchingRequestUI.SetActive(false);
                 break;
 
             case MatchingState.RefuseMatchingResult:
                 waitMatchMakingUI.SetActive(false);
-                matchingRequestBtn.SetActive(false);
+                //matchingRequestBtn.SetActive(false);
                 completeMatchMakingUI.SetActive(false);
                 MatchingResponseWaitUI.SetActive(true);
-                cancelMatchingRequestUI.SetActive(false);
+                //cancelMatchingRequestUI.SetActive(false);
                 break;
         }
     }
@@ -218,7 +218,7 @@ public class MatchingManager : MonoBehaviour
 
 
         ChangeMatchingState(MatchingState.AcceptMatchingResult);
-        MatchingResponseWaitUI.transform.GetChild(1).GetComponent<Text>().text = "상대방을 기다려 주세요.\n매칭 수락 클릭됨..";
+        MatchingResponseWaitUI.transform.GetChild(1).GetComponent<Text>().text = "Waiting For Opponent...";
         // 상대방 매칭 대기중 메시지 띄우기
         // 게임 씬으로 이동
     }
@@ -230,7 +230,7 @@ public class MatchingManager : MonoBehaviour
         // 초기 로비 화면으로 돌아감
         SendLocalMatchingReject();
         ChangeMatchingState(MatchingState.RefuseMatchingResult);
-        MatchingResponseWaitUI.transform.GetChild(1).GetComponent<Text>().text = "상대방을 기다려 주세요.\n매칭 거절 클릭됨..";
+        MatchingResponseWaitUI.transform.GetChild(1).GetComponent<Text>().text = "Cancel...";
     }
 
     //매칭 요청
