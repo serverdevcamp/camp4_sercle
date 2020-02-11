@@ -73,6 +73,9 @@ public class Skill
 
         // GM에게 index 번째 캐릭터의 num번째 스킬을 dir 방향으로 사용한다고 알려준다.
         GameManager.instance.FireProjectile(caster.index, myNum, dir.Value);
+
+        // 20 02 11 스킬 사용시 이동 멈춤
+        caster.SetDestination(caster.transform.position);
     }
 
     public IEnumerator Fire(Character caster, Vector3 dir)

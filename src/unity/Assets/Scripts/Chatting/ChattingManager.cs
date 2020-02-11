@@ -23,7 +23,7 @@ public class ChattingManager : MonoBehaviour
 
     [Header("UI Holder")]
     public InputField inputField;
-    public ScrollRect scrollbar;
+    public Scrollbar scrollbar;
     // 스크롤이 적용될 content. content의 child object로 전송받은 msg들이 생긴다.
     public Transform contentTr;
     // msg prefab
@@ -107,7 +107,6 @@ public class ChattingManager : MonoBehaviour
         msg.GetComponent<RectTransform>().localScale = Vector3.one;
 
         // 스크롤바를 항상 맨 아래로 지정.
-       // scrollbar.verticalNormalizedPosition = 0f;
-        scrollbar.verticalScrollbar.value = 0f;
+        scrollbar.value = 0;
     }
 }
