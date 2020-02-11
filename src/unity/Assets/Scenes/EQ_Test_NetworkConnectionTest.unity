@@ -3091,7 +3091,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isNetConnected: 0
   clientID: 1
-  isLocalTest: 0
+  isLocalTest: 1
 --- !u!4 &1721859997
 Transform:
   m_ObjectHideFlags: 0
