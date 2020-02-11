@@ -1375,7 +1375,7 @@ MonoBehaviour:
   userInfo: {fileID: 0}
   userInfoFlag: 0
   inputField: {fileID: 1413596530}
-  scrollbar: {fileID: 915043571}
+  scrollbar: {fileID: 1152896367}
   contentTr: {fileID: 1331900780}
   msgPrefab: {fileID: 8263317446987717537, guid: ad257933a05d55b47bb37cc903b6e1c7,
     type: 3}
@@ -2149,17 +2149,6 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1152896367}
         m_MethodName: set_size
-        m_Mode: 4
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1152896367}
-        m_MethodName: set_value
         m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4256,6 +4245,7 @@ GameObject:
   - component: {fileID: 1668909837}
   - component: {fileID: 1668909839}
   - component: {fileID: 1668909838}
+  - component: {fileID: 1668909840}
   m_Layer: 5
   m_Name: Matching Time
   m_TagString: Untagged
@@ -4319,6 +4309,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1668909836}
   m_CullTransparentMesh: 0
+--- !u!114 &1668909840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1668909836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdb32dd7b203e3e4eaa2cf4d7bdd976d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1783633896
 GameObject:
   m_ObjectHideFlags: 0
