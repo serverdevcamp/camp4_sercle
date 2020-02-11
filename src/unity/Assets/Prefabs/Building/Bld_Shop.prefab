@@ -14,7 +14,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &2529532065981022803
 Transform:
@@ -47,6 +47,10 @@ PrefabInstance:
     - target: {fileID: 1481707515668378, guid: 300058755dbc3334db2b882dfbb9453e, type: 3}
       propertyPath: m_Name
       value: SM_Bld_Section_Wall_02 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1481707515668378, guid: 300058755dbc3334db2b882dfbb9453e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4625375722686006, guid: 300058755dbc3334db2b882dfbb9453e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -111,6 +115,10 @@ PrefabInstance:
     - target: {fileID: 1861103689938312, guid: 8fcac59344a77004eaa7a2f81afa3dd9, type: 3}
       propertyPath: m_Name
       value: SM_Sign_Ad_22 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1861103689938312, guid: 8fcac59344a77004eaa7a2f81afa3dd9, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4445178656696052, guid: 8fcac59344a77004eaa7a2f81afa3dd9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -179,6 +187,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_DeadZub_03 (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 1512672188547976, guid: f93a6c8698aaa1c4482442c6885cb1bd, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4694036850323594, guid: f93a6c8698aaa1c4482442c6885cb1bd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.879
@@ -230,6 +242,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_DeadZub_02 (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 1472134216069766, guid: c2e979821c92f724d9c34f8fbe52e0e2, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4439209876437906, guid: c2e979821c92f724d9c34f8fbe52e0e2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.511
@@ -280,6 +296,10 @@ PrefabInstance:
     - target: {fileID: 1380263795697628, guid: ee6ed23ee9722a047901ce6ae24e844f, type: 3}
       propertyPath: m_Name
       value: SM_Prop_DeadZub_04 (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1380263795697628, guid: ee6ed23ee9722a047901ce6ae24e844f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4249737495103552, guid: ee6ed23ee9722a047901ce6ae24e844f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -339,6 +359,10 @@ PrefabInstance:
     - target: {fileID: 1861103689938312, guid: 8fcac59344a77004eaa7a2f81afa3dd9, type: 3}
       propertyPath: m_Name
       value: SM_Sign_Ad_22 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1861103689938312, guid: 8fcac59344a77004eaa7a2f81afa3dd9, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4445178656696052, guid: 8fcac59344a77004eaa7a2f81afa3dd9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -406,6 +430,10 @@ PrefabInstance:
     - target: {fileID: 1193711496273366, guid: 692039e2420b31443a1e49fe9a1ba389, type: 3}
       propertyPath: m_Name
       value: SM_Bld_Section_Door_02 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1193711496273366, guid: 692039e2420b31443a1e49fe9a1ba389, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4827419629408752, guid: 692039e2420b31443a1e49fe9a1ba389, type: 3}
       propertyPath: m_LocalPosition.x
