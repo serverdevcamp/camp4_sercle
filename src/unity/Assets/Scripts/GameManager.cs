@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     public List<GameObject> characterPrefabs;
     public List<Character> myCharacters;
     public List<Character> enemyCharacters;
+    public List<Vector3> startPos_1P;
+    public List<Vector3> startPos_2P;
 
     [Tooltip("초당 CP 증가량")]
     [SerializeField] private float cps;
@@ -62,23 +64,27 @@ public class GameManager : MonoBehaviour
         // 회전도 해줘야 할까?
         if (is1P)
         {
-            myCharacters[0].transform.position = new Vector3(0, 0, 0);
-            myCharacters[1].transform.position = new Vector3(1, 0, -1);
-            myCharacters[2].transform.position = new Vector3(-1, 0, -1);
-
-            enemyCharacters[0].transform.position = new Vector3(12, 0, 18);
-            enemyCharacters[1].transform.position = new Vector3(13, 0, 19);
-            enemyCharacters[2].transform.position = new Vector3(11, 0, 19);
+            for (int i = 0; i < 3; i++)
+            {
+                myCharacters[i].GetComponent<NavMeshAgent>().enabled = false;
+                enemyCharacters[i].GetComponent<NavMeshAgent>().enabled = false;
+                myCharacters[i].transform.position = startPos_1P[i];
+                enemyCharacters[i].transform.position = startPos_2P[i];
+                myCharacters[i].GetComponent<NavMeshAgent>().enabled = true;
+                enemyCharacters[i].GetComponent<NavMeshAgent>().enabled = true;
+            }
         }
         else
         {
-            enemyCharacters[0].transform.position = new Vector3(0, 0, 0);
-            enemyCharacters[1].transform.position = new Vector3(1, 0, -1);
-            enemyCharacters[2].transform.position = new Vector3(-1, 0, -1);
-
-            myCharacters[0].transform.position = new Vector3(12, 0, 18);
-            myCharacters[1].transform.position = new Vector3(13, 0, 19);
-            myCharacters[2].transform.position = new Vector3(11, 0, 19);
+            for (int i = 0; i < 3; i++)
+            {
+                myCharacters[i].GetComponent<NavMeshAgent>().enabled = false;
+                enemyCharacters[i].GetComponent<NavMeshAgent>().enabled = false;
+                myCharacters[i].transform.position = startPos_2P[i];
+                enemyCharacters[i].transform.position = startPos_1P[i];
+                myCharacters[i].GetComponent<NavMeshAgent>().enabled = true;
+                enemyCharacters[i].GetComponent<NavMeshAgent>().enabled = true;
+            }
         }
         #endregion
 
