@@ -63,6 +63,8 @@ public class ChattingManager : MonoBehaviour
             string msg = inputField.text;
             SendData(msg);
         }
+
+        inputField.text = "";
     }
 
     private void SendData(string msg)
@@ -99,7 +101,6 @@ public class ChattingManager : MonoBehaviour
 
     void AddMessage(string message)
     {
-        inputField.text = "";
         GameObject msg = Instantiate(msgPrefab);
         msg.transform.SetParent(contentTr);
         msg.GetComponent<Text>().text = message;
