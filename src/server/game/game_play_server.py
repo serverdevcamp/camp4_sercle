@@ -1,6 +1,6 @@
 import socket
 from _thread import *
-from game_data_structure import *
+from ..game_data_structure import *
 import time
 
 HOST = '0.0.0.0'
