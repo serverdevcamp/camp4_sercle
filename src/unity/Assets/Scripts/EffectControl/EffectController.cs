@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Linq;
+using DG.Tweening;
 
 public class EffectController : MonoBehaviour
 {
@@ -27,9 +28,13 @@ public class EffectController : MonoBehaviour
     // 캐릭터의 스킬들
     private readonly Skill[] skills = new Skill[3];
 
+    [Header("Skill Particles")]
     // 캐릭터의 파티클
     public List<ParticleSystem> preParticles = new List<ParticleSystem>();
     public List<ParticleSystem> particles = new List<ParticleSystem>();
+
+    // 탱커의 검격
+    public TrailRenderer swordTrail;
 
     // 상태 - 부울 딕셔너리
     [SerializeField]
@@ -39,6 +44,22 @@ public class EffectController : MonoBehaviour
 
     // 지속시간 있는 스킬이 발동중인지 알려주는 변수
     private bool[] isSkillActiveted = new bool[2];
+
+    [Header("Hit Particles")]
+    // 힐 피격시 나타낼 파티클
+    public ParticleSystem[] healEffects;
+
+    // 스턴 피격시 나타낼 파티클
+    public ParticleSystem stunEffect;
+
+    // 일반 공격 피격시 나타낼 파티클
+    public ParticleSystem normalHitEffect;
+
+    // 자기 버프 사용시 나타낼 파티클
+    public ParticleSystem buffEffect;
+
+    // 디버프 피격시 나타낼 파티클
+    public ParticleSystem debuffEffect;
 
     // Start is called before the first frame update
     void Start()
@@ -131,6 +152,7 @@ public class EffectController : MonoBehaviour
                     return;
                 case Skill.SkillState.Fire:
                     PlayFireParticle(i);
+                    OnFireVFX(i);
                     PlayFireAnim(i);
                     return;
 
@@ -160,6 +182,11 @@ public class EffectController : MonoBehaviour
         {
             SetAnimStateMap(skillName);
             animator.SetFloat("PreDelayOffset", 1f);
+
+            if(GetComponent<Character>().index == 0 && index == 0)
+            {
+                TankerSwordTrail();
+            }
         }
         else if (animator.GetCurrentAnimatorStateInfo(0).IsName(skillName + "_PreDelay"))
         {
@@ -175,6 +202,9 @@ public class EffectController : MonoBehaviour
         {
             SetAnimStateMap("Fire");
             animator.SetFloat("PostDelayOffset", 1f);
+            
+            
+            
         }
         else if (animator.GetCurrentAnimatorStateInfo(0).IsName("Skill_" + index.ToString() + "_Fire"))
         {
@@ -231,6 +261,13 @@ public class EffectController : MonoBehaviour
         }
     }
 
+    // 탱커 검격 발동
+    private void TankerSwordTrail()
+    {
+        StartCoroutine(PlayContinuousParticle(0));
+    }    
+    
+
     // 스킬 이펙트 파티클
     private void PlayPreDelayParticle(int skillNumber)
     {
@@ -243,13 +280,20 @@ public class EffectController : MonoBehaviour
         // 탱커
         if (GetComponent<Character>().index == 0)
         {
-            if(skillNumber == 1)
+            if (skillNumber == 0)
             {
-               
+                
+            }
+            else if(skillNumber == 1)
+            {
+                preParticles[skillNumber].Play();
             }
             else if(skillNumber == 2)
             {
-
+                ParticleSystem.MainModule psMain = preParticles[skillNumber].GetComponent<ParticleSystem>().main;
+                Debug.Log("탱커 2스킬 radius 5로 하드코딩");
+                psMain.startSize = 5f;
+                preParticles[skillNumber].Play();
             }
         }
         // 딜러
@@ -276,6 +320,93 @@ public class EffectController : MonoBehaviour
         }
     }
 
+    // 투사체에 히트 당했을 때 VFX
+    public void OnHitVFX(SkillEffect effect, int casterIndex)
+    {
+        switch (effect.GetSkillType())
+        {
+            case SkillEffect.SkillType.Heal:
+                for (int i = 0; i < healEffects.Length; i++)
+                {
+                    healEffects[i].Play();
+                }
+                break;
+            case SkillEffect.SkillType.Attack:
+                normalHitEffect.Play();
+                break;
+            case SkillEffect.SkillType.Temp:
+                if (effect.GetCCType() == SkillEffect.CCType.Hard)
+                {
+                    stunEffect.Play();
+                }
+                else
+                {
+                    // 시전자가 딜러(총알 강화).
+                    if(casterIndex == 1)
+                    {
+                        buffEffect.Play();
+                    }
+                    // 시전자가 서포터(디버프)
+                    else if(casterIndex == 2)
+                    {
+                        debuffEffect.Play();
+                    }
+                }
+                break;
+        }
+    }
+
+    // 스킬이 Fire 상태일 때 VFX
+    private void OnFireVFX(int index)
+    {
+        if (stateMap["Fire"])
+            return;
+
+        // 아군일 경우
+        if (GetComponent<Character>().isFriend)
+        {
+            // 탱/ 딜/ 힐
+            switch (GetComponent<Character>().index)
+            {
+                // 탱커
+                case 0:
+                    switch (index)
+                    {
+                        case 0:
+                            break;
+                        case 1:
+                            // 탱커 1번째 스킬의 경우, 잔상 남도록 설정.
+                            StartCoroutine(PlayContinuousParticle(index));
+                            break;
+                        case 2:
+                            // 탱커의 2번째 스킬의 경우, 카메라 흔들기 효과 
+                            Camera.main.transform.DOShakePosition(0.1f, 0.3f, 5);
+                          
+                            break;
+                    }
+                    break;
+                // 딜러
+                case 1:
+                    switch (index)
+                    {
+                        case 0:
+                            break;
+                        case 1:
+                            // 딜러의 1번째 스킬의 경우, 카메라 흔들기 효과 
+                            Camera.main.transform.DOShakePosition(0.1f, 0.1f, 1);
+                            break;
+                        case 2:
+                            break;
+                    }
+                    break;
+                // 힐러
+                case 2:
+                    break;
+            }
+        }
+    }
+
+
     private void PlayFireParticle(int skillNumber)
     {
         if (particles[skillNumber] == null)
@@ -291,7 +422,7 @@ public class EffectController : MonoBehaviour
                 particles[skillNumber].Stop();
 
             ParticleSystem.MainModule psMain = particles[skillNumber].GetComponent<ParticleSystem>().main;
-            
+
             particles[skillNumber].GetComponent<ParticleSystem>().Play();
         }
         // 1번째 캐릭터(딜러)
@@ -302,12 +433,14 @@ public class EffectController : MonoBehaviour
             if (particles[skillNumber].isPlaying)
                 particles[skillNumber].Stop();
             if (skillNumber == 1)
+            {
                 particles[skillNumber].Play();
+            }
             else if (skillNumber == 2)
                 StartCoroutine(PlayContinuousParticle(skillNumber));
         }
         // 2번째 캐릭터(서포터)
-        else if(GetComponent<Character>().index == 2)
+        else if (GetComponent<Character>().index == 2)
         {
             if (particles[skillNumber] == null) return;
 
@@ -322,8 +455,24 @@ public class EffectController : MonoBehaviour
     // 지속시간 있는 스킬 처리
     private IEnumerator PlayContinuousParticle(int index)
     {
+        // 탱커
+        if(GetComponent<Character>().index == 0)
+        {
+            if(index == 0)
+            {
+                swordTrail.enabled = true;
+                yield return new WaitForSeconds(0.5f);
+                swordTrail.enabled = false;
+            }
+            else if(index == 1)
+            {
+                GetComponent<TrailRenderer>().enabled = true;
+                yield return new WaitForSeconds(.5f);
+                GetComponent<TrailRenderer>().enabled = false;
+            }
+        }
         // 딜러
-        if(GetComponent<Character>().index == 1)
+        else if(GetComponent<Character>().index == 1)
         {
             particles[index].GetComponent<ParticleSystem>().Play();
 
@@ -368,8 +517,6 @@ public class EffectController : MonoBehaviour
                 yield return new WaitForSeconds(skills[index].preDelay -.3f);
                 preParticles[index].Stop();
             }
-            
-            
         }
     }
 

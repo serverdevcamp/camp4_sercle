@@ -3,7 +3,7 @@ using System.Collections;
 
 public class GameNetworkManager : MonoBehaviour
 {
-    private string address = "10.99.13.48";
+    private string address = "13.125.252.198";
     private int port = 1000;
     public UserInfo userInfo;
     private TransportTCP socket;

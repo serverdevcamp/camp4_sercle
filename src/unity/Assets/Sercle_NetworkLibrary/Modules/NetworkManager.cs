@@ -18,6 +18,9 @@ public class NetworkManager : MonoBehaviour
     // 이 단말의 고유 번호. 테스트 용도로 true/ false
     public bool clientID;
 
+    // 로컬 테스트인지 여부
+    public bool isLocalTest;
+
     // UDP
     private TransportUDP transportUDP;
     // TCP
@@ -205,7 +208,15 @@ public class NetworkManager : MonoBehaviour
             //SetNetConnectionStatus(transportUDP.Connect("127.0.0.1", 3098));
             //if (GetNetConnectionStatus())
             //    Time.timeScale = 1f;
-            SetNetConnectionStatus(transportTCP.Connect("10.99.13.48", 1000));
+
+            // 로컬 테스트라면, 127.0.0.1 로컬호스트에 연결
+            if (isLocalTest)
+            {
+                SetNetConnectionStatus(transportTCP.Connect("127.0.0.1", 3098));
+            }
+            // 로컬테스트가 아니라면, 다른 아이피에 연결
+            else
+                SetNetConnectionStatus(transportTCP.Connect("10.99.13.48", 1000));
             //transportTCP.Send(System.Text.Encoding.UTF8.GetBytes("PLEASEE"), 10);
             if (GetNetConnectionStatus())
             {

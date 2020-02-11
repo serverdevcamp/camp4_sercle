@@ -107,4 +107,14 @@ public class SkillEffect : ScriptableObject
         }
         return effects;
     }
+
+    public SkillType GetSkillType()
+    {
+        return skillType;
+    }
+
+    public CCType GetCCType()
+    {
+        return ccType;
+    }
 }
