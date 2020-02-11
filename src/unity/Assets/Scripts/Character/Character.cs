@@ -206,9 +206,16 @@ public class Character : MonoBehaviour
         //MouseCursor.instance.State = MouseState.Idle;
     }
 
-    public void SetDestination(Vector3 pos)
+    /// <summary>
+    /// 캐릭터의 목표지점을 설정
+    /// </summary>
+    /// <param name="pos">목표 지점</param>
+    /// <param name="isCurrent">Current Character일 때만 true. 만약 true라면 해당 지점까지 정확히 이동. false라면 근처로 이동</param>
+    public void SetDestination(Vector3 pos, bool isCurrent = true)
     {
         agent.destination = pos;
+        if(isCurrent) agent.stoppingDistance = 0;
+        else agent.stoppingDistance = 3f;
     }
 
     /// <summary>

@@ -12,10 +12,6 @@ public class GameManager : MonoBehaviour
     public List<Vector3> startPos_1P;
     public List<Vector3> startPos_2P;
 
-    [Tooltip("초당 CP 증가량")]
-    [SerializeField] private float cps;
-    [SerializeField] private float myCP;
-
     [SerializeField] private Character curCharacter;
     public Character CurCharacter { get { return curCharacter; } }
 
@@ -91,8 +87,6 @@ public class GameManager : MonoBehaviour
         #region 시작 세팅
         // 자신의 첫번째 캐릭터로 고정
         ChangeCurrentCharacter(myCharacters[0]);
-
-        myCP = 50;
         #endregion
     }
 
@@ -107,8 +101,6 @@ public class GameManager : MonoBehaviour
         // 20 02 10 사망한 캐릭터/ hard cc 상황인 캐릭터로는 조작이 불가하도록 함.
         if (curCharacter.GetCharacterState() == CharacterState.Die || curCharacter.GetCharacterState() == CharacterState.CC) return;
 
-        if (Input.GetKeyDown(KeyCode.Z))
-            Upgrade();
         if (Input.GetMouseButtonDown(1))
             ClickToMove();
         if (Input.GetKeyDown(KeyCode.Q))
@@ -121,12 +113,6 @@ public class GameManager : MonoBehaviour
             Debug.Log("Second Skill Input");
             curCharacter.UseSkill(2);
         }
-    }
-
-    private void FixedUpdate()
-    {
-        // 매초 cps만큼 CP 충전
-        myCP += cps * Time.fixedDeltaTime;
     }
 
     public void ChangeCurrentCharacter(Character character)
@@ -184,7 +170,11 @@ public class GameManager : MonoBehaviour
             moveCircle.anchoredPosition = new Vector2(hit.point.x, hit.point.z);
             anim.Play();
 
-            MoveCharacter(curCharacter.index, hit.point);
+            for(int i = 0; i < 3; i++)
+            {
+                if(curCharacter.index == i) MoveCharacter(i, hit.point);
+                else MoveCharacter(i, hit.point, false);
+            }
         }
     }
 
@@ -194,9 +184,10 @@ public class GameManager : MonoBehaviour
     /// </summary>
     /// <param name="index">캐릭터 번호</param>
     /// <param name="destination">목표 지점</param>
-    public void MoveCharacter(int index, Vector3 destination)
+    /// <param name="isCurrent">Current Character일 때만 true로 설정</param>
+    public void MoveCharacter(int index, Vector3 destination, bool isCurrent = true)
     {
-        myCharacters[index].SetDestination(destination);
+        myCharacters[index].SetDestination(destination, isCurrent);
         MovingManager.instance.SendLocalMovingInfo(index, destination);
     }
 
@@ -224,17 +215,6 @@ public class GameManager : MonoBehaviour
     public void FireRemoteProjectile(int index, int num, Vector3 dir)
     {
         enemyCharacters[index].FireProjectile(num, dir);
-    }
-
-    /// <summary>
-    /// 임시로 만들어둔 캐릭터를 강화시키는 함수. 현재는 Z키를 누르면 CP를 20 소모하고 현재 선택된 캐릭터의 공격력이 20 증가.
-    /// </summary>
-    private void Upgrade()
-    {
-        if (myCP < 20) return;
-
-        curCharacter.status.ChangeStat(StatusType.ATK, 20);
-        myCP -= 20;
     }
 
     /// <summary>
