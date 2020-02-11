@@ -12,8 +12,9 @@ public class UserInfo : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
     }
-    void OnDestroy()
+    void OnApplicationQuit()
     {
         hTTPManager.DestroyUserCache(userData.email);
+        Debug.Log("Application Quit");
     }
 }

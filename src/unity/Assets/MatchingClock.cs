@@ -12,14 +12,11 @@ public class MatchingClock : MonoBehaviour
     private void Start()
     {
         timeText = transform.GetComponentInChildren<Text>();
-        Debug.Log("Start");
     }
 
     private void OnEnable()
     {
-        Debug.Log("On Enable");
-        matchingTime = 0f;
-        transform.DORotate(new Vector3(0, 0, 90), 1f)
+        transform.DORotate(new Vector3(0, 0, 100f), 1f)
             .SetEase(Ease.Linear)
             .SetLoops(-1, LoopType.Incremental);
     }
@@ -29,5 +26,13 @@ public class MatchingClock : MonoBehaviour
         matchingTime += Time.deltaTime;
         timeText.text = matchingTime.ToString("0");
         timeText.transform.rotation = Quaternion.identity;
+    }
+
+    private void OnDisable()
+    {
+        timeText.text = "0";
+        matchingTime = 0;
+        transform.DOKill();
+        transform.rotation = Quaternion.identity;
     }
 }
