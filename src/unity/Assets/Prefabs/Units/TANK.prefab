@@ -2086,7 +2086,7 @@ MonoBehaviour:
     ddg: 40
     cc: 1.2
     hardCC: 0
-  isFriend: 1
+  is1P: 0
   state: 0
   target: {fileID: 0}
   contactLayer:

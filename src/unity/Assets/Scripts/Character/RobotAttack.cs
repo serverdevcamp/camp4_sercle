@@ -1,24 +1,13 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Werewolf.StatusIndicators.Components;
 
-public enum RangeType { Self, Around, Direction }
-public enum TargetType { Auto, Self, Friend, Enemy }
-public enum TargetNum { One, All }
-
-[System.Serializable]
-public class Skill
+public class RobotAttack
 {
     public enum SkillState { Idle, Ready, PreDelay, Fire, PostDelay, CoolDown }
 
     [Header("Basic Info")]
-    public string skillName;
-    public string description;
     public SkillState skillState;
-    public Splat indicator;
-    public int myNum;
 
     [Header("Time")]
     public float preDelay;
@@ -36,7 +25,7 @@ public class Skill
     public TargetNum targetNum;
     public List<SkillEffect> skillEffects;
 
-    public IEnumerator Use(Character caster, Vector3? dir = null)
+    public IEnumerator Use(Robot caster, Vector3 dir)
     {
         #region Check Cool Time
         if (skillState != SkillState.Idle) yield break;
@@ -44,44 +33,15 @@ public class Skill
 
         skillState = SkillState.Ready;
 
-        #region Get Direction
-        if (speed == 0)
-        {
-            dir = Vector3.zero;
-        }
-        else
-        {
-            while (dir.HasValue == false)
-            {
-                caster.ShowSkillIndicator(myNum, true);
-                bool isValid = true;
-                dir = GameManager.instance.GetDirection(caster, ref isValid);
+        Debug.Log(caster.name + " Use to " + dir);
 
-                if (isValid == false) yield break;
-
-                yield return new WaitForFixedUpdate();
-            }
-            caster.HideSkillIndicator();
-        }
-        #endregion
-
-        // 스킬 쿨타임 정보 UI 애니메이팅 
-        UIManager.instance.DisplaySkillInputAnimation(myNum);
-
-        Debug.Log(caster.name + " Use " + skillName + " to " + dir);
-
-        // GM에게 index 번째 캐릭터의 num번째 스킬을 dir 방향으로 사용한다고 알려준다.
-        GameManager.instance.FireProjectile(caster.index, myNum, dir.Value);
-
-        // 20 02 11 스킬 사용시 이동 멈춤
-        caster.SetDestination(caster.transform.position);
+        // GM에게 index 번째 로봇이 dir 방향으로 공격한다고 알려준다.
+        // GameManager.instance.FireProjectile(caster.index, dir);
     }
 
     public IEnumerator Fire(Character caster, Vector3 dir)
     {
-        #region Wait for Pre delay
-
-        if (targetType != TargetType.Auto) caster.usingSkill = true;
+        #region 선딜 대기
 
         // 스킬 발사 상태 변경 2020 01 30
         skillState = SkillState.PreDelay;
@@ -107,17 +67,16 @@ public class Skill
             Projectile projectile = UnityEngine.Object.Instantiate(proj, spawnPos, Quaternion.identity);
             projectile.Initialize(info);
         }
-        
+
         #endregion
 
-        #region Wait for Post Delay
+        #region 후딜 대기
         yield return new WaitForSeconds(postDelay);
-        if (targetType != TargetType.Auto) caster.usingSkill = false;
         #endregion
 
         skillState = SkillState.CoolDown;
 
-        #region Cool Down...
+        #region 쿨 돌리기
         remainCool = coolDown;
 
         while (remainCool > 0)
@@ -138,10 +97,9 @@ public class Skill
         return info;
     }
 
-    public void Initialize(int num)
+    public void Initialize()
     {
         skillState = SkillState.Idle;
         remainCool = 0f;
-        myNum = num;
     }
 }

@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
             Character _character = Instantiate(characterPrefabs[i]).GetComponent<Character>();
             _character.name = characterPrefabs[i].name;
             _character.index = i;
-            _character.isFriend = true;
+            _character.is1P = true;
 
             myCharacters.Add(_character); 
         }
@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
             Character _character = Instantiate(characterPrefabs[i]).GetComponent<Character>();
             _character.name = "Enemy_" + characterPrefabs[i].name;
             _character.index = i;
-            _character.isFriend = false;
+            _character.is1P = false;
 
             enemyCharacters.Add(_character);
         }

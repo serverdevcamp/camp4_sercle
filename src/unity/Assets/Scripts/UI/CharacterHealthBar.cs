@@ -14,7 +14,7 @@ public class CharacterHealthBar : MonoBehaviour
     {
         character = transform.parent.GetComponent<Character>();
 
-        if (character.isFriend == false)
+        if (character.is1P == false)
         {
             bar.color = new Color(255, 100, 100);
         }

@@ -10,7 +10,7 @@ public class Character : MonoBehaviour
 {
     public int index;
     public Status status;
-    public bool isFriend;
+    public bool is1P;
 
     [SerializeField] private CharacterState state;
     [SerializeField] private Character target = null;
@@ -65,7 +65,7 @@ public class Character : MonoBehaviour
 
             // 2020 02 01 이 캐릭터의 isFriend와 검출된 캐릭터의 isFriend가 같다면, isFriend의 T/F에 관계 없이 이 캐릭터의 아군이다. 아군 검출시 continue.
             // isFriend true인 애를 안공격하는 문제는 위의 if (coll.gameObject.GetComponent<Character>().isFriend) continue;문을 지우면 됨.
-            if (isFriend == coll.transform.GetComponent<Character>().isFriend) continue;
+            if (is1P == coll.transform.GetComponent<Character>().is1P) continue;
 
             if (target == null || Vector3.Distance(coll.transform.position, transform.position) < nearestDis)
             {
@@ -77,7 +77,7 @@ public class Character : MonoBehaviour
 
     private void BasicAttackActivate()
     {
-        if (isFriend == false) return;
+        if (is1P == false) return;
         Vector3 dir = target.transform.position - transform.position;
         // 발사체 오브젝트 교체
         ChangeProjectile();
@@ -165,7 +165,7 @@ public class Character : MonoBehaviour
                 break;
             case CharacterState.Move:
                 // 20 02 07 상대 캐릭터의 속도를 보정된 값으로 지정.
-                agent.speed = isFriend ? status.SPD : MovingManager.instance.GetInterpolatedSpeed(index);
+                agent.speed = is1P ? status.SPD : MovingManager.instance.GetInterpolatedSpeed(index);
                 break;
             case CharacterState.Attack:
                 BasicAttackActivate();
@@ -190,7 +190,7 @@ public class Character : MonoBehaviour
     /// </summary>
     private void OnMouseDown()
     {
-        if (isFriend == false) return;
+        if (is1P == false) return;
 
         Debug.Log("You click " + name);
         GameManager.instance.ChangeCurrentCharacter(this);

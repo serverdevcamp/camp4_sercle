@@ -192,7 +192,7 @@ public class EffectController : MonoBehaviour
         {
             // PreDelay 시간에 맞추어 애니메이션 재생속도를 조정한다.
             if (skills[index].preDelay > 0f)
-                animator.SetFloat("PreDelayOffset", 1f / ((GetComponent<Character>().isFriend ? skills[index].preDelay + SyncManager.instance.GetAvgRemoteRtt() : skills[index].preDelay) / animator.GetCurrentAnimatorClipInfo(0)[0].clip.length));
+                animator.SetFloat("PreDelayOffset", 1f / ((GetComponent<Character>().is1P ? skills[index].preDelay + SyncManager.instance.GetAvgRemoteRtt() : skills[index].preDelay) / animator.GetCurrentAnimatorClipInfo(0)[0].clip.length));
         }        
     }
     // 스킬 발사 애니메이션
@@ -363,7 +363,7 @@ public class EffectController : MonoBehaviour
             return;
 
         // 아군일 경우
-        if (GetComponent<Character>().isFriend)
+        if (GetComponent<Character>().is1P)
         {
             // 탱/ 딜/ 힐
             switch (GetComponent<Character>().index)
