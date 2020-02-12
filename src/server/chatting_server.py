@@ -12,7 +12,7 @@ server_socket.listen()
 
 #서버에 접속한 유저 소켓 리스트 저장
 list_of_clients = []
-print('Lobby server start')
+print('Chatting server start')
 
 
 #각 클라이언트 소켓 쓰레드

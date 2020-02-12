@@ -1,7 +1,6 @@
 import socket
 from _thread import *
 from game_data_structure import *
-import time
 
 HOST = '0.0.0.0'
 PORT = 1000
@@ -27,7 +26,7 @@ class Game:
     def start_server(self):
         print('Game server start')
         start_new_thread(self.game_wait_thread, ())
-
+        print("wait")
         while True:
             client_socket, addr = self.server_socket.accept()  # 소켓
             print(addr[0] + ' ' + str(addr[1]) + ' connected')
@@ -59,18 +58,26 @@ class Game:
                 opponent_socket[0].send(message)
             except Exception as e:
                 print(e)
+                self.remove(my_socket)
+                break
 
     def game_wait_thread(self):
+
         while True:
+            delete_room_num = -1
             for room_num, user_num in self.game_wait_dic.items():
                 if user_num == 2:
+                    delete_room_num = room_num
                     play_user = []
                     for user in self.user_list:
                         if user[3] == room_num:
                             play_user.append(user)
-                    start_new_thread(self.client_thread, play_user[0], play_user[1])
-                    start_new_thread(self.client_thread, play_user[1], play_user[0])
-                    self.game_wait_dic.pop(room_num)
+                    start_new_thread(self.client_thread, (play_user[0], play_user[1]))
+                    start_new_thread(self.client_thread, (play_user[1], play_user[0]))
+                    print("방 : " + str(room_num) + " 게임 시작")
+
+            if delete_room_num != -1:
+                self.game_wait_dic.pop(delete_room_num)
 
     def remove(self, connection):
         if connection in self.user_list:
