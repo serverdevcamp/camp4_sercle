@@ -37,6 +37,7 @@ public class NetworkManager : MonoBehaviour
     {
         transportUDP = GetComponent<TransportUDP>();
         transportTCP = GetComponent<TransportTCP>();
+        ConnectIP();
     }
 
     // Update is called once per frame
@@ -216,7 +217,11 @@ public class NetworkManager : MonoBehaviour
             }
             // 로컬테스트가 아니라면, 다른 아이피에 연결
             else
+            {
+                Debug.Log("gameserver");
                 SetNetConnectionStatus(transportTCP.Connect("10.99.13.48", 1000));
+
+            }
             //transportTCP.Send(System.Text.Encoding.UTF8.GetBytes("PLEASEE"), 10);
             if (GetNetConnectionStatus())
             {

@@ -3,7 +3,7 @@ using System.Collections;
 
 public class GameNetworkManager : MonoBehaviour
 {
-    private string address = "13.125.252.198";
+    private string address = "10.99.13.48";
     private int port = 1000;
     public UserInfo userInfo;
     private TransportTCP socket;
@@ -14,8 +14,6 @@ public class GameNetworkManager : MonoBehaviour
     {
         networkManager = transform.parent.GetComponent<NetworkManager>();
         userInfo = GameObject.Find("UserInfoObject").GetComponent<UserInfo>();
-        socket = GetComponent<TransportTCP>();
-        socket.Connect(address, port);
     }
 
     // Update is called once per frame
