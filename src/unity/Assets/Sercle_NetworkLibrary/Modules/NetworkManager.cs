@@ -219,7 +219,7 @@ public class NetworkManager : MonoBehaviour
             else
             {
                 Debug.Log("gameserver");
-                SetNetConnectionStatus(transportTCP.Connect("10.99.13.48", 1000));
+                SetNetConnectionStatus(transportTCP.Connect("13.125.252.198", 1000));
 
             }
             //transportTCP.Send(System.Text.Encoding.UTF8.GetBytes("PLEASEE"), 10);
