@@ -28,7 +28,6 @@ public class Character : MonoBehaviour
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
-        InitialSetting();
     }
 
     private void Update()
