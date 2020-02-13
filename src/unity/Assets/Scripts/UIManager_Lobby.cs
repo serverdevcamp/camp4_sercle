@@ -5,8 +5,12 @@ using UnityEngine.UI;
 
 public class UIManager_Lobby : MonoBehaviour
 {
+    [Header("Buttons")]
     [SerializeField] private GameObject matchBtn;
     [SerializeField] private GameObject cancelBtn;
+    [SerializeField] private GameObject acceptBtn;
+    [SerializeField] private GameObject declineBtn;
+
     [SerializeField] private GameObject matchTimer;
     [SerializeField] private GameObject matchCompletePanel;
     [SerializeField] private GameObject matchWaitingPanel;
@@ -17,6 +21,9 @@ public class UIManager_Lobby : MonoBehaviour
     {
         matchingManager = GameObject.Find("MatchingManager").GetComponent<MatchingManager>();
         matchBtn.GetComponent<Button>().onClick.AddListener(matchingManager.MatchingRequest);
+        cancelBtn.GetComponent<Button>().onClick.AddListener(matchingManager.MatchingCancel);
+        acceptBtn.GetComponent<Button>().onClick.AddListener(matchingManager.AccpetMatchMakingResult);
+        declineBtn.GetComponent<Button>().onClick.AddListener(matchingManager.RefuseMatchMakingResult);
 
         matchBtn.SetActive(true);
         cancelBtn.SetActive(false);
