@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            indicateManager.ActivateSkillIndicator(myHeroes[0].GetSkill);
+            indicateManager.ActivateSkillIndicator(myHeroes[0]);
         }
     }
 
@@ -80,6 +80,12 @@ public class GameManager : MonoBehaviour
     {
         robotManager.MyRobotFire(index, dir);
         SkillManager.instance.SendLocalSkillInfo(true, index, dir);
+    }
+
+    public void UseLocalSkill(int index, Vector3 pos, Vector3? dir = null)
+    {
+        myHeroes[index].UseSkill(pos, dir);
+        SkillManager.instance.SendLocalSkillInfo(false, index, pos, dir);
     }
 
     public void FireProjectile(int index, Vector3 pos, Vector3? dir = null)

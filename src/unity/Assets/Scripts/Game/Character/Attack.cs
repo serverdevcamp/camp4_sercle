@@ -22,7 +22,7 @@ public class Attack
     public Projectile proj;
     public float speed;
     public float range;
-    public Vector3 size;
+    public float size;
 
     public IEnumerator Use(Robot caster, Vector3 dir)
     {

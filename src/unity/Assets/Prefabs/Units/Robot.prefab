@@ -166,7 +166,7 @@ MonoBehaviour:
     proj: {fileID: 6332989940410738062, guid: 5522675c930dacf47883edbb87fc6b7b, type: 3}
     speed: 20
     range: 15
-    size: {x: 0.2, y: 0.2, z: 0.2}
+    size: 0
 --- !u!114 &-9059464624282514437
 MonoBehaviour:
   m_ObjectHideFlags: 0

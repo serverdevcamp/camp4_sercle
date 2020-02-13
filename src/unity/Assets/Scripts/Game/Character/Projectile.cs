@@ -8,13 +8,13 @@ public struct ProjectileInfo
     public Vector3 direction;
     public float speed;
     public float range;
-    public Vector3 size;
+    public float size;
     public TargetType targetType;
     public TargetNum targetNum;
     public List<SkillEffect> skillEffects;
 
     public ProjectileInfo(bool isCaster1P, Vector3 direction, float speed, float range,
-                        Vector3 size, TargetType targetType, TargetNum targetNum,
+                        float size, TargetType targetType, TargetNum targetNum,
                         List<SkillEffect> skillEffects)
     {
         this.isCaster1P = isCaster1P;
@@ -45,7 +45,7 @@ public class Projectile : MonoBehaviour
         direction = info.direction;
         speed = info.speed;
         range = info.range;
-        transform.localScale = info.size;
+        transform.localScale = Vector3.one * info.size;
         targetType = info.targetType;
         targetNum = info.targetNum;
         skillEffects = info.skillEffects;

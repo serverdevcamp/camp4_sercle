@@ -574,7 +574,7 @@ MonoBehaviour:
     proj: {fileID: 6332989940410738062, guid: cba89610dbad6324f8f79a088b61d5d2, type: 3}
     speed: 15
     range: 10
-    size: {x: 8, y: 8, z: 8}
+    size: 0
     targetType: 0
     targetNum: 0
     skillEffects:
@@ -591,7 +591,7 @@ MonoBehaviour:
     proj: {fileID: 6332989940410738062, guid: c8de4f3885d189d43944ce0a947f7af1, type: 3}
     speed: 10
     range: 11
-    size: {x: 8, y: 8, z: 8}
+    size: 0
     targetType: 3
     targetNum: 0
     skillEffects:
@@ -609,7 +609,7 @@ MonoBehaviour:
     proj: {fileID: 6332989940410738062, guid: e03ee0dc218e61a4ea409dfd6adeebb0, type: 3}
     speed: 0
     range: 0
-    size: {x: 0, y: 0, z: 0}
+    size: 0
     targetType: 1
     targetNum: 0
     skillEffects:

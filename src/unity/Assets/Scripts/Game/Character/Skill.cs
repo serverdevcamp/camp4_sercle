@@ -29,7 +29,7 @@ public class Skill
     public Projectile proj;
     public float speed;
     public float range;
-    public Vector3 size;
+    public float size;
     public TargetType targetType;
     public TargetNum targetNum;
     public List<SkillEffect> skillEffects;
@@ -132,7 +132,7 @@ public class Skill
         return info;
     }
 
-    public void Initialize(int num)
+    public void Initialize()
     {
         state = State.Idle;
         remainCool = 0f;
