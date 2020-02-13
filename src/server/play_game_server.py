@@ -23,17 +23,12 @@ class Game:
         except Exception as e:
             print(e)
 
-    def test_thread(self):
-        while True:
-            print(self.user_list)
-            time.sleep(4)
-
     # 서버 시작
     def start_server(self):
         print('Game server start')
         start_new_thread(self.game_wait_thread, ())
-        start_new_thread(self.test_thread, ())
         print("wait")
+
         while True:
             client_socket, addr = self.server_socket.accept()  # 소켓
             print(addr[0] + ' ' + str(addr[1]) + ' connected')
@@ -59,6 +54,7 @@ class Game:
             try:
                 # 클라이언트에서 온 데이터 수신
                 message = my_socket[0].recv(1024)
+                
                 if not message:
                     self.remove(my_socket)
                     self.opponent_remove(opponent_socket)
