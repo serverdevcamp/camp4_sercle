@@ -59,7 +59,7 @@ public class SkillSelected : MonoBehaviour
     public IEnumerator CreateDescriptionPanel()
     {
         descriptionPanel.SetActive(true);
-        descriptionPanel.transform.GetChild(0).GetComponent<Text>().text = selectionController.skills[skillIndex].name;
+        descriptionPanel.transform.GetChild(0).GetComponent<Text>().text = selectionController.skills[skillIndex].skillName;
         descriptionPanel.transform.GetChild(1).GetComponent<Text>().text = selectionController.skills[skillIndex].description;
 
         Vector2 origin = (Vector2)Input.mousePosition;

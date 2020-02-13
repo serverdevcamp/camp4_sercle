@@ -88,8 +88,8 @@ public class SkillImage : MonoBehaviour
         // 이 스킬이 기존에 선택된 스킬이 아니라면, 선택된 스킬에 추가.
         if (!selectionController.IsSkillExist(skillIndex))
         {
-            // 지금까지 선택한 스킬의 개수가 3개 미만이라면, 등록.
-            if (!selectionController.IsSkillFull())
+            // 지금까지 선택한 스킬의 개수가 3개 미만이라면, 혹은 교체 요청이 없는경우 등록.
+            if (!selectionController.IsSkillFull() && selectionController.changeCandidate == -1)
             {
                 selectionController.AddSkillIcon(skillIndex);
             }
