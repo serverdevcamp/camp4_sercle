@@ -127,7 +127,7 @@ public class SkillController : MonoBehaviour
 
         Instantiate(localSkills[skillNum], point, curRotation);
         Debug.Log(skillNum + " " + localSkills[skillNum].name + " " + point + " 발동.");
-
+        Instantiate(spawnEffect, point, Quaternion.identity);
         // 후딜
         yield return new WaitForSeconds(1f);
 
