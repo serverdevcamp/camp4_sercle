@@ -32,7 +32,7 @@ class Game:
             print(addr[0] + ' ' + str(addr[1]) + ' connected')
 
             user_info = client_socket.recv(20)
-            game_user = GameJoin(user_info).deserialize()
+            game_user = GameJoinData(user_info).deserialize()
 
             print("userid : " + str(game_user[1]) + "roomNUm : " + str(game_user[2]))
             self.user_list.append([client_socket, addr, game_user[1], game_user[2]])      # 로그인 전용# addr[0] : IP,  addr[1] : port,  testidx : 유저 DB id
@@ -58,11 +58,11 @@ class Game:
                 opponent_socket[0].send(message)
             except Exception as e:
                 print(e)
-                self.remove(my_socket)
+                self.remove(my_socket)     #자신은 나가고
+                self.opponent_remove(opponent_socket)
                 break
 
     def game_wait_thread(self):
-
         while True:
             delete_room_num = -1
             for room_num, user_num in self.game_wait_dic.items():
@@ -79,10 +79,17 @@ class Game:
             if delete_room_num != -1:
                 self.game_wait_dic.pop(delete_room_num)
 
-    def remove(self, connection):
-        if connection in self.user_list:
-            self.user_list.remove(connection)
-            print(str(connection[2]) + "님이 나가셨습니다.")
+    def remove(self, user_socket):
+        if user_socket in self.user_list:
+            self.user_list.remove(user_socket)
+            print(str(user_socket[2]) + "님이 나가셨습니다.")
+
+    def opponent_remove(self, user_socket):
+        if user_socket in self.user_list:
+            self.user_list.remove(user_socket)
+            message = GameEndData(PacketId.game_end, GamePacketId.opponent_end).serialize()
+            user_socket[0].send(message)
+            print(user_socket[2] + "님 로비로 이동")
 
 
 start = Game()

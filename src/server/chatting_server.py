@@ -35,10 +35,10 @@ def client_thread(user_socket):
 def broadcast(message, user_socket):
     for clients in list_of_clients:
         try:
-            #if clients[1][1] != user_socket[1][1]:
             msg = user_socket[2] + " : ".encode() + message
             clients[0].send(msg)
-        except:
+        except Exception as e:
+            print(e)
             clients[0].close()
             remove(clients)
 

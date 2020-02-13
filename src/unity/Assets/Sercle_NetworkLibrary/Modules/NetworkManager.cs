@@ -218,7 +218,7 @@ public class NetworkManager : MonoBehaviour
             else
             {
                 Debug.Log("gameserver");
-                SetNetConnectionStatus(transportTCP.Connect("13.125.252.198", 1000));
+                SetNetConnectionStatus(transportTCP.Connect(Info.IP, 1000));
 
             }
             //transportTCP.Send(System.Text.Encoding.UTF8.GetBytes("PLEASEE"), 10);
@@ -227,5 +227,9 @@ public class NetworkManager : MonoBehaviour
                 Time.timeScale = 1f;
             }
         }
+    }
+    public void DisconnectIP()
+    {
+        transportTCP.Disconnect();
     }
 }

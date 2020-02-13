@@ -112,14 +112,14 @@ class Lobby:
             times += 1
             time.sleep(0.5)
 
-        #10초가 지나면
+        # 10초가 지나면
         #내가 수락 상대방 거절
         if self.accept_dic[my_socket[2]] == 1 and (self.accept_dic[opponent_socket[2]] == 0 or
                                                    self.accept_dic[opponent_socket[2]] == -1):
             self.retry_request_matching(my_socket)
             self.reject_response(opponent_socket)
-            #retry 메시지
-        #내가 거절 상대방 수락
+
+        # 내가 거절 상대방 수락
         elif self.accept_dic[opponent_socket[2]] == 1 and (self.accept_dic[my_socket[2]] == 0 or
                                                            self.accept_dic[my_socket[2]] == -1):
             self.retry_request_matching(opponent_socket)

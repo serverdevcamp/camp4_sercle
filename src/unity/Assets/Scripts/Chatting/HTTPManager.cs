@@ -15,7 +15,7 @@ public class HTTPManager
 
     public HTTPManager()
     {
-        url = "http://13.125.252.198:8082/";     
+        url = Info.URL;     
         
     }
 

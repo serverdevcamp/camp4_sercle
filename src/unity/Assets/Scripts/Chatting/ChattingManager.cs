@@ -11,7 +11,7 @@ using System.Text;
 public class ChattingManager : MonoBehaviour
 {
     // server ip, port
-    private string address = "13.125.252.198";
+    private string address = Info.IP;
     private int port = 3000;
 
     
