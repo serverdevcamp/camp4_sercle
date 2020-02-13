@@ -51,7 +51,7 @@ public class GameNetworkManager : MonoBehaviour
         if(packetData.request == GamePacketId.OpponentEnd)
         {
             networkManager.transportTCP.Disconnect();
-            MatchingManager.instance.MatchState = MatchingState.Nothing;
+            MatchingManager.instance.MatchState = MatchingManager.MatchingState.Nothing;
             SceneManager.LoadScene("Lobby");
 
            
