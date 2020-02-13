@@ -1,6 +1,7 @@
 import socket
 from _thread import *
 from game_data_structure import *
+import time
 
 HOST = '0.0.0.0'
 PORT = 1000
@@ -22,10 +23,16 @@ class Game:
         except Exception as e:
             print(e)
 
+    def test_thread(self):
+        while True:
+            print(self.user_list)
+            time.sleep(4)
+
     # 서버 시작
     def start_server(self):
         print('Game server start')
         start_new_thread(self.game_wait_thread, ())
+        start_new_thread(self.test_thread, ())
         print("wait")
         while True:
             client_socket, addr = self.server_socket.accept()  # 소켓
@@ -54,18 +61,17 @@ class Game:
                 message = my_socket[0].recv(1024)
                 if not message:
                     self.remove(my_socket)
+                    self.opponent_remove(opponent_socket)
                     break
                 opponent_socket[0].send(message)
             except Exception as e:
-                print(e)
-                self.remove(my_socket)     #자신은 나가고
-                self.opponent_remove(opponent_socket)
+                print(str(e) + "zxczxc")
                 break
 
     def game_wait_thread(self):
         while True:
             delete_room_num = -1
-            for room_num, user_num in self.game_wait_dic.items():
+            for room_num, user_num in list(self.game_wait_dic.items()):
                 if user_num == 2:
                     delete_room_num = room_num
                     play_user = []
@@ -87,9 +93,9 @@ class Game:
     def opponent_remove(self, user_socket):
         if user_socket in self.user_list:
             self.user_list.remove(user_socket)
-            message = GameEndData(PacketId.game_end, GamePacketId.opponent_end).serialize()
+            message = GameEndData(PacketId.game_end.value, GamePacketId.opponent_end.value).serialize()
             user_socket[0].send(message)
-            print(user_socket[2] + "님 로비로 이동")
+            print(str(user_socket[2]) + "님 로비로 이동")
 
 
 start = Game()

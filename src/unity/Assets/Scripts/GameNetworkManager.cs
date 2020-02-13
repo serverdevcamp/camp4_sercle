@@ -50,7 +50,7 @@ public class GameNetworkManager : MonoBehaviour
         //상대방이 게임을 종료했을 시
         if(packetData.request == GamePacketId.OpponentEnd)
         {
-            networkManager.DisconnectIP();
+            networkManager.transportTCP.Disconnect();
             SceneManager.LoadScene("Lobby");
         }
     }

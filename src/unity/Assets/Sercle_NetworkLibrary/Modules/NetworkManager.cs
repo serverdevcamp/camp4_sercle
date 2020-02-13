@@ -23,7 +23,7 @@ public class NetworkManager : MonoBehaviour
     // UDP
     private TransportUDP transportUDP;
     // TCP
-    private TransportTCP transportTCP;
+    public TransportTCP transportTCP;
 
     // 수신 패킷 처리함수 델리게이트
     public delegate void RecvNotifier(PacketId id, byte[] data);
@@ -230,6 +230,7 @@ public class NetworkManager : MonoBehaviour
     }
     public void DisconnectIP()
     {
+        
         transportTCP.Disconnect();
     }
 }

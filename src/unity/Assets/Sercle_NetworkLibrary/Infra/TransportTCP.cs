@@ -167,6 +167,7 @@ public class TransportTCP : MonoBehaviour
 	// 끊기.
 	public void Disconnect()
 	{
+        Debug.Log("소켓 끊음");
 		m_isConnected = false;
 
 		if (m_socket != null)
