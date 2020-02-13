@@ -94,13 +94,14 @@ class MatchingRetryData:
 
 
 class MatchingCompleteData:
-    def __init__(self, packet_id, room_num, my_info):
-        self.data = [packet_id, room_num, my_info]
+    def __init__(self, packet_id, room_num, my_info, player_camp):
+        self.data = [packet_id, room_num, my_info, player_camp]
 
     def serialize(self):
         packet = self.data[0].to_bytes(4, byteorder='big') + \
                  self.data[1].to_bytes(4, byteorder='big') + \
-                 self.data[2].to_bytes(4, byteorder='big')
+                 self.data[2].to_bytes(4, byteorder='big') + \
+                 self.data[3].to_bytes(4, byteorder='big')
         return packet
 
 

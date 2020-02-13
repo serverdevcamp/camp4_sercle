@@ -16,7 +16,6 @@ public class NetworkManager : MonoBehaviour
     private bool isNetConnected;
 
     // 이 단말의 고유 번호. 테스트 용도로 true/ false
-    public bool clientID;
 
     // 로컬 테스트인지 여부
     public bool isLocalTest;
@@ -24,7 +23,7 @@ public class NetworkManager : MonoBehaviour
     // UDP
     private TransportUDP transportUDP;
     // TCP
-    private TransportTCP transportTCP;
+    public TransportTCP transportTCP;
 
     // 수신 패킷 처리함수 델리게이트
     public delegate void RecvNotifier(PacketId id, byte[] data);
@@ -219,7 +218,7 @@ public class NetworkManager : MonoBehaviour
             else
             {
                 Debug.Log("gameserver");
-                SetNetConnectionStatus(transportTCP.Connect("13.125.252.198", 1000));
+                SetNetConnectionStatus(transportTCP.Connect(Info.IP, 1000));
 
             }
             //transportTCP.Send(System.Text.Encoding.UTF8.GetBytes("PLEASEE"), 10);
@@ -228,5 +227,10 @@ public class NetworkManager : MonoBehaviour
                 Time.timeScale = 1f;
             }
         }
+    }
+    public void DisconnectIP()
+    {
+        
+        transportTCP.Disconnect();
     }
 }

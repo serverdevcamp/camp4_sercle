@@ -11,7 +11,7 @@ using System.Text;
 public class ChattingManager : MonoBehaviour
 {
     // server ip, port
-    private string address = "13.125.252.198";
+    private string address = Info.IP;
     private int port = 3000;
 
     
@@ -36,13 +36,15 @@ public class ChattingManager : MonoBehaviour
         socket = GetComponent<TransportTCP>();
         Debug.Log("유저 : " + userInfo.userData.token);
         socket.Connect(address, port);
+
+        GameObject.Find("MatchButton").GetComponent<Button>().onClick.AddListener(MatchingManager.instance.MatchingRequest);
     }
 
     void Update()
     {
         if (userInfoFlag == false)
         {
-            SendData(userInfo.userData.email);
+            SendData(userInfo.userData.username);
             userInfoFlag = true;
         }
 

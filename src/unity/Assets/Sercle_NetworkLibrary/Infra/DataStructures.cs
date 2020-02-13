@@ -16,7 +16,8 @@ public enum PacketId
     MatchingReject,
     MatchingCancel,
     GameServerJoin,
-    SyncData
+    SyncData,
+    GameServerEnd,
 };
 
 //매칭 패킷 데이터
@@ -27,6 +28,12 @@ public enum MatchingPacketId
     MatchingCatch,
 };
 
+public enum GamePacketId
+{
+    NormalEnd = 0,
+    OpponentEnd,
+
+}
 //매칭 요청 결과
 public enum MatchingResult
 {
@@ -54,7 +61,10 @@ public struct MatchingData
     }
 }
 
-//서버->클라이언
+//서버->클라이언public struct GameEndData
+{
+    public GamePacketId request;
+}
 public struct GameJoinData
 {
     public int id;
@@ -138,6 +148,7 @@ public struct SyncData
 public struct MatchingCompleteData
 {
     public int roomId;
+    public int playerCamp;
     public int myInfo;
 }
 

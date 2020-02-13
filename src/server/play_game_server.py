@@ -1,6 +1,7 @@
 import socket
 from _thread import *
 from game_data_structure import *
+import time
 
 HOST = '0.0.0.0'
 PORT = 1000
@@ -27,12 +28,13 @@ class Game:
         print('Game server start')
         start_new_thread(self.game_wait_thread, ())
         print("wait")
+
         while True:
             client_socket, addr = self.server_socket.accept()  # 소켓
             print(addr[0] + ' ' + str(addr[1]) + ' connected')
 
             user_info = client_socket.recv(20)
-            game_user = GameJoin(user_info).deserialize()
+            game_user = GameJoinData(user_info).deserialize()
 
             print("userid : " + str(game_user[1]) + "roomNUm : " + str(game_user[2]))
             self.user_list.append([client_socket, addr, game_user[1], game_user[2]])      # 로그인 전용# addr[0] : IP,  addr[1] : port,  testidx : 유저 DB id
@@ -52,20 +54,20 @@ class Game:
             try:
                 # 클라이언트에서 온 데이터 수신
                 message = my_socket[0].recv(1024)
+                
                 if not message:
                     self.remove(my_socket)
+                    self.opponent_remove(opponent_socket)
                     break
                 opponent_socket[0].send(message)
             except Exception as e:
-                print(e)
-                self.remove(my_socket)
+                print(str(e) + "zxczxc")
                 break
 
     def game_wait_thread(self):
-
         while True:
             delete_room_num = -1
-            for room_num, user_num in self.game_wait_dic.items():
+            for room_num, user_num in list(self.game_wait_dic.items()):
                 if user_num == 2:
                     delete_room_num = room_num
                     play_user = []
@@ -79,10 +81,17 @@ class Game:
             if delete_room_num != -1:
                 self.game_wait_dic.pop(delete_room_num)
 
-    def remove(self, connection):
-        if connection in self.user_list:
-            self.user_list.remove(connection)
-            print(str(connection[2]) + "님이 나가셨습니다.")
+    def remove(self, user_socket):
+        if user_socket in self.user_list:
+            self.user_list.remove(user_socket)
+            print(str(user_socket[2]) + "님이 나가셨습니다.")
+
+    def opponent_remove(self, user_socket):
+        if user_socket in self.user_list:
+            self.user_list.remove(user_socket)
+            message = GameEndData(PacketId.game_end.value, GamePacketId.opponent_end.value).serialize()
+            user_socket[0].send(message)
+            print(str(user_socket[2]) + "님 로비로 이동")
 
 
 start = Game()

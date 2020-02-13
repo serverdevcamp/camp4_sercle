@@ -7,6 +7,8 @@ HOST = '0.0.0.0'
 PORT = 3098
 TRY_MATCH = 0
 RETRY_MATCH = 1
+FIRST_PLAYER = 1
+SECOND_PLAYER = 2
 
 
 class Lobby:
@@ -45,7 +47,6 @@ class Lobby:
             print("userid : " + str(int(user_id)))
             # addr[0] : IP,  addr[1] : port,  testidx : 유저 DB id
             self.user_list.append([client_socket, addr, int(user_id)])      #로그인 전용
-            #self.user_list.append([client_socket, addr, testidx])       #테스트 전용
             # 유저 정보 리스트에 저장
             start_new_thread(self.client_thread, (self.user_list[-1],))     # 쓰레드 시작
 
@@ -67,19 +68,27 @@ class Lobby:
                 start_new_thread(self.matching_catch_thread, (users[0], users[1]))
                 print("매칭 잡힘")
 
-    #매칭 둘다 완료
+    # 매칭 둘다 완료
     def accept_response(self, my_socket, opponent_socket):
-        message = MatchingCompleteData(PacketId.matching_complete.value, self.room_num, my_socket[2]).serialize()
+        message = MatchingCompleteData(PacketId.matching_complete.value,
+                                       self.room_num,
+                                       my_socket[2],
+                                       FIRST_PLAYER).serialize()
         my_socket[0].send(message)
-        message = MatchingCompleteData(PacketId.matching_complete.value, self.room_num, opponent_socket[2]).serialize()
+        message = MatchingCompleteData(PacketId.matching_complete.value,
+                                       self.room_num,
+                                       opponent_socket[2],
+                                       SECOND_PLAYER).serialize()
         opponent_socket[0].send(message)
         self.room_num += 1      #각 방번호 부여
 
+    # 매칭 거절
     def reject_response(self, user_socket):
         #매칭 잡힌 후 10초뒤에 전달되는 메시지
         message = MatchingRejectData(PacketId.matching_reject.value, MatchingResult.success.value).serialize()
         user_socket[0].send(message)
 
+    # 매칭 잡힘
     def matching_catch_thread(self, my_socket, opponent_socket):
         print("유저id : " + str(my_socket[2]) + str(opponent_socket[2]))
         response = MatchingResponseData(PacketId.matching_response.value,
@@ -103,14 +112,14 @@ class Lobby:
             times += 1
             time.sleep(0.5)
 
-        #10초가 지나면
+        # 10초가 지나면
         #내가 수락 상대방 거절
         if self.accept_dic[my_socket[2]] == 1 and (self.accept_dic[opponent_socket[2]] == 0 or
                                                    self.accept_dic[opponent_socket[2]] == -1):
             self.retry_request_matching(my_socket)
             self.reject_response(opponent_socket)
-            #retry 메시지
-        #내가 거절 상대방 수락
+
+        # 내가 거절 상대방 수락
         elif self.accept_dic[opponent_socket[2]] == 1 and (self.accept_dic[my_socket[2]] == 0 or
                                                            self.accept_dic[my_socket[2]] == -1):
             self.retry_request_matching(opponent_socket)
@@ -133,6 +142,7 @@ class Lobby:
             except Exception as e:
                 print(e)
 
+    # 메세지 처리
     def divide_process(self, packet_id, message, user_socket):
         # 클라이언트로부터 매칭 시작 요청
         if packet_id == PacketId.matching_data.value:
@@ -155,12 +165,14 @@ class Lobby:
         elif packet_id == PacketId.matching_cancel.value:
             self.cancel_matching(user_socket)
 
+    # 매칭 취소
     def cancel_matching(self, cancel_user_socket):
         for user in self.matching_list:
             if user == cancel_user_socket:
                 self.matching_list.remove(cancel_user_socket)
                 print(str(cancel_user_socket[2]) + " : 매칭 취소 처리")
 
+    # 상대방 거절 이후 재매칭
     def retry_request_matching(self, retry_user_socket):
         for user in self.user_list:         #모든 유저 리스트
             if user == retry_user_socket:
@@ -182,14 +194,17 @@ class Lobby:
             user_socket[0].send(response)
         print(str(user_socket[2]) + " : 매칭 응답 전송")
 
+    # 매칭 수락
     def accept_matching(self, packet_data):
         self.accept_dic[packet_data[2]] = 1     #수락했다고 알림
         print(str(packet_data[2]) + " : 매칭 수락")
 
+    # 매칭 거절
     def reject_matching(self, packet_data):
         self.accept_dic[packet_data[2]] = -1    #거절했다 알림
         print(str(packet_data[2]) + " : 매칭 거절")
 
+    # 접속 종료 유저 리스트 제거
     def remove(self, connection):
         if connection in self.matching_list:
             self.matching_list.remove(connection)

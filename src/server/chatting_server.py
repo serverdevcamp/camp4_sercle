@@ -35,10 +35,10 @@ def client_thread(user_socket):
 def broadcast(message, user_socket):
     for clients in list_of_clients:
         try:
-            #if clients[1][1] != user_socket[1][1]:
             msg = user_socket[2] + " : ".encode() + message
             clients[0].send(msg)
-        except:
+        except Exception as e:
+            print(e)
             clients[0].close()
             remove(clients)
 
@@ -53,10 +53,10 @@ while True:
     print('waiting new client..')
     client_socket, addr = server_socket.accept()        #소켓
     print(addr[0] + ' ' + str(addr[1]) + ' connected')
-    user_email = client_socket.recv(1024)
+    user_name = client_socket.recv(1024)
 
     print('유저 이메일 송신')
-    list_of_clients.append([client_socket, addr, user_email])
+    list_of_clients.append([client_socket, addr, user_name])
     #쓰레드 시작
     start_new_thread(client_thread, (list_of_clients[-1],))
 

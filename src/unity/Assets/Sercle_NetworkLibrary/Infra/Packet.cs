@@ -129,6 +129,57 @@ public class GameJoinPacket : IPacket<GameJoinData>
         }
     }
 }
+public class GameEndPacket : IPacket<GameEndData>
+{
+    GameEndData packet;
+    public GameEndPacket(GameEndData data)
+    {
+        packet = data;
+    }
+    public GameEndPacket(byte[] data)
+    {
+        GameEndSerializer serializer = new GameEndSerializer();
+        serializer.SetDeserializedData(data);
+        serializer.Deserialize(ref packet);
+    }
+    public PacketId GetPacketId()
+    {
+        return PacketId.GameServerEnd;
+    }
+    public GameEndData GetPacket()
+    {
+        return packet;
+    }
+    public byte[] GetData()
+    {
+        GameEndSerializer serializer = new GameEndSerializer();
+        serializer.Serialize(packet);
+        return serializer.GetSerializedData();
+    }
+
+    class GameEndSerializer : Serializer
+    {
+        public bool Serialize(GameEndData packet)
+        {
+            bool ret = true;
+            int request = (int)packet.request;
+            ret &= Serialize(request);
+            return ret;
+        }
+        public bool Deserialize(ref GameEndData element)
+        {
+            if(GetDataSize() == 0)
+            {
+                return false;
+            }
+            bool ret = true;
+            int request = 0;
+            ret &= Deserialize(ref request);
+            element.request = (GamePacketId)request;
+            return ret;
+        }
+    }
+}
 // Moving Data 전송용 Packet
 public class MovingPacket : IPacket<MovingData>
 {
@@ -480,6 +531,7 @@ public class MatchingCompletePacket: IPacket<MatchingCompleteData>
             bool ret = true;
             ret &= Serialize(packet.roomId);
             ret &= Serialize(packet.myInfo);
+            ret &= Serialize(packet.playerCamp);
             return ret;
         }
         public bool Deserialize(ref MatchingCompleteData element)
@@ -491,6 +543,7 @@ public class MatchingCompletePacket: IPacket<MatchingCompleteData>
             bool ret = true;
             ret &= Deserialize(ref element.roomId);
             ret &= Deserialize(ref element.myInfo);
+            ret &= Deserialize(ref element.playerCamp);
             return ret;
         }
     }

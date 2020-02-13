@@ -1,19 +1,24 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class GameNetworkManager : MonoBehaviour
 {
-    private string address = "13.125.252.198";
+    private string address = Info.IP;
     private int port = 1000;
     public UserInfo userInfo;
     private TransportTCP socket;
     private NetworkManager networkManager;
     public bool userInfoFlag = false;
+    public bool clientID;
     // Use this for initialization
     void Start()
     {
         networkManager = transform.parent.GetComponent<NetworkManager>();
         userInfo = GameObject.Find("UserInfoObject").GetComponent<UserInfo>();
+
+        networkManager.RegisterReceiveNotification(PacketId.GameServerEnd,
+            OnReceiveGameEndPacket);
     }
 
     // Update is called once per frame
@@ -37,5 +42,19 @@ public class GameNetworkManager : MonoBehaviour
         GameJoinPacket packet = new GameJoinPacket(gameJoinData);
         networkManager.SendReliable<GameJoinData>(packet);
     }
+    public void OnReceiveGameEndPacket(PacketId id, byte[] data)
+    {
+        GameEndPacket packet = new GameEndPacket(data);
+        GameEndData packetData = packet.GetPacket();
 
+        //상대방이 게임을 종료했을 시
+        if(packetData.request == GamePacketId.OpponentEnd)
+        {
+            networkManager.transportTCP.Disconnect();
+            MatchingManager.instance.MatchState = MatchingState.Nothing;
+            SceneManager.LoadScene("Lobby");
+
+           
+        }
+    }
 }
