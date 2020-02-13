@@ -230,6 +230,7 @@ public class MatchingManager : MonoBehaviour
         MatchingCompleteData packetData = packet.GetPacket();
         Debug.Log("둘 다 매칭 수락 게임을 시작합니다.");
         userInfo.userData.roomNum = (int)packetData.roomId;     //방번호 저장
+        userInfo.userData.playerCamp = (int)packetData.playerCamp;
         //MatchingResponseWaitUI.transform.GetChild(1).GetComponent<Text>().text = "잠시 후 게임씬으로 넘어갑니다..";
         SceneManager.LoadScene("EQ_Test");
         //방번호와 내 정보 수신

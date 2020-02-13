@@ -9,6 +9,7 @@ public class GameNetworkManager : MonoBehaviour
     private TransportTCP socket;
     private NetworkManager networkManager;
     public bool userInfoFlag = false;
+    public bool clientID;
     // Use this for initialization
     void Start()
     {

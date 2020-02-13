@@ -8,4 +8,5 @@ public class UserData
     public string token;
     public string username;
     public int roomNum;
+    public int playerCamp;
 }

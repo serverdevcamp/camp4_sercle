@@ -28,7 +28,15 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        bool is1P = GameObject.Find("NetworkManager").GetComponent<NetworkManager>().clientID;
+        bool is1P;
+        if(GameObject.Find("UserInfoObject").GetComponent<UserInfo>().userData.playerCamp == 1)
+        {
+            is1P = true;
+        }
+        else
+        {
+            is1P = false;
+        }
 
         #region 캐릭터 생성 및 번호/ID 부여
         // 현재는 캐릭터가 3개 밖에 없으므로 자동으로 생성

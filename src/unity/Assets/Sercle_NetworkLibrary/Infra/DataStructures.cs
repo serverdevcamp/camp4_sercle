@@ -138,6 +138,7 @@ public struct SyncData
 public struct MatchingCompleteData
 {
     public int roomId;
+    public int playerCamp;
     public int myInfo;
 }
 

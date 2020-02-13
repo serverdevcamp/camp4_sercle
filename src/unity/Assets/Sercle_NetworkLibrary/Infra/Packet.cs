@@ -480,6 +480,7 @@ public class MatchingCompletePacket: IPacket<MatchingCompleteData>
             bool ret = true;
             ret &= Serialize(packet.roomId);
             ret &= Serialize(packet.myInfo);
+            ret &= Serialize(packet.playerCamp);
             return ret;
         }
         public bool Deserialize(ref MatchingCompleteData element)
@@ -491,6 +492,7 @@ public class MatchingCompletePacket: IPacket<MatchingCompleteData>
             bool ret = true;
             ret &= Deserialize(ref element.roomId);
             ret &= Deserialize(ref element.myInfo);
+            ret &= Deserialize(ref element.playerCamp);
             return ret;
         }
     }
