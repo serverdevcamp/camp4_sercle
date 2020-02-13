@@ -42,9 +42,9 @@ GameObject:
   - component: {fileID: 95910397095232528}
   - component: {fileID: 271601103141370214}
   - component: {fileID: -8497056893713334188}
-  - component: {fileID: -1484992979326424293}
+  - component: {fileID: 4187309956588392235}
   - component: {fileID: -9059464624282514437}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Robot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,7 +125,7 @@ NavMeshAgent:
   m_BaseOffset: -0.083
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &-1484992979326424293
+--- !u!114 &4187309956588392235
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -134,45 +134,39 @@ MonoBehaviour:
   m_GameObject: {fileID: 1025864630481856}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bfbf1620803647429e39cd671715a6b, type: 3}
+  m_Script: {fileID: 11500000, guid: bbe93a2b4efee15468dcc20ad3513b96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   index: 0
   status:
     maxHp: 400
     curHp: 0
-    spd: 7
-    atk: 90
-    def: 10
-    crt: 70
-    ddg: 20
-    cc: 1.5
-    hardCC: 0
-  isFriend: 1
+    spd: 5
+    atk: 45
+    def: 20
+    cc: 0
+  is1P: 0
+  destinations: []
+  destFlag: 0
   state: 0
   target: {fileID: 0}
   contactLayer:
     serializedVersion: 2
     m_Bits: 256
-  usingSkill: 0
-  skills:
-  - skillName: Basic Attack
-    description: "1.2 * \uACF5\uACA9\uB825\uC73C\uB85C \uC801\uC744 \uACF5\uACA9\uD569\uB2C8\uB2E4."
-    skillState: 0
-    indicator: {fileID: 5460119873355365283, guid: db5855e50fabc894ba40a3012835f11f,
-      type: 3}
-    myNum: 0
+  attack:
+    state: 0
+    effect:
+      statusType: 2
+      ccType: 0
+      amount: -45
+      duration: 0
     preDelay: 0.1
-    postDelay: 0.1
+    postDelay: 0.3
     coolDown: 0.5
     proj: {fileID: 6332989940410738062, guid: 5522675c930dacf47883edbb87fc6b7b, type: 3}
     speed: 20
     range: 15
     size: {x: 0.2, y: 0.2, z: 0.2}
-    targetType: 0
-    targetNum: 0
-    skillEffects:
-    - {fileID: 11400000, guid: d16d518b402c16c42aeb84a860faf685, type: 2}
 --- !u!114 &-9059464624282514437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -180,7 +174,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1025864630481856}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dfc305c4dd7071f4ba2077b3ff45b6e5, type: 3}
   m_Name: 

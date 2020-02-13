@@ -4,21 +4,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using Werewolf.StatusIndicators.Components;
 
-public enum RangeType { Self, Around, Direction }
-public enum TargetType { Auto, Self, Friend, Enemy }
+public enum RangeType { Around, Direction }
+public enum TargetType { Friend, Enemy }
 public enum TargetNum { One, All }
 
 [System.Serializable]
 public class Skill
 {
-    public enum SkillState { Idle, Ready, PreDelay, Fire, PostDelay, CoolDown }
+    public enum State { Idle, Ready, PreDelay, Fire, PostDelay, CoolDown }
 
     [Header("Basic Info")]
     public string skillName;
     public string description;
-    public SkillState skillState;
-    public Splat indicator;
-    public int myNum;
+    public State state;
 
     [Header("Time")]
     public float preDelay;
@@ -36,14 +34,14 @@ public class Skill
     public TargetNum targetNum;
     public List<SkillEffect> skillEffects;
 
-    public IEnumerator Use(Character caster, Vector3? dir = null)
+    public IEnumerator Use(Hero caster, Vector3 pos)
     {
 
         #region Check Cool Time
-        if (skillState != SkillState.Idle) yield break;
+        if (state != State.Idle) yield break;
         #endregion
 
-        skillState = SkillState.Ready;
+        state = State.Ready;
 
         #region Get Direction
         if (speed == 0)
@@ -67,25 +65,22 @@ public class Skill
         #endregion
 
         // 스킬 쿨타임 정보 UI 애니메이팅 
-        UIManager.instance.DisplaySkillInputAnimation(myNum);
+        // UIManager.instance.DisplaySkillInputAnimation(myNum);
 
         Debug.Log(caster.name + " Use " + skillName + " to " + dir);
 
         // GM에게 index 번째 캐릭터의 num번째 스킬을 dir 방향으로 사용한다고 알려준다.
-        GameManager.instance.FireProjectile(caster.index, myNum, dir.Value);
-
-        // 20 02 11 스킬 사용시 이동 멈춤
-        caster.SetDestination(caster.transform.position);
+        //GameManager.instance.FireProjectile(caster.index, myNum, dir.Value);
     }
 
     public IEnumerator Fire(Character caster, Vector3 dir)
     {
         #region Wait for Pre delay
 
-        if (targetType != TargetType.Auto) caster.usingSkill = true;
+        //if (targetType != TargetType.Auto) caster.usingSkill = true;
 
         // 스킬 발사 상태 변경 2020 01 30
-        skillState = SkillState.PreDelay;
+        state = State.PreDelay;
 
         // 20 02 09 내 캐릭터의 경우, preDelay + Rtt 만큼 더 기다림.
         yield return caster.isFriend ? new WaitForSeconds(preDelay + SyncManager.instance.GetAvgRemoteRtt()) : new WaitForSeconds(preDelay);
@@ -100,7 +95,7 @@ public class Skill
         if (caster.GetCharacterState() != CharacterState.Die && caster.GetCharacterState() != CharacterState.CC)
         {
             // 스킬 발사 상태 변경 2020 01 30
-            skillState = SkillState.Fire;
+            state = State.Fire;
 
             ProjectileInfo info = ProjectileInfo(caster, dir);
             Vector3 spawnPos = caster.transform.position + new Vector3(0, 1.1f, 0);
@@ -113,10 +108,10 @@ public class Skill
 
         #region Wait for Post Delay
         yield return new WaitForSeconds(postDelay);
-        if (targetType != TargetType.Auto) caster.usingSkill = false;
+        //if (targetType != TargetType.Auto) caster.usingSkill = false;
         #endregion
 
-        skillState = SkillState.CoolDown;
+        state = State.CoolDown;
 
         #region Cool Down...
         remainCool = coolDown;
@@ -130,7 +125,7 @@ public class Skill
         remainCool = 0;
         #endregion
 
-        skillState = SkillState.Idle;
+        state = State.Idle;
     }
 
     public ProjectileInfo ProjectileInfo(Character caster, Vector3 dir)
@@ -141,7 +136,7 @@ public class Skill
 
     public void Initialize(int num)
     {
-        skillState = SkillState.Idle;
+        state = State.Idle;
         remainCool = 0f;
         myNum = num;
     }

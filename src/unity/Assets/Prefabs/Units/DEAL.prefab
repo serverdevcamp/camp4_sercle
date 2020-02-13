@@ -556,10 +556,7 @@ MonoBehaviour:
     spd: 7
     atk: 90
     def: 10
-    crt: 70
-    ddg: 20
-    cc: 1.5
-    hardCC: 0
+    cc: 1
   isFriend: 1
   state: 0
   target: {fileID: 0}
@@ -583,7 +580,10 @@ MonoBehaviour:
     targetType: 0
     targetNum: 0
     skillEffects:
-    - {fileID: 11400000, guid: d16d518b402c16c42aeb84a860faf685, type: 2}
+    - statusType: 0
+      ccType: 0
+      amount: 0
+      duration: 0
   - skillName: Critical Shot
     description: "3.5 * \uACF5\uACA9\uB825\uC73C\uB85C \uC801\uC744 \uACF5\uACA9\uD569\uB2C8\uB2E4."
     skillState: 0
@@ -599,7 +599,10 @@ MonoBehaviour:
     targetType: 3
     targetNum: 0
     skillEffects:
-    - {fileID: 11400000, guid: b87917a464b62e148bb7aaf6a91cefee, type: 2}
+    - statusType: 0
+      ccType: 0
+      amount: 0
+      duration: 0
   - skillName: Stim Pack
     description: "5\uCD08\uAC04 \uC790\uC2E0\uC758 \uCE58\uBA85 30, \uCE58\uBA85 \uACC4\uC218
       0.5\uB97C \uC99D\uAC00\uC2DC\uD0B5\uB2C8\uB2E4."
@@ -616,8 +619,14 @@ MonoBehaviour:
     targetType: 1
     targetNum: 0
     skillEffects:
-    - {fileID: 11400000, guid: ebca95157c35eca4993d44fc34cbfb1d, type: 2}
-    - {fileID: 11400000, guid: 93292a980cf2b0a4faa993813a559086, type: 2}
+    - statusType: 0
+      ccType: 0
+      amount: 0
+      duration: 0
+    - statusType: 0
+      ccType: 0
+      amount: 0
+      duration: 0
 --- !u!114 &1653011094770450319
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,126 +1,51 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
+using Werewolf.StatusIndicators.Components;
 
 public class GameManager : MonoBehaviour
 {
-    [Header("Characters")]
-    public List<GameObject> characterPrefabs;
-    public List<Character> myCharacters;
-    public List<Character> enemyCharacters;
-    public List<Vector3> startPos_1P;
-    public List<Vector3> startPos_2P;
-
-    [SerializeField] private Character curCharacter;
-    public Character CurCharacter { get { return curCharacter; } }
-
-    [Header("Display")]
-    [SerializeField] private RectTransform moveCircle;
-    
     public static GameManager instance;
+
+    [SerializeField] private List<Hero> myHeroes = new List<Hero>();
+    [SerializeField] private List<Hero> enemyHeroes = new List<Hero>();
+
+    private RobotManager robotManager;
+    private bool is1P;
+
+    public bool Is1P { get { return is1P; } }
 
     private void Awake()
     {
         if (instance == null) instance = this;
         else Destroy(gameObject);
+
+        is1P = GameObject.Find("NetworkManager").GetComponent<NetworkManager>().clientID;
+
+        GetHeroList();
     }
 
     private void Start()
     {
-        bool is1P = GameObject.Find("NetworkManager").GetComponent<NetworkManager>().clientID;
-
-        #region 캐릭터 생성 및 번호/ID 부여
-        // 현재는 캐릭터가 3개 밖에 없으므로 자동으로 생성
-        // 나중에는 서버에서 받아와야 함
-        myCharacters = new List<Character>();
-        for (int i = 0; i < 3; i++)
-        {
-            Character _character = Instantiate(characterPrefabs[i]).GetComponent<Character>();
-            _character.name = characterPrefabs[i].name;
-            _character.index = i;
-            _character.isFriend = true;
-
-            myCharacters.Add(_character); 
-        }
-
-        enemyCharacters = new List<Character>();
-        for (int i = 0; i < 3; i++)
-        {
-            Character _character = Instantiate(characterPrefabs[i]).GetComponent<Character>();
-            _character.name = "Enemy_" + characterPrefabs[i].name;
-            _character.index = i;
-            _character.isFriend = false;
-
-            enemyCharacters.Add(_character);
-        }
-        #endregion
-
-        #region 캐릭터 배치
-        // 회전도 해줘야 할까?
-        if (is1P)
-        {
-            for (int i = 0; i < 3; i++)
-            {
-                myCharacters[i].GetComponent<NavMeshAgent>().enabled = false;
-                enemyCharacters[i].GetComponent<NavMeshAgent>().enabled = false;
-                myCharacters[i].transform.position = startPos_1P[i];
-                enemyCharacters[i].transform.position = startPos_2P[i];
-                myCharacters[i].GetComponent<NavMeshAgent>().enabled = true;
-                enemyCharacters[i].GetComponent<NavMeshAgent>().enabled = true;
-            }
-        }
-        else
-        {
-            for (int i = 0; i < 3; i++)
-            {
-                myCharacters[i].GetComponent<NavMeshAgent>().enabled = false;
-                enemyCharacters[i].GetComponent<NavMeshAgent>().enabled = false;
-                myCharacters[i].transform.position = startPos_2P[i];
-                enemyCharacters[i].transform.position = startPos_1P[i];
-                myCharacters[i].GetComponent<NavMeshAgent>().enabled = true;
-                enemyCharacters[i].GetComponent<NavMeshAgent>().enabled = true;
-            }
-        }
-        #endregion
-
-        #region 시작 세팅
-        // 자신의 첫번째 캐릭터로 고정
-        ChangeCurrentCharacter(myCharacters[0]);
-        #endregion
+        robotManager = GetComponentInChildren<RobotManager>();
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1)) ChangeCurrentCharacter(myCharacters[0]);
-        else if (Input.GetKeyDown(KeyCode.Alpha2)) ChangeCurrentCharacter(myCharacters[1]);
-        else if (Input.GetKeyDown(KeyCode.Alpha3)) ChangeCurrentCharacter(myCharacters[2]);
-
-        if (!curCharacter) return;
-
-        // 20 02 10 사망한 캐릭터/ hard cc 상황인 캐릭터로는 조작이 불가하도록 함.
-        if (curCharacter.GetCharacterState() == CharacterState.Die || curCharacter.GetCharacterState() == CharacterState.CC) return;
-
-        if (Input.GetMouseButtonDown(1))
-            ClickToMove();
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            Debug.Log("First Skill Input");
-            curCharacter.UseSkill(1);
-        }
-        else if (Input.GetKeyDown(KeyCode.W))
-        {
-            Debug.Log("Second Skill Input");
-            curCharacter.UseSkill(2);
+            // splatManager.ActivateSkillIndicator(myHeroes[0].skill);
+                // sm에서 발사 지점을 얻는다.
+                // 필요한 경우 방향까지 얻는다.
+                // sm에서 gm에게 index번의 영웅의 스킬을 사용한다고 알린다.
+
         }
     }
 
-    public void ChangeCurrentCharacter(Character character)
+    private void GetHeroList()
     {
-        if (curCharacter) curCharacter.ChooseToCurrent(false);
-        curCharacter = character;
-        Camera.main.GetComponent<CameraController>().FocusCharacter(CurCharacter);
-        curCharacter.ChooseToCurrent(true);
+        // 히어로 리스트를 가져오세요.
+        if (myHeroes.Count == 0) Debug.LogError("히어로 리스트를 가져와라!!!!");
     }
 
     public Vector3? GetDirection(Character caster, ref bool isValid)
@@ -128,12 +53,6 @@ public class GameManager : MonoBehaviour
         Vector3? dir = null;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-
-        if (curCharacter != caster)
-        {
-            isValid = false;
-            return null;
-        }
 
         if (Physics.Raycast(ray, out hit, 100))
         {
@@ -151,70 +70,33 @@ public class GameManager : MonoBehaviour
         return dir;
     }
 
-    /// <summary>
-    /// 선택된 캐릭터가 있고 마우스 오른쪽 클릭을 했을 때 해당 캐릭터의 목표지점을 설정
-    /// </summary>
-    private void ClickToMove()
-    {
-        // 20 02 11 현재 캐릭터가 스킬 사용중이라면 이동 불가
-        if (curCharacter.usingSkill) return;
-
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        RaycastHit hit;
-        
-        if (Physics.Raycast(ray, out hit, 100))
-        {
-            Animation anim = moveCircle.GetComponent<Animation>();
-            anim.Stop();
-            moveCircle.anchoredPosition = new Vector2(hit.point.x, hit.point.z);
-            anim.Play();
-
-            for(int i = 0; i < 3; i++)
-            {
-                if(curCharacter.index == i) MoveCharacter(i, hit.point);
-                else MoveCharacter(i, hit.point, false);
-            }
-        }
-    }
-
-    /// <summary>
-    /// characters[index]의 목표지점을 destination으로 설정해주고
-    /// 이 정보를 서버로 전송
-    /// </summary>
-    /// <param name="index">캐릭터 번호</param>
-    /// <param name="destination">목표 지점</param>
-    /// <param name="isCurrent">Current Character일 때만 true로 설정</param>
-    public void MoveCharacter(int index, Vector3 destination, bool isCurrent = true)
-    {
-        myCharacters[index].SetDestination(destination, isCurrent);
-        MovingManager.instance.SendLocalMovingInfo(index, destination);
-    }
-
-    // 2020 02 01 수신한 원격 캐릭터 이동 패킷을 원격캐릭터에 적용 한다.
-    public void MoveEnemyCharacter(int index, Vector3 destination)
-    {
-        enemyCharacters[index].SetDestination(destination);
-    }
-
     // 2020 02 07 목적지와 현 위치의 거리를 보정한 원격 캐릭터의 속도 계산.
-    public float SetInterpolatedSpeed(int index, Vector3 destination)
-    {
-        float prevTime = Vector3.Distance(enemyCharacters[index].GetComponent<Transform>().position, destination) / enemyCharacters[index].status.SPD;
+    //public float SetInterpolatedSpeed(int index, Vector3 destination)
+    //{
+    //    float prevTime = Vector3.Distance(enemyCharacters[index].GetComponent<Transform>().position, destination) / enemyCharacters[index].status.SPD;
 
-        return (enemyCharacters[index].status.SPD) * (prevTime + SyncManager.instance.GetAvgRemoteRtt()) / prevTime;
+    //    return (enemyCharacters[index].status.SPD) * (prevTime + SyncManager.instance.GetAvgRemoteRtt()) / prevTime;
+    //}
+
+    public void FireRobotProjectile(int index, Vector3 dir)
+    {
+        robotManager.MyRobotFire(index, dir);
+        SkillManager.instance.SendLocalSkillInfo(true, index, dir);
     }
 
-    public void FireProjectile(int index, int num, Vector3 dir)
+    public void FireProjectile(int index, Vector3 pos, Vector3? dir = null)
     {
-        myCharacters[index].FireProjectile(num, dir);
-        SkillManager.instance.SendLocalSkillInfo(index, num, dir);
+        // index 번째 myHero를 pos 위치에 instantiate한다.
+        // dir 방향으로 스킬을 사용하도록 초기화
+        // SkillManager에게 이 사실을 알린다.
+        // SkillManager.instance.SendLocalSkillInfo(false, index, dir);
     }
 
     // 2020 02 01 원격 캐릭터가 투사체 발사하도록 한다.
-    public void FireRemoteProjectile(int index, int num, Vector3 dir)
+    public void FireRemoteProjectile(bool isRobot, int index, Vector3 dir)
     {
-        enemyCharacters[index].FireProjectile(num, dir);
+        if(isRobot) robotManager.EnemyRobotFire(index, dir);
+        //else enemyCharacters[index].FireProjectile(num, dir);
     }
 
     /// <summary>
@@ -223,8 +105,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     /// <param name="target">효과를 적용할 대상</param>
     /// <param name="effects">적용할 효과의 리스트</param>
-    public void ApplySkill(Character target, List<EffectResult> effects)
+    public void ApplySkill(Robot target, SkillEffect effect)
     {
-        target.Apply(effects);
+        target.Apply(effect);
     }
 }

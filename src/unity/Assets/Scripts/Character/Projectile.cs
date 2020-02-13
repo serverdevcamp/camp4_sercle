@@ -4,7 +4,7 @@ using UnityEngine;
 
 public struct ProjectileInfo
 {
-    public Character caster;
+    public bool isCaster1P;
     public Vector3 direction;
     public float speed;
     public float range;
@@ -13,11 +13,11 @@ public struct ProjectileInfo
     public TargetNum targetNum;
     public List<SkillEffect> skillEffects;
 
-    public ProjectileInfo(Character caster, Vector3 direction, float speed, float range,
+    public ProjectileInfo(bool isCaster1P, Vector3 direction, float speed, float range,
                         Vector3 size, TargetType targetType, TargetNum targetNum,
                         List<SkillEffect> skillEffects)
     {
-        this.caster = caster;
+        this.isCaster1P = isCaster1P;
         this.direction = direction;
         this.speed = speed;
         this.range = range;
@@ -31,7 +31,7 @@ public struct ProjectileInfo
 [RequireComponent(typeof(BoxCollider))]
 public class Projectile : MonoBehaviour
 {
-    [SerializeField] private Character caster;
+    [SerializeField] private bool isCaster1P;
     [SerializeField] private Vector3 direction;
     [SerializeField] private float speed;
     [SerializeField] private float range;
@@ -41,7 +41,7 @@ public class Projectile : MonoBehaviour
 
     public void Initialize(ProjectileInfo info)
     {
-        caster = info.caster;
+        isCaster1P = info.isCaster1P;
         direction = info.direction;
         speed = info.speed;
         range = info.range;
@@ -66,41 +66,25 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Character target = other.GetComponent<Character>();
+        Robot target = other.GetComponent<Robot>();
         if (!target) return;
 
         if (IsValidTargetType(target) == false) return;
 
         foreach(SkillEffect effect in skillEffects)
         {
-            GameManager.instance.ApplySkill(target, effect.GetEffectResult(caster, target));
+            GameManager.instance.ApplySkill(target, effect);
             // 투사체 히트 이펙트 적용
-            target.GetComponent<EffectController>().OnHitVFX(effect, caster.index);
+            // target.GetComponent<EffectController>().OnHitVFX(effect, caster.index);
         }
 
         if (targetNum == TargetNum.One) Destroy(gameObject);
     }
 
-    private bool IsValidTargetType(Character target)
+    private bool IsValidTargetType(Robot target)
     {
-        switch (targetType)
-        {
-            case TargetType.Auto:
-                if (target == caster) return false;
-                if (caster.isFriend != target.isFriend) return true;
-                break;
-            case TargetType.Self:
-                if (target == caster) return true;
-                break;
-            case TargetType.Friend:
-                if (target == caster) return false;
-                if (caster.isFriend == target.isFriend) return true;
-                break;
-            case TargetType.Enemy:
-                if (target == caster) return false;
-                if (caster.isFriend != target.isFriend) return true;
-                break;
-        }
+        if (targetType == TargetType.Friend && isCaster1P == target.Is1P) return true;
+        if (targetType == TargetType.Enemy && isCaster1P != target.Is1P) return true;
 
         return false;
     }

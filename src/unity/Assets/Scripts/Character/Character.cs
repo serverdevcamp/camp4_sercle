@@ -126,7 +126,7 @@ public class Character : MonoBehaviour
         {
             state = CharacterState.Die;
         }
-        else if (status.HardCC != HardCCType.None)
+        else if (status.CC != CCType.None)
         {
             // CC기에 따른 행동
             // 현재는 Stun 밖에 없음
@@ -184,23 +184,6 @@ public class Character : MonoBehaviour
     }
 
     /// <summary>
-    /// 마우스가 이 캐릭터의 콜라이더를 클릭하면 불리는 함수.
-    /// GameManager에게 자신이 클릭됐음을 전달.
-    /// </summary>
-    private void OnMouseDown()
-    {
-        if (isFriend == false) return;
-
-        Debug.Log("You click " + name);
-        GameManager.instance.ChangeCurrentCharacter(this);
-    }
-
-    private void OnMouseExit()
-    {
-        //MouseCursor.instance.State = MouseState.Idle;
-    }
-
-    /// <summary>
     /// 캐릭터의 목표지점을 설정
     /// </summary>
     /// <param name="pos">목표 지점</param>
@@ -217,13 +200,13 @@ public class Character : MonoBehaviour
     /// duration이 0이면 영구적, 아니라면 일시적으로 적용한다.
     /// </summary>
     /// <param name="effects">적용할 효과들</param>
-    public void Apply(List<EffectResult> effects)
+    public void Apply(List<SkillEffect> effects)
     {
-        foreach (EffectResult effect in effects)
+        foreach (SkillEffect effect in effects)
         {
             //Debug.Log(name + "에게 " + effect.statusType.ToString() + "을 " + effect.amount + "만큼 변화시키는 효과가 " + effect.duration + "동안 적용!");
             // 알아서 이 effect를 적용시키시오!
-            if (effect.hardCCType == HardCCType.None)
+            if (effect.ccType == CCType.None)
             {
                 if (effect.duration == 0)
                 {
@@ -262,7 +245,7 @@ public class Character : MonoBehaviour
     /// </summary>
     /// <param name="effect"></param>
     /// <returns></returns>
-    private IEnumerator TempEffect(EffectResult effect)
+    private IEnumerator TempEffect(SkillEffect effect)
     {
         status.ChangeStat(effect.statusType, effect.amount);
 
@@ -271,13 +254,13 @@ public class Character : MonoBehaviour
         status.ChangeStat(effect.statusType, -effect.amount);
     }
 
-    private IEnumerator CCEffect(EffectResult effect)
+    private IEnumerator CCEffect(SkillEffect effect)
     {
-        status.ApplyCC(effect.hardCCType);
+        status.ApplyCC(effect.ccType);
 
         yield return new WaitForSeconds(effect.duration);
 
-        status.ApplyCC(HardCCType.None);
+        status.ApplyCC(CCType.None);
     }
 
     // EffectController에서 CharacterState를 받아오게끔 하는 함수. 200130 작성

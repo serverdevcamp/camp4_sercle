@@ -2082,10 +2082,7 @@ MonoBehaviour:
     spd: 8
     atk: 30
     def: 50
-    crt: 20
-    ddg: 40
-    cc: 1.2
-    hardCC: 0
+    cc: 1
   isFriend: 1
   state: 0
   target: {fileID: 0}
@@ -2109,7 +2106,10 @@ MonoBehaviour:
     targetType: 0
     targetNum: 0
     skillEffects:
-    - {fileID: 11400000, guid: 55da594632857834fbf919e074bc8fe4, type: 2}
+    - statusType: 0
+      ccType: 0
+      amount: 0
+      duration: 0
   - skillName: Leg Reinforce
     description: "0.5\uCD08 \uB3D9\uC548 \uC774\uB3D9\uC18D\uB3C4\uAC00 12 \uC99D\uAC00\uD569\uB2C8\uB2E4."
     skillState: 0
@@ -2125,7 +2125,10 @@ MonoBehaviour:
     targetType: 1
     targetNum: 0
     skillEffects:
-    - {fileID: 11400000, guid: e7fd75c4d5f64f340b761856e347faf1, type: 2}
+    - statusType: 0
+      ccType: 0
+      amount: 0
+      duration: 0
   - skillName: Area Stun
     description: "\uC8FC\uBCC0\uC758 \uC801\uB4E4\uC744 \uC2A4\uD134 \uC0C1\uD0DC\uB85C
       \uB9CC\uB4ED\uB2C8\uB2E4."
@@ -2142,7 +2145,10 @@ MonoBehaviour:
     targetType: 3
     targetNum: 1
     skillEffects:
-    - {fileID: 11400000, guid: 52db2dbaa1ac7a947bf2b1d5bf7b6286, type: 2}
+    - statusType: 0
+      ccType: 0
+      amount: 0
+      duration: 0
 --- !u!114 &1164788799
 MonoBehaviour:
   m_ObjectHideFlags: 0

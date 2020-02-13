@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum StatusType { None, MHP, CHP, SPD, ATK, DEF, CRT, DDG, CC }
-public enum HardCCType { None, Stun }
+public enum CCType { None, Stun }
 
 [System.Serializable]
 public class Status
@@ -13,21 +13,14 @@ public class Status
     [SerializeField] private float spd;
     [SerializeField] private float atk;
     [SerializeField] private float def;
-    [SerializeField] private float crt;
-    [SerializeField] private float ddg;
-    [Tooltip("Critical Coefficient. 치명타 계수")]
-    [SerializeField] private float cc;
-    [SerializeField] private HardCCType hardCC;
+    [SerializeField] private CCType cc;
 
     public int MHP { get { return maxHp; } }
     public int CHP { get { return curHp; } }
     public float SPD { get { return spd; } }
     public float ATK { get { return atk; } }
     public float DEF { get { return def; } }
-    public float CRT { get { return crt; } }
-    public float DDG { get { return ddg; } }
-    public float CC { get { return cc; } }
-    public HardCCType HardCC { get { return hardCC; } }
+    public CCType CC { get { return cc; } }
 
     public float Value(StatusType type)
     {
@@ -39,19 +32,13 @@ public class Status
                 return ATK;
             case StatusType.DEF:
                 return DEF;
-            case StatusType.CRT:
-                return CRT;
-            case StatusType.DDG:
-                return DDG;
-            case StatusType.CC:
-                return CC;
         }
         Debug.LogError("Something wrong during getting status value.");
         return 0;
     }
 
     /// <summary>
-    /// 해당 유닛의 Status를 amount만큼 변경합니다. amount가 양수일 경우 더해지고 음수일 경우 뺍니다.
+    /// 해당 유닛의 Status를 amount만큼 변경합니다.
     /// </summary>
     /// <param name="type">변경하고자 하는 StatusType</param>
     /// <param name="amount">변경하고자 하는 양</param>
@@ -64,6 +51,7 @@ public class Status
                 break;
             case StatusType.CHP:
                 curHp += (int)amount;
+                if (curHp > maxHp) curHp = maxHp;
                 break;
             case StatusType.SPD:
                 spd += amount;
@@ -73,15 +61,6 @@ public class Status
                 break;
             case StatusType.DEF:
                 def += amount;
-                break;
-            case StatusType.CRT:
-                crt += amount;
-                break;
-            case StatusType.DDG:
-                ddg += amount;
-                break;
-            case StatusType.CC:
-                cc += amount;
                 break;
             default:
                 Debug.LogError("Something is Wrong at Changing Status");
@@ -103,6 +82,7 @@ public class Status
                 break;
             case StatusType.CHP:
                 curHp = (int)target;
+                if (curHp > maxHp) curHp = maxHp;
                 break;
             case StatusType.SPD:
                 spd = target;
@@ -113,23 +93,14 @@ public class Status
             case StatusType.DEF:
                 def = target;
                 break;
-            case StatusType.CRT:
-                crt = target;
-                break;
-            case StatusType.DDG:
-                ddg = target;
-                break;
-            case StatusType.CC:
-                cc = target;
-                break;
             default:
                 Debug.LogError("Something is Wrong at Changing Status");
                 break;
         }
     }
 
-    public void ApplyCC(HardCCType ccType)
+    public void ApplyCC(CCType ccType)
     {
-        hardCC = ccType;
+        cc = ccType;
     }
 }
