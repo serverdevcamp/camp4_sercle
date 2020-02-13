@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<Hero> enemyHeroes = new List<Hero>();
 
     private RobotManager robotManager;
+    private IndicateManager indicateManager;
     private bool is1P;
 
     public bool Is1P { get { return is1P; } }
@@ -28,17 +29,14 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         robotManager = GetComponentInChildren<RobotManager>();
+        indicateManager = GetComponentInChildren<IndicateManager>();
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            // splatManager.ActivateSkillIndicator(myHeroes[0].skill);
-                // sm에서 발사 지점을 얻는다.
-                // 필요한 경우 방향까지 얻는다.
-                // sm에서 gm에게 index번의 영웅의 스킬을 사용한다고 알린다.
-
+            indicateManager.ActivateSkillIndicator(myHeroes[0].GetSkill);
         }
     }
 
