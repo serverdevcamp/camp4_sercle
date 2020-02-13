@@ -36,6 +36,8 @@ public class ChattingManager : MonoBehaviour
         socket = GetComponent<TransportTCP>();
         Debug.Log("유저 : " + userInfo.userData.token);
         socket.Connect(address, port);
+
+        GameObject.Find("MatchButton").GetComponent<Button>().onClick.AddListener(MatchingManager.instance.MatchingRequest);
     }
 
     void Update()

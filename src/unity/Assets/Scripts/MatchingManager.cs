@@ -22,7 +22,7 @@ public class MatchingManager : MonoBehaviour
     // 매치메이킹 진행 State
     [SerializeField]
     private MatchingState matchingState;
-    public MatchingState MatchState { get { return matchingState; } }
+    public MatchingState MatchState { get { return matchingState; } set { matchingState = value; } }
 
     private void Awake()
     {
@@ -59,6 +59,7 @@ public class MatchingManager : MonoBehaviour
             SendData(userInfo.userData.id);
             userInfoFlag = true;
         }
+
     }
 
     private void SendData(string msg)
