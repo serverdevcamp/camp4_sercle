@@ -128,9 +128,6 @@ MonoBehaviour:
     spd: 5
     atk: 30
     def: 20
-    crt: 0
-    ddg: 0
-    cc: 0
     hardCC: 0
   is1P: 0
   state: 0
@@ -138,6 +135,19 @@ MonoBehaviour:
   contactLayer:
     serializedVersion: 2
     m_Bits: 0
+  attack:
+    skillState: 0
+    preDelay: 0.1
+    postDelay: 0.3
+    coolDown: 1
+    proj: {fileID: 6332989940410738062, guid: f1ffe6c1057093e42a09702b86636b4e, type: 3}
+    speed: 20
+    range: 15
+    size: {x: 0.2, y: 0.2, z: 0.2}
+    targetType: 0
+    targetNum: 0
+    skillEffects:
+    - {fileID: 11400000, guid: 4b8684619e341fa4fa15e8c5117cf5a9, type: 2}
 --- !u!114 &-9059464624282514437
 MonoBehaviour:
   m_ObjectHideFlags: 0

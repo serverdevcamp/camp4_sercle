@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class RobotAttack
 {
     public enum SkillState { Idle, Ready, PreDelay, Fire, PostDelay, CoolDown }

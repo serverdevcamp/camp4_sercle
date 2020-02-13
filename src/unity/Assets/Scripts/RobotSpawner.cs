@@ -17,6 +17,14 @@ public class RobotSpawner : MonoBehaviour
 
     private int robotNum = 0;
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.KeypadEnter))
+        {
+            StartCoroutine(SpawnRobots());
+        }
+    }
+
     private IEnumerator SpawnRobots()
     {
         for (int i = 0; i < waveSize; i++)

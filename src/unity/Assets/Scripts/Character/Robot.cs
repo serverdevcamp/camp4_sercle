@@ -20,7 +20,6 @@ public class Robot : MonoBehaviour
     private NavMeshAgent agent;
     private List<Vector3> destinations;
     private int destFlag;
-    private bool isAttacking = false;
 
     private void Awake()
     {

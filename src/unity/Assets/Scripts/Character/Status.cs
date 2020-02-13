@@ -13,10 +13,6 @@ public class Status
     [SerializeField] private float spd;
     [SerializeField] private float atk;
     [SerializeField] private float def;
-    [SerializeField] private float crt;
-    [SerializeField] private float ddg;
-    [Tooltip("Critical Coefficient. 치명타 계수")]
-    [SerializeField] private float cc;
     [SerializeField] private HardCCType hardCC;
 
     public int MHP { get { return maxHp; } }
@@ -24,9 +20,6 @@ public class Status
     public float SPD { get { return spd; } }
     public float ATK { get { return atk; } }
     public float DEF { get { return def; } }
-    public float CRT { get { return crt; } }
-    public float DDG { get { return ddg; } }
-    public float CC { get { return cc; } }
     public HardCCType HardCC { get { return hardCC; } }
 
     public float Value(StatusType type)
@@ -39,12 +32,6 @@ public class Status
                 return ATK;
             case StatusType.DEF:
                 return DEF;
-            case StatusType.CRT:
-                return CRT;
-            case StatusType.DDG:
-                return DDG;
-            case StatusType.CC:
-                return CC;
         }
         Debug.LogError("Something wrong during getting status value.");
         return 0;
@@ -73,15 +60,6 @@ public class Status
                 break;
             case StatusType.DEF:
                 def += amount;
-                break;
-            case StatusType.CRT:
-                crt += amount;
-                break;
-            case StatusType.DDG:
-                ddg += amount;
-                break;
-            case StatusType.CC:
-                cc += amount;
                 break;
             default:
                 Debug.LogError("Something is Wrong at Changing Status");
@@ -112,15 +90,6 @@ public class Status
                 break;
             case StatusType.DEF:
                 def = target;
-                break;
-            case StatusType.CRT:
-                crt = target;
-                break;
-            case StatusType.DDG:
-                ddg = target;
-                break;
-            case StatusType.CC:
-                cc = target;
                 break;
             default:
                 Debug.LogError("Something is Wrong at Changing Status");

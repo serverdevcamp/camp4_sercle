@@ -69,12 +69,6 @@ public class SkillEffect : ScriptableObject
         List<EffectResult> effects = new List<EffectResult>();
 
         float damage = coefficient * caster.status.ATK * (1 - target.status.DEF / 100);
-        int rand = Random.Range(0, 100);
-
-        float prob = caster.status.CRT - target.status.DDG;
-
-        if (prob > 0 && rand <= prob) damage *= caster.status.CC;
-        else if (prob < 0 && rand <= Mathf.Abs(prob)) damage = 0;
 
         effects.Add(new EffectResult(StatusType.CHP, -damage));
 

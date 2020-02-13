@@ -2082,9 +2082,6 @@ MonoBehaviour:
     spd: 8
     atk: 30
     def: 50
-    crt: 20
-    ddg: 40
-    cc: 1.2
     hardCC: 0
   is1P: 0
   state: 0
