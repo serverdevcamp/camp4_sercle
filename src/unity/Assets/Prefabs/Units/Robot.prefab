@@ -165,49 +165,14 @@ MonoBehaviour:
     preDelay: 0.1
     postDelay: 0.1
     coolDown: 0.5
-    proj: {fileID: 6332989940410738062, guid: cba89610dbad6324f8f79a088b61d5d2, type: 3}
-    speed: 15
-    range: 10
-    size: {x: 8, y: 8, z: 8}
+    proj: {fileID: 6332989940410738062, guid: 5522675c930dacf47883edbb87fc6b7b, type: 3}
+    speed: 20
+    range: 15
+    size: {x: 0.2, y: 0.2, z: 0.2}
     targetType: 0
     targetNum: 0
     skillEffects:
     - {fileID: 11400000, guid: d16d518b402c16c42aeb84a860faf685, type: 2}
-  - skillName: Critical Shot
-    description: "3.5 * \uACF5\uACA9\uB825\uC73C\uB85C \uC801\uC744 \uACF5\uACA9\uD569\uB2C8\uB2E4."
-    skillState: 0
-    indicator: {fileID: 4149504087545164197, guid: db5855e50fabc894ba40a3012835f11f,
-      type: 3}
-    myNum: 1
-    preDelay: 0.3
-    postDelay: 0.5
-    coolDown: 3
-    proj: {fileID: 6332989940410738062, guid: c8de4f3885d189d43944ce0a947f7af1, type: 3}
-    speed: 10
-    range: 11
-    size: {x: 8, y: 8, z: 8}
-    targetType: 3
-    targetNum: 0
-    skillEffects:
-    - {fileID: 11400000, guid: b87917a464b62e148bb7aaf6a91cefee, type: 2}
-  - skillName: Stim Pack
-    description: "5\uCD08\uAC04 \uC790\uC2E0\uC758 \uCE58\uBA85 30, \uCE58\uBA85 \uACC4\uC218
-      0.5\uB97C \uC99D\uAC00\uC2DC\uD0B5\uB2C8\uB2E4."
-    skillState: 0
-    indicator: {fileID: 0}
-    myNum: 2
-    preDelay: 1
-    postDelay: 0.4
-    coolDown: 15
-    proj: {fileID: 6332989940410738062, guid: e03ee0dc218e61a4ea409dfd6adeebb0, type: 3}
-    speed: 0
-    range: 0
-    size: {x: 0, y: 0, z: 0}
-    targetType: 1
-    targetNum: 0
-    skillEffects:
-    - {fileID: 11400000, guid: ebca95157c35eca4993d44fc34cbfb1d, type: 2}
-    - {fileID: 11400000, guid: 93292a980cf2b0a4faa993813a559086, type: 2}
 --- !u!114 &-9059464624282514437
 MonoBehaviour:
   m_ObjectHideFlags: 0
