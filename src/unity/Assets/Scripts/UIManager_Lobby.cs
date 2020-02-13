@@ -16,6 +16,7 @@ public class UIManager_Lobby : MonoBehaviour
     private void Start()
     {
         matchingManager = GameObject.Find("MatchingManager").GetComponent<MatchingManager>();
+        matchBtn.GetComponent<Button>().onClick.AddListener(matchingManager.MatchingRequest);
 
         matchBtn.SetActive(true);
         cancelBtn.SetActive(false);
