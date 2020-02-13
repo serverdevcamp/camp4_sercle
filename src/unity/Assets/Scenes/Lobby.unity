@@ -524,17 +524,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 837589332}
-        m_MethodName: MatchingCancel
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 221853553}
         m_MethodName: SetActive
         m_Mode: 6
@@ -1751,18 +1740,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 586925881}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 837589332}
-        m_MethodName: AccpetMatchMakingResult
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &683409747
 GameObject:
   m_ObjectHideFlags: 0
@@ -2544,18 +2522,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1052771065}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 837589332}
-        m_MethodName: RefuseMatchMakingResult
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &1109487476
 GameObject:
   m_ObjectHideFlags: 0
@@ -3914,6 +3881,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   matchBtn: {fileID: 221853553}
   cancelBtn: {fileID: 110546656}
+  acceptBtn: {fileID: 586925879}
+  declineBtn: {fileID: 1052771063}
   matchTimer: {fileID: 1668909836}
   matchCompletePanel: {fileID: 1024164462}
   matchWaitingPanel: {fileID: 1002633361}
