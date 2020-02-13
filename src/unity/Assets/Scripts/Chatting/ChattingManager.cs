@@ -42,7 +42,7 @@ public class ChattingManager : MonoBehaviour
     {
         if (userInfoFlag == false)
         {
-            SendData(userInfo.userData.email);
+            SendData(userInfo.userData.username);
             userInfoFlag = true;
         }
 
