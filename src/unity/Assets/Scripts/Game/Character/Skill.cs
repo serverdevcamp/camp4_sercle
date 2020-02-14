@@ -20,6 +20,7 @@ public class Skill
     public State state;
 
     [Header("Time")]
+    public float emergeDelay;   // 등장한 후 등장 포즈 취하는 시간
     public float preDelay;
     public float postDelay;
     public float coolDown;
