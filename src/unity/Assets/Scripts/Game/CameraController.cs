@@ -5,28 +5,27 @@ using DG.Tweening;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField] private Vector3 dir;
-    [SerializeField] private float distance;
+    [SerializeField] private float defaultAngle;
+    [SerializeField] private float defualtDis;
     [SerializeField] private float maxDis;
     [SerializeField] private float minDis;
-    [SerializeField] private float defualtDis;
-    
-    private Vector3 targetPosition;
-    private Vector3 moveDir = Vector3.zero;
-    private float moveSpeed = 20f;
 
+    [SerializeField] private float distance;
+    [SerializeField] private float angle;
+
+    private Vector3 targetPosition;
 
     private void Start()
     {
-        distance = 15f;
+        angle = defaultAngle;
+        distance = defualtDis;
+        
+        targetPosition = Vector3.zero;
     }
 
     private void Update()
     {
-        distance = Mathf.Clamp(distance - Input.mouseScrollDelta.y * 0.3f, minDis, maxDis);
-
-        targetPosition += moveDir * moveSpeed * Time.fixedDeltaTime;
-
-        transform.DOMove(targetPosition + dir.normalized * distance, 0.3f);
+        transform.DORotate(new Vector3(angle, 0, 0), 0.3f);
+        transform.DOMove(targetPosition + new Vector3(0, Mathf.Sin(defaultAngle), -Mathf.Cos(defaultAngle)) * distance, 0.3f);
     }
 }
