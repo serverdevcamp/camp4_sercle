@@ -85,7 +85,7 @@ public class GameManager : MonoBehaviour
     public void UseLocalSkill(int index, Vector3 pos, Vector3? dir = null)
     {
         myHeroes[index].UseSkill(pos, dir);
-        SkillManager.instance.SendLocalSkillInfo(false, index, pos, dir);
+        //SkillManager.instance.SendLocalSkillInfo(false, index, pos, dir);
     }
 
     public void FireProjectile(int index, Vector3 pos, Vector3? dir = null)
