@@ -45,6 +45,10 @@ public class GameManager : MonoBehaviour
         {
             indicateManager.ActivateSkillIndicator(myHeroes[0]);
         }
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            indicateManager.ActivateSkillIndicator(myHeroes[1]);
+        }
     }
 
     private void GetHeroList()
