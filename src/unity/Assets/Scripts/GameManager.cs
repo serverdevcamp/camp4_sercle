@@ -21,8 +21,6 @@ public class GameManager : MonoBehaviour
         if (instance == null) instance = this;
         else Destroy(gameObject);
 
-        is1P = GameObject.Find("NetworkManager").GetComponent<NetworkManager>().clientID;
-
         GetHeroList();
     }
 
@@ -30,6 +28,15 @@ public class GameManager : MonoBehaviour
     {
         robotManager = GetComponentInChildren<RobotManager>();
         indicateManager = GetComponentInChildren<IndicateManager>();
+
+        if (GameObject.Find("UserInfoObject").GetComponent<UserInfo>().userData.playerCamp == 1)
+        {
+            is1P = true;
+        }
+        else
+        {
+            is1P = false;
+        }
     }
 
     private void Update()
