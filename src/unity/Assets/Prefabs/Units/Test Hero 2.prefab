@@ -49,6 +49,7 @@ MonoBehaviour:
   skill:
     skillName: Test Name
     description: Test Description
+    image: {fileID: 21300000, guid: 4c1adc6c87a0a494889a8bb2e2aa1c35, type: 3}
     state: 0
     preDelay: 1
     postDelay: 1

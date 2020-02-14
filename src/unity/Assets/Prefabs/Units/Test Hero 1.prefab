@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3238104893255659823}
   - component: {fileID: 5205131819984006249}
   m_Layer: 0
-  m_Name: Test Hero
+  m_Name: Test Hero 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -49,6 +49,7 @@ MonoBehaviour:
   skill:
     skillName: Test Name
     description: Test Description
+    image: {fileID: 21300000, guid: 1fec945518c9dab42b6ddfd4b03431b0, type: 3}
     state: 0
     preDelay: 1
     postDelay: 1
