@@ -29,6 +29,7 @@ public class Hero : MonoBehaviour
     }
 
     public int Index { get { return index; } }
+    public State GetState { get { return state; } }
     public Skill GetSkill { get { return skill; } }
 
     public void UseSkill(Vector3 pos, Vector3? dir)
