@@ -53,35 +53,13 @@ public class GameManager : MonoBehaviour
         if (myHeroes.Count == 0) Debug.LogError("히어로 리스트를 가져와라!!!!");
     }
 
-    public Vector3? GetDirection(Character caster, ref bool isValid)
-    {
-        Vector3? dir = null;
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit, 100))
-        {
-            Vector3 casterPos = caster.transform.position;
-            Vector3 rawDir = hit.point - casterPos;
-
-            if (Input.GetMouseButtonDown(0))
-            {
-                // Debug.Log("마우스 위치 : " + hit.point + ", 시전자 위치 : " + casterPos + ", 계산된 방향 : " + rawDir);
-                dir = rawDir.normalized;
-                //caster.ShowSkillDirection(false);
-            }
-        }
-
-        return dir;
-    }
-
     // 2020 02 07 목적지와 현 위치의 거리를 보정한 원격 캐릭터의 속도 계산.
-    //public float SetInterpolatedSpeed(int index, Vector3 destination)
-    //{
-    //    float prevTime = Vector3.Distance(enemyCharacters[index].GetComponent<Transform>().position, destination) / enemyCharacters[index].status.SPD;
-
-    //    return (enemyCharacters[index].status.SPD) * (prevTime + SyncManager.instance.GetAvgRemoteRtt()) / prevTime;
-    //}
+    public float SetInterpolatedSpeed(int index, Vector3 destination)
+    {
+        //float prevTime = Vector3.Distance(enemyCharacters[index].GetComponent<Transform>().position, destination) / enemyCharacters[index].status.SPD;
+        //return (enemyCharacters[index].status.SPD) * (prevTime + SyncManager.instance.GetAvgRemoteRtt()) / prevTime;
+        return 0;
+    }
 
     public void FireRobotProjectile(int index, Vector3 dir)
     {
@@ -93,14 +71,6 @@ public class GameManager : MonoBehaviour
     {
         myHeroes[index].UseSkill(pos, dir);
         //SkillManager.instance.SendLocalSkillInfo(false, index, pos, dir);
-    }
-
-    public void FireProjectile(int index, Vector3 pos, Vector3? dir = null)
-    {
-        // index 번째 myHero를 pos 위치에 instantiate한다.
-        // dir 방향으로 스킬을 사용하도록 초기화
-        // SkillManager에게 이 사실을 알린다.
-        // SkillManager.instance.SendLocalSkillInfo(false, index, dir);
     }
 
     // 2020 02 01 원격 캐릭터가 투사체 발사하도록 한다.
