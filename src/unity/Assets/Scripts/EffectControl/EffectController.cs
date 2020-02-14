@@ -137,26 +137,26 @@ public class EffectController : MonoBehaviour
         // 사용한 스킬의 상태(idle~cooldown)에 따라 애니메이션 재생
         for (int i = 0; i < 3; i++)
         {
-            if(skills[i].skillState == Skill.SkillState.Idle)
+            if(skills[i].state == Skill.State.Idle)
             {
                 continue;
             }
 
             // 스킬의 상태에 맞는 애니메이션 설정 후 함수 종료.
-            switch (skills[i].skillState)
+            switch (skills[i].state)
             {
-                case Skill.SkillState.PreDelay:
+                case Skill.State.PreDelay:
                     PlayPreDelayParticle(i);
                     PlayPreDelayAnim(i);
                     
                     return;
-                case Skill.SkillState.Fire:
+                case Skill.State.Fire:
                     PlayFireParticle(i);
                     OnFireVFX(i);
                     PlayFireAnim(i);
                     return;
 
-                case Skill.SkillState.PostDelay:
+                case Skill.State.PostDelay:
                     PlayPostDelayAnim();
                     return;
             }      
@@ -325,33 +325,23 @@ public class EffectController : MonoBehaviour
     {
         switch (effect.GetSkillType())
         {
-            case SkillEffect.SkillType.Heal:
+            case SkillEffect.Type.Heal:
                 for (int i = 0; i < healEffects.Length; i++)
                 {
                     healEffects[i].Play();
                 }
                 break;
-            case SkillEffect.SkillType.Attack:
+            case SkillEffect.Type.Attack:
                 normalHitEffect.Play();
                 break;
-            case SkillEffect.SkillType.Temp:
-                if (effect.GetCCType() == SkillEffect.CCType.Hard)
-                {
-                    stunEffect.Play();
-                }
-                else
-                {
-                    // 시전자가 딜러(총알 강화).
-                    if(casterIndex == 1)
-                    {
-                        buffEffect.Play();
-                    }
-                    // 시전자가 서포터(디버프)
-                    else if(casterIndex == 2)
-                    {
-                        debuffEffect.Play();
-                    }
-                }
+            case SkillEffect.Type.Buff:
+                buffEffect.Play();
+                break;
+            case SkillEffect.Type.Debuff:
+                debuffEffect.Play();
+                break;
+            case SkillEffect.Type.Stun:
+                stunEffect.Play();
                 break;
         }
     }

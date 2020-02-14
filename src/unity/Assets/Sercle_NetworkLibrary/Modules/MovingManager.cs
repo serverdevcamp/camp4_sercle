@@ -61,9 +61,9 @@ public class MovingManager : MonoBehaviour
         Vector3 destination = new Vector3(moving.destX, moving.destY, moving.destZ);
 
         // 2020 02 01 상대 단말에서 상대의 로컬 캐릭터가 이동했을 때 송신한 정보를 수신한 것이므로 내 단말에서 리모트 캐릭터를 이동시킨다.
-        GameManager.instance.MoveEnemyCharacter(moving.index, destination);
-        // 2020 02 07 상대의 캐릭터의 이동속도 보정값을 저장.
-        remoteAgentSpeed[moving.index] = GameManager.instance.SetInterpolatedSpeed(moving.index, destination);
+        //GameManager.instance.MoveEnemyCharacter(moving.index, destination);
+        //// 2020 02 07 상대의 캐릭터의 이동속도 보정값을 저장.
+        //remoteAgentSpeed[moving.index] = GameManager.instance.SetInterpolatedSpeed(moving.index, destination);
     }
 
     // rtt가 고려된 보정된 속도를 반환

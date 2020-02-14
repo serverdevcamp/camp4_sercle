@@ -257,10 +257,10 @@ public struct MovingData
 // 스킬 정보
 public struct SkillData
 {
+    // 로봇이 사용한 공격인가?
+    public bool isRobot;
     // 캐릭터 번호
     public int index;
-    // 스킬 번호
-    public int num;
     // 방향
     public float dirX;
     public float dirY;
@@ -269,8 +269,8 @@ public struct SkillData
     public override string ToString()
     {
         string str = "";
-        str += "index:" + index;
-        str += " num:" + num;
+        str += "isRobot:" + isRobot;
+        str += " index:" + index;
         str += " dirX:" + dirX;
         str += " dirY:" + dirY;
         str += " dirZ:" + dirZ;

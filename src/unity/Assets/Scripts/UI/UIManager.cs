@@ -31,7 +31,7 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        curCharacter = GameManager.instance.CurCharacter;
+        curCharacter = null; //GameManager.instance.CurCharacter;
 
         DisplayCharactersInfo(curCharacter);
     }
@@ -83,7 +83,7 @@ public class UIManager : MonoBehaviour
     /// <param name="charIndex">현재 캐릭터 번호</param>
     private void DisplayCurrentCharacterInfo(int charIndex)
     {
-        curCharacter = GameManager.instance.myCharacters[charIndex];
+        curCharacter = null; // GameManager.instance.myCharacters[charIndex];
 
         // 좌상단 Profile Panel의 HP 표시
         curHealthBar.fillAmount = (float)curCharacter.status.CHP / curCharacter.status.MHP;
@@ -109,18 +109,18 @@ public class UIManager : MonoBehaviour
                 continue;
             }
 
-            switch (skill.skillState)
+            switch (skill.state)
             {
-                case Skill.SkillState.Idle:
+                case Skill.State.Idle:
                     image.color = Color.white;
                     break;
-                case Skill.SkillState.Ready:
+                case Skill.State.Ready:
                     image.color = Color.yellow;
                     break;
-                case Skill.SkillState.PreDelay:
+                case Skill.State.PreDelay:
                     image.color = Color.black;
                     break;
-                case Skill.SkillState.CoolDown:
+                case Skill.State.CoolDown:
                     image.color = Color.white;
                     break;
             }
@@ -134,7 +134,7 @@ public class UIManager : MonoBehaviour
     /// <param name="uiIndex">표시할 UI 번호</param>
     private void DisplayFriendCharacterInfo(int charIndex, int uiIndex)
     {
-        Character character = GameManager.instance.myCharacters[charIndex];
+        Character character = null;// GameManager.instance.myCharacters[charIndex];
 
         Image healthBar = friendHealthBars[uiIndex];
         Image QSkill = friendQSkillCool[uiIndex];

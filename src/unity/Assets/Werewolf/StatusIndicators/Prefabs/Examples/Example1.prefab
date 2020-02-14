@@ -1189,6 +1189,7 @@ MonoBehaviour:
   range: 10
   ArrowHead: {fileID: 165984}
   MinimumRange: 1
+  activate: 0
 --- !u!1 &199786
 GameObject:
   m_ObjectHideFlags: 0

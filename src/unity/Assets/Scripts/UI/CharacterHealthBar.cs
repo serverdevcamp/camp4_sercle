@@ -8,13 +8,13 @@ public class CharacterHealthBar : MonoBehaviour
     [SerializeField] private RectTransform healthBar;
     [SerializeField] private Image bar;
 
-    private Character character;
+    private Robot character;
 
     private void Start()
     {
-        character = transform.parent.GetComponent<Character>();
+        character = transform.parent.GetComponent<Robot>();
 
-        if (character.isFriend == false)
+        if (character.Is1P != GameManager.instance.Is1P)
         {
             bar.color = new Color(255, 100, 100);
         }
@@ -23,6 +23,6 @@ public class CharacterHealthBar : MonoBehaviour
     private void Update()
     {
         healthBar.rotation = Camera.main.transform.rotation;
-        bar.fillAmount = (float)character.status.CHP / character.status.MHP;
+        bar.fillAmount = (float)character.GetStatus.CHP / character.GetStatus.MHP;
     }
 }
