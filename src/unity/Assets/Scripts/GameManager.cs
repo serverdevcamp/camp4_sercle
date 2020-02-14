@@ -94,4 +94,14 @@ public class GameManager : MonoBehaviour
     {
         target.Apply(effect);
     }
+
+    public Hero GetMyHero(int i)
+    {
+        return myHeroes[i];
+    }
+
+    public int GetMyHeroCount()
+    {
+        return myHeroes.Count;
+    }
 }

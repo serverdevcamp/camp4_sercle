@@ -5,67 +5,27 @@ using DG.Tweening;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField] private Vector3 dir;
-    [SerializeField] private float distance;
+    [SerializeField] private float defaultAngle;
+    [SerializeField] private float defualtDis;
+    [SerializeField] private float maxDis;
+    [SerializeField] private float minDis;
 
-    private Character focusCharacter;
+    [SerializeField] private float distance;
+    [SerializeField] private float angle;
+
     private Vector3 targetPosition;
-    private Vector3 moveDir = Vector3.zero;
-    private float moveSpeed = 20f;
-    float maxDis = 50f;
-    float minDis = 3f;
 
     private void Start()
     {
-        focusCharacter = null;
+        angle = defaultAngle;
+        distance = defualtDis;
+        
+        targetPosition = Vector3.zero;
     }
 
     private void Update()
     {
-        distance = Mathf.Clamp(distance - Input.mouseScrollDelta.y * 0.3f, minDis, maxDis);
-
-        if(focusCharacter) targetPosition = focusCharacter.transform.position;
-
-        targetPosition += moveDir * moveSpeed * Time.fixedDeltaTime;
-
-        transform.DOMove(targetPosition + dir.normalized * distance, 0.3f);
-    }
-
-    public void FocusCharacter(Character character)
-    {
-        focusCharacter = character;
-        transform.rotation = Quaternion.LookRotation(-dir, Vector3.up);
-    }
-
-    public void MoveCamera(string direction, bool start)
-    {
-        if (!start)
-        {
-            moveDir = Vector3.zero;
-            return;
-        }
-
-        focusCharacter = null;
-        float angle = Mathf.Abs(transform.rotation.eulerAngles.y);
-
-        switch (direction)
-        {
-            case "up":
-                angle += Mathf.PI / 2;
-                break;
-            case "down":
-                angle -= Mathf.PI / 2;
-                break;
-            case "left":
-                angle += Mathf.PI;
-                break;
-            case "right":
-                break;
-            default:
-                Debug.LogError("You spelled wrong...");
-                return;
-        }
-
-        moveDir = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle));
+        transform.DORotate(new Vector3(angle, 0, 0), 0.3f);
+        transform.DOMove(targetPosition + new Vector3(0, Mathf.Sin(defaultAngle), -Mathf.Cos(defaultAngle)) * distance, 0.3f);
     }
 }
