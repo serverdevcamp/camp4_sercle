@@ -40,9 +40,8 @@ public class SkillImage : MonoBehaviour
         if(descriptionPanel != null)
             descriptionPanel.SetActive(false);
 
-        // skillIndex에 맞는 skillIconImages에 있는 스프라이트를 연결
-        if (selectionController.skillIconImages[skillIndex] != null) 
-            GetComponent<Image>().sprite = selectionController.skillIconImages[skillIndex];
+        // skill Index에 맞는 스킬 이름, 설명, 이미지 연결
+        SetSkillInfo();
     }
 
     // 이미지 위에 마우스 포인터가 있을 경우 설명문 창을 띄웁니다.
@@ -106,5 +105,11 @@ public class SkillImage : MonoBehaviour
         }
     }
     
-
+    // Json으로 불러온 스킬 정보를 이 스킬 아이콘에 반영
+    private void SetSkillInfo()
+    {
+        skillName = selectionController.skill.skillInfo[skillIndex].skillName;
+        description = selectionController.skill.skillInfo[skillIndex].skillDesc;
+        GetComponent<Image>().sprite = Resources.Load<Sprite>(selectionController.skill.skillInfo[skillIndex].skillImagePath);
+    }
 }

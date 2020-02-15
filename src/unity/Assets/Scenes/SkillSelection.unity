@@ -2673,21 +2673,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e4845517a6ab394884877f24c71c975, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillIconImages:
-  - {fileID: 21300000, guid: 5b5a7e7d3dbc45241bbb385193553fec, type: 3}
-  - {fileID: 21300000, guid: 96c90f8162903654bb69ef5c2cb0616f, type: 3}
-  - {fileID: 21300000, guid: f747817529c2bb247bbb3df2a0190d3e, type: 3}
-  - {fileID: 21300000, guid: 713d8a4028923214cbb66da7de07b96d, type: 3}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   selectedSkillIndex: 
   selectedSkills:
   - {fileID: 429689607}

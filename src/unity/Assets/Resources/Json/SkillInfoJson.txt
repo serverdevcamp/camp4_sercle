@@ -14,6 +14,133 @@
 			"skillDesc" : "아이스스피어가 땅에서 부터 솟아 오릅니다.",
 			"skillImagePath" : "SkillImage/Ice_Fissure",
 			"skillEffectPath" : "SkillEffect/Ice_Fissure"
+		},
+		{	
+			"skillNumber" : 2, 
+			"skillName" : "아이스스피어",
+			"skillDesc" : "아이스스피어가 땅에서 부터 솟아 오릅니다.",
+			"skillImagePath" : "SkillImage/Ice_Fissure",
+			"skillEffectPath" : "SkillEffect/Ice_Fissure"
+		},
+		{	
+			"skillNumber" : 3, 
+			"skillName" : "아이스스피어",
+			"skillDesc" : "아이스스피어가 땅에서 부터 솟아 오릅니다.",
+			"skillImagePath" : "SkillImage/Ice_Fissure",
+			"skillEffectPath" : "SkillEffect/Ice_Fissure"
+		},
+		{	
+			"skillNumber" : 4, 
+			"skillName" : "아이스스피어",
+			"skillDesc" : "아이스스피어가 땅에서 부터 솟아 오릅니다.",
+			"skillImagePath" : "SkillImage/Ice_Fissure",
+			"skillEffectPath" : "SkillEffect/Ice_Fissure"
+		},
+		{	
+			"skillNumber" : 5, 
+			"skillName" : "아이스스피어",
+			"skillDesc" : "아이스스피어가 땅에서 부터 솟아 오릅니다.",
+			"skillImagePath" : "SkillImage/Ice_Fissure",
+			"skillEffectPath" : "SkillEffect/Ice_Fissure"
+		},
+		{	
+			"skillNumber" : 6, 
+			"skillName" : "아이스스피어",
+			"skillDesc" : "아이스스피어가 땅에서 부터 솟아 오릅니다.",
+			"skillImagePath" : "SkillImage/Ice_Fissure",
+			"skillEffectPath" : "SkillEffect/Ice_Fissure"
+		},
+		{	
+			"skillNumber" : 7, 
+			"skillName" : "아이스스피어",
+			"skillDesc" : "아이스스피어가 땅에서 부터 솟아 오릅니다.",
+			"skillImagePath" : "SkillImage/Ice_Fissure",
+			"skillEffectPath" : "SkillEffect/Ice_Fissure"
+		},
+		{	
+			"skillNumber" : 8, 
+			"skillName" : "아이스스피어",
+			"skillDesc" : "아이스스피어가 땅에서 부터 솟아 오릅니다.",
+			"skillImagePath" : "SkillImage/Ice_Fissure",
+			"skillEffectPath" : "SkillEffect/Ice_Fissure"
+		},
+		{	
+			"skillNumber" : 9, 
+			"skillName" : "아이스스피어",
+			"skillDesc" : "아이스스피어가 땅에서 부터 솟아 오릅니다.",
+			"skillImagePath" : "SkillImage/Ice_Fissure",
+			"skillEffectPath" : "SkillEffect/Ice_Fissure"
+		},
+		{	
+			"skillNumber" : 10, 
+			"skillName" : "아이스스피어",
+			"skillDesc" : "아이스스피어가 땅에서 부터 솟아 오릅니다.",
+			"skillImagePath" : "SkillImage/Ice_Fissure",
+			"skillEffectPath" : "SkillEffect/Ice_Fissure"
+		},
+		{	
+			"skillNumber" : 11, 
+			"skillName" : "아이스스피어",
+			"skillDesc" : "아이스스피어가 땅에서 부터 솟아 오릅니다.",
+			"skillImagePath" : "SkillImage/Ice_Fissure",
+			"skillEffectPath" : "SkillEffect/Ice_Fissure"
+		},
+		{	
+			"skillNumber" : 12, 
+			"skillName" : "아이스스피어",
+			"skillDesc" : "아이스스피어가 땅에서 부터 솟아 오릅니다.",
+			"skillImagePath" : "SkillImage/Ice_Fissure",
+			"skillEffectPath" : "SkillEffect/Ice_Fissure"
+		},
+		{	
+			"skillNumber" : 13, 
+			"skillName" : "아이스스피어",
+			"skillDesc" : "아이스스피어가 땅에서 부터 솟아 오릅니다.",
+			"skillImagePath" : "SkillImage/Ice_Fissure",
+			"skillEffectPath" : "SkillEffect/Ice_Fissure"
+		},
+		{	
+			"skillNumber" : 14, 
+			"skillName" : "아이스스피어",
+			"skillDesc" : "아이스스피어가 땅에서 부터 솟아 오릅니다.",
+			"skillImagePath" : "SkillImage/Ice_Fissure",
+			"skillEffectPath" : "SkillEffect/Ice_Fissure"
+		},
+		{	
+			"skillNumber" : 15, 
+			"skillName" : "아이스스피어",
+			"skillDesc" : "아이스스피어가 땅에서 부터 솟아 오릅니다.",
+			"skillImagePath" : "SkillImage/Ice_Fissure",
+			"skillEffectPath" : "SkillEffect/Ice_Fissure"
+		},
+		{	
+			"skillNumber" : 16, 
+			"skillName" : "아이스스피어",
+			"skillDesc" : "아이스스피어가 땅에서 부터 솟아 오릅니다.",
+			"skillImagePath" : "SkillImage/Ice_Fissure",
+			"skillEffectPath" : "SkillEffect/Ice_Fissure"
+		},
+		{	
+			"skillNumber" : 17, 
+			"skillName" : "아이스스피어",
+			"skillDesc" : "아이스스피어가 땅에서 부터 솟아 오릅니다.",
+			"skillImagePath" : "SkillImage/Ice_Fissure",
+			"skillEffectPath" : "SkillEffect/Ice_Fissure"
+		},
+		{	
+			"skillNumber" : 18, 
+			"skillName" : "아이스스피어",
+			"skillDesc" : "아이스스피어가 땅에서 부터 솟아 오릅니다.",
+			"skillImagePath" : "SkillImage/Ice_Fissure",
+			"skillEffectPath" : "SkillEffect/Ice_Fissure"
+		},
+		{	
+			"skillNumber" : 19, 
+			"skillName" : "아이스스피어",
+			"skillDesc" : "아이스스피어가 땅에서 부터 솟아 오릅니다.",
+			"skillImagePath" : "SkillImage/Ice_Fissure",
+			"skillEffectPath" : "SkillEffect/Ice_Fissure"
 		}
+
 	]			
 }

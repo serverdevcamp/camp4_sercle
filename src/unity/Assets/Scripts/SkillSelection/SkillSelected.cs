@@ -59,8 +59,8 @@ public class SkillSelected : MonoBehaviour
     public IEnumerator CreateDescriptionPanel()
     {
         descriptionPanel.SetActive(true);
-        descriptionPanel.transform.GetChild(0).GetComponent<Text>().text = selectionController.skills[skillIndex].skillName;
-        descriptionPanel.transform.GetChild(1).GetComponent<Text>().text = selectionController.skills[skillIndex].description;
+        descriptionPanel.transform.GetChild(0).GetComponent<Text>().text = selectionController.skill.skillInfo[skillIndex].skillName; // selectionController.skills[skillIndex].skillName;
+        descriptionPanel.transform.GetChild(1).GetComponent<Text>().text = selectionController.skill.skillInfo[skillIndex].skillDesc;
 
         Vector2 origin = (Vector2)Input.mousePosition;
         descriptionPanel.GetComponent<RectTransform>().anchoredPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y - descriptionPanel.GetComponent<RectTransform>().anchoredPosition.y * 0.25f);

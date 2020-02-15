@@ -16,14 +16,13 @@ using UnityEngine.UI;
 
 public class SkillSelectionController : MonoBehaviour
 {
-    // 스킬 이미지
-    public List<Sprite> skillIconImages;
-
     // 선택된 스킬의 인덱스들
-    public List<int> selectedSkillIndex;
+    [SerializeField]
+    private List<int> selectedSkillIndex;
     
     // 선택된 스킬 게임 오브젝트
-    public List<SkillSelected> selectedSkills;
+    [SerializeField]
+    private List<SkillSelected> selectedSkills;
 
     // 스킬들
     public List<SkillImage> skills;
@@ -32,12 +31,23 @@ public class SkillSelectionController : MonoBehaviour
     // 교체 신청한 스킬 번호
     public int changeCandidate;
 
+    // Json에 저장된 데이터를 저장할 배열
+    public SkillInfoJsonArray skill;
+
+    private void Awake()
+    {
+        // Json File에 저장된 데이터 로드
+        string jsonFile = Resources.Load<TextAsset>("Json/SkillInfoJson").ToString();
+        skill = JsonUtility.FromJson<SkillInfoJsonArray>(jsonFile);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         selectedSkillIndex = new List<int>();
  
         changeCandidate = -1;
+
     }
 
     // Update is called once per frame
@@ -54,7 +64,7 @@ public class SkillSelectionController : MonoBehaviour
         {
             if(selectedSkills[i].skillIndex != -1)
             {
-                selectedSkills[i].GetComponent<Image>().sprite = skillIconImages[selectedSkills[i].skillIndex];
+                selectedSkills[i].GetComponent<Image>().sprite = Resources.Load<Sprite>(skill.skillInfo[selectedSkills[i].skillIndex].skillImagePath);
             }
         }
     }
