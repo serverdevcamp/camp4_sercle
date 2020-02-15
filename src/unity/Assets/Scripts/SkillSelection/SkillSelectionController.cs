@@ -151,4 +151,27 @@ public class SkillSelectionController : MonoBehaviour
 
         changeCandidate = -1;
     }
+
+    // 스킬 선택 종료시, 서버에게 현재 선택한 스킬 정보 송신
+    public void SendSelectionInfo()
+    {
+        // 스킬 3개 선택 안했을 경우 나머지 스킬은 -1으로 채운다.
+        for(int i = selectedSkillIndex.Count; i < 3; i++)
+        {
+            selectedSkillIndex.Add(-1);
+        }
+
+        SelectedSkillData data = new SelectedSkillData();
+        data.skillIndex = new int[3];
+
+        data.userId = int.Parse(MatchingManager.instance.userInfo.userData.id); // userData.id가 only Integer라는 것을 가정.
+        
+        for(int i = 0; i < 3; i++)
+        {
+            data.skillIndex[i] = selectedSkillIndex[i];
+        }
+
+        SelectedSkillPacket packet = new SelectedSkillPacket(data);
+        GameObject.Find("MatchingManager").GetComponent<MatchingNetworkManager>().SendReliable<SelectedSkillData>(packet);
+    }
 }

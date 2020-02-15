@@ -283,9 +283,7 @@ public struct SkillData
 public struct SelectedSkillData
 {
     public int userId;  // MatchingManager.instance.myInfo;
-    public int skillQ;
-    public int skillW;
-    public int skillE;
+    public int[] skillIndex;
 }
 
 // 스킬 정보 Json 배열

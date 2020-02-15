@@ -74,21 +74,17 @@ public class SkillManager : MonoBehaviour
         SelectedSkillData skillInfo = packet.GetPacket();
 
         // 스킬 번호 리스트에 추가
-        if(skillInfo.userId == MatchingManager.instance.myInfo)
+        if(skillInfo.userId == int.Parse(MatchingManager.instance.userInfo.userData.id))
         {
-            mySkills.Add(skillInfo.skillQ);
-            mySkills.Add(skillInfo.skillW);
-            mySkills.Add(skillInfo.skillE);
-        }
-        else if(skillInfo.userId == MatchingManager.instance.opponentInfo)
-        {
-            enemySkills.Add(skillInfo.skillQ);
-            enemySkills.Add(skillInfo.skillW);
-            enemySkills.Add(skillInfo.skillE);
+            mySkills.Add(skillInfo.skillIndex[0]);
+            mySkills.Add(skillInfo.skillIndex[1]);
+            mySkills.Add(skillInfo.skillIndex[2]);
         }
         else
         {
-            Debug.Log("Selected Skills의 user id와 일치하는 id 없음.");
+            enemySkills.Add(skillInfo.skillIndex[0]);
+            enemySkills.Add(skillInfo.skillIndex[1]);
+            enemySkills.Add(skillInfo.skillIndex[2]);
         }
     }
 }

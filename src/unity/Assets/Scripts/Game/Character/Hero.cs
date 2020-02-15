@@ -182,6 +182,9 @@ public class Hero : MonoBehaviour
     {
         int skillNumberOfThisHero = index; // SkillManager.instance.mySkills[index]; 임시로 index를 가지게끔함.
 
+        // 수신한 스킬 인덱스가 -1 (즉, 선택씬에서 스킬선택 안한경우) 에는, 아무것도 하지 않는다.
+        if (skillNumberOfThisHero == -1) return;
+
         string jsonFile = Resources.Load<TextAsset>("Json/SkillInfoJson").ToString();
 
         SkillInfoJsonArray skillArray;
