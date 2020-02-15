@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -20,6 +21,14 @@ public class Robot : MonoBehaviour
     [SerializeField] private LayerMask contactLayer;
     [SerializeField] private Attack attack;
 
+    [Header("Effects")]
+    [SerializeField] private GameObject stun;
+    [SerializeField] private GameObject curse;
+    [SerializeField] private GameObject heal;
+    [SerializeField] private GameObject frozen;
+    [SerializeField] private GameObject burn;
+
+
     private NavMeshAgent agent;
 
     public int Index { get { return index; } }
@@ -28,9 +37,20 @@ public class Robot : MonoBehaviour
     public State GetState { get { return state; } }
     public Attack MyAttack { get { return attack; } }
 
+    // 로봇 애니메이터
+    private Animator robotAnimator;
+
+    // 로봇 상태 - 부울 딕셔너리
+    private Dictionary<string, bool> stateMap = new Dictionary<string, bool>();
+
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+    }
+    private void Start()
+    {
+        robotAnimator = GetComponent<Animator>();
+        InitStateMap();
     }
 
     private void Update()
@@ -90,21 +110,25 @@ public class Robot : MonoBehaviour
         switch (state)
         {
             case State.Idle:
+                SetAnimStateMap("Idle");
                 agent.speed = 0;
                 break;
             case State.Move:
-                // 20 02 07 상대 캐릭터의 속도를 보정된 값으로 지정.
-                // isFriend ? status.SPD : MovingManager.instance.GetInterpolatedSpeed(index);
+                SetAnimStateMap("Moving");
                 agent.speed = status.SPD;
                 break;
             case State.Attack:
+                SetAnimStateMap("Skill_0");
                 agent.speed = 0;
                 AttackActivate();
                 break;
             case State.Die:
+                SetAnimStateMap("Die");
                 OnDeadStateActivate();
                 break;
             case State.CC:
+                SetAnimStateMap("HardCC");
+                
                 break;
             default:
                 break;
@@ -153,6 +177,7 @@ public class Robot : MonoBehaviour
     private IEnumerator CCEffect(SkillEffect effect)
     {
         status.ApplyCC(effect.ccType);
+        CreateCCEffectByType(effect);
 
         yield return new WaitForSeconds(effect.duration);
 
@@ -170,5 +195,52 @@ public class Robot : MonoBehaviour
             canvasList[i].enabled = false;
         }
         this.enabled = false;
+    }
+
+    // 상태맵 초기화
+    private void InitStateMap()
+    {
+        stateMap.Add("Idle", false);
+        stateMap.Add("Moving", false);
+        stateMap.Add("Fire", false);
+        stateMap.Add("PostDelay", false);
+        stateMap.Add("HardCC", false);
+        stateMap.Add("Skill_0", false);
+        stateMap.Add("Skill_1", false);
+        stateMap.Add("Skill_2", false);
+        stateMap.Add("Die", false);
+    }
+
+    // 상태맵에서 원하는 상태만 True로 전환
+    private void SetAnimStateMap(string stateName)
+    {
+        // Set True할 상태 먼저 Set.
+        stateMap[stateName] = true;
+        robotAnimator.SetBool(stateName, true);
+
+        // 나머지는 False 처리
+        foreach (var key in stateMap.Keys.ToList())
+        {
+            if (key != stateName)
+            {
+                stateMap[key] = false;
+                robotAnimator.SetBool(key, false);
+            }
+        }
+    }
+
+    // CC기의 Type에 따라 이펙트 생성
+    private void CreateCCEffectByType(SkillEffect effect)
+    {
+        switch (effect.ccType)
+        {
+            case CCType.Stun:
+                GameObject go = Instantiate(stun, transform.position, Quaternion.identity);
+                // 스턴 스킬의 지속시간을 life time으로 지정.
+                go.GetComponent<MagicalFX._FX_LifeTime>().LifeTime = effect.duration;
+                break;
+            //case CCType.Curse:
+            //    break;
+        }
     }
 }

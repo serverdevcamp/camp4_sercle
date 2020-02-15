@@ -9,6 +9,10 @@ public class SkillManager : MonoBehaviour
     // 네트워크 매니저
     private NetworkManager networkManager;
 
+    // 스킬 선택 씬에서 선택한 스킬 번호 리스트
+    public List<int> mySkills = new List<int>();
+    public List<int> enemySkills = new List<int>();
+
     private void Awake()
     {
         if (instance == null) instance = this;
@@ -20,8 +24,10 @@ public class SkillManager : MonoBehaviour
     {
         // 네트워크 매니저 참조
         networkManager = transform.parent.GetComponent<NetworkManager>();
-        // 이동 정보 수신함수 등록
+        // 스킬 정보 수신함수 등록
         networkManager.RegisterReceiveNotification(PacketId.SkillData, OnReceiveSkillPacket);
+        // 스킬 선택 정보 수신함수 등록
+        networkManager.RegisterReceiveNotification(PacketId.SelectedSkillData, OnReceiveSelectedSkillPacket);
     }
 
     /// <summary>
@@ -59,5 +65,30 @@ public class SkillManager : MonoBehaviour
 
         // 2020 02 01상대 단말의 로컬 캐릭터가 스킬 사용했다는 정보를 내 단말에서 수신 한것이므로, 내 단말의 상대 캐릭터가 스킬사용했다고 해줘야함.
         GameManager.instance.FireRemoteProjectile(skill.isRobot, skill.index, dir);
+    }
+
+    // 스킬 선택 씬에서 선택했던 스킬 번호 획득 함수
+    public void OnReceiveSelectedSkillPacket(PacketId id, byte[] data)
+    {
+        SelectedSkillPacket packet = new SelectedSkillPacket(data);
+        SelectedSkillData skillInfo = packet.GetPacket();
+
+        // 스킬 번호 리스트에 추가
+        if(skillInfo.userId == MatchingManager.instance.myInfo)
+        {
+            mySkills.Add(skillInfo.skillQ);
+            mySkills.Add(skillInfo.skillW);
+            mySkills.Add(skillInfo.skillE);
+        }
+        else if(skillInfo.userId == MatchingManager.instance.opponentInfo)
+        {
+            enemySkills.Add(skillInfo.skillQ);
+            enemySkills.Add(skillInfo.skillW);
+            enemySkills.Add(skillInfo.skillE);
+        }
+        else
+        {
+            Debug.Log("Selected Skills의 user id와 일치하는 id 없음.");
+        }
     }
 }

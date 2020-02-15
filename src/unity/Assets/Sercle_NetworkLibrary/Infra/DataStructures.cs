@@ -18,6 +18,7 @@ public enum PacketId
     GameServerJoin,
     SyncData,
     GameServerEnd,
+    SelectedSkillData,
 };
 
 //매칭 패킷 데이터
@@ -276,4 +277,30 @@ public struct SkillData
         str += " dirZ:" + dirZ;
         return str;
     }
+}
+
+// 스킬 선택 씬에서 선택한 스킬 데이터
+public struct SelectedSkillData
+{
+    public int userId;  // MatchingManager.instance.myInfo;
+    public int skillQ;
+    public int skillW;
+    public int skillE;
+}
+
+// 스킬 정보 Json 배열
+public class SkillInfoJsonArray
+{
+    public SkillInfoJson[] skillInfo;
+}
+
+// 스킬정보 Json
+[System.Serializable]
+public class SkillInfoJson
+{
+    public int skillNumber;
+    public string skillName;
+    public string skillDesc;
+    public string skillImagePath;
+    public string skillEffectPath;
 }
