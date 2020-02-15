@@ -15,7 +15,6 @@ public class Hero : MonoBehaviour
 
     [Header("Skill Info")]
     [SerializeField] private Skill skill;
-    [SerializeField] private GameObject skillEffect;
 
     [Header("Animation")]
     [SerializeField] private Animator heroAnim;
@@ -31,6 +30,7 @@ public class Hero : MonoBehaviour
     {
         heroAnim = GetComponent<Animator>();
         InitStateMap();
+        SetSkillInfo();
     }
 
     private void LateUpdate()
@@ -100,7 +100,7 @@ public class Hero : MonoBehaviour
 
 
         // 스킬이펙트 발동
-        GameObject go = Instantiate(skillEffect, pos, Quaternion.identity);
+        GameObject go = Instantiate(skill.skillEffectPrefab, pos, Quaternion.identity);
         if (dir.HasValue)
         {
             go.transform.LookAt(dir.Value + pos);
@@ -175,5 +175,28 @@ public class Hero : MonoBehaviour
             heroAnim.SetFloat("PreDelayOffset", 1f / (skill.preDelay / heroAnim.GetCurrentAnimatorClipInfo(0)[0].clip.length));
         else if (heroAnim.GetCurrentAnimatorStateInfo(0).IsName("Fire_0") || heroAnim.GetCurrentAnimatorStateInfo(0).IsName("Fire_1") || heroAnim.GetCurrentAnimatorStateInfo(0).IsName("Fire_2"))
             heroAnim.SetFloat("PostDelayOffset", 1f / (skill.postDelay / heroAnim.GetCurrentAnimatorClipInfo(0)[0].clip.length));
+    }
+
+    // SkillManager에 저장되어있는 나의 스킬 번호를 토대로 스킬 정보 설정
+    private void SetSkillInfo()
+    {
+        int skillNumberOfThisHero = index; // SkillManager.instance.mySkills[index]; 임시로 index를 가지게끔함.
+
+        string jsonFile = Resources.Load<TextAsset>("Json/SkillInfoJson").ToString();
+
+        SkillInfoJsonArray skillArray;
+        skillArray = JsonUtility.FromJson<SkillInfoJsonArray>(jsonFile);
+
+        // 스킬 이펙트 설정
+        skill.skillEffectPrefab = Resources.Load<GameObject>(skillArray.skillInfo[skillNumberOfThisHero].skillEffectPath);
+
+        // 스킬 이미지 설정
+        skill.image = Resources.Load<Sprite>(skillArray.skillInfo[skillNumberOfThisHero].skillImagePath);
+
+        // 스킬 이름 설정
+        skill.skillName = skillArray.skillInfo[skillNumberOfThisHero].skillName;
+
+        // 스킬 설명 설정
+        skill.description = skillArray.skillInfo[skillNumberOfThisHero].skillDesc;
     }
 }

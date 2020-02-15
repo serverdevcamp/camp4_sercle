@@ -1,0 +1,19 @@
+{
+	"skillInfo" :	
+	[
+		{	
+			"skillNumber" : 0, 
+			"skillName" : "아이스스피어",
+			"skillDesc" : "아이스스피어가 땅에서 부터 솟아 오릅니다.",
+			"skillImagePath" : "SkillImage/Ice_Fissure",
+			"skillEffectPath" : "SkillEffect/Ice_Fissure"
+		},
+		{	
+			"skillNumber" : 1, 
+			"skillName" : "아이스스피어",
+			"skillDesc" : "아이스스피어가 땅에서 부터 솟아 오릅니다.",
+			"skillImagePath" : "SkillImage/Ice_Fissure",
+			"skillEffectPath" : "SkillEffect/Ice_Fissure"
+		}
+	]			
+}

@@ -785,7 +785,7 @@ public class CharacterPacket : IPacket<CharacterData>
         public bool Deserialize(ref CharacterData element)
         {
             // 데이터가 정의되어있지 않다면
-            if(GetDataSize() == 0)
+            if (GetDataSize() == 0)
             {
                 return false;
             }
@@ -805,3 +805,73 @@ public class CharacterPacket : IPacket<CharacterData>
         }
     }
 }
+// 스킬 선택 씬에서 결정한 스킬 번호 패킷
+public class SelectedSkillPacket : IPacket<SelectedSkillData>
+{
+    SelectedSkillData packet;
+
+    public SelectedSkillPacket(SelectedSkillData data)
+    {
+        packet = data;
+    }
+    // 바이너리 데이터를 패킷 데이터로 역직렬화하는 생성자
+    public SelectedSkillPacket(byte[] data)
+    {
+        SelectedSkillSerializer serializer = new SelectedSkillSerializer();
+
+        serializer.SetDeserializedData(data);
+        serializer.Deserialize(ref packet);
+    }
+
+    public PacketId GetPacketId()
+    {
+        return PacketId.SelectedSkillData;
+    }
+
+    // 게임에서 사용할 패킷 데이터 획득
+    public SelectedSkillData GetPacket()
+    {
+        return packet;
+    }
+
+    // 송신용 byte[] 형 데이터 획득
+    public byte[] GetData()
+    {
+        SelectedSkillSerializer serializer = new SelectedSkillSerializer();
+        serializer.Serialize(packet);
+        return serializer.GetSerializedData();
+    }
+
+    class SelectedSkillSerializer : Serializer
+    {
+        public bool Serialize(SelectedSkillData packet)
+        {
+            bool ret = true;
+            ret &= Serialize(packet.userId);
+            ret &= Serialize(packet.skillQ);
+            ret &= Serialize(packet.skillW);
+            ret &= Serialize(packet.skillE);
+
+            return ret;
+        }
+
+        public bool Deserialize(ref SelectedSkillData element)
+        {
+            // 데이터가 정의되어있지 않다면
+            if (GetDataSize() == 0)
+            {
+                return false;
+            }
+
+            bool ret = true;
+            ret &= Deserialize(ref element.userId);
+            ret &= Deserialize(ref element.skillQ);
+            ret &= Deserialize(ref element.skillW);
+            ret &= Deserialize(ref element.skillE);
+
+            return ret;
+        }
+    }
+}
+
+

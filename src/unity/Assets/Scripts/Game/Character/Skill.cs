@@ -17,6 +17,7 @@ public class Skill
     public string skillName;
     public string description;
     public Sprite image;
+    public GameObject skillEffectPrefab;
     public State state;
 
     [Header("Time")]
