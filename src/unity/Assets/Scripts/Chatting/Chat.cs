@@ -27,7 +27,7 @@ public class Chat : MonoBehaviour
     void Start()
     {
         httpManager = new HTTPManager();
-        userInfo = GameObject.Find("UserInfoObject").GetComponent<UserInfo>();
+        userInfo = GameObject.Find("DataObject").GetComponent<UserInfo>();
         Debug.Log("유저 : " + userInfo.userData.token);
         // 서버에 접속
 

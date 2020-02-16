@@ -5855,7 +5855,7 @@ GameObject:
   - component: {fileID: 315967627}
   - component: {fileID: 315967626}
   m_Layer: 0
-  m_Name: UserInfoObject
+  m_Name: DataObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5870,7 +5870,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 315967625}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7730f4f8225774cb08b70d325b09faeb, type: 3}
+  m_Script: {fileID: 11500000, guid: 050291f80be1b45f6a497b94ac0807d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   userData:
@@ -5878,7 +5878,9 @@ MonoBehaviour:
     email: 
     id: 
     token: 
+    username: 
     roomNum: 0
+    playerCamp: 0
 --- !u!4 &315967627
 Transform:
   m_ObjectHideFlags: 0
@@ -7408,7 +7410,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 408448804}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7eb33ce82efd48f0b92025c7b2450eb, type: 3}
+  m_Script: {fileID: 11500000, guid: 4634e8ee4b384457db5fd0939ad165eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   idInput: {fileID: 1062403177}

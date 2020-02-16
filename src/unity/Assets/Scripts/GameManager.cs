@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
         robotManager = GetComponentInChildren<RobotManager>();
         indicateManager = GetComponentInChildren<IndicateManager>();
 
-        if (GameObject.Find("UserInfoObject").GetComponent<UserInfo>().userData.playerCamp == 1)
+        if (GameObject.Find("DataObject").GetComponent<UserInfo>().userData.playerCamp == 1)
         {
             is1P = true;
         }

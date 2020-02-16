@@ -32,7 +32,7 @@ public class ChattingManager : MonoBehaviour
     void Start()
     {
         httpManager = new HTTPManager();
-        userInfo = GameObject.Find("UserInfoObject").GetComponent<UserInfo>();
+        userInfo = GameObject.Find("DataObject").GetComponent<UserInfo>();
         socket = GetComponent<TransportTCP>();
         Debug.Log("유저 : " + userInfo.userData.token);
         socket.Connect(address, port);

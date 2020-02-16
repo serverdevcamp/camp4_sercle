@@ -33,7 +33,9 @@ public class MatchingManager : MonoBehaviour
     void Start()
     {
         DontDestroyOnLoad(gameObject);
-        userInfo = GameObject.Find("UserInfoObject").GetComponent<UserInfo>();
+        userInfo = GameObject.Find("DataObject").GetComponent<UserInfo>();
+        Debug.Log(userInfo.userAchieveData.ToString());
+        Debug.Log(userInfo.userPlayData.ToString());
         userInfoFlag = false;
 
         // 현재 매치메이킹 진행 state 초기화

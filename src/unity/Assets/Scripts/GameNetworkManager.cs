@@ -15,7 +15,7 @@ public class GameNetworkManager : MonoBehaviour
     void Start()
     {
         networkManager = transform.parent.GetComponent<NetworkManager>();
-        userInfo = GameObject.Find("UserInfoObject").GetComponent<UserInfo>();
+        userInfo = GameObject.Find("DataObject").GetComponent<UserInfo>();
 
         networkManager.RegisterReceiveNotification(PacketId.GameServerEnd,
             OnReceiveGameEndPacket);
@@ -47,7 +47,7 @@ public class GameNetworkManager : MonoBehaviour
         GameEndPacket packet = new GameEndPacket(data);
         GameEndData packetData = packet.GetPacket();
 
-        //상대방이 게임을 종료했을 시
+        //상대방이 게임을 종료했을 시 -> 게임 승리로 간주
         if(packetData.request == GamePacketId.OpponentEnd)
         {
             networkManager.transportTCP.Disconnect();
