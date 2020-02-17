@@ -235,7 +235,7 @@ public class MatchingManager : MonoBehaviour
         userInfo.userData.roomNum = (int)packetData.roomId;     //방번호 저장
         userInfo.userData.playerCamp = (int)packetData.playerCamp;
         //MatchingResponseWaitUI.transform.GetChild(1).GetComponent<Text>().text = "잠시 후 게임씬으로 넘어갑니다..";
-        SceneManager.LoadScene("EQ_Test");
+        SceneManager.LoadScene("Skill Select");
         //방번호와 내 정보 수신
 
     }
