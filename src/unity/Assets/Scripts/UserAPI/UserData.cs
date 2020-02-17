@@ -11,23 +11,21 @@ public class UserData
     public int roomNum;
     public int playerCamp;
 }
+[Serializable]
+public class UserAchieveDataArray
+{
+    public UserAchieveData[] jsonData;
+}
 
+[Serializable]
 public class UserAchieveData
 {
     public int id;
     public int listid;
     public string achieve;
-
-    public override string ToString()
-    {
-        string str = "";
-        str += id.ToString() + " ";
-        str += listid.ToString() + " ";
-        str += achieve.ToString() + " ";
-        return str;
-    }
 }
 
+[Serializable]
 public class UserPlayData
 {
     public int achievescore;
