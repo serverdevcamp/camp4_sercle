@@ -17,8 +17,12 @@ public class UIManager_SkillSelect : MonoBehaviour
     [Header("Prefab Holder")]
     [SerializeField] private GameObject skillButtonPrefab;
 
+
+
     private int? currentSkill = null;
     private List<int> selectedSkills = new List<int>();
+    [SerializeField]
+    private List<GameObject> skillButtonList = new List<GameObject>();
 
     private SkillInfoJsonArray skill;
 
@@ -40,11 +44,8 @@ public class UIManager_SkillSelect : MonoBehaviour
             RectTransform rect = skillButton.GetComponent<RectTransform>();
             Vector2 spawnPos = new Vector2((i % rowCnt) * rect.sizeDelta.x, -(i / rowCnt) * rect.sizeDelta.y);
             rect.anchoredPosition = spawnPos;
-
-            // 번호에 따른 스킬의 이미지 할당
-            // Sprite skillImage = testImage;
-            Sprite skillImage = Resources.Load<Sprite>(skill.skillInfo[i].skillImagePath);
-            skillButton.GetComponent<SkillButton>().Initialize(this, i, skillImage);
+            skillButton.GetComponent<SkillButton>().Initialize(this, i, Resources.Load<Sprite>(skill.skillInfo[i].skillImagePath));
+            skillButtonList.Add(skillButton);
         }
     }
 
@@ -59,7 +60,17 @@ public class UIManager_SkillSelect : MonoBehaviour
     {
         if (currentSkill.HasValue)
         {
+            // 이미 기존에 선택한 스킬이었던 경우에는 리스트에 추가하지 않는다.
+            if(selectedSkills.Contains(currentSkill.Value))
+            {
+                selectedSkillName.text = "SYSTEM";
+                selectedSkillDescription.text = skill.skillInfo[currentSkill.Value].skillName + " 은(는) 이미 선택한 스킬입니다.\n다른 스킬을 선택해 주세요.";
+                return;
+            }
+
             selectedSkills.Add(currentSkill.Value);
+            skillButtonList[currentSkill.Value].GetComponent<SkillButton>().isClicked = true;
+
             string str = "현재 선택된 스킬들은 ";
             foreach (int skill in selectedSkills)
             {
