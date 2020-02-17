@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using DG.Tweening;
 
 public class UIManager_SkillSelect : MonoBehaviour
@@ -118,6 +119,7 @@ public class UIManager_SkillSelect : MonoBehaviour
     public void StartGame()
     {
         Debug.Log("게임 씬으로 넘어갑니다.");
+        SceneManager.LoadScene("EQ_Test");
         SendSelectionInfo();
     }
 
