@@ -3879,6 +3879,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9636298b65fcdd43a9e193421769780, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  userNameText: {fileID: 1934295534}
+  userEmailText: {fileID: 2069532762}
+  winCntText: {fileID: 1287437989}
+  loseCntText: {fileID: 2134219766}
+  winRateText: {fileID: 1512658360}
+  killCntText: {fileID: 120104150}
+  lostCntText: {fileID: 52521553}
+  totalDmgText: {fileID: 80928636}
   matchBtn: {fileID: 221853553}
   cancelBtn: {fileID: 110546656}
   acceptBtn: {fileID: 586925879}

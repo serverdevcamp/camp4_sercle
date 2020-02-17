@@ -5,6 +5,16 @@ using UnityEngine.UI;
 
 public class UIManager_Lobby : MonoBehaviour
 {
+    [Header("Profile")]
+    [SerializeField] private Text userNameText;
+    [SerializeField] private Text userEmailText;
+    [SerializeField] private Text winCntText;
+    [SerializeField] private Text loseCntText;
+    [SerializeField] private Text winRateText;
+    [SerializeField] private Text killCntText;
+    [SerializeField] private Text lostCntText;
+    [SerializeField] private Text totalDmgText;
+
     [Header("Buttons")]
     [SerializeField] private GameObject matchBtn;
     [SerializeField] private GameObject cancelBtn;
@@ -16,10 +26,13 @@ public class UIManager_Lobby : MonoBehaviour
     [SerializeField] private GameObject matchWaitingPanel;
 
     private MatchingManager matchingManager;
+    private UserInfo userInfo;
 
     private void Start()
     {
         matchingManager = GameObject.Find("MatchingManager").GetComponent<MatchingManager>();
+        userInfo = GameObject.Find("DataObject").GetComponent<UserInfo>();
+
         matchBtn.GetComponent<Button>().onClick.AddListener(matchingManager.MatchingRequest);
         cancelBtn.GetComponent<Button>().onClick.AddListener(matchingManager.MatchingCancel);
         acceptBtn.GetComponent<Button>().onClick.AddListener(matchingManager.AccpetMatchMakingResult);
@@ -30,6 +43,8 @@ public class UIManager_Lobby : MonoBehaviour
         matchTimer.SetActive(false);
         matchCompletePanel.SetActive(false);
         matchWaitingPanel.SetActive(false);
+
+        ShowProfile();
     }
 
     private void Update()
@@ -87,4 +102,20 @@ public class UIManager_Lobby : MonoBehaviour
                 break;
         }
     }
+
+    private void ShowProfile()
+    {
+        UserData userData = userInfo.userData;
+        UserPlayData userPlayData = userInfo.userPlayData;
+
+        userNameText.text = userData.username;
+        userEmailText.text = userData.email;
+        winCntText.text = userPlayData.victory.ToString();
+        loseCntText.text = userPlayData.lose.ToString();
+        winRateText.text = userPlayData.victory + userPlayData.lose == 0 ?
+            "- %" : ((float)userPlayData.victory / (userPlayData.victory + userPlayData.lose)).ToString("0.00%");
+        killCntText.text = userPlayData.kill.ToString();
+        lostCntText.text = userPlayData.death.ToString();
+        totalDmgText.text = userPlayData.damage.ToString();
+}
 }
