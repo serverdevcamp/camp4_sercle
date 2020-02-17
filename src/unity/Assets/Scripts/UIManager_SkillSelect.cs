@@ -16,12 +16,12 @@ public class UIManager_SkillSelect : MonoBehaviour
 
     [Header("Prefab Holder")]
     [SerializeField] private GameObject skillButtonPrefab;
-    [SerializeField] private GameObject mySkillPrefab;
+    [SerializeField] private GameObject selectedSkillPrefab;
 
     private int? currentSkill = null;
     private List<int> selectedSkills = new List<int>();
-    private List<GameObject> skillButtons = new List<GameObject>();
-    private List<Image> mySkillImages = new List<Image>();
+    private List<SkillButton> skillButtons = new List<SkillButton>();
+    private List<SelectedSkill> mySkillImages = new List<SelectedSkill>();
 
     private SkillInfoJsonArray skill;
 
@@ -34,6 +34,7 @@ public class UIManager_SkillSelect : MonoBehaviour
     private void Update()
     {
         UpdateSkillButton();
+        ShowSelectedSkills();
     }
 
     private void InstantiateSkillButton()
@@ -49,8 +50,9 @@ public class UIManager_SkillSelect : MonoBehaviour
             RectTransform rect = skillButton.GetComponent<RectTransform>();
             Vector2 spawnPos = new Vector2((i % rowCnt) * rect.sizeDelta.x, -(i / rowCnt) * rect.sizeDelta.y);
             rect.anchoredPosition = spawnPos;
+
             skillButton.GetComponent<SkillButton>().Initialize(this, i, Resources.Load<Sprite>(skill.skillInfo[i].skillImagePath));
-            skillButtons.Add(skillButton);
+            skillButtons.Add(skillButton.GetComponent<SkillButton>());
         }
     }
 
@@ -58,12 +60,13 @@ public class UIManager_SkillSelect : MonoBehaviour
     {
         for (int i = 0; i < holdableSkillCnt; i++)
         {
-            GameObject mySkillImage = Instantiate(mySkillPrefab, mySkillPanel);
+            GameObject mySkillImage = Instantiate(selectedSkillPrefab, mySkillPanel);
             RectTransform rect = mySkillImage.GetComponent<RectTransform>();
             Vector2 spawnPos = new Vector2(0, -i * rect.sizeDelta.y);
             rect.anchoredPosition = spawnPos;
 
-            mySkillImages.Add(mySkillImage.GetComponentInChildren<Image>());
+            mySkillImage.GetComponent<SelectedSkill>().Unshow();
+            mySkillImages.Add(mySkillImage.GetComponent<SelectedSkill>());
         }
     }
 
@@ -81,24 +84,20 @@ public class UIManager_SkillSelect : MonoBehaviour
             selectedSkills.Add(currentSkill.Value);
             currentSkill = null;
         }
-
-        ShowSelectedSkills();
     }
 
     private void ShowSelectedSkills()
     {
         for (int i = 0; i < mySkillImages.Count; i++)
         {
-            Image skillImage = mySkillImages[i].transform.GetChild(0).GetComponent<Image>();
             try
             {
                 int skillNum = selectedSkills[i];
-                skillImage.color = Color.white;
-                skillImage.sprite = Resources.Load<Sprite>(skill.skillInfo[skillNum].skillImagePath);
+                mySkillImages[i].Show(skill.skillInfo[skillNum]);
             }
             catch
             {
-                skillImage.color = Color.clear;
+                mySkillImages[i].Unshow();
             }
         }
     }
@@ -108,11 +107,11 @@ public class UIManager_SkillSelect : MonoBehaviour
         for (int i = 0; i < skillButtons.Count; i++)
         {
             //currentSkill의 경우 OnClicked() 실행
-            if (i == currentSkill) skillButtons[i].GetComponent<SkillButton>().OnClicked();
+            if (i == currentSkill) skillButtons[i].OnClicked();
             //selectedSkills에 포함된 skill의 경우 OnSelected() 실행
-            else if (selectedSkills.Contains(i)) skillButtons[i].GetComponent<SkillButton>().OnSelected();
+            else if (selectedSkills.Contains(i)) skillButtons[i].OnSelected();
             //나머지는 원상태로
-            else skillButtons[i].GetComponent<SkillButton>().OnIdle();
+            else skillButtons[i].OnIdle();
         }
     }
 
