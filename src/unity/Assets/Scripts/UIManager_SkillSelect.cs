@@ -6,29 +6,34 @@ using DG.Tweening;
 
 public class UIManager_SkillSelect : MonoBehaviour
 {
-    [Header("For Test")]
-    [SerializeField] private Sprite testImage;
+    [SerializeField] private int holdableSkillCnt;
 
     [Header("UI Holder")]
     [SerializeField] private Transform skillPanel;
     [SerializeField] private Text selectedSkillName;
     [SerializeField] private Text selectedSkillDescription;
+    [SerializeField] private Transform mySkillPanel;
 
     [Header("Prefab Holder")]
     [SerializeField] private GameObject skillButtonPrefab;
-
-
+    [SerializeField] private GameObject mySkillPrefab;
 
     private int? currentSkill = null;
     private List<int> selectedSkills = new List<int>();
-    [SerializeField]
-    private List<GameObject> skillButtonList = new List<GameObject>();
+    private List<GameObject> skillButtons = new List<GameObject>();
+    private List<Image> mySkillImages = new List<Image>();
 
     private SkillInfoJsonArray skill;
 
     private void Start()
     {
         InstantiateSkillButton();
+        InstantiateMySkillPanel();
+    }
+
+    private void Update()
+    {
+        UpdateSkillButton();
     }
 
     private void InstantiateSkillButton()
@@ -45,7 +50,20 @@ public class UIManager_SkillSelect : MonoBehaviour
             Vector2 spawnPos = new Vector2((i % rowCnt) * rect.sizeDelta.x, -(i / rowCnt) * rect.sizeDelta.y);
             rect.anchoredPosition = spawnPos;
             skillButton.GetComponent<SkillButton>().Initialize(this, i, Resources.Load<Sprite>(skill.skillInfo[i].skillImagePath));
-            skillButtonList.Add(skillButton);
+            skillButtons.Add(skillButton);
+        }
+    }
+
+    private void InstantiateMySkillPanel()
+    {
+        for (int i = 0; i < holdableSkillCnt; i++)
+        {
+            GameObject mySkillImage = Instantiate(mySkillPrefab, mySkillPanel);
+            RectTransform rect = mySkillImage.GetComponent<RectTransform>();
+            Vector2 spawnPos = new Vector2(0, -i * rect.sizeDelta.y);
+            rect.anchoredPosition = spawnPos;
+
+            mySkillImages.Add(mySkillImage.GetComponentInChildren<Image>());
         }
     }
 
@@ -58,27 +76,43 @@ public class UIManager_SkillSelect : MonoBehaviour
 
     public void SelectSkill()
     {
-        if (currentSkill.HasValue)
+        if (currentSkill.HasValue && selectedSkills.Count < holdableSkillCnt)
         {
-            // 이미 기존에 선택한 스킬이었던 경우에는 리스트에 추가하지 않는다.
-            if(selectedSkills.Contains(currentSkill.Value))
-            {
-                selectedSkillName.text = "SYSTEM";
-                selectedSkillDescription.text = skill.skillInfo[currentSkill.Value].skillName + " 은(는) 이미 선택한 스킬입니다.\n다른 스킬을 선택해 주세요.";
-                return;
-            }
-
             selectedSkills.Add(currentSkill.Value);
-            skillButtonList[currentSkill.Value].GetComponent<SkillButton>().isClicked = true;
+            currentSkill = null;
+        }
 
-            string str = "현재 선택된 스킬들은 ";
-            foreach (int skill in selectedSkills)
+        ShowSelectedSkills();
+    }
+
+    private void ShowSelectedSkills()
+    {
+        for (int i = 0; i < mySkillImages.Count; i++)
+        {
+            Image skillImage = mySkillImages[i].transform.GetChild(0).GetComponent<Image>();
+            try
             {
-                str += skill + " ";
+                int skillNum = selectedSkills[i];
+                skillImage.color = Color.white;
+                skillImage.sprite = Resources.Load<Sprite>(skill.skillInfo[skillNum].skillImagePath);
             }
-            str += "입니다.";
+            catch
+            {
+                skillImage.color = Color.clear;
+            }
+        }
+    }
 
-            Debug.Log(str);
+    private void UpdateSkillButton()
+    {
+        for (int i = 0; i < skillButtons.Count; i++)
+        {
+            //currentSkill의 경우 OnClicked() 실행
+            if (i == currentSkill) skillButtons[i].GetComponent<SkillButton>().OnClicked();
+            //selectedSkills에 포함된 skill의 경우 OnSelected() 실행
+            else if (selectedSkills.Contains(i)) skillButtons[i].GetComponent<SkillButton>().OnSelected();
+            //나머지는 원상태로
+            else skillButtons[i].GetComponent<SkillButton>().OnIdle();
         }
     }
 

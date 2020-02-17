@@ -13,9 +13,6 @@ public class SkillButton : MonoBehaviour
 
     public bool isClicked { get; set; }
 
-    public delegate void OnSelected(bool isClicked);
-    private OnSelected selectedAction;
-
     public void Initialize(UIManager_SkillSelect manager, int num, Sprite image)
     {
         UIManager = manager;
@@ -23,7 +20,6 @@ public class SkillButton : MonoBehaviour
         myImage.sprite = image;
 
         gameObject.AddComponent<Button>().onClick.AddListener(() => { SendSkillInfo(); });
-        selectedAction += SetImageTransparent;
     }
 
     private void SendSkillInfo()
@@ -31,30 +27,24 @@ public class SkillButton : MonoBehaviour
         UIManager.ShowSkillInfo(skillNum);
     }
 
-    private void SetImageTransparent(bool flag)
+    public void OnClicked()
     {
-        // 선택이 되어서 반투명 되어야 하는 경우
-        if (flag)
-        {
-            myImage.color = new Color(1, 1, 1, 0.3f);
-        }
-        // 선택 해제 되어서 반투명 해제해야 하는 경우
-        else
-        {
-            myImage.color = Color.white;
-        }
+        GetComponent<Image>().color = Color.yellow;
+        GetComponent<Button>().interactable = true;
+        myImage.color = Color.white;
     }
 
-    private void RegisterSelection(bool flag)
+    public void OnSelected()
     {
-        // 선택 되어서 좌측 이미지에 등록되어야 하는 경우
-        if (flag)
-        {
+        GetComponent<Image>().color = Color.white;
+        GetComponent<Button>().interactable = false;
+        myImage.color = new Color(1, 1, 1, 0.3f);
+    }
 
-        }
-        else
-        {
-
-        }
+    public void OnIdle()
+    {
+        GetComponent<Image>().color = Color.white;
+        GetComponent<Button>().interactable = true;
+        myImage.color = Color.white;
     }
 }
