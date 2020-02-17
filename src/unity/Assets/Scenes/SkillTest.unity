@@ -1314,9 +1314,9 @@ MonoBehaviour:
   curChoosedSkillNumber: 0
   curRotation: {x: 0, y: 0, z: 0, w: 0}
   localSkills:
-  - {fileID: 140088, guid: e03d43a6d8c619846b95e6b8e59dc822, type: 3}
-  - {fileID: 100850, guid: 462dfb3d01ebecc4f8ff5ade57914727, type: 3}
-  - {fileID: 169686, guid: 15f7c9ba72aeb2949a2d1f402d89ba51, type: 3}
+  - {fileID: 166686, guid: f36c715fae938444dacc46949d9a042a, type: 3}
+  - {fileID: 171110, guid: 229fe815705d0614a91b4f7e5ad430dc, type: 3}
+  - {fileID: 112984, guid: 2ec2b7d7c2fd92d49af16a4a6489a9fb, type: 3}
   remoteSkills: []
   me: {fileID: 1542036819191410, guid: f39faeda2800b3a4d8248239177f7f58, type: 3}
   spawnEffect: {fileID: 126012, guid: 0e1a97de7a682b340aae7957823a2bd5, type: 3}
