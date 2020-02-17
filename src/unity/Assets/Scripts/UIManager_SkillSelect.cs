@@ -119,8 +119,8 @@ public class UIManager_SkillSelect : MonoBehaviour
     public void StartGame()
     {
         Debug.Log("게임 씬으로 넘어갑니다.");
-        SceneManager.LoadScene("EQ_Test");
         SendSelectionInfo();
+        SceneManager.LoadScene("EQ_Test");
     }
 
     public void SendSelectionInfo()
@@ -142,6 +142,6 @@ public class UIManager_SkillSelect : MonoBehaviour
         }
 
         SelectedSkillPacket packet = new SelectedSkillPacket(data);
-        GameObject.Find("MatchingManager").GetComponent<MatchingNetworkManager>().SendReliable<SelectedSkillData>(packet);
+        GameObject.Find("GameNetworkManager").GetComponent<GameNetworkManager>().SendLocalSkillSelect(packet);
     }
 }
