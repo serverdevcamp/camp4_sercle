@@ -7,6 +7,7 @@ class PacketId(Enum):
     select_skill = 13
     game_finish = 14    # HQ 파괴 패킷 ID
 
+
 class GamePacketId(Enum):
     normal_end = 0
     opponent_end = 1
