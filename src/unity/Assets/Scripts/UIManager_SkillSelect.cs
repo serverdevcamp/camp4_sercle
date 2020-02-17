@@ -20,6 +20,8 @@ public class UIManager_SkillSelect : MonoBehaviour
     private int? currentSkill = null;
     private List<int> selectedSkills = new List<int>();
 
+    private SkillInfoJsonArray skill;
+
     private void Start()
     {
         InstantiateSkillButton();
@@ -27,6 +29,9 @@ public class UIManager_SkillSelect : MonoBehaviour
 
     private void InstantiateSkillButton()
     {
+        string jsonFile = Resources.Load<TextAsset>("Json/SkillInfoJson").ToString();
+        skill = JsonUtility.FromJson<SkillInfoJsonArray>(jsonFile);
+
         int rowCnt = 5;
 
         for (int i = 0; i < 20; i++)
@@ -37,7 +42,8 @@ public class UIManager_SkillSelect : MonoBehaviour
             rect.anchoredPosition = spawnPos;
 
             // 번호에 따른 스킬의 이미지 할당
-            Sprite skillImage = testImage;
+            // Sprite skillImage = testImage;
+            Sprite skillImage = Resources.Load<Sprite>(skill.skillInfo[i].skillImagePath);
             skillButton.GetComponent<SkillButton>().Initialize(this, i, skillImage);
         }
     }
@@ -45,8 +51,8 @@ public class UIManager_SkillSelect : MonoBehaviour
     public void ShowSkillInfo(int skillNum)
     {
         currentSkill = skillNum;
-        // selectedSkillName.text = ;
-        // selectedSkillDescription.text = ;
+        selectedSkillName.text = skill.skillInfo[skillNum].skillName;
+        selectedSkillDescription.text = skill.skillInfo[skillNum].skillDesc;
     }
 
     public void SelectSkill()

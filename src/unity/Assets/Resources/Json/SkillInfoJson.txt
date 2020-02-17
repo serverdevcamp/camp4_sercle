@@ -10,10 +10,136 @@
 		},
 		{	
 			"skillNumber" : 1, 
-			"skillName" : "아이스스피어",
-			"skillDesc" : "아이스스피어가 땅에서 부터 솟아 오릅니다.",
+			"skillName" : "다크스피어",
+			"skillDesc" : "다크스피어 땅에서 부터 솟아 오릅니다.",
 			"skillImagePath" : "SkillImage/Ice_Fissure",
-			"skillEffectPath" : "SkillEffect/Ice_Fissure"
+			"skillEffectPath" : "SkillEffect/Dark_Fissure"
+		},
+		{	
+			"skillNumber" : 2, 
+			"skillName" : "파이어스피어",
+			"skillDesc" : "파이어스피어 위에서 부터 솟아 오릅니다.",
+			"skillImagePath" : "SkillImage/Ice_Fissure",
+			"skillEffectPath" : "SkillEffect/Hell_SpikeParty"
+		},
+		{	
+			"skillNumber" : 3, 
+			"skillName" : "라이트닝스피어",
+			"skillDesc" : "라이트닝스피어 땅에서 부터 솟아 오릅니다.",
+			"skillImagePath" : "SkillImage/Ice_Fissure",
+			"skillEffectPath" : "SkillEffect/Tesla_Wall"
+		},
+		{	
+			"skillNumber" : 4, 
+			"skillName" : "라이트닝스피어",
+			"skillDesc" : "라이트닝스피어 땅에서 부터 솟아 오릅니다.",
+			"skillImagePath" : "SkillImage/Ice_Fissure",
+			"skillEffectPath" : "SkillEffect/Tesla_Wall"
+		},
+		{	
+			"skillNumber" : 5, 
+			"skillName" : "라이트닝스피어",
+			"skillDesc" : "라이트닝스피어 땅에서 부터 솟아 오릅니다.",
+			"skillImagePath" : "SkillImage/Ice_Fissure",
+			"skillEffectPath" : "SkillEffect/Tesla_Wall"
+		},
+		{	
+			"skillNumber" : 6, 
+			"skillName" : "라이트닝스피어",
+			"skillDesc" : "라이트닝스피어 땅에서 부터 솟아 오릅니다.",
+			"skillImagePath" : "SkillImage/Ice_Fissure",
+			"skillEffectPath" : "SkillEffect/Tesla_Wall"
+		},
+		{	
+			"skillNumber" : 7, 
+			"skillName" : "라이트닝스피어",
+			"skillDesc" : "라이트닝스피어 땅에서 부터 솟아 오릅니다.",
+			"skillImagePath" : "SkillImage/Ice_Fissure",
+			"skillEffectPath" : "SkillEffect/Tesla_Wall"
+		},
+		{	
+			"skillNumber" : 8, 
+			"skillName" : "라이트닝스피어",
+			"skillDesc" : "라이트닝스피어 땅에서 부터 솟아 오릅니다.",
+			"skillImagePath" : "SkillImage/Ice_Fissure",
+			"skillEffectPath" : "SkillEffect/Tesla_Wall"
+		},
+		{	
+			"skillNumber" : 9, 
+			"skillName" : "라이트닝스피어",
+			"skillDesc" : "라이트닝스피어 땅에서 부터 솟아 오릅니다.",
+			"skillImagePath" : "SkillImage/Ice_Fissure",
+			"skillEffectPath" : "SkillEffect/Tesla_Wall"
+		},
+		{	
+			"skillNumber" : 10, 
+			"skillName" : "라이트닝스피어",
+			"skillDesc" : "라이트닝스피어 땅에서 부터 솟아 오릅니다.",
+			"skillImagePath" : "SkillImage/Ice_Fissure",
+			"skillEffectPath" : "SkillEffect/Tesla_Wall"
+		},
+		{	
+			"skillNumber" : 11, 
+			"skillName" : "라이트닝스피어",
+			"skillDesc" : "라이트닝스피어 땅에서 부터 솟아 오릅니다.",
+			"skillImagePath" : "SkillImage/Ice_Fissure",
+			"skillEffectPath" : "SkillEffect/Tesla_Wall"
+		},
+		{	
+			"skillNumber" : 12, 
+			"skillName" : "라이트닝스피어",
+			"skillDesc" : "라이트닝스피어 땅에서 부터 솟아 오릅니다.",
+			"skillImagePath" : "SkillImage/Ice_Fissure",
+			"skillEffectPath" : "SkillEffect/Tesla_Wall"
+		},
+		{	
+			"skillNumber" : 13, 
+			"skillName" : "라이트닝스피어",
+			"skillDesc" : "라이트닝스피어 땅에서 부터 솟아 오릅니다.",
+			"skillImagePath" : "SkillImage/Ice_Fissure",
+			"skillEffectPath" : "SkillEffect/Tesla_Wall"
+		},
+		{	
+			"skillNumber" : 14, 
+			"skillName" : "라이트닝스피어",
+			"skillDesc" : "라이트닝스피어 땅에서 부터 솟아 오릅니다.",
+			"skillImagePath" : "SkillImage/Ice_Fissure",
+			"skillEffectPath" : "SkillEffect/Tesla_Wall"
+		},
+		{	
+			"skillNumber" : 15, 
+			"skillName" : "라이트닝스피어",
+			"skillDesc" : "라이트닝스피어 땅에서 부터 솟아 오릅니다.",
+			"skillImagePath" : "SkillImage/Ice_Fissure",
+			"skillEffectPath" : "SkillEffect/Tesla_Wall"
+		},
+		{	
+			"skillNumber" : 16, 
+			"skillName" : "라이트닝스피어",
+			"skillDesc" : "라이트닝스피어 땅에서 부터 솟아 오릅니다.",
+			"skillImagePath" : "SkillImage/Ice_Fissure",
+			"skillEffectPath" : "SkillEffect/Tesla_Wall"
+		},
+		{	
+			"skillNumber" : 17, 
+			"skillName" : "라이트닝스피어",
+			"skillDesc" : "라이트닝스피어 땅에서 부터 솟아 오릅니다.",
+			"skillImagePath" : "SkillImage/Ice_Fissure",
+			"skillEffectPath" : "SkillEffect/Tesla_Wall"
+		},
+		{	
+			"skillNumber" : 18, 
+			"skillName" : "라이트닝스피어",
+			"skillDesc" : "라이트닝스피어 땅에서 부터 솟아 오릅니다.",
+			"skillImagePath" : "SkillImage/Ice_Fissure",
+			"skillEffectPath" : "SkillEffect/Tesla_Wall"
+		},
+		{	
+			"skillNumber" : 19, 
+			"skillName" : "라이트닝스피어",
+			"skillDesc" : "라이트닝스피어 땅에서 부터 솟아 오릅니다.",
+			"skillImagePath" : "SkillImage/Ice_Fissure",
+			"skillEffectPath" : "SkillEffect/Tesla_Wall"
 		}
 	]			
 }
