@@ -2,9 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class UIManager_Lobby : MonoBehaviour
 {
+    [Header("Panel")]
+    [SerializeField] private GameObject chattingPanel;
+    [SerializeField] private GameObject profilePanel;
+
     [Header("Profile")]
     [SerializeField] private Text userNameText;
     [SerializeField] private Text userEmailText;
@@ -30,6 +35,8 @@ public class UIManager_Lobby : MonoBehaviour
 
     private void Start()
     {
+        StartAnimation();
+
         matchingManager = GameObject.Find("MatchingManager").GetComponent<MatchingManager>();
         userInfo = GameObject.Find("DataObject").GetComponent<UserInfo>();
 
@@ -117,5 +124,23 @@ public class UIManager_Lobby : MonoBehaviour
         killCntText.text = userPlayData.kill.ToString();
         lostCntText.text = userPlayData.death.ToString();
         totalDmgText.text = userPlayData.damage.ToString();
-}
+    }
+
+    private void StartAnimation()
+    {
+        float duration = 1f;
+        float distance = 2000f;
+
+        Vector2 endPoint_ChattingPanel = chattingPanel.transform.position;
+        Vector2 endPoint_MatchBtn = matchBtn.transform.position;
+        Vector2 endPoint_ProfilePanel = profilePanel.transform.position;
+
+        chattingPanel.transform.position += new Vector3(distance, 0, 0);
+        matchBtn.transform.position += new Vector3(distance, 0, 0);
+        profilePanel.transform.position -= new Vector3(distance, 0, 0);
+
+        chattingPanel.transform.DOMove(endPoint_ChattingPanel, duration);
+        matchBtn.transform.DOMove(endPoint_MatchBtn, duration);
+        profilePanel.transform.DOMove(endPoint_ProfilePanel, duration);
+    }
 }

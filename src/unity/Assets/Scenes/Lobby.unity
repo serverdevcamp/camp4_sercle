@@ -3879,6 +3879,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9636298b65fcdd43a9e193421769780, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  chattingPanel: {fileID: 2144305520}
+  profilePanel: {fileID: 1216149953}
   userNameText: {fileID: 1934295534}
   userEmailText: {fileID: 2069532762}
   winCntText: {fileID: 1287437989}
