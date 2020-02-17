@@ -18,7 +18,8 @@ public enum PacketId
     GameServerJoin,
     SyncData,
     GameServerEnd,
-    SelectedSkillData,
+    SelectedSkillData,  // 선택한 스킬 데이터 패킷을 의미, no 13
+    GameFinish, // HQ 가 파괴되었다는 데이터 패킷을 의미 no 14
 };
 
 //매칭 패킷 데이터
@@ -302,3 +303,11 @@ public class SkillInfoJson
     public string skillImagePath;
     public string skillEffectPath;
 }
+
+// HQ가 파괴되어 게임이 끝났음을 의미하는 데이터
+public struct GameFinishData
+{
+    // 어느 진영이 승리했는지
+    public int winnerCamp;
+}
+

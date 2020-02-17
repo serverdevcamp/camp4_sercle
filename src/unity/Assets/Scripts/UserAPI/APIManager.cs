@@ -1,10 +1,10 @@
 ﻿using System;
-using Newtonsoft.Json.Linq;
+using UnityEngine;
 using System.Collections.Generic;
 
 public class APIManager
 {
-    JArray apiData;
+    //JArray apiData;
 
     public APIManager()
     {
@@ -12,15 +12,23 @@ public class APIManager
     public List<UserAchieveData> GetAchieveData(string data)
     {
         List<UserAchieveData> list = new List<UserAchieveData>();
-        apiData = JArray.Parse(data);
-        foreach (JObject jsonData in apiData)
+       
+        // 유니티에서 요구하는 Json 양식으로 변형.
+        data = data.Insert(0, " { \"jsonData\" : ");
+        data = data.Insert(data.Length, "}");
+
+        UserAchieveDataArray apiData;
+        apiData = JsonUtility.FromJson<UserAchieveDataArray>(data);
+
+        for(int i = 0; i < apiData.jsonData.Length; i++)
         {
             UserAchieveData tmp = new UserAchieveData();
-            tmp.id = Int32.Parse(jsonData["id"].ToString());
-            tmp.listid = Int32.Parse(jsonData["id"].ToString());
-            tmp.achieve = jsonData["listid"].ToString();
+            tmp.id = apiData.jsonData[i].id;
+            tmp.listid = apiData.jsonData[i].listid;
+            tmp.achieve = apiData.jsonData[i].achieve;
             list.Add(tmp);
         }
+     
         return list;
     }
 

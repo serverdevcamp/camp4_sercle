@@ -875,4 +875,67 @@ public class SelectedSkillPacket : IPacket<SelectedSkillData>
     }
 }
 
+// HQ가 파괴되었다는 패킷 전송.
+public class GameFinishPacket : IPacket<GameFinishData>
+{
+    GameFinishData packet;
+
+    public GameFinishPacket(GameFinishData data)
+    {
+        packet = data;
+    }
+    // 바이너리 데이터를 패킷 데이터로 역직렬화하는 생성자
+    public GameFinishPacket(byte[] data)
+    {
+        GameFinishSerializer serializer = new GameFinishSerializer();
+
+        serializer.SetDeserializedData(data);
+        serializer.Deserialize(ref packet);
+    }
+
+    public PacketId GetPacketId()
+    {
+        return PacketId.GameFinish;
+    }
+
+    // 게임에서 사용할 패킷 데이터 획득
+    public GameFinishData GetPacket()
+    {
+        return packet;
+    }
+
+    // 송신용 byte[] 형 데이터 획득
+    public byte[] GetData()
+    {
+        GameFinishSerializer serializer = new GameFinishSerializer();
+        serializer.Serialize(packet);
+        return serializer.GetSerializedData();
+    }
+
+    class GameFinishSerializer : Serializer
+    {
+        public bool Serialize(GameFinishData packet)
+        {
+            bool ret = true;
+            ret &= Serialize(packet.winnerCamp);
+
+            return ret;
+        }
+
+        public bool Deserialize(ref GameFinishData element)
+        {
+            // 데이터가 정의되어있지 않다면
+            if (GetDataSize() == 0)
+            {
+                return false;
+            }
+
+            bool ret = true;
+            ret &= Deserialize(ref element.winnerCamp);
+
+            return ret;
+        }
+    }
+}
+
 

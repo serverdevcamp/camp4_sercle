@@ -73,7 +73,7 @@ class Game:
     def divide_packet(self, message, my_socket, opponent_socket, room_num):
         packet_id = int.from_bytes(message[0:4], byteorder='big')
 
-        if packet_id == PacketId.select_skill.value:
+        if packet_id == PacketId.select_skill.value or packet_id == PacketId.game_finish.value:
             my_socket[0].send(message)
             opponent_socket[0].send(message)
         else:

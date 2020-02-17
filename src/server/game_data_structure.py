@@ -5,7 +5,7 @@ class PacketId(Enum):
     game_join = 10
     game_end = 12
     select_skill = 13
-
+    game_finish = 14    # HQ 파괴 패킷 ID
 
 class GamePacketId(Enum):
     normal_end = 0
@@ -48,5 +48,16 @@ class SelectSkillData:
         skill_idx.append(int.from_bytes(self.message[12:16], byteorder='big'))
         skill_idx.append(int.from_bytes(self.message[16:20], byteorder='big'))
         packet = [packet_id, user_camp, skill_idx]
+        return packet
 
+
+# HQ 파괴되었다는 데이터 중계
+class GameFinishData:
+    def __init__(self, message):
+        self.message = message
+
+    def deserialize(self):
+        packet_id = int.from_bytes(self.message[0:4], byteorder='big')
+        winnerCamp = int.from_bytes(self.message[4:8], byteorder='big')
+        packet = [packet_id, winnerCamp]
         return packet

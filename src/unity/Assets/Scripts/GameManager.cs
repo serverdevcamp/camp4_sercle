@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Werewolf.StatusIndicators.Components;
+// 임시 승리 텍스트를 띄우기 위한 UI 사용
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,6 +17,8 @@ public class GameManager : MonoBehaviour
     private bool is1P;
 
     public bool Is1P { get { return is1P; } }
+
+    public Text tempWinnerText;
 
     private void Awake()
     {
@@ -37,6 +41,12 @@ public class GameManager : MonoBehaviour
         {
             is1P = false;
         }
+
+        // 네트워크 매니저에 게임 종료 패킷 수신함수 등록
+        GameObject.Find("NetworkManager").GetComponent<NetworkManager>().RegisterReceiveNotification(PacketId.GameFinish, OnReceiveGameFinishPacket);
+
+        // 임시 승리 텍스트 안보이게 함.
+        tempWinnerText.text = "";
     }
 
     private void Update()
@@ -104,4 +114,23 @@ public class GameManager : MonoBehaviour
     {
         return myHeroes.Count;
     }
+
+    // HQ가 파괴되었다는 패킷 수신 함수
+    public void OnReceiveGameFinishPacket(PacketId id, byte[] data)
+    {
+        GameFinishPacket packet = new GameFinishPacket(data);
+        GameFinishData winnerData = packet.GetPacket();
+
+        // 승리 진영과 자신의 진영이 일치할경우, 승리 판정.
+        if (GameObject.Find("DataObject").GetComponent<UserInfo>().userData.playerCamp == winnerData.winnerCamp)
+        {
+            tempWinnerText.text = "THE WINNER IS : ME ^^";   
+        }
+        // 패배 판정
+        else
+        {
+            tempWinnerText.text = "THE WINNER IS OPPONENT TT";
+        }
+    }
+
 }

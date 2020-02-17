@@ -11,6 +11,8 @@ public class SkillButton : MonoBehaviour
 
     private int skillNum;
 
+    public bool isClicked { get; set; }
+
     public void Initialize(UIManager_SkillSelect manager, int num, Sprite image)
     {
         UIManager = manager;
@@ -23,5 +25,26 @@ public class SkillButton : MonoBehaviour
     private void SendSkillInfo()
     {
         UIManager.ShowSkillInfo(skillNum);
+    }
+
+    public void OnClicked()
+    {
+        GetComponent<Image>().color = Color.yellow;
+        GetComponent<Button>().interactable = true;
+        myImage.color = Color.white;
+    }
+
+    public void OnSelected()
+    {
+        GetComponent<Image>().color = Color.white;
+        GetComponent<Button>().interactable = false;
+        myImage.color = new Color(1, 1, 1, 0.3f);
+    }
+
+    public void OnIdle()
+    {
+        GetComponent<Image>().color = Color.white;
+        GetComponent<Button>().interactable = true;
+        myImage.color = Color.white;
     }
 }

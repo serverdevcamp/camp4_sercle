@@ -6,7 +6,7 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using Newtonsoft.Json.Linq;
+//using Newtonsoft.Json.Linq;
 
 public class LogInManager : MonoBehaviour
 {
