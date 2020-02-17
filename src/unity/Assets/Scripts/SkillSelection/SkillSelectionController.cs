@@ -164,7 +164,7 @@ public class SkillSelectionController : MonoBehaviour
         SelectedSkillData data = new SelectedSkillData();
         data.skillIndex = new int[3];
 
-        data.userId = int.Parse(MatchingManager.instance.userInfo.userData.id); // userData.id가 only Integer라는 것을 가정.
+        data.userId = MatchingManager.instance.userInfo.userData.playerCamp; // userData.id가 only Integer라는 것을 가정.
         
         for(int i = 0; i < 3; i++)
         {

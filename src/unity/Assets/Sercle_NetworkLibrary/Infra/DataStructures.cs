@@ -282,7 +282,7 @@ public struct SkillData
 // 스킬 선택 씬에서 선택한 스킬 데이터
 public struct SelectedSkillData
 {
-    public int userId;  // MatchingManager.instance.myInfo;
+    public int userCamp;  // MatchingManager.instance.myInfo;
     public int[] skillIndex;
 }
 
