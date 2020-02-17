@@ -717,6 +717,7 @@ MonoBehaviour:
   myHeroes:
   - {fileID: 5205131819984006249, guid: 48b73a102491ef2458b1c11046c6d8ea, type: 3}
   enemyHeroes: []
+  tempWinnerText: {fileID: 0}
 --- !u!1 &5597454909167668837
 GameObject:
   m_ObjectHideFlags: 0
