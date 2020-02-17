@@ -100,6 +100,7 @@ public class HTTPManager
         SendData(postData);
         return ReceiveData(request);
     }
+
     public string UserDataReq(string id)
     {
         request = Init("get-data");

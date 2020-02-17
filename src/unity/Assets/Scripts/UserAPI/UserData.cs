@@ -33,6 +33,7 @@ public class UserPlayData
     public int lose;
     public int kill;
     public int death;
+    public int imageid;
     public int damage;
 
     public override string ToString()
