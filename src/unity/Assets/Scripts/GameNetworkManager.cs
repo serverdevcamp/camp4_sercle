@@ -43,6 +43,11 @@ public class GameNetworkManager : MonoBehaviour
         networkManager.SendReliable<GameJoinData>(packet);
     }
 
+    public void SendLocalSkillSelect(SelectedSkillPacket packet)
+    {
+        networkManager.SendReliable<SelectedSkillData>(packet);
+    }
+
     public void OnReceiveGameEndPacket(PacketId id, byte[] data)
     {
         GameEndPacket packet = new GameEndPacket(data);

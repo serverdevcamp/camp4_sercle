@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using DG.Tweening;
 
 public class UIManager_SkillSelect : MonoBehaviour
@@ -119,6 +120,7 @@ public class UIManager_SkillSelect : MonoBehaviour
     {
         Debug.Log("게임 씬으로 넘어갑니다.");
         SendSelectionInfo();
+        SceneManager.LoadScene("EQ_Test");
     }
 
     public void SendSelectionInfo()
@@ -140,6 +142,6 @@ public class UIManager_SkillSelect : MonoBehaviour
         }
 
         SelectedSkillPacket packet = new SelectedSkillPacket(data);
-        GameObject.Find("MatchingManager").GetComponent<MatchingNetworkManager>().SendReliable<SelectedSkillData>(packet);
+        GameObject.Find("GameNetworkManager").GetComponent<GameNetworkManager>().SendLocalSkillSelect(packet);
     }
 }
