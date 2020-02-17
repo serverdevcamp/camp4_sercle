@@ -48,4 +48,5 @@ class SelectSkillData:
         skill_idx.append(int.from_bytes(self.message[12:16], byteorder='big'))
         skill_idx.append(int.from_bytes(self.message[16:20], byteorder='big'))
         packet = [packet_id, user_camp, skill_idx]
+
         return packet
