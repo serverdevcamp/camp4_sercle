@@ -10,7 +10,7 @@ public class Robot : MonoBehaviour
 
     [Header("Robot Info")]
     [SerializeField] private int index;
-    [SerializeField] private Status status;
+    [SerializeField] protected Status status;
     [SerializeField] private bool is1P;
     [SerializeField] private List<Vector3> destinations;
     [SerializeField] private int destFlag;
@@ -43,17 +43,13 @@ public class Robot : MonoBehaviour
     // 로봇 상태 - 부울 딕셔너리
     private Dictionary<string, bool> stateMap = new Dictionary<string, bool>();
 
-    private void Awake()
-    {
-        agent = GetComponent<NavMeshAgent>();
-    }
-    private void Start()
+    protected virtual void Start()
     {
         robotAnimator = GetComponent<Animator>();
         InitStateMap();
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         FindNearestTarget();
         StateMachine();
@@ -70,6 +66,7 @@ public class Robot : MonoBehaviour
         if (is1P) destFlag = 1;
         else destFlag = destinations.Count - 2;
 
+        agent = GetComponent<NavMeshAgent>();
         agent.destination = destinations[destFlag];
     }
 
