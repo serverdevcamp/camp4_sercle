@@ -57,6 +57,7 @@ MonoBehaviour:
     skillName: Test Name
     description: Test Description
     image: {fileID: 0}
+    skillEffectPrefab: {fileID: 0}
     state: 0
     emergeDelay: 0
     preDelay: 1
@@ -73,9 +74,8 @@ MonoBehaviour:
       ccType: 0
       amount: -200
       duration: 0
-  skillEffect: {fileID: 0}
   heroAnim: {fileID: 0}
-  exitEffect: {fileID: 0}
+  exitEffect: {fileID: 183168, guid: 8ae3b38ace1bbc64bb1875bf0c8755ee, type: 3}
 --- !u!54 &1373854859352326414
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -139,21 +139,21 @@ public class SkillController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q))
         {
             if (curChoosedSkillNumber == 0) curRotation = Quaternion.Euler(0, 90, 0);
-            else curRotation = Quaternion.Euler(0, 0, 0);
+            else curRotation = localSkills[0].transform.rotation;
 
             curChoosedSkillNumber = 0;
         }
         else if (Input.GetKeyDown(KeyCode.W))
         {
             if (curChoosedSkillNumber == 1) curRotation = Quaternion.Euler(0, 90, 0);
-            else curRotation = Quaternion.Euler(0, 0, 0);
+            else curRotation = localSkills[1].transform.rotation;
 
             curChoosedSkillNumber = 1;
         }
         else if (Input.GetKeyDown(KeyCode.E))
         {
             if (curChoosedSkillNumber == 2) curRotation = Quaternion.Euler(0, 90, 0);
-            else curRotation = Quaternion.Euler(0, 0, 0);
+            else curRotation = localSkills[2].transform.rotation;
 
             curChoosedSkillNumber = 2;
         }
