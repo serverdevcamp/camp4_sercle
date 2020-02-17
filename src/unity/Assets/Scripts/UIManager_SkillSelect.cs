@@ -66,7 +66,9 @@ public class UIManager_SkillSelect : MonoBehaviour
             Vector2 spawnPos = new Vector2(0, -i * rect.sizeDelta.y);
             rect.anchoredPosition = spawnPos;
 
-            mySkillImage.GetComponent<SelectedSkill>().Unshow();
+            int num = new int();
+            num = i;
+            mySkillImage.GetComponent<SelectedSkill>().Initialize(i, () => DeleteSkill(num));
             mySkillImages.Add(mySkillImage.GetComponent<SelectedSkill>());
         }
     }
@@ -85,6 +87,11 @@ public class UIManager_SkillSelect : MonoBehaviour
             selectedSkills.Add(currentSkill.Value);
             currentSkill = null;
         }
+    }
+
+    private void DeleteSkill(int i)
+    {
+        selectedSkills.RemoveAt(i);
     }
 
     private void ShowSelectedSkills()

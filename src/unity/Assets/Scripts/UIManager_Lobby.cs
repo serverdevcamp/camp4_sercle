@@ -120,7 +120,7 @@ public class UIManager_Lobby : MonoBehaviour
         winCntText.text = userPlayData.victory.ToString();
         loseCntText.text = userPlayData.lose.ToString();
         winRateText.text = userPlayData.victory + userPlayData.lose == 0 ?
-            "- %" : ((float)userPlayData.victory / (userPlayData.victory + userPlayData.lose)).ToString("0.00%");
+            "-.-- %" : ((float)userPlayData.victory / (userPlayData.victory + userPlayData.lose)).ToString("0.00%");
         killCntText.text = userPlayData.kill.ToString();
         lostCntText.text = userPlayData.death.ToString();
         totalDmgText.text = userPlayData.damage.ToString();
