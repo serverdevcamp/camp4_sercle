@@ -847,7 +847,7 @@ public class SelectedSkillPacket : IPacket<SelectedSkillData>
         public bool Serialize(SelectedSkillData packet)
         {
             bool ret = true;
-            ret &= Serialize(packet.userId);
+            ret &= Serialize(packet.userCamp);
             ret &= Serialize(packet.skillIndex[0]);
             ret &= Serialize(packet.skillIndex[1]);
             ret &= Serialize(packet.skillIndex[2]);
@@ -864,7 +864,7 @@ public class SelectedSkillPacket : IPacket<SelectedSkillData>
             }
 
             bool ret = true;
-            ret &= Deserialize(ref element.userId);
+            ret &= Deserialize(ref element.userCamp);
             element.skillIndex = new int[3];
             ret &= Deserialize(ref element.skillIndex[0]);
             ret &= Deserialize(ref element.skillIndex[1]);

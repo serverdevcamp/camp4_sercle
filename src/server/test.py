@@ -1,8 +1,6 @@
 a = {}
-a[4] = 1
-a[5] = 2
-a[6] = 3
+a[4] = {}
+a[4]['s'] =13
 
 
-for key, value in a.items():
-    print(key, value)
+print(a[4]['s'])

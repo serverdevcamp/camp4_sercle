@@ -74,7 +74,7 @@ public class SkillManager : MonoBehaviour
         SelectedSkillData skillInfo = packet.GetPacket();
 
         // 스킬 번호 리스트에 추가
-        if(skillInfo.userId == int.Parse(MatchingManager.instance.userInfo.userData.id))
+        if(skillInfo.userCamp == MatchingManager.instance.userInfo.userData.playerCamp)
         {
             mySkills.Add(skillInfo.skillIndex[0]);
             mySkills.Add(skillInfo.skillIndex[1]);

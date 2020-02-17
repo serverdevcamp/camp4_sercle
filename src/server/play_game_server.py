@@ -15,8 +15,9 @@ class Game:
         self.server_socket.bind((HOST, PORT))
         self.server_socket.listen()
 
-        self.game_wait_dic = {}         # 유저를 기다리는 리스
+        self.game_wait_dic = {}         # 유저를 기다리는 리스트
         self.user_list = []             # 서버에 접속한 유저 소켓 저장할 리스트
+        self.game_data_dic = {}
 
         try:
             self.start_server()
@@ -37,10 +38,10 @@ class Game:
             game_user = GameJoinData(user_info).deserialize()
 
             print("userid : " + str(game_user[1]) + "roomNUm : " + str(game_user[2]))
-            self.user_list.append([client_socket, addr, game_user[1], game_user[2]])      # 로그인 전용# addr[0] : IP,  addr[1] : port,  testidx : 유저 DB id
+            # 로그인 전용# addr[0] : IP,  addr[1] : port,  testidx : 유저 DB id
+            self.user_list.append([client_socket, addr, game_user[1], game_user[2]])
             # 유저 정보 리스트에 저장
             self.room_num_check(game_user[2])
-            # 쓰레드 시작
 
     def room_num_check(self, room_num):
         if room_num in self.game_wait_dic.keys():
@@ -50,19 +51,33 @@ class Game:
 
     # 각 클라이언트 소켓 쓰레드
     def client_thread(self, my_socket, opponent_socket):
+        room_num = my_socket[3]
+        self.game_data_dic[room_num] = {}
+        self.game_data_dic[room_num]['data'] = {}               #공통 데이터
+        self.game_data_dic[room_num][my_socket[2]] = {}         #나의 데이터
+        self.game_data_dic[room_num][opponent_socket[2]] = {}   #상대 데이터
+
         while True:
             try:
                 # 클라이언트에서 온 데이터 수신
                 message = my_socket[0].recv(1024)
-                
                 if not message:
                     self.remove(my_socket)
                     self.opponent_remove(opponent_socket)
                     break
-                opponent_socket[0].send(message)
+                self.divide_packet(message, my_socket, opponent_socket, room_num)
             except Exception as e:
                 print(str(e) + "zxczxc")
                 break
+
+    def divide_packet(self, message, my_socket, opponent_socket, room_num):
+        packet_id = int.from_bytes(message[0:4], byteorder='big')
+
+        if packet_id == PacketId.select_skill.value:
+            my_socket[0].send(message)
+            opponent_socket[0].send(message)
+        else:
+            opponent_socket[0].send(message)
 
     def game_wait_thread(self):
         while True:
