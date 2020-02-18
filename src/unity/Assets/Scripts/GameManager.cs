@@ -193,7 +193,7 @@ public class GameManager : MonoBehaviour
     public void SendReadyToStartGamePacket()
     {
         GameStartData data = new GameStartData();
-        data.campNumber = is1P ? 1 : 2;
+        data.campNumber = MyCampNum;
         networkManager.SendReliable<GameStartData>(new GameStartPacket(data));
     }
 }
