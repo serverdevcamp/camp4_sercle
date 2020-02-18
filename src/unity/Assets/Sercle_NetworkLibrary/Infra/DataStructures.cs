@@ -22,6 +22,7 @@ public enum PacketId
     GameFinish, // HQ 가 파괴되었다는 데이터 패킷을 의미 no 14
     SkillHitData,
     SpawnRobotsData,    // 로봇 생성 신호 no 16
+    GameStart,  // 게임 시작 준비 되었다는 패킷. no 17
 };
 
 //매칭 패킷 데이터
@@ -345,5 +346,11 @@ public struct SkillHitData
         this.amount = amount;
         this.duration = duration;
     }
+}
+
+// 게임 시작한다는 정보를 의미하는 데이터
+public struct GameStartData
+{
+    public int campNumber;
 }
 

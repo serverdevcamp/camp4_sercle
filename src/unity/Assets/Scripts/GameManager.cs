@@ -21,6 +21,15 @@ public class GameManager : MonoBehaviour
 
     public Text tempWinnerText;
 
+    // 양 단말 모두 게임씬으로 넘어와서 게임을 시작해도 되는지 판단하는 변수. readyToStart가 false면 일시정지, true면 정지 해제.
+    private bool readyToStart;
+
+    // 각 단말이 게임씬으로 왔는지 체크하는 배열
+    private bool[] enterGameScene;
+
+    // 네트워크 매니저
+    private NetworkManager networkManager;
+
     private void Awake()
     {
         if (instance == null) instance = this;
@@ -33,11 +42,16 @@ public class GameManager : MonoBehaviour
     {
         robotManager = GetComponentInChildren<RobotManager>();
         indicateManager = GetComponentInChildren<IndicateManager>();
+        networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
 
         myCampNum = GameObject.Find("DataObject").GetComponent<UserInfo>().userData.playerCamp;
 
-        // 네트워크 매니저에 게임 종료 패킷 수신함수 등록
-        GameObject.Find("NetworkManager").GetComponent<NetworkManager>().RegisterReceiveNotification(PacketId.GameFinish, OnReceiveGameFinishPacket);
+        // 네트워크 매니저에 게임 종료, 시작 패킷 수신함수 등록
+        networkManager.RegisterReceiveNotification(PacketId.GameFinish, OnReceiveGameFinishPacket);
+        networkManager.RegisterReceiveNotification(PacketId.GameStart, OnReceiveGameStartPacket);
+
+        // 게임 시작할 준비가 되었다는 패킷 송신
+        SendReadyToStartGamePacket();
 
         // 임시 승리 텍스트 안보이게 함.
         tempWinnerText.text = "";
@@ -83,7 +97,7 @@ public class GameManager : MonoBehaviour
         }
         else     // 리모트일 경우
         {
-            if(isRobot) robotManager.EnemyRobotFire(index, pos, dir);
+            if (isRobot) robotManager.EnemyRobotFire(index, pos, dir);
             else enemyHeroes[index].UseSkill(pos, dir);
         }
     }
@@ -139,7 +153,7 @@ public class GameManager : MonoBehaviour
         // 승리 진영과 자신의 진영이 일치할경우, 승리 판정.
         if (GameObject.Find("DataObject").GetComponent<UserInfo>().userData.playerCamp == winnerData.winnerCamp)
         {
-            tempWinnerText.text = "THE WINNER IS : ME ^^";   
+            tempWinnerText.text = "THE WINNER IS : ME ^^";
         }
         // 패배 판정
         else
@@ -148,4 +162,38 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // 양 클라이언트에서 동일한 타이밍으로 게임 시작을 위한, 게임시작 패킷 수신 함수
+    public void OnReceiveGameStartPacket(PacketId id, byte[] data)
+    {
+
+        GameStartPacket packet = new GameStartPacket(data);
+        GameStartData startData = packet.GetPacket();
+
+        enterGameScene[startData.campNumber] = true;
+
+        bool check = false;
+        
+        for(int i = 0; i < 2; i++)
+        {
+           if(enterGameScene[i] == false)
+            {
+                check = true;
+            }
+        }
+
+        if(check == false)
+        {
+            // 양 단말 모두 준비가 되었으므로 게임 시작
+            Debug.Log("양 단말의 게임 시작 패킷 수신을 완료했으므로, 일시중지 해제하고 게임 시작");
+            readyToStart = true;
+        }
+    }
+
+    // 게임 씬으로 진입했을 때, 즉 게임 시작을 위한 준비가 모두 끝났을 때 서버에 준비 되었다는 정보를 송신
+    public void SendReadyToStartGamePacket()
+    {
+        GameStartData data = new GameStartData();
+        data.campNumber = MyCampNum;
+        networkManager.SendReliable<GameStartData>(new GameStartPacket(data));
+    }
 }
