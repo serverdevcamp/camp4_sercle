@@ -16,20 +16,8 @@ public class LoadingCanvasController : MonoBehaviour
 
     private void Start()
     {
-        List<int> firstCampSkills;
-        List<int> secondCampSkills;
-
-        if (GameManager.instance.MyCampNum == 1)
-        {
-            firstCampSkills = SkillManager.instance.mySkills;
-            secondCampSkills = SkillManager.instance.enemySkills;
-        }
-        else
-        {
-            firstCampSkills = SkillManager.instance.enemySkills;
-            secondCampSkills = SkillManager.instance.mySkills;
-        }
-        
+        List<int> firstCampSkills = SkillManager.instance.firstCampSkills;
+        List<int> secondCampSkills = SkillManager.instance.secondCampSkills;        
 
         InstantiateFirstCamp(firstCampSkills);
         InstantiateSecondCamp(secondCampSkills);
