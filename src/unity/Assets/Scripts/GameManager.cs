@@ -95,8 +95,15 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void RequestSkillEffect(int tCampNum, int tIndex, int statusType, int ccType, float amount, float duration)
+    public void RequestSkillEffect(Robot target, SkillEffect effect)
     {
+        int tCampNum = target.Is1P ? 1 : 2;
+        int tIndex = target.Index;
+        int statusType = (int)effect.statusType;
+        int ccType = (int)effect.ccType;
+        float amount = effect.amount;
+        float duration = effect.duration;
+
         SkillManager.instance.SendLocalHitInfo(tCampNum, tIndex, statusType, ccType, amount, duration);
     }
 

@@ -73,8 +73,7 @@ public class Projectile : MonoBehaviour
 
         foreach(SkillEffect effect in skillEffects)
         {
-
-            //GameManager.instance.RequestSkillEffect(target, effect);
+            GameManager.instance.RequestSkillEffect(target, effect);
             // 투사체 히트 이펙트 적용
             // target.GetComponent<EffectController>().OnHitVFX(effect, caster.index);
         }
