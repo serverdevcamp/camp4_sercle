@@ -99,4 +99,14 @@ public class RobotManager : MonoBehaviour
         // 로봇 스폰 코드
         StartCoroutine(SpawnRobots());
     }
+
+    public Robot MyRobot(int i)
+    {
+        return myRobots[i].GetComponent<Robot>();
+    }
+
+    public Robot EnemyRobot(int i)
+    {
+        return enemyRobots[i].GetComponent<Robot>();
+    }
 }

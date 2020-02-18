@@ -57,6 +57,15 @@ public class SkillManager : MonoBehaviour
         networkManager.SendReliable<SkillData>(packet);
     }
 
+    public void SendLocalHitInfo(int campNumber, int index, int statusType, int ccType, float amount, float duration)
+    {
+        SkillHitData data = new SkillHitData(campNumber, index, statusType, ccType, amount, duration);
+
+        SkillHitPacket packet = new SkillHitPacket(data);
+
+        networkManager.SendReliable<SkillHitData>(packet);
+    }
+
 
     // 이동 정보 패킷 획득 함수
     public void OnReceiveSkillPacket(PacketId id, byte[] data)
@@ -69,7 +78,7 @@ public class SkillManager : MonoBehaviour
         Vector3 dir = new Vector3(skill.dirX, skill.dirY, skill.dirZ);
 
         // 2020 02 01상대 단말의 로컬 캐릭터가 스킬 사용했다는 정보를 내 단말에서 수신 한것이므로, 내 단말의 상대 캐릭터가 스킬사용했다고 해줘야함.
-        GameManager.instance.FireProjectile(skill.campNumber, skill.isRobot, skill.index, pos, dir);
+        GameManager.instance.ApplyFire(skill.campNumber, skill.isRobot, skill.index, pos, dir);
     }
 
     // 스킬 선택 씬에서 선택했던 스킬 번호 획득 함수

@@ -335,5 +335,15 @@ public struct SkillHitData
     public int ccType;
     public float amount;
     public float duration;
+
+    public SkillHitData(int campNumber, int index, int statusType, int ccType, float amount, float duration)
+    {
+        this.campNumber = campNumber;
+        this.index = index;
+        this.statusType = statusType;
+        this.ccType = ccType;
+        this.amount = amount;
+        this.duration = duration;
+    }
 }
 

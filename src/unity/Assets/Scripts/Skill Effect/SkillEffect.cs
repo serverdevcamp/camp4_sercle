@@ -10,19 +10,11 @@ public class SkillEffect
     public float amount;
     public float duration;
 
-    public SkillEffect(StatusType type, float amount, float duration = 0)
+    public SkillEffect(StatusType statusType = StatusType.None, CCType ccType = CCType.None, float amount = 0, float duration = 0)
     {
-        statusType = type;
-        ccType = CCType.None;
+        this.statusType = statusType;
+        this.ccType = ccType;
         this.amount = amount;
-        this.duration = duration;
-    }
-
-    public SkillEffect(CCType type, float duration)
-    {
-        statusType = StatusType.None;
-        ccType = type;
-        amount = 0;
         this.duration = duration;
     }
 
