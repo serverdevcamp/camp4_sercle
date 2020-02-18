@@ -57,11 +57,11 @@ public class RobotManager : MonoBehaviour
         int count = linePos.Count;
 
         GameObject myRobot = Instantiate(robotPrefab, linePos[0], Quaternion.identity);
-        myRobot.GetComponent<Robot>().InitialSetting(robotNum, true, linePos);
+        myRobot.GetComponent<Robot>().InitialSetting(robotNum, GameManager.instance.MyCampNum, linePos);
         myRobots.Add(myRobot);
 
         GameObject enemyRobot = Instantiate(robotPrefab, linePos[count - 1], Quaternion.identity);
-        enemyRobot.GetComponent<Robot>().InitialSetting(robotNum, false, linePos);
+        enemyRobot.GetComponent<Robot>().InitialSetting(robotNum, GameManager.instance.EnemyCampNum, linePos);
         enemyRobots.Add(enemyRobot);
         
         robotNum += 1;
