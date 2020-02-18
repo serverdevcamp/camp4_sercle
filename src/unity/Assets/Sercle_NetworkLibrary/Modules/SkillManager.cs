@@ -10,8 +10,8 @@ public class SkillManager : MonoBehaviour
     private NetworkManager networkManager;
 
     // 스킬 선택 씬에서 선택한 스킬 번호 리스트
-    public List<int> firstCampSkills = new List<int>();
-    public List<int> secondCampSkills = new List<int>();
+    public List<int> mySkills = new List<int>();
+    public List<int> enemySkills = new List<int>();
 
     private void Awake()
     {
@@ -100,17 +100,17 @@ public class SkillManager : MonoBehaviour
         SelectedSkillData skillInfo = packet.GetPacket();
 
         // 스킬 번호 리스트에 추가
-        if(MatchingManager.instance.userInfo.userData.playerCamp == 1)
+        if(skillInfo.userCamp == MatchingManager.instance.userInfo.userData.playerCamp)
         {
-            firstCampSkills.Add(skillInfo.skillIndex[0]);
-            firstCampSkills.Add(skillInfo.skillIndex[1]);
-            firstCampSkills.Add(skillInfo.skillIndex[2]);
+            mySkills.Add(skillInfo.skillIndex[0]);
+            mySkills.Add(skillInfo.skillIndex[1]);
+            mySkills.Add(skillInfo.skillIndex[2]);
         }
         else
         {
-            secondCampSkills.Add(skillInfo.skillIndex[0]);
-            secondCampSkills.Add(skillInfo.skillIndex[1]);
-            secondCampSkills.Add(skillInfo.skillIndex[2]);
+            enemySkills.Add(skillInfo.skillIndex[0]);
+            enemySkills.Add(skillInfo.skillIndex[1]);
+            enemySkills.Add(skillInfo.skillIndex[2]);
         }
     }
 }

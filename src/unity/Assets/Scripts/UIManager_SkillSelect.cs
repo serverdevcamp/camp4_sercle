@@ -161,7 +161,7 @@ public class UIManager_SkillSelect : MonoBehaviour
     private void CheckSelectionProgress()
     {
         // 서로의 스킬 선택 정보를 수신한 경우
-        if(SkillManager.instance.firstCampSkills.Count > 0 && SkillManager.instance.secondCampSkills.Count > 0)
+        if(SkillManager.instance.mySkills.Count > 0 && SkillManager.instance.enemySkills.Count > 0)
         {
             Debug.Log("게임 씬으로 넘어갑니다.");
             // 씬 이동
