@@ -36,7 +36,8 @@ public class RobotManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.KeypadEnter))
         {
-            StartCoroutine(SpawnRobots());
+            SendSpawnRobotData();
+            //StartCoroutine(SpawnRobots());
         }
     }
 
@@ -92,6 +93,15 @@ public class RobotManager : MonoBehaviour
         StartCoroutine(caster.MyAttack.Fire(caster, dir));
     }
 
+    // 로봇 스폰 생성 신호 송신(테스트용)
+    public void SendSpawnRobotData()
+    {
+        SpawnRobotData data = new SpawnRobotData();
+        SpawnRobotPacket packet = new SpawnRobotPacket(data);
+
+        networkManager.SendReliable<SpawnRobotData>(packet);
+    }
+    
     // 로봇 생성 신호를 서버로부터 수신하는 함수
     public void OnReceiveRobotSpawnPacket(PacketId id, byte[] data)
     {
