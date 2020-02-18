@@ -120,7 +120,7 @@ public class Robot : MonoBehaviour
                 AttackActivate();
                 break;
             case State.Die:
-                SetAnimStateMap("Die");
+                SetAnimStateMap("Die_" + Random.Range(0, 3).ToString());
                 OnDeadStateActivate();
                 break;
             case State.CC:
@@ -205,7 +205,9 @@ public class Robot : MonoBehaviour
         stateMap.Add("Skill_0", false);
         stateMap.Add("Skill_1", false);
         stateMap.Add("Skill_2", false);
-        stateMap.Add("Die", false);
+        stateMap.Add("Die_0", false);
+        stateMap.Add("Die_1", false);
+        stateMap.Add("Die_2", false);
     }
 
     // 상태맵에서 원하는 상태만 True로 전환

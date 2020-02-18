@@ -3,143 +3,143 @@
 	[
 		{	
 			"skillNumber" : 0, 
-			"skillName" : "아이스스피어",
+			"skillName" : "Fire_SpikeFissure",
 			"skillDesc" : "아이스스피어가 땅에서 부터 솟아 오릅니다.",
-			"skillImagePath" : "SkillImage/Ice_Fissure",
-			"skillEffectPath" : "SkillEffect/Ice_Fissure"
+			"skillImagePath" : "SkillImage/Fire_SpikeFissure",
+			"skillEffectPath" : "SkillEffect/Fire_SpikeFissure"
 		},
 		{	
 			"skillNumber" : 1, 
-			"skillName" : "다크스피어",
+			"skillName" : "Ice_PathSpike",
 			"skillDesc" : "다크스피어 땅에서 부터 솟아 오릅니다.",
-			"skillImagePath" : "SkillImage/Ice_Fissure",
-			"skillEffectPath" : "SkillEffect/Dark_Fissure"
+			"skillImagePath" : "SkillImage/Ice_PathSpike",
+			"skillEffectPath" : "SkillEffect/Ice_PathSpike"
 		},
 		{	
 			"skillNumber" : 2, 
-			"skillName" : "파이어스피어",
+			"skillName" : "Dark_Spike",
 			"skillDesc" : "파이어스피어 위에서 부터 솟아 오릅니다.",
-			"skillImagePath" : "SkillImage/Ice_Fissure",
-			"skillEffectPath" : "SkillEffect/Hell_SpikeParty"
+			"skillImagePath" : "SkillImage/Dark_Spike",
+			"skillEffectPath" : "SkillEffect/Dark_Spike"
 		},
 		{	
 			"skillNumber" : 3, 
-			"skillName" : "라이트닝스피어",
+			"skillName" : "Hell_SpikeParty",
 			"skillDesc" : "라이트닝스피어 땅에서 부터 솟아 오릅니다.",
-			"skillImagePath" : "SkillImage/Ice_Fissure",
-			"skillEffectPath" : "SkillEffect/Tesla_Wall"
+			"skillImagePath" : "SkillImage/Hell_SpikeParty",
+			"skillEffectPath" : "SkillEffect/Hell_SpikeParty"
 		},
 		{	
 			"skillNumber" : 4, 
-			"skillName" : "라이트닝스피어",
+			"skillName" : "Tesla_Wall",
 			"skillDesc" : "라이트닝스피어 땅에서 부터 솟아 오릅니다.",
-			"skillImagePath" : "SkillImage/Ice_Fissure",
+			"skillImagePath" : "SkillImage/Tesla_Wall",
 			"skillEffectPath" : "SkillEffect/Tesla_Wall"
 		},
 		{	
 			"skillNumber" : 5, 
-			"skillName" : "라이트닝스피어",
+			"skillName" : "Fire_Meteor",
 			"skillDesc" : "라이트닝스피어 땅에서 부터 솟아 오릅니다.",
-			"skillImagePath" : "SkillImage/Ice_Fissure",
-			"skillEffectPath" : "SkillEffect/Tesla_Wall"
+			"skillImagePath" : "SkillImage/Fire_Meteor",
+			"skillEffectPath" : "SkillEffect/Fire_Meteor"
 		},
 		{	
 			"skillNumber" : 6, 
-			"skillName" : "라이트닝스피어",
+			"skillName" : "Ice_Shard",
 			"skillDesc" : "라이트닝스피어 땅에서 부터 솟아 오릅니다.",
-			"skillImagePath" : "SkillImage/Ice_Fissure",
-			"skillEffectPath" : "SkillEffect/Tesla_Wall"
+			"skillImagePath" : "SkillImage/Ice_Shard",
+			"skillEffectPath" : "SkillEffect/Ice_Shard"
 		},
 		{	
 			"skillNumber" : 7, 
-			"skillName" : "라이트닝스피어",
+			"skillName" : "Hell_FlameFissure",
 			"skillDesc" : "라이트닝스피어 땅에서 부터 솟아 오릅니다.",
-			"skillImagePath" : "SkillImage/Ice_Fissure",
-			"skillEffectPath" : "SkillEffect/Tesla_Wall"
+			"skillImagePath" : "SkillImage/Hell_FlameFissure",
+			"skillEffectPath" : "SkillEffect/Hell_FlameFissure"
 		},
 		{	
 			"skillNumber" : 8, 
-			"skillName" : "라이트닝스피어",
+			"skillName" : "Heiling",
 			"skillDesc" : "라이트닝스피어 땅에서 부터 솟아 오릅니다.",
-			"skillImagePath" : "SkillImage/Ice_Fissure",
-			"skillEffectPath" : "SkillEffect/Tesla_Wall"
+			"skillImagePath" : "SkillImage/Heiling",
+			"skillEffectPath" : "SkillEffect/Heiling"
 		},
 		{	
 			"skillNumber" : 9, 
-			"skillName" : "라이트닝스피어",
+			"skillName" : "SuperCharge",
 			"skillDesc" : "라이트닝스피어 땅에서 부터 솟아 오릅니다.",
-			"skillImagePath" : "SkillImage/Ice_Fissure",
-			"skillEffectPath" : "SkillEffect/Tesla_Wall"
+			"skillImagePath" : "SkillImage/SuperCharge",
+			"skillEffectPath" : "SkillEffect/SuperCharge"
 		},
 		{	
 			"skillNumber" : 10, 
-			"skillName" : "라이트닝스피어",
+			"skillName" : "Wild",
 			"skillDesc" : "라이트닝스피어 땅에서 부터 솟아 오릅니다.",
-			"skillImagePath" : "SkillImage/Ice_Fissure",
-			"skillEffectPath" : "SkillEffect/Tesla_Wall"
+			"skillImagePath" : "SkillImage/Wild",
+			"skillEffectPath" : "SkillEffect/Wild"
 		},
 		{	
 			"skillNumber" : 11, 
-			"skillName" : "라이트닝스피어",
+			"skillName" : "Armored",
 			"skillDesc" : "라이트닝스피어 땅에서 부터 솟아 오릅니다.",
-			"skillImagePath" : "SkillImage/Ice_Fissure",
-			"skillEffectPath" : "SkillEffect/Tesla_Wall"
+			"skillImagePath" : "SkillImage/Armored",
+			"skillEffectPath" : "SkillEffect/Armored"
 		},
 		{	
 			"skillNumber" : 12, 
-			"skillName" : "라이트닝스피어",
+			"skillName" : "Earth_Fissure",
 			"skillDesc" : "라이트닝스피어 땅에서 부터 솟아 오릅니다.",
-			"skillImagePath" : "SkillImage/Ice_Fissure",
-			"skillEffectPath" : "SkillEffect/Tesla_Wall"
+			"skillImagePath" : "SkillImage/Earth_Fissure",
+			"skillEffectPath" : "SkillEffect/Earth_Fissure"
 		},
 		{	
 			"skillNumber" : 13, 
-			"skillName" : "라이트닝스피어",
+			"skillName" : "Ice_Fissure",
 			"skillDesc" : "라이트닝스피어 땅에서 부터 솟아 오릅니다.",
 			"skillImagePath" : "SkillImage/Ice_Fissure",
-			"skillEffectPath" : "SkillEffect/Tesla_Wall"
+			"skillEffectPath" : "SkillEffect/Ice_Fissure"
 		},
 		{	
 			"skillNumber" : 14, 
-			"skillName" : "라이트닝스피어",
+			"skillName" : "Soul_Fissure",
 			"skillDesc" : "라이트닝스피어 땅에서 부터 솟아 오릅니다.",
-			"skillImagePath" : "SkillImage/Ice_Fissure",
-			"skillEffectPath" : "SkillEffect/Tesla_Wall"
+			"skillImagePath" : "SkillImage/Soul_Fissure",
+			"skillEffectPath" : "SkillEffect/Soul_Fissure"
 		},
 		{	
 			"skillNumber" : 15, 
-			"skillName" : "라이트닝스피어",
+			"skillName" : "Sleep",
 			"skillDesc" : "라이트닝스피어 땅에서 부터 솟아 오릅니다.",
-			"skillImagePath" : "SkillImage/Ice_Fissure",
-			"skillEffectPath" : "SkillEffect/Tesla_Wall"
+			"skillImagePath" : "SkillImage/Sleep",
+			"skillEffectPath" : "SkillEffect/Sleep"
 		},
 		{	
 			"skillNumber" : 16, 
-			"skillName" : "라이트닝스피어",
+			"skillName" : "Poison_GreenArea",
 			"skillDesc" : "라이트닝스피어 땅에서 부터 솟아 오릅니다.",
-			"skillImagePath" : "SkillImage/Ice_Fissure",
-			"skillEffectPath" : "SkillEffect/Tesla_Wall"
+			"skillImagePath" : "SkillImage/Poison_GreenArea",
+			"skillEffectPath" : "SkillEffect/Poison_GreenArea"
 		},
 		{	
 			"skillNumber" : 17, 
-			"skillName" : "라이트닝스피어",
+			"skillName" : "Hell_Area",
 			"skillDesc" : "라이트닝스피어 땅에서 부터 솟아 오릅니다.",
-			"skillImagePath" : "SkillImage/Ice_Fissure",
-			"skillEffectPath" : "SkillEffect/Tesla_Wall"
+			"skillImagePath" : "SkillImage/Hell_Area",
+			"skillEffectPath" : "SkillEffect/Hell_Area"
 		},
 		{	
 			"skillNumber" : 18, 
-			"skillName" : "라이트닝스피어",
+			"skillName" : "Dark_Summon",
 			"skillDesc" : "라이트닝스피어 땅에서 부터 솟아 오릅니다.",
-			"skillImagePath" : "SkillImage/Ice_Fissure",
-			"skillEffectPath" : "SkillEffect/Tesla_Wall"
+			"skillImagePath" : "SkillImage/Dark_Summon",
+			"skillEffectPath" : "SkillEffect/Dark_Summon"
 		},
 		{	
 			"skillNumber" : 19, 
-			"skillName" : "라이트닝스피어",
+			"skillName" : "Repel",
 			"skillDesc" : "라이트닝스피어 땅에서 부터 솟아 오릅니다.",
-			"skillImagePath" : "SkillImage/Ice_Fissure",
-			"skillEffectPath" : "SkillEffect/Tesla_Wall"
+			"skillImagePath" : "SkillImage/Repel",
+			"skillEffectPath" : "SkillEffect/Repel"
 		}
 	]			
 }

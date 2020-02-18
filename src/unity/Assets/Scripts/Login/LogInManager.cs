@@ -46,11 +46,13 @@ public class LogInManager : MonoBehaviour
         {
             Debug.Log("이미 접속해있습니다.");
             infoText.SetActive(true);
+            infoText.GetComponent<Text>().text = "Invalid Account - Overlap";
         }
         else
         {
             Debug.Log("아이디 또는 비밀번호가 틀렸습니다.");
             infoText.SetActive(true);
+            infoText.GetComponent<Text>().text = "Invalid Account - Wrong ID/PW";
         }
     }
 

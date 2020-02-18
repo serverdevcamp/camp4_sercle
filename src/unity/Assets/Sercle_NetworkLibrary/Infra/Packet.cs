@@ -694,11 +694,15 @@ public class SkillPacket : IPacket<SkillData>
         public bool Serialize(SkillData packet)
         {
             bool ret = true;
+            ret &= Serialize(packet.campNumber);
             ret &= Serialize(packet.isRobot);
             ret &= Serialize(packet.index);
             ret &= Serialize(packet.dirX);
             ret &= Serialize(packet.dirY);
             ret &= Serialize(packet.dirZ);
+            ret &= Serialize(packet.posX);
+            ret &= Serialize(packet.posY);
+            ret &= Serialize(packet.posZ);
 
             return ret;
         }
@@ -712,11 +716,15 @@ public class SkillPacket : IPacket<SkillData>
             }
 
             bool ret = true;
+            ret &= Deserialize(ref element.campNumber);
             ret &= Deserialize(ref element.isRobot);
             ret &= Deserialize(ref element.index);
             ret &= Deserialize(ref element.dirX);
             ret &= Deserialize(ref element.dirY);
             ret &= Deserialize(ref element.dirZ);
+            ret &= Deserialize(ref element.posX);
+            ret &= Deserialize(ref element.posY);
+            ret &= Deserialize(ref element.posZ);
 
             return ret;
         }

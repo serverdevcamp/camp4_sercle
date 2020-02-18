@@ -259,14 +259,24 @@ public struct MovingData
 // 스킬 정보
 public struct SkillData
 {
+    // 시전자가 어느 진영에 속해있는지
+    public int campNumber;
+
     // 로봇이 사용한 공격인가?
     public bool isRobot;
+
     // 캐릭터 번호
     public int index;
+
     // 방향
     public float dirX;
     public float dirY;
     public float dirZ;
+
+    // 시전자의 위치
+    public float posX;
+    public float posY;
+    public float posZ;
 
     public override string ToString()
     {
@@ -276,6 +286,9 @@ public struct SkillData
         str += " dirX:" + dirX;
         str += " dirY:" + dirY;
         str += " dirZ:" + dirZ;
+        str += " posX:" + posX;
+        str += " posY:" + posY;
+        str += " posZ:" + posZ;
         return str;
     }
 }

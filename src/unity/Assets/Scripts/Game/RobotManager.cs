@@ -65,15 +65,17 @@ public class RobotManager : MonoBehaviour
         return linePos;
     }
 
-    public void MyRobotFire(int index, Vector3 dir)
+    public void MyRobotFire(int index, Vector3 pos, Vector3 dir)
     {
         Robot caster = myRobots[index].GetComponent<Robot>();
+        caster.transform.position = pos;
         StartCoroutine(caster.MyAttack.Fire(caster, dir));
     }
 
-    public void EnemyRobotFire(int index, Vector3 dir)
+    public void EnemyRobotFire(int index, Vector3 pos, Vector3 dir)
     {
         Robot caster = enemyRobots[index].GetComponent<Robot>();
+        caster.transform.position = pos;
         StartCoroutine(caster.MyAttack.Fire(caster, dir));
     }
 }

@@ -38,6 +38,11 @@ public class UIManager_SkillSelect : MonoBehaviour
         ShowSelectedSkills();
     }
 
+    private void LateUpdate()
+    {
+        CheckSelectionProgress();
+    }
+
     private void InstantiateSkillButton()
     {
         string jsonFile = Resources.Load<TextAsset>("Json/SkillInfoJson").ToString();
@@ -66,7 +71,9 @@ public class UIManager_SkillSelect : MonoBehaviour
             Vector2 spawnPos = new Vector2(0, -i * rect.sizeDelta.y);
             rect.anchoredPosition = spawnPos;
 
-            mySkillImage.GetComponent<SelectedSkill>().Unshow();
+            int num = new int();
+            num = i;
+            mySkillImage.GetComponent<SelectedSkill>().Initialize(i, () => DeleteSkill(num));
             mySkillImages.Add(mySkillImage.GetComponent<SelectedSkill>());
         }
     }
@@ -85,6 +92,11 @@ public class UIManager_SkillSelect : MonoBehaviour
             selectedSkills.Add(currentSkill.Value);
             currentSkill = null;
         }
+    }
+
+    private void DeleteSkill(int i)
+    {
+        selectedSkills.RemoveAt(i);
     }
 
     private void ShowSelectedSkills()
@@ -118,9 +130,9 @@ public class UIManager_SkillSelect : MonoBehaviour
 
     public void StartGame()
     {
-        Debug.Log("게임 씬으로 넘어갑니다.");
+        //Debug.Log("게임 씬으로 넘어갑니다.");
         SendSelectionInfo();
-        SceneManager.LoadScene("EQ_Test");
+        // SceneManager.LoadScene("EQ_Test");
     }
 
     public void SendSelectionInfo()
@@ -143,5 +155,17 @@ public class UIManager_SkillSelect : MonoBehaviour
 
         SelectedSkillPacket packet = new SelectedSkillPacket(data);
         GameObject.Find("GameNetworkManager").GetComponent<GameNetworkManager>().SendLocalSkillSelect(packet);
+    }
+
+    // 나&상대의 스킬 선택 정보가 모두 모였을 경우 게임씬으로 이동.
+    private void CheckSelectionProgress()
+    {
+        // 서로의 스킬 선택 정보를 수신한 경우
+        if(SkillManager.instance.mySkills.Count > 0 && SkillManager.instance.enemySkills.Count > 0)
+        {
+            Debug.Log("게임 씬으로 넘어갑니다.");
+            // 씬 이동
+            SceneManager.LoadScene("EQ_Test");
+        }
     }
 }
