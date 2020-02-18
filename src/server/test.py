@@ -14,6 +14,7 @@ async def chatting_handle(reader, writer):  # 각 소켓
     user_name = await reader.read(100)
     list_of_clients.append([writer, user_name])
     client = list_of_clients[-1]
+
     while True:
         try:
             message = await reader.read(100)

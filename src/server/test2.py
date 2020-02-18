@@ -22,11 +22,6 @@ class Lobby:
         #start_new_thread(self.matching_queue_thread, ())
         asyncio.run(self.main())
 
-    async def test(self):
-        while True:
-            await asyncio.sleep(1.0)
-            print("1")
-
     # 매칭 잡힘
     async def matching_catch_thread(self, my_write, opponent_write):
         print("유저id : " + str(my_write[1]) + str(opponent_write[1]))
@@ -48,8 +43,7 @@ class Lobby:
         while times < 20:
             await asyncio.sleep(0.3)
             # 둘다  매칭 수락함.
-            print(
-                "시간 대기중 : " + str(self.accept_dic[my_write[1]]) + "  " + str(self.accept_dic[opponent_write[1]]))
+            print("시간 대기중 : " + str(self.accept_dic[my_write[1]]) + "  " + str(self.accept_dic[opponent_write[1]]))
             if self.accept_dic[my_write[1]] == 1 and self.accept_dic[opponent_write[1]] == 1:
                 await self.accept_response(my_write, opponent_write)
                 return 0
