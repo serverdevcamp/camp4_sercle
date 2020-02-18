@@ -946,4 +946,76 @@ public class GameFinishPacket : IPacket<GameFinishData>
     }
 }
 
+// 스킬 투사체에 피격 되었다는 패킷 전송.
+public class SkillHitPacket : IPacket<SkillHitData>
+{
+    SkillHitData packet;
+
+    public SkillHitPacket(SkillHitData data)
+    {
+        packet = data;
+    }
+    // 바이너리 데이터를 패킷 데이터로 역직렬화하는 생성자
+    public SkillHitPacket(byte[] data)
+    {
+        SkillHitSerializer serializer = new SkillHitSerializer();
+
+        serializer.SetDeserializedData(data);
+        serializer.Deserialize(ref packet);
+    }
+
+    public PacketId GetPacketId()
+    {
+        return PacketId.SkillHitData;
+    }
+
+    // 게임에서 사용할 패킷 데이터 획득
+    public SkillHitData GetPacket()
+    {
+        return packet;
+    }
+
+    // 송신용 byte[] 형 데이터 획득
+    public byte[] GetData()
+    {
+        SkillHitSerializer serializer = new SkillHitSerializer();
+        serializer.Serialize(packet);
+        return serializer.GetSerializedData();
+    }
+
+    class SkillHitSerializer : Serializer
+    {
+        public bool Serialize(SkillHitData packet)
+        {
+            bool ret = true;
+            ret &= Serialize(packet.campNumber);
+            ret &= Serialize(packet.index);
+            ret &= Serialize(packet.statusType);
+            ret &= Serialize(packet.ccType);
+            ret &= Serialize(packet.amount);
+            ret &= Serialize(packet.duration);
+
+            return ret;
+        }
+
+        public bool Deserialize(ref SkillHitData element)
+        {
+            // 데이터가 정의되어있지 않다면
+            if (GetDataSize() == 0)
+            {
+                return false;
+            }
+
+            bool ret = true;
+            ret &= Deserialize(ref element.campNumber);
+            ret &= Deserialize(ref element.index);
+            ret &= Deserialize(ref element.statusType);
+            ret &= Deserialize(ref element.ccType);
+            ret &= Deserialize(ref element.amount);
+            ret &= Deserialize(ref element.duration);
+
+            return ret;
+        }
+    }
+}
 
