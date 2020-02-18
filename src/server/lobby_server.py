@@ -88,6 +88,10 @@ class Lobby:
         message = MatchingRejectData(PacketId.matching_reject.value, MatchingResult.success.value).serialize()
         user_socket[0].send(message)
 
+
+
+
+
     # 매칭 잡힘
     def matching_catch_thread(self, my_socket, opponent_socket):
         print("유저id : " + str(my_socket[2]) + str(opponent_socket[2]))
@@ -129,6 +133,11 @@ class Lobby:
             self.reject_response(my_socket)
             self.reject_response(opponent_socket)
 
+
+
+
+
+
     # 각 클라이언트 소켓 쓰레드
     def client_thread(self, user_socket):
         while True:
@@ -143,7 +152,7 @@ class Lobby:
                 print(e)
 
     # 메세지 처리
-    def divide_process(self, packet_id, message, user_socket):
+    def divide_process(self, packet_id, message, user_socket):##########
         # 클라이언트로부터 매칭 시작 요청
         if packet_id == PacketId.matching_data.value:
             packet_data = MatchingData(message).deserialize()
