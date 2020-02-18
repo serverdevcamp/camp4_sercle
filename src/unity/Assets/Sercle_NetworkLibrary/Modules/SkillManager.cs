@@ -89,7 +89,7 @@ public class SkillManager : MonoBehaviour
         SkillHitPacket packet = new SkillHitPacket(data);
         SkillHitData hit = packet.GetPacket();
 
-        GameManager.instance.ApplySkillEffect(hit.campNumber, hit.statusType, hit.index, hit.ccType, hit.amount, hit.duration);
+        GameManager.instance.ApplySkillEffect(hit.campNumber, hit.index, hit.statusType, hit.ccType, hit.amount, hit.duration);
     } 
 
 
