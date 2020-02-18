@@ -36,6 +36,7 @@ public class RobotManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.KeypadEnter))
         {
+            Debug.Log("엔터 누름");
             SendSpawnRobotData();
             //StartCoroutine(SpawnRobots());
         }
@@ -103,8 +104,9 @@ public class RobotManager : MonoBehaviour
         SpawnRobotPacket packet = new SpawnRobotPacket(data);
 
 
-
+        
         networkManager.SendReliable<SpawnRobotData>(packet);
+        Debug.Log("미니언 만들라고 신호 보냈음.");
     }
     
     // 로봇 생성 신호를 서버로부터 수신하는 함수
