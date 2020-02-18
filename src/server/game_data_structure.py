@@ -4,8 +4,12 @@ from enum import Enum
 class PacketId(Enum):
     game_join = 10
     game_end = 12
-    select_skill = 13
+    select_skill = 13   # 스킬 선택 정보
     game_finish = 14    # HQ 파괴 패킷 ID
+    skill_hit = 15  # 투사체에 히트시 사용되는 패킷 ID
+    spawn_robots = 16   # 로봇(미니언) 스폰 패킷 ID
+    game_start = 17 # 게임씬에 입장되었음을 의미하는 패킷 ID
+    skill_data = 1  # 스킬 사용 요청시 사용되는 패킷 ID
 
 
 class GamePacketId(Enum):
@@ -62,3 +66,27 @@ class GameFinishData:
         winnerCamp = int.from_bytes(self.message[4:8], byteorder='big')
         packet = [packet_id, winnerCamp]
         return packet
+
+# 스킬 히트 데이터 중계
+class SkillHitData:
+    def __init__(self, message):
+        self.message = message
+
+    def deserialize(self):
+        packet_id = int.from_bytes(self.message[0:4], byteorder='big')
+        index = int.from_bytes(self.message[4:8], byteorder='big')
+        status_type = int.from_bytes(self.message[8:12], byteorder='big')
+        cc_type = int.from_bytes(self.message[12:16], byteorder='big')
+        amount = int.from_bytes(self.message[16:20], byteorder='big')
+        duration = int.from_bytes(self.message[20:24], byteorder='big')
+        packet = [packet_id, index, status_type, cc_type, amount, duration]
+        return packet
+
+# 게임 시작(클라이언트 단에서 송신함) 데이터 중계
+class GameStartData:
+    def __init__(self, message):
+        self.message = message
+
+    def deserialize(self):
+        packet_id = int.from_bytes(self.message[0:4], byteorder='big')
+        camp_number = int.from_bytes(self.message[4:8], byteorder='big')
