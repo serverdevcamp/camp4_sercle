@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
     private bool readyToStart;
 
     // 각 단말이 게임씬으로 왔는지 체크하는 배열
-    private bool[] enterGameScene;
+    private bool[] enterGameScene = new bool[2];
 
     // 네트워크 매니저
     private NetworkManager networkManager;
@@ -178,7 +178,7 @@ public class GameManager : MonoBehaviour
         {
            if(enterGameScene[i] == false)
             {
-                Debug.Log(i.ToString() + " 진영에서 아직 데이터 안보냄.");
+                Debug.Log(i.ToString() + 1 + " 진영에서 아직 데이터 안보냄.");
                 check = true;
             }
         }
