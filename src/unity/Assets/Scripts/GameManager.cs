@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     public Text tempWinnerText;
 
     // 양 단말 모두 게임씬으로 넘어와서 게임을 시작해도 되는지 판단하는 변수. readyToStart가 false면 일시정지, true면 정지 해제.
+    [SerializeField]
     private bool readyToStart;
 
     // 각 단말이 게임씬으로 왔는지 체크하는 배열
@@ -169,7 +170,7 @@ public class GameManager : MonoBehaviour
         GameStartPacket packet = new GameStartPacket(data);
         GameStartData startData = packet.GetPacket();
 
-        enterGameScene[startData.campNumber] = true;
+        enterGameScene[startData.campNumber - 1] = true;
 
         bool check = false;
         
@@ -177,6 +178,7 @@ public class GameManager : MonoBehaviour
         {
            if(enterGameScene[i] == false)
             {
+                Debug.Log(i.ToString() + " 진영에서 아직 데이터 안보냄.");
                 check = true;
             }
         }
@@ -195,5 +197,6 @@ public class GameManager : MonoBehaviour
         GameStartData data = new GameStartData();
         data.campNumber = MyCampNum;
         networkManager.SendReliable<GameStartData>(new GameStartPacket(data));
+        Debug.Log(myCampNum.ToString() + " 게임씬 입장 데이터 전송 완료");
     }
 }
