@@ -4,7 +4,7 @@ using UnityEngine;
 
 public struct ProjectileInfo
 {
-    public bool isCaster1P;
+    public int casterCampNum;
     public Vector3 direction;
     public float speed;
     public float range;
@@ -13,11 +13,11 @@ public struct ProjectileInfo
     public TargetNum targetNum;
     public List<SkillEffect> skillEffects;
 
-    public ProjectileInfo(bool isCaster1P, Vector3 direction, float speed, float range,
+    public ProjectileInfo(int casterCampNum, Vector3 direction, float speed, float range,
                         float size, TargetType targetType, TargetNum targetNum,
                         List<SkillEffect> skillEffects)
     {
-        this.isCaster1P = isCaster1P;
+        this.casterCampNum = casterCampNum;
         this.direction = direction;
         this.speed = speed;
         this.range = range;
@@ -31,7 +31,7 @@ public struct ProjectileInfo
 [RequireComponent(typeof(BoxCollider))]
 public class Projectile : MonoBehaviour
 {
-    [SerializeField] private bool isCaster1P;
+    [SerializeField] private int casterCampNum;
     [SerializeField] private Vector3 direction;
     [SerializeField] private float speed;
     [SerializeField] private float range;
@@ -41,7 +41,7 @@ public class Projectile : MonoBehaviour
 
     public void Initialize(ProjectileInfo info)
     {
-        isCaster1P = info.isCaster1P;
+        casterCampNum = info.casterCampNum;
         direction = info.direction;
         speed = info.speed;
         range = info.range;
@@ -83,8 +83,8 @@ public class Projectile : MonoBehaviour
 
     private bool IsValidTargetType(Robot target)
     {
-        if (targetType == TargetType.Friend && isCaster1P == target.Is1P) return true;
-        if (targetType == TargetType.Enemy && isCaster1P != target.Is1P) return true;
+        if (targetType == TargetType.Friend && casterCampNum == target.CampNum) return true;
+        if (targetType == TargetType.Enemy && casterCampNum != target.CampNum) return true;
 
         return false;
     }

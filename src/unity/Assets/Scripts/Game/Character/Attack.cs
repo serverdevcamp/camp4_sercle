@@ -38,8 +38,7 @@ public class Attack
         Debug.Log(caster.name + " use basic attack to " + dir);
 
         // GM에게 index 번째 로봇의 공격을 dir 방향으로 사용한다고 알려준다.
-        int campNum = caster.Is1P ? 1 : 2;
-        GameManager.instance.RequestFire(campNum, true, caster.Index, caster.transform.position, dir);
+        GameManager.instance.RequestFire(caster.CampNum, true, caster.Index, caster.transform.position, dir);
     }
 
     public IEnumerator Fire(Robot caster, Vector3 dir)
@@ -48,7 +47,7 @@ public class Attack
         state = State.PreDelay;
 
         // 20 02 09 내 캐릭터의 경우, preDelay + Rtt 만큼 더 기다림.
-        yield return caster.Is1P ? new WaitForSeconds(preDelay + SyncManager.instance.GetAvgRemoteRtt()) : new WaitForSeconds(preDelay);
+        yield return caster.CampNum == 1 ? new WaitForSeconds(preDelay + SyncManager.instance.GetAvgRemoteRtt()) : new WaitForSeconds(preDelay);
         #endregion
 
         #region 투사체 발사
@@ -96,7 +95,7 @@ public class Attack
         effect.amount = -caster.GetStatus.ATK;
         effects.Add(effect);
 
-        ProjectileInfo info = new ProjectileInfo(caster.Is1P, dir, speed, range, size, TargetType.Enemy, TargetNum.One, effects);
+        ProjectileInfo info = new ProjectileInfo(caster.CampNum, dir, speed, range, size, TargetType.Enemy, TargetNum.One, effects);
         return info;
     }
 }

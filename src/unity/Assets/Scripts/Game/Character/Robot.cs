@@ -11,7 +11,7 @@ public class Robot : MonoBehaviour
     [Header("Robot Info")]
     [SerializeField] private int index;
     [SerializeField] protected Status status;
-    [SerializeField] private bool is1P;
+    [SerializeField] private int campNum;
     [SerializeField] private List<Vector3> destinations;
     [SerializeField] private int destFlag;
 
@@ -33,7 +33,7 @@ public class Robot : MonoBehaviour
 
     public int Index { get { return index; } }
     public Status GetStatus { get { return status; } }
-    public bool Is1P { get { return is1P; } }
+    public int CampNum { get { return campNum; } }
     public State GetState { get { return state; } }
     public Attack MyAttack { get { return attack; } }
 
@@ -55,15 +55,15 @@ public class Robot : MonoBehaviour
         StateMachine();
     }
 
-    public void InitialSetting(int index, bool is1P, List<Vector3> destinations)
+    public void InitialSetting(int index, int campNum, List<Vector3> destinations)
     {
         this.index = index;
-        this.is1P = is1P;
+        this.campNum = campNum;
         this.destinations = destinations;
         state = State.Idle;
         status.ChangeStatTo(StatusType.CHP, status.MHP);
 
-        if (is1P) destFlag = 1;
+        if (campNum == 1) destFlag = 1;
         else destFlag = destinations.Count - 2;
 
         agent = GetComponent<NavMeshAgent>();
@@ -81,7 +81,7 @@ public class Robot : MonoBehaviour
         foreach (Collider coll in colls)
         {
             if (coll.gameObject == gameObject) continue;
-            if (is1P == coll.transform.GetComponent<Robot>().is1P) continue;
+            if (campNum == coll.transform.GetComponent<Robot>().campNum) continue;
 
             if (target == null || Vector3.Distance(coll.transform.position, transform.position) < nearestDis)
             {

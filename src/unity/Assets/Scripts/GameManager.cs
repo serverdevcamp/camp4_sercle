@@ -14,9 +14,10 @@ public class GameManager : MonoBehaviour
 
     private RobotManager robotManager;
     private IndicateManager indicateManager;
-    private bool is1P;
+    private int myCampNum;
 
-    public bool Is1P { get { return is1P; } }
+    public int MyCampNum { get { return myCampNum; } }
+    public int EnemyCampNum { get { return myCampNum == 1 ? 2 : 1; } }
 
     public Text tempWinnerText;
 
@@ -33,14 +34,7 @@ public class GameManager : MonoBehaviour
         robotManager = GetComponentInChildren<RobotManager>();
         indicateManager = GetComponentInChildren<IndicateManager>();
 
-        if (GameObject.Find("DataObject").GetComponent<UserInfo>().userData.playerCamp == 1)
-        {
-            is1P = true;
-        }
-        else
-        {
-            is1P = false;
-        }
+        myCampNum = GameObject.Find("DataObject").GetComponent<UserInfo>().userData.playerCamp;
 
         // 네트워크 매니저에 게임 종료 패킷 수신함수 등록
         GameObject.Find("NetworkManager").GetComponent<NetworkManager>().RegisterReceiveNotification(PacketId.GameFinish, OnReceiveGameFinishPacket);
@@ -82,7 +76,6 @@ public class GameManager : MonoBehaviour
 
     public void ApplyFire(int campNum, bool isRobot, int index, Vector3 pos, Vector3 dir)
     {
-        int myCampNum = is1P ? 1 : 2;
         if (campNum == myCampNum)           // 로컬일 경우
         {
             if (isRobot) robotManager.MyRobotFire(index, pos, dir);
@@ -97,7 +90,7 @@ public class GameManager : MonoBehaviour
 
     public void RequestSkillEffect(Robot target, SkillEffect effect)
     {
-        int tCampNum = target.Is1P ? 1 : 2;
+        int tCampNum = target.CampNum;
         int tIndex = target.Index;
         int statusType = (int)effect.statusType;
         int ccType = (int)effect.ccType;
@@ -110,15 +103,14 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// 서버로부터 전송받은 스킬의 효과를 대상에게 적용하도록 하는 함수
     /// </summary>
-    /// <param name="tCampNum"></param>
-    /// <param name="tIndex"></param>
-    /// <param name="statusType"></param>
-    /// <param name="ccType"></param>
-    /// <param name="amount"></param>
-    /// <param name="duration"></param>
+    /// <param name="tCampNum">타겟의 캠프 번호</param>
+    /// <param name="tIndex">타겟이 되는 로봇의 번호</param>
+    /// <param name="statusType">효과가 적용되는 스테이터스 타입</param>
+    /// <param name="ccType">효과에 담긴 CC 타입</param>
+    /// <param name="amount">변화할 스테이터스의 양</param>
+    /// <param name="duration">변화할 시간. 0이면 무제한</param>
     public void ApplySkillEffect(int tCampNum, int tIndex, int statusType, int ccType, float amount, float duration)
     {
-        int myCampNum = is1P ? 1 : 2;
         Robot target;
         if (tCampNum == myCampNum) target = robotManager.MyRobot(tIndex);
         else target = robotManager.EnemyRobot(tIndex);
