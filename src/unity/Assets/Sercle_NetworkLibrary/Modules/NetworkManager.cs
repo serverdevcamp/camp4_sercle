@@ -104,7 +104,7 @@ public class NetworkManager : MonoBehaviour
         byte[] packetData = new byte[data.Length - headerSize];
         Buffer.BlockCopy(data, headerSize, packetData, 0, packetData.Length);
 
-        Debug.Log("수신한 패킷 ID : " + packetId + " " + (PacketId)packetId);
+        Debug.Log("수신한 패킷 ID : " + packetId + " " + (PacketId)packetId + " " + Time.time);
         
         // 등록된 적절한 receive함수 호출
         notifier[packetId]((PacketId)packetId, packetData);

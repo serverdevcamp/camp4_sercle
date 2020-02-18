@@ -77,7 +77,7 @@ public class Projectile : MonoBehaviour
             // 투사체 히트 이펙트 적용
             // target.GetComponent<EffectController>().OnHitVFX(effect, caster.index);
         }
-
+        Time.timeScale = 0f;
         if (targetNum == TargetNum.One) Destroy(gameObject);
     }
 
