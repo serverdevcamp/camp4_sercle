@@ -21,6 +21,7 @@ public enum PacketId
     SelectedSkillData,  // 선택한 스킬 데이터 패킷을 의미, no 13
     GameFinish, // HQ 가 파괴되었다는 데이터 패킷을 의미 no 14
     SkillHitData,
+    SpawnRobotsData,    // 로봇 생성 신호 no 16
 };
 
 //매칭 패킷 데이터
