@@ -12,7 +12,8 @@ public class LoadingCanvasController : MonoBehaviour
     [SerializeField] private Transform secondCampPanel;
 
     [Header("Prefab")]
-    [SerializeField] private GameObject selectedSkillPrefab;
+    [SerializeField] private GameObject firstCampSkillPrefab;
+    [SerializeField] private GameObject secondCampSkillPrefab;
 
     private void Start()
     {
@@ -45,7 +46,7 @@ public class LoadingCanvasController : MonoBehaviour
         {
             SkillInfoJson skill = skillInfos.skillInfo[skills[i]];
 
-            GameObject selectedSkill = Instantiate(selectedSkillPrefab, firstCampPanel);
+            GameObject selectedSkill = Instantiate(firstCampSkillPrefab, firstCampPanel);
             selectedSkill.GetComponent<LoadingSkill>().Initialize(true, skill.skillName, Resources.Load<Sprite>(skill.skillImagePath));
             selectedSkill.GetComponent<RectTransform>().anchoredPosition = -new Vector2(0, offset + i * selectedSkill.GetComponent<RectTransform>().sizeDelta.y);
         }
@@ -61,7 +62,7 @@ public class LoadingCanvasController : MonoBehaviour
         {
             SkillInfoJson skill = skillInfos.skillInfo[skills[i]];
 
-            GameObject selectedSkill = Instantiate(selectedSkillPrefab, secondCampPanel);
+            GameObject selectedSkill = Instantiate(secondCampSkillPrefab, secondCampPanel);
             selectedSkill.GetComponent<LoadingSkill>().Initialize(true, skill.skillName, Resources.Load<Sprite>(skill.skillImagePath));
             selectedSkill.GetComponent<RectTransform>().anchoredPosition = -new Vector2(0, offset + i * selectedSkill.GetComponent<RectTransform>().sizeDelta.y);
         }
