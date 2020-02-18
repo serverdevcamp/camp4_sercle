@@ -15,8 +15,8 @@ public class RobotManager : MonoBehaviour
     [SerializeField] private int waveSize;
     [SerializeField] private float waveTerm;
 
-    private List<GameObject> myRobots = new List<GameObject>();
-    private List<GameObject> enemyRobots = new List<GameObject>();
+    private List<GameObject> firstCampRobots = new List<GameObject>();
+    private List<GameObject> secondCampRobots = new List<GameObject>();
     private int robotNum = 0;
 
     private NetworkManager networkManager;
@@ -58,13 +58,13 @@ public class RobotManager : MonoBehaviour
     {
         int count = linePos.Count;
 
-        GameObject myRobot = Instantiate(robotPrefab, linePos[0], Quaternion.identity);
-        myRobot.GetComponent<Robot>().InitialSetting(robotNum, GameManager.instance.MyCampNum, linePos);
-        myRobots.Add(myRobot);
+        GameObject firstCampRobot = Instantiate(robotPrefab, linePos[0], Quaternion.identity);
+        firstCampRobot.GetComponent<Robot>().InitialSetting(robotNum, 1, linePos);
+        firstCampRobots.Add(firstCampRobot);
 
-        GameObject enemyRobot = Instantiate(robotPrefab, linePos[count - 1], Quaternion.identity);
-        enemyRobot.GetComponent<Robot>().InitialSetting(robotNum, GameManager.instance.EnemyCampNum, linePos);
-        enemyRobots.Add(enemyRobot);
+        GameObject secondCampRobot = Instantiate(robotPrefab, linePos[count - 1], Quaternion.identity);
+        secondCampRobot.GetComponent<Robot>().InitialSetting(robotNum, 2, linePos);
+        secondCampRobots.Add(secondCampRobot);
         
         robotNum += 1;
     }
@@ -80,16 +80,16 @@ public class RobotManager : MonoBehaviour
         return linePos;
     }
 
-    public void MyRobotFire(int index, Vector3 pos, Vector3 dir)
+    public void FirstCampRobotFire(int index, Vector3 pos, Vector3 dir)
     {
-        Robot caster = myRobots[index].GetComponent<Robot>();
+        Robot caster = firstCampRobots[index].GetComponent<Robot>();
         caster.transform.position = pos;
         StartCoroutine(caster.MyAttack.Fire(caster, dir));
     }
 
-    public void EnemyRobotFire(int index, Vector3 pos, Vector3 dir)
+    public void SecondCampRobotFire(int index, Vector3 pos, Vector3 dir)
     {
-        Robot caster = enemyRobots[index].GetComponent<Robot>();
+        Robot caster = secondCampRobots[index].GetComponent<Robot>();
         caster.transform.position = pos;
         StartCoroutine(caster.MyAttack.Fire(caster, dir));
     }
@@ -124,11 +124,11 @@ public class RobotManager : MonoBehaviour
 
     public Robot MyRobot(int i)
     {
-        return myRobots[i].GetComponent<Robot>();
+        return firstCampRobots[i].GetComponent<Robot>();
     }
 
     public Robot EnemyRobot(int i)
     {
-        return enemyRobots[i].GetComponent<Robot>();
+        return secondCampRobots[i].GetComponent<Robot>();
     }
 }

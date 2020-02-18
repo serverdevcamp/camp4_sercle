@@ -91,14 +91,14 @@ public class GameManager : MonoBehaviour
 
     public void ApplyFire(int campNum, bool isRobot, int index, Vector3 pos, Vector3 dir)
     {
-        if (campNum == myCampNum)           // 로컬일 경우
+        if (campNum == 1)
         {
-            if (isRobot) robotManager.MyRobotFire(index, pos, dir);
+            if (isRobot) robotManager.FirstCampRobotFire(index, pos, dir);
             else myHeroes[index].UseSkill(pos, dir);
         }
-        else     // 리모트일 경우
+        else
         {
-            if (isRobot) robotManager.EnemyRobotFire(index, pos, dir);
+            if (isRobot) robotManager.SecondCampRobotFire(index, pos, dir);
             else enemyHeroes[index].UseSkill(pos, dir);
         }
     }
