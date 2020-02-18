@@ -1122,7 +1122,7 @@ public class SpawnRobotPacket : IPacket<SpawnRobotData>
         public bool Serialize(SpawnRobotData packet)
         {
             bool ret = true;
-
+            ret &= Serialize(packet.trash);
             return ret;
         }
 
@@ -1135,7 +1135,7 @@ public class SpawnRobotPacket : IPacket<SpawnRobotData>
             }
 
             bool ret = true;
-
+            ret &= Deserialize(ref element.trash);
             return ret;
         }
     }

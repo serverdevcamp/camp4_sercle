@@ -357,6 +357,6 @@ public struct GameStartData
 // 로봇 스폰 데이터
 public struct SpawnRobotData
 {
-
+    public int trash;
 }
 

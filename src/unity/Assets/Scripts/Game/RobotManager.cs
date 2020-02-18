@@ -97,7 +97,12 @@ public class RobotManager : MonoBehaviour
     public void SendSpawnRobotData()
     {
         SpawnRobotData data = new SpawnRobotData();
+
+        data.trash = GameManager.instance.MyCampNum;
+        
         SpawnRobotPacket packet = new SpawnRobotPacket(data);
+
+
 
         networkManager.SendReliable<SpawnRobotData>(packet);
     }
@@ -107,6 +112,11 @@ public class RobotManager : MonoBehaviour
     {
         // 서버는, 주기적으로 Packet ID만 붙혀서 송신한다.
         // 로봇 스폰 코드
+        SpawnRobotPacket packet = new SpawnRobotPacket(data);
+        SpawnRobotData spawnData = packet.GetPacket();
+
+        Debug.Log(spawnData.trash + " 가 엔터 눌렀음.");
+
         StartCoroutine(SpawnRobots());
     }
 
