@@ -24,7 +24,7 @@ public class HQ : Robot
         {
             GameFinishData data = new GameFinishData();
 
-            if (Is1P)
+            if (CampNum == 1)
             {
                 Debug.Log("1P의 패배!");
                 data.winnerCamp = 2;    // 참고 : if GetComponent<UserInfo>().userData.playerCamp == 1 then is1p = true.

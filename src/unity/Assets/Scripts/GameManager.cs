@@ -14,11 +14,21 @@ public class GameManager : MonoBehaviour
 
     private RobotManager robotManager;
     private IndicateManager indicateManager;
-    private bool is1P;
+    private int myCampNum;
 
-    public bool Is1P { get { return is1P; } }
+    public int MyCampNum { get { return myCampNum; } }
+    public int EnemyCampNum { get { return myCampNum == 1 ? 2 : 1; } }
 
     public Text tempWinnerText;
+
+    // 양 단말 모두 게임씬으로 넘어와서 게임을 시작해도 되는지 판단하는 변수. readyToStart가 false면 일시정지, true면 정지 해제.
+    private bool readyToStart;
+
+    // 각 단말이 게임씬으로 왔는지 체크하는 배열
+    private bool[] enterGameScene;
+
+    // 네트워크 매니저
+    private NetworkManager networkManager;
 
     private void Awake()
     {
@@ -32,18 +42,16 @@ public class GameManager : MonoBehaviour
     {
         robotManager = GetComponentInChildren<RobotManager>();
         indicateManager = GetComponentInChildren<IndicateManager>();
+        networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
 
-        if (GameObject.Find("DataObject").GetComponent<UserInfo>().userData.playerCamp == 1)
-        {
-            is1P = true;
-        }
-        else
-        {
-            is1P = false;
-        }
+        myCampNum = GameObject.Find("DataObject").GetComponent<UserInfo>().userData.playerCamp;
 
-        // 네트워크 매니저에 게임 종료 패킷 수신함수 등록
-        GameObject.Find("NetworkManager").GetComponent<NetworkManager>().RegisterReceiveNotification(PacketId.GameFinish, OnReceiveGameFinishPacket);
+        // 네트워크 매니저에 게임 종료, 시작 패킷 수신함수 등록
+        networkManager.RegisterReceiveNotification(PacketId.GameFinish, OnReceiveGameFinishPacket);
+        networkManager.RegisterReceiveNotification(PacketId.GameStart, OnReceiveGameStartPacket);
+
+        // 게임 시작할 준비가 되었다는 패킷 송신
+        SendReadyToStartGamePacket();
 
         // 임시 승리 텍스트 안보이게 함.
         tempWinnerText.text = "";
@@ -80,9 +88,8 @@ public class GameManager : MonoBehaviour
         SkillManager.instance.SendLocalSkillInfo(campNum, isRobot, index, pos, dir);
     }
 
-    public void FireProjectile(int campNum, bool isRobot, int index, Vector3 pos, Vector3 dir)
+    public void ApplyFire(int campNum, bool isRobot, int index, Vector3 pos, Vector3 dir)
     {
-        int myCampNum = is1P ? 1 : 2;
         if (campNum == myCampNum)           // 로컬일 경우
         {
             if (isRobot) robotManager.MyRobotFire(index, pos, dir);
@@ -90,19 +97,40 @@ public class GameManager : MonoBehaviour
         }
         else     // 리모트일 경우
         {
-            if(isRobot) robotManager.EnemyRobotFire(index, pos, dir);
+            if (isRobot) robotManager.EnemyRobotFire(index, pos, dir);
             else enemyHeroes[index].UseSkill(pos, dir);
         }
     }
 
-    /// <summary>
-    /// 계산된 효과를 target 캐릭터에게 적용하는 함수.
-    /// 모든 공격, 효과는 이 함수를 거쳐가도록 할 예정.
-    /// </summary>
-    /// <param name="target">효과를 적용할 대상</param>
-    /// <param name="effects">적용할 효과의 리스트</param>
-    public void ApplySkill(Robot target, SkillEffect effect)
+    public void RequestSkillEffect(Robot target, SkillEffect effect)
     {
+        int tCampNum = target.CampNum;
+        int tIndex = target.Index;
+        int statusType = (int)effect.statusType;
+        int ccType = (int)effect.ccType;
+        float amount = effect.amount;
+        float duration = effect.duration;
+
+        SkillManager.instance.SendLocalHitInfo(tCampNum, tIndex, statusType, ccType, amount, duration);
+    }
+
+    /// <summary>
+    /// 서버로부터 전송받은 스킬의 효과를 대상에게 적용하도록 하는 함수
+    /// </summary>
+    /// <param name="tCampNum">타겟의 캠프 번호</param>
+    /// <param name="tIndex">타겟이 되는 로봇의 번호</param>
+    /// <param name="statusType">효과가 적용되는 스테이터스 타입</param>
+    /// <param name="ccType">효과에 담긴 CC 타입</param>
+    /// <param name="amount">변화할 스테이터스의 양</param>
+    /// <param name="duration">변화할 시간. 0이면 무제한</param>
+    public void ApplySkillEffect(int tCampNum, int tIndex, int statusType, int ccType, float amount, float duration)
+    {
+        Robot target;
+        if (tCampNum == myCampNum) target = robotManager.MyRobot(tIndex);
+        else target = robotManager.EnemyRobot(tIndex);
+
+        SkillEffect effect = new SkillEffect((StatusType)statusType, (CCType)ccType, amount, duration);
+
         target.Apply(effect);
     }
 
@@ -125,7 +153,7 @@ public class GameManager : MonoBehaviour
         // 승리 진영과 자신의 진영이 일치할경우, 승리 판정.
         if (GameObject.Find("DataObject").GetComponent<UserInfo>().userData.playerCamp == winnerData.winnerCamp)
         {
-            tempWinnerText.text = "THE WINNER IS : ME ^^";   
+            tempWinnerText.text = "THE WINNER IS : ME ^^";
         }
         // 패배 판정
         else
@@ -134,4 +162,38 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // 양 클라이언트에서 동일한 타이밍으로 게임 시작을 위한, 게임시작 패킷 수신 함수
+    public void OnReceiveGameStartPacket(PacketId id, byte[] data)
+    {
+
+        GameStartPacket packet = new GameStartPacket(data);
+        GameStartData startData = packet.GetPacket();
+
+        enterGameScene[startData.campNumber] = true;
+
+        bool check = false;
+        
+        for(int i = 0; i < 2; i++)
+        {
+           if(enterGameScene[i] == false)
+            {
+                check = true;
+            }
+        }
+
+        if(check == false)
+        {
+            // 양 단말 모두 준비가 되었으므로 게임 시작
+            Debug.Log("양 단말의 게임 시작 패킷 수신을 완료했으므로, 일시중지 해제하고 게임 시작");
+            readyToStart = true;
+        }
+    }
+
+    // 게임 씬으로 진입했을 때, 즉 게임 시작을 위한 준비가 모두 끝났을 때 서버에 준비 되었다는 정보를 송신
+    public void SendReadyToStartGamePacket()
+    {
+        GameStartData data = new GameStartData();
+        data.campNumber = MyCampNum;
+        networkManager.SendReliable<GameStartData>(new GameStartPacket(data));
+    }
 }

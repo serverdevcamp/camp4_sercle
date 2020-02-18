@@ -14,7 +14,7 @@ public class CharacterHealthBar : MonoBehaviour
     {
         character = transform.parent.GetComponent<Robot>();
 
-        if (character.Is1P != GameManager.instance.Is1P)
+        if (character.CampNum != GameManager.instance.MyCampNum)
         {
             bar.color = new Color(255, 100, 100);
         }

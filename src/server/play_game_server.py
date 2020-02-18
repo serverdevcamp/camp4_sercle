@@ -81,6 +81,18 @@ class Game:
             print("게임종료 여부 : " + str(int.from_bytes(message[4:8], byteorder='big')))
             my_socket[0].send(message)
             opponent_socket[0].send(message)
+        elif packet_id == PacketId.skill_data.value:
+            print("스킬 사용 : " + str(int.from_bytes(self.message[4:8], byteorder='big')) + " 진영에서 " + int.from_bytes(self.message[12:16], byteorder='big') + " 사용.")
+            my_socket[0].send(message)
+            opponent_socket[0].send(message)
+        elif packet_id == PacketId.skill_hit.value:
+            print("스킬 피격 : " + int.from_bytes(self.message[8:12], byteorder='big'))
+            my_socket[0].send(message)
+            opponent_socket[0].send(message)
+        elif packet_id == PacketId.game_start.value:
+            print("게임씬 입장 완료 : " + int.from_bytes(self.message[4:8], byteorder='big'))
+            my_socket[0].send(message)
+            opponent_socket[0].send(message)
         else:
             opponent_socket[0].send(message)
 
