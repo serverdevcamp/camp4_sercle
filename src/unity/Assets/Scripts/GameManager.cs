@@ -127,8 +127,8 @@ public class GameManager : MonoBehaviour
     public void ApplySkillEffect(int tCampNum, int tIndex, int statusType, int ccType, float amount, float duration)
     {
         Robot target;
-        if (tCampNum == myCampNum) target = robotManager.MyRobot(tIndex);
-        else target = robotManager.EnemyRobot(tIndex);
+        if (tCampNum == 1) target = robotManager.FirstCampRobot(tIndex);
+        else target = robotManager.SecondCampRobot(tIndex);
 
         SkillEffect effect = new SkillEffect((StatusType)statusType, (CCType)ccType, amount, duration);
 

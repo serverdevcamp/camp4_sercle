@@ -124,12 +124,12 @@ public class RobotManager : MonoBehaviour
         StartCoroutine(SpawnRobots());
     }
 
-    public Robot MyRobot(int i)
+    public Robot FirstCampRobot(int i)
     {
         return firstCampRobots[i].GetComponent<Robot>();
     }
 
-    public Robot EnemyRobot(int i)
+    public Robot SecondCampRobot(int i)
     {
         return secondCampRobots[i].GetComponent<Robot>();
     }
