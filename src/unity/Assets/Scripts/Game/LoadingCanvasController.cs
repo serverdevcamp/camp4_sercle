@@ -35,7 +35,7 @@ public class LoadingCanvasController : MonoBehaviour
 
             GameObject selectedSkill = Instantiate(selectedSkillPrefab, firstCampPanel);
             selectedSkill.GetComponent<LoadingSkill>().Initialize(true, skill.skillName, Resources.Load<Sprite>(skill.skillImagePath));
-            selectedSkill.GetComponent<RectTransform>().anchoredPosition = new Vector2(offset + i * selectedSkill.GetComponent<RectTransform>().sizeDelta.y, 0);
+            selectedSkill.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, offset + i * selectedSkill.GetComponent<RectTransform>().sizeDelta.y);
         }
     }
 
@@ -51,7 +51,7 @@ public class LoadingCanvasController : MonoBehaviour
 
             GameObject selectedSkill = Instantiate(selectedSkillPrefab, secondCampPanel);
             selectedSkill.GetComponent<LoadingSkill>().Initialize(true, skill.skillName, Resources.Load<Sprite>(skill.skillImagePath));
-            selectedSkill.GetComponent<RectTransform>().anchoredPosition = new Vector2(offset + i * selectedSkill.GetComponent<RectTransform>().sizeDelta.y, 0);
+            selectedSkill.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, offset + i * selectedSkill.GetComponent<RectTransform>().sizeDelta.y);
         }
     }
 }

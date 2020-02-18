@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using System.Text;
+using DG.Tweening;
 
 public class ChattingManager : MonoBehaviour
 {
@@ -108,6 +109,6 @@ public class ChattingManager : MonoBehaviour
         msg.GetComponent<RectTransform>().localScale = Vector3.one;
 
         // 스크롤바를 항상 맨 아래로 지정.
-        scrollbar.value = 0;
+        DOTween.To(() => scrollbar.value, x => scrollbar.value = x, 0, 1f);
     }
 }
