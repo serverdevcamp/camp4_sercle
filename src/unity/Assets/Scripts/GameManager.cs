@@ -75,23 +75,24 @@ public class GameManager : MonoBehaviour
         return 0;
     }
 
-    public void FireRobotProjectile(int index, Vector3 dir)
+    public void RequestFire(int campNum, bool isRobot, int index, Vector3 pos, Vector3 dir)
     {
-        robotManager.MyRobotFire(index, dir);
-        SkillManager.instance.SendLocalSkillInfo(true, index, dir);
+        SkillManager.instance.SendLocalSkillInfo(campNum, isRobot, index, pos, dir);
     }
 
-    public void UseLocalSkill(int index, Vector3 pos, Vector3? dir = null)
+    public void FireProjectile(int campNum, bool isRobot, int index, Vector3 pos, Vector3 dir)
     {
-        myHeroes[index].UseSkill(pos, dir);
-        //SkillManager.instance.SendLocalSkillInfo(false, index, pos, dir);
-    }
-
-    // 2020 02 01 원격 캐릭터가 투사체 발사하도록 한다.
-    public void FireRemoteProjectile(bool isRobot, int index, Vector3 dir)
-    {
-        if(isRobot) robotManager.EnemyRobotFire(index, dir);
-        //else enemyCharacters[index].FireProjectile(num, dir);
+        int myCampNum = is1P ? 1 : 2;
+        if (campNum == myCampNum)           // 로컬일 경우
+        {
+            if (isRobot) robotManager.MyRobotFire(index, pos, dir);
+            else myHeroes[index].UseSkill(pos, dir);
+        }
+        else     // 리모트일 경우
+        {
+            if(isRobot) robotManager.EnemyRobotFire(index, pos, dir);
+            else enemyHeroes[index].UseSkill(pos, dir);
+        }
     }
 
     /// <summary>

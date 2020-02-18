@@ -38,7 +38,8 @@ public class Attack
         Debug.Log(caster.name + " use basic attack to " + dir);
 
         // GM에게 index 번째 로봇의 공격을 dir 방향으로 사용한다고 알려준다.
-        GameManager.instance.FireRobotProjectile(caster.Index, dir);
+        int campNum = caster.Is1P ? 1 : 2;
+        GameManager.instance.RequestFire(campNum, true, caster.Index, caster.transform.position, dir);
     }
 
     public IEnumerator Fire(Robot caster, Vector3 dir)

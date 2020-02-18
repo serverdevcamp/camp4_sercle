@@ -50,7 +50,7 @@ public class IndicateManager : MonoBehaviour
                     {
                         Debug.Log(skill.skillName + "을 " + transform.position + "에 사용합니다.");
                         // gm에게 index번의 영웅의 스킬을 skillPos에 사용한다고 알립니다.
-                        GameManager.instance.UseLocalSkill(nowHero.Index, transform.position);
+                        GameManager.instance.RequestFire(1, false, nowHero.Index, transform.position, Vector3.zero);
                         state = State.None;
                     }
                 }
@@ -62,7 +62,7 @@ public class IndicateManager : MonoBehaviour
                     Vector3 dir = Splats.Get3DMousePosition() - transform.position;
                     Debug.Log(nowHero.GetSkill.skillName + "을 " + transform.position + "에 " + dir +" 방향으로 사용합니다.");
                     // gm에게 index번의 영웅의 스킬을 skillPos에 dir 방향으로 사용한다고 알립니다.
-                    GameManager.instance.UseLocalSkill(nowHero.Index, transform.position, dir);
+                    GameManager.instance.RequestFire(1, false, nowHero.Index, transform.position, dir);
                     state = State.None;
                 }
                 break;
