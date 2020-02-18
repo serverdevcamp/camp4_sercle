@@ -78,4 +78,14 @@ public class RobotManager : MonoBehaviour
         caster.transform.position = pos;
         StartCoroutine(caster.MyAttack.Fire(caster, dir));
     }
+
+    public Robot MyRobot(int i)
+    {
+        return myRobots[i].GetComponent<Robot>();
+    }
+
+    public Robot EnemyRobot(int i)
+    {
+        return enemyRobots[i].GetComponent<Robot>();
+    }
 }

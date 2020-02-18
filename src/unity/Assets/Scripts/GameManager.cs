@@ -80,7 +80,7 @@ public class GameManager : MonoBehaviour
         SkillManager.instance.SendLocalSkillInfo(campNum, isRobot, index, pos, dir);
     }
 
-    public void FireProjectile(int campNum, bool isRobot, int index, Vector3 pos, Vector3 dir)
+    public void ApplyFire(int campNum, bool isRobot, int index, Vector3 pos, Vector3 dir)
     {
         int myCampNum = is1P ? 1 : 2;
         if (campNum == myCampNum)           // 로컬일 경우
@@ -95,14 +95,29 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 계산된 효과를 target 캐릭터에게 적용하는 함수.
-    /// 모든 공격, 효과는 이 함수를 거쳐가도록 할 예정.
-    /// </summary>
-    /// <param name="target">효과를 적용할 대상</param>
-    /// <param name="effects">적용할 효과의 리스트</param>
-    public void ApplySkill(Robot target, SkillEffect effect)
+    public void RequestSkillEffect(int tCampNum, int tIndex, int statusType, int ccType, float amount, float duration)
     {
+        SkillManager.instance.SendLocalHitInfo(tCampNum, tIndex, statusType, ccType, amount, duration);
+    }
+
+    /// <summary>
+    /// 서버로부터 전송받은 스킬의 효과를 대상에게 적용하도록 하는 함수
+    /// </summary>
+    /// <param name="tCampNum"></param>
+    /// <param name="tIndex"></param>
+    /// <param name="statusType"></param>
+    /// <param name="ccType"></param>
+    /// <param name="amount"></param>
+    /// <param name="duration"></param>
+    public void ApplySkillEffect(int tCampNum, int tIndex, int statusType, int ccType, float amount, float duration)
+    {
+        int myCampNum = is1P ? 1 : 2;
+        Robot target;
+        if (tCampNum == myCampNum) target = robotManager.MyRobot(tIndex);
+        else target = robotManager.EnemyRobot(tIndex);
+
+        SkillEffect effect = new SkillEffect((StatusType)statusType, (CCType)ccType, amount, duration);
+
         target.Apply(effect);
     }
 
