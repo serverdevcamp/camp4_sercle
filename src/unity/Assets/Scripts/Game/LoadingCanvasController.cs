@@ -16,8 +16,20 @@ public class LoadingCanvasController : MonoBehaviour
 
     private void Start()
     {
-        List<int> firstCampSkills = SkillManager.instance.mySkills;
-        List<int> secondCampSkills = SkillManager.instance.enemySkills;
+        List<int> firstCampSkills;
+        List<int> secondCampSkills;
+
+        if (GameManager.instance.MyCampNum == 1)
+        {
+            firstCampSkills = SkillManager.instance.mySkills;
+            secondCampSkills = SkillManager.instance.enemySkills;
+        }
+        else
+        {
+            firstCampSkills = SkillManager.instance.enemySkills;
+            secondCampSkills = SkillManager.instance.mySkills;
+        }
+        
 
         InstantiateFirstCamp(firstCampSkills);
         InstantiateSecondCamp(secondCampSkills);
@@ -35,7 +47,7 @@ public class LoadingCanvasController : MonoBehaviour
 
             GameObject selectedSkill = Instantiate(selectedSkillPrefab, firstCampPanel);
             selectedSkill.GetComponent<LoadingSkill>().Initialize(true, skill.skillName, Resources.Load<Sprite>(skill.skillImagePath));
-            selectedSkill.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, offset + i * selectedSkill.GetComponent<RectTransform>().sizeDelta.y);
+            selectedSkill.GetComponent<RectTransform>().anchoredPosition = -new Vector2(0, offset + i * selectedSkill.GetComponent<RectTransform>().sizeDelta.y);
         }
     }
 
@@ -51,7 +63,7 @@ public class LoadingCanvasController : MonoBehaviour
 
             GameObject selectedSkill = Instantiate(selectedSkillPrefab, secondCampPanel);
             selectedSkill.GetComponent<LoadingSkill>().Initialize(true, skill.skillName, Resources.Load<Sprite>(skill.skillImagePath));
-            selectedSkill.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, offset + i * selectedSkill.GetComponent<RectTransform>().sizeDelta.y);
+            selectedSkill.GetComponent<RectTransform>().anchoredPosition = -new Vector2(0, offset + i * selectedSkill.GetComponent<RectTransform>().sizeDelta.y);
         }
     }
 }
