@@ -19,6 +19,19 @@ public class RobotManager : MonoBehaviour
     private List<GameObject> enemyRobots = new List<GameObject>();
     private int robotNum = 0;
 
+    private NetworkManager networkManager;
+
+    private void Awake()
+    {
+        networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
+    }
+
+    private void Start()
+    {
+        // 로봇 생성 신호 수신함수 등록.
+        networkManager.RegisterReceiveNotification(PacketId.SpawnRobotsData, OnReceiveRobotSpawnPacket);
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.KeypadEnter))
@@ -77,6 +90,14 @@ public class RobotManager : MonoBehaviour
         Robot caster = enemyRobots[index].GetComponent<Robot>();
         caster.transform.position = pos;
         StartCoroutine(caster.MyAttack.Fire(caster, dir));
+    }
+
+    // 로봇 생성 신호를 서버로부터 수신하는 함수
+    public void OnReceiveRobotSpawnPacket(PacketId id, byte[] data)
+    {
+        // 서버는, 주기적으로 Packet ID만 붙혀서 송신한다.
+        // 로봇 스폰 코드
+        StartCoroutine(SpawnRobots());
     }
 
     public Robot MyRobot(int i)
