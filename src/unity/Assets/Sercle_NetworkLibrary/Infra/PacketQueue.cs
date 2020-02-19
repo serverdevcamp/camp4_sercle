@@ -58,7 +58,6 @@ public class PacketQueue
 		m_streamBuffer.Write(data, 0, size);
 		m_streamBuffer.Flush();
 		m_offset += size;
-
 		return size;
 	}
 
@@ -89,7 +88,7 @@ public class PacketQueue
 			Clear();
 			m_offset = 0;
 		}
-
+		Debug.Log(recvSize);
 		return recvSize;
 	}
 

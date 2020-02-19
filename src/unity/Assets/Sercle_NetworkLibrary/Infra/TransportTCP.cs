@@ -89,7 +89,7 @@ public class TransportTCP : MonoBehaviour
 
 		m_isServer = true;
 
-		return LaunchThread();
+		return LaunchThread(port);
 	}
 
 	// 대기 종료.
@@ -133,7 +133,7 @@ public class TransportTCP : MonoBehaviour
 			m_socket.NoDelay = true;
 			m_socket.SendBufferSize = 0;
 			m_socket.Connect(address, port);
-			ret = LaunchThread();
+			ret = LaunchThread(port);
 		}
 		catch
 		{
@@ -226,13 +226,14 @@ public class TransportTCP : MonoBehaviour
 	}
 
 	// 스레드 실행 함수.
-	bool LaunchThread()
+	bool LaunchThread(int po)
 	{
 		try
 		{
 			// Dispatch용 스레드 시작.
 			m_threadLoop = true;
 			m_thread = new Thread(new ThreadStart(Dispatch));
+			Debug.Log("스레드시작 " + po);
 			m_thread.Start();
 		}
 		catch
@@ -265,7 +266,7 @@ public class TransportTCP : MonoBehaviour
 				DispatchReceive();
 			}
 
-			Thread.Sleep(5);
+			// Thread.Sleep(1);
 		}
 
 		Debug.Log("Dispatch thread ended.");
@@ -294,11 +295,12 @@ public class TransportTCP : MonoBehaviour
 				byte[] buffer = new byte[s_mtu];
 
 				int sendSize = m_sendQueue.Dequeue(ref buffer, buffer.Length);
-				while (sendSize > 0)
-				{
-					m_socket.Send(buffer, sendSize, SocketFlags.None);
-					sendSize = m_sendQueue.Dequeue(ref buffer, buffer.Length);
-				}
+				m_socket.Send(buffer, sendSize, SocketFlags.None);
+				//while (sendSize > 0)
+				//{
+				//	m_socket.Send(buffer, sendSize, SocketFlags.None);
+				//	sendSize = m_sendQueue.Dequeue(ref buffer, buffer.Length);
+				//}
 			}
 		}
 		catch
@@ -327,7 +329,9 @@ public class TransportTCP : MonoBehaviour
 				else if (recvSize > 0)
 				{
 					m_recvQueue.Enqueue(buffer, recvSize);
+					
 				}
+				
 			}
 		}
 		catch

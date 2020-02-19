@@ -37,6 +37,8 @@ public class ChattingManager : MonoBehaviour
         socket = GetComponent<TransportTCP>();
         Debug.Log("유저 : " + userInfo.userData.token);
         socket.Connect(address, port);
+
+        StartCoroutine(ChatTest());
     }
 
     void Update()
@@ -50,7 +52,19 @@ public class ChattingManager : MonoBehaviour
         ReceiveMessage();       //메세지 수신
         OnTypeChat();   // 타이핑 되고 있는지 판단 후 사운드 재생
     }
+    IEnumerator ChatTest()
+    {
+        int cnt = 0;
+        yield return new WaitForSeconds(5f);
+        while (cnt < 200)
+        {
+            string str = (cnt++ + 1).ToString();
+            byte[] buffer = System.Text.Encoding.UTF8.GetBytes(str);
 
+            socket.Send(buffer, buffer.Length);
+            yield return new WaitForFixedUpdate();
+        }
+    }
     public void OnEndEdit()
     {
         // 아무 입력이 없다면

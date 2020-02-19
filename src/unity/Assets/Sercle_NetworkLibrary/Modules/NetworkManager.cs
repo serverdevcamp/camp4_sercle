@@ -69,7 +69,7 @@ public class NetworkManager : MonoBehaviour
     // TCP로 데이터 수신하는 함수
     private void ReceiveReliableData()
     {
-        byte[] packet = new byte[1400];
+        byte[] packet = new byte[4096];
         while (transportTCP.Receive(ref packet, packet.Length) > 0)
         {
             // 수신패킷 분배
