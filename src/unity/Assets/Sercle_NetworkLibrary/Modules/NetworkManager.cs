@@ -14,7 +14,7 @@ public class NetworkManager : MonoBehaviour
     // 현재 이 단말이 네트워크에 연결되어 있는가.
     [SerializeField]
     private bool isNetConnected;
-
+    int cnt = 0;
     // 이 단말의 고유 번호. 테스트 용도로 true/ false
 
     // 로컬 테스트인지 여부
@@ -39,6 +39,8 @@ public class NetworkManager : MonoBehaviour
         transportUDP = GetComponent<TransportUDP>();
         transportTCP = GetComponent<TransportTCP>();
         ConnectIP();
+
+        StartCoroutine(TestReceiver());
     }
 
     // Update is called once per frame
@@ -46,9 +48,22 @@ public class NetworkManager : MonoBehaviour
     {
         if (transportTCP.IsConnected())
         {
-            ReceiveReliableData();
+            //ReceiveReliableData();
         }
         // ReceiveData();
+    }
+
+    IEnumerator TestReceiver()
+    {
+        while (true)
+        {
+            if (transportTCP.IsConnected())
+            {
+                ReceiveReliableData();
+            }
+
+            yield return new WaitForSeconds(0.005f);
+        }
     }
 
     // TCP로 데이터 수신하는 함수
@@ -104,7 +119,7 @@ public class NetworkManager : MonoBehaviour
         byte[] packetData = new byte[data.Length - headerSize];
         Buffer.BlockCopy(data, headerSize, packetData, 0, packetData.Length);
 
-        Debug.Log("수신한 패킷 ID : " + packetId + " " + (PacketId)packetId + " " + Time.time);
+        Debug.Log((cnt++)+" 수신한 패킷 ID : " + packetId + " " + (PacketId)packetId + " " + Time.time);
         
         // 등록된 적절한 receive함수 호출
         notifier[packetId]((PacketId)packetId, packetData);
@@ -131,7 +146,7 @@ public class NetworkManager : MonoBehaviour
         {
             notifier.Remove(index);
         }
-
+        
         notifier.Add(index, _notifier);
     }
 
