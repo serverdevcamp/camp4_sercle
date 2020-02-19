@@ -35,6 +35,7 @@ public class LoginAnimation : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Tab))
             {
                 pw.Select();
+                SoundManager.instance.PlaySound("ButtonClick");
             }
         }
         else if (pw.isFocused == true)
@@ -42,6 +43,7 @@ public class LoginAnimation : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Tab))
             {
                 id.Select();
+                SoundManager.instance.PlaySound("ButtonClick");
             }
         }
         else
@@ -49,6 +51,7 @@ public class LoginAnimation : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Tab))
             {
                 id.Select();
+                SoundManager.instance.PlaySound("ButtonClick");
             }
         }
     }
@@ -59,9 +62,22 @@ public class LoginAnimation : MonoBehaviour
         if (canon.localEulerAngles.x == 347.6f)
         {
             if (!canonBall.isPlaying)
+            {
+                StartCoroutine(PlayCanonSfx());
                 canonBall.Play();
+            }
         }
         else
             canonBall.Stop();
+    }
+
+    // 레이저 사운드 플레이.
+    private IEnumerator PlayCanonSfx()
+    {
+        for (int i = 0; i < Random.Range(5, 7); i++)
+        {
+            SoundManager.instance.PlaySound("Login_Lazer", Random.Range(0.2f, 0.3f));
+            yield return new WaitForSeconds(0.2f);
+        }
     }
 }
