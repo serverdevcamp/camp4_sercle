@@ -336,6 +336,7 @@ public struct SkillHitData
     public int ccType;
     public float amount;
     public float duration;
+    public byte[] trash;
 
     public SkillHitData(int campNumber, int index, int statusType, int ccType, float amount, float duration)
     {
@@ -345,6 +346,11 @@ public struct SkillHitData
         this.ccType = ccType;
         this.amount = amount;
         this.duration = duration;
+        this.trash = new byte[9];
+        for(int i = 0; i < 9; i++)
+        {
+            trash[i] = (byte)0;
+        }
     }
 }
 
