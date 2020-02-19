@@ -17,6 +17,8 @@ public class Robot : MonoBehaviour
 
     [Header("Attack Info")]
     [SerializeField] private State state;
+    [SerializeField] private Robot target = null;
+    [SerializeField] private LayerMask contactLayer;
     [SerializeField] private Attack attack;
 
     [Header("Effects")]
@@ -49,6 +51,7 @@ public class Robot : MonoBehaviour
 
     protected virtual void Update()
     {
+        FindNearestTarget();
         StateMachine();
     }
 
@@ -59,7 +62,6 @@ public class Robot : MonoBehaviour
         this.destinations = destinations;
         state = State.Idle;
         status.ChangeStatTo(StatusType.CHP, status.MHP);
-        if (GameManager.instance.MyCampNum != campNum) GetComponent<FindTarget>().enabled = false;
 
         if (campNum == 1) destFlag = 1;
         else destFlag = destinations.Count - 2;
@@ -70,13 +72,32 @@ public class Robot : MonoBehaviour
         ShowMuzzleEffect(false);
     }
 
-    
+    private void FindNearestTarget()
+    {
+        target = null;
+
+        Collider[] colls = Physics.OverlapSphere(transform.position, attack.range, contactLayer);
+
+        float nearestDis = 9999999;
+
+        foreach (Collider coll in colls)
+        {
+            if (coll.gameObject == gameObject) continue;
+            if (campNum == coll.transform.GetComponent<Robot>().CampNum) continue;
+
+            if (target == null || Vector3.Distance(coll.transform.position, transform.position) < nearestDis)
+            {
+                nearestDis = Vector3.Distance(coll.transform.position, transform.position);
+                target = coll.GetComponent<Robot>();
+            }
+        }
+    }
 
     private void StateMachine()
     {
         if (status.CHP <= 0) state = State.Die;
         else if (status.CC != CCType.None) state = State.CC;
-        else if (attack.state != Attack.State.Idle) state = State.Attack;
+        else if (target) state = State.Attack;
         else if (agent.remainingDistance > agent.stoppingDistance) state = State.Move;
         else state = State.Idle;
 
@@ -98,6 +119,7 @@ public class Robot : MonoBehaviour
             case State.Attack:
                 SetAnimStateMap("Skill_0");
                 agent.speed = 0;
+                AttackActivate();
                 break;
             case State.Die:
                 SetAnimStateMap("Die_" + Random.Range(0, 3).ToString());
@@ -110,6 +132,14 @@ public class Robot : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    private void AttackActivate()
+    {
+        if (CampNum != GameManager.instance.MyCampNum) return;
+
+        Vector3 dir = target.transform.position - transform.position;
+        StartCoroutine(attack.Use(this, dir));
     }
 
     /// <summary>

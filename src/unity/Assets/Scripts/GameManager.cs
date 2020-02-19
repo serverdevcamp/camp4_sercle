@@ -91,7 +91,7 @@ public class GameManager : MonoBehaviour
 
     public void ApplyFire(int campNum, bool isRobot, int index, Vector3 pos, Vector3 dir)
     {
-        Time.timeScale = 0.1f;
+        //Time.timeScale = 0.1f;
 
         if (campNum == 1)
         {
