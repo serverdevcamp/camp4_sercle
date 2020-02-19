@@ -32,9 +32,6 @@ public class Attack
 
         state = State.Ready;
 
-        // 스킬 쿨타임 정보 UI 애니메이팅 
-        // UIManager.instance.DisplaySkillInputAnimation(myNum);
-
         Debug.Log(caster.name + " use basic attack to " + dir);
 
         // GM에게 index 번째 로봇의 공격을 dir 방향으로 사용한다고 알려준다.
