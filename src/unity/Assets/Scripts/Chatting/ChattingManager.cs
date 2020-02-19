@@ -112,7 +112,7 @@ public class ChattingManager : MonoBehaviour
         // 스크롤바를 항상 맨 아래로 지정.
         DOTween.To(() => scrollbar.value, x => scrollbar.value = x, 0, 1f);
         // 새로운 메시지가 도착했을 경우 도착 사운드 재생
-        SoundManager.instance.PlaySound("Chat_NewMessage", 0.5f);
+        SoundManager.instance.PlaySound("Lobby_NewMessage", 0.5f);
     }
 
     // InputField에 글자를 타이핑 하고 있을 경우 타이핑 사운드 재생
