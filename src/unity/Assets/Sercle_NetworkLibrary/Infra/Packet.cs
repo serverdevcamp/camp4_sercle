@@ -1080,3 +1080,64 @@ public class GameStartPacket : IPacket<GameStartData>
         }
     }
 }
+
+public class SpawnRobotPacket : IPacket<SpawnRobotData>
+{
+    SpawnRobotData packet;
+
+    public SpawnRobotPacket(SpawnRobotData data)
+    {
+        packet = data;
+    }
+    // 바이너리 데이터를 패킷 데이터로 역직렬화하는 생성자
+    public SpawnRobotPacket(byte[] data)
+    {
+        SpawnRobotSerializer serializer = new SpawnRobotSerializer();
+
+        serializer.SetDeserializedData(data);
+        serializer.Deserialize(ref packet);
+    }
+
+    public PacketId GetPacketId()
+    {
+        return PacketId.SpawnRobotsData;
+    }
+
+    // 게임에서 사용할 패킷 데이터 획득
+    public SpawnRobotData GetPacket()
+    {
+        return packet;
+    }
+
+    // 송신용 byte[] 형 데이터 획득
+    public byte[] GetData()
+    {
+        SpawnRobotSerializer serializer = new SpawnRobotSerializer();
+        serializer.Serialize(packet);
+        return serializer.GetSerializedData();
+    }
+
+    class SpawnRobotSerializer : Serializer
+    {
+        public bool Serialize(SpawnRobotData packet)
+        {
+            bool ret = true;
+            ret &= Serialize(packet.trash);
+            return ret;
+        }
+
+        public bool Deserialize(ref SpawnRobotData element)
+        {
+            // 데이터가 정의되어있지 않다면
+            if (GetDataSize() == 0)
+            {
+                return false;
+            }
+
+            bool ret = true;
+            ret &= Deserialize(ref element.trash);
+            return ret;
+        }
+    }
+}
+

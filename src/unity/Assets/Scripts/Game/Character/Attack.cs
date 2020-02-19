@@ -47,7 +47,7 @@ public class Attack
         state = State.PreDelay;
 
         // 20 02 09 내 캐릭터의 경우, preDelay + Rtt 만큼 더 기다림.
-        yield return caster.CampNum == 1 ? new WaitForSeconds(preDelay + SyncManager.instance.GetAvgRemoteRtt()) : new WaitForSeconds(preDelay);
+        yield return new WaitForSeconds(preDelay);
         #endregion
 
         #region 투사체 발사
@@ -65,11 +65,14 @@ public class Attack
 
             Projectile projectile = UnityEngine.Object.Instantiate(proj, spawnPos, Quaternion.identity);
             projectile.Initialize(info);
+
+            caster.ShowMuzzleEffect(true);
         }
         #endregion
 
         #region Wait for Post Delay
         yield return new WaitForSeconds(postDelay);
+        caster.ShowMuzzleEffect(false);
         #endregion
 
         state = State.CoolDown;

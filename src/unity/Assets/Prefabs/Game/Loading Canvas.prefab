@@ -380,7 +380,9 @@ MonoBehaviour:
   secondCampUserName: {fileID: 8146974639931822860}
   firstCampPanel: {fileID: 6802488290719480934}
   secondCampPanel: {fileID: 6653958013872525158}
-  selectedSkillPrefab: {fileID: 3513422550053783699, guid: 7e7673a6c8961404c87a0fa1d600c896,
+  firstCampSkillPrefab: {fileID: 3513422550053783699, guid: 7e7673a6c8961404c87a0fa1d600c896,
+    type: 3}
+  secondCampSkillPrefab: {fileID: 3513422550053783699, guid: 148042008ab8c2042a018b70bbb952ff,
     type: 3}
 --- !u!1 &4560362159214086788
 GameObject:
@@ -875,11 +877,11 @@ RectTransform:
   m_Father: {fileID: 6371626814328782848}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 30, y: 0}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: -30, y: 0}
   m_SizeDelta: {x: 350, y: 50}
-  m_Pivot: {x: 0, y: 0.5}
+  m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &8918611662648215333
 CanvasRenderer:
   m_ObjectHideFlags: 0

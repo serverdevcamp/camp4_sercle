@@ -354,3 +354,9 @@ public struct GameStartData
     public int campNumber;
 }
 
+// 로봇 스폰 데이터
+public struct SpawnRobotData
+{
+    public int trash;
+}
+

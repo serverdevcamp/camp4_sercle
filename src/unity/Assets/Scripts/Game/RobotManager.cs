@@ -15,8 +15,8 @@ public class RobotManager : MonoBehaviour
     [SerializeField] private int waveSize;
     [SerializeField] private float waveTerm;
 
-    private List<GameObject> myRobots = new List<GameObject>();
-    private List<GameObject> enemyRobots = new List<GameObject>();
+    private List<GameObject> firstCampRobots = new List<GameObject>();
+    private List<GameObject> secondCampRobots = new List<GameObject>();
     private int robotNum = 0;
 
     private NetworkManager networkManager;
@@ -36,7 +36,9 @@ public class RobotManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.KeypadEnter))
         {
-            StartCoroutine(SpawnRobots());
+            Debug.Log("엔터 누름");
+            SendSpawnRobotData();
+            //StartCoroutine(SpawnRobots());
         }
     }
 
@@ -56,13 +58,15 @@ public class RobotManager : MonoBehaviour
     {
         int count = linePos.Count;
 
-        GameObject myRobot = Instantiate(robotPrefab, linePos[0], Quaternion.identity);
-        myRobot.GetComponent<Robot>().InitialSetting(robotNum, GameManager.instance.MyCampNum, linePos);
-        myRobots.Add(myRobot);
+        GameObject firstCampRobot = Instantiate(robotPrefab, linePos[0], Quaternion.identity);
+        firstCampRobot.name = "First Camp Robot " + robotNum;
+        firstCampRobot.GetComponent<Robot>().InitialSetting(robotNum, 1, linePos);
+        firstCampRobots.Add(firstCampRobot);
 
-        GameObject enemyRobot = Instantiate(robotPrefab, linePos[count - 1], Quaternion.identity);
-        enemyRobot.GetComponent<Robot>().InitialSetting(robotNum, GameManager.instance.EnemyCampNum, linePos);
-        enemyRobots.Add(enemyRobot);
+        GameObject secondCampRobot = Instantiate(robotPrefab, linePos[count - 1], Quaternion.identity);
+        secondCampRobot.name = "Second Camp Robot " + robotNum;
+        secondCampRobot.GetComponent<Robot>().InitialSetting(robotNum, 2, linePos);
+        secondCampRobots.Add(secondCampRobot);
         
         robotNum += 1;
     }
@@ -78,35 +82,55 @@ public class RobotManager : MonoBehaviour
         return linePos;
     }
 
-    public void MyRobotFire(int index, Vector3 pos, Vector3 dir)
+    public void FirstCampRobotFire(int index, Vector3 pos, Vector3 dir)
     {
-        Robot caster = myRobots[index].GetComponent<Robot>();
+        Robot caster = firstCampRobots[index].GetComponent<Robot>();
         caster.transform.position = pos;
         StartCoroutine(caster.MyAttack.Fire(caster, dir));
     }
 
-    public void EnemyRobotFire(int index, Vector3 pos, Vector3 dir)
+    public void SecondCampRobotFire(int index, Vector3 pos, Vector3 dir)
     {
-        Robot caster = enemyRobots[index].GetComponent<Robot>();
+        Robot caster = secondCampRobots[index].GetComponent<Robot>();
         caster.transform.position = pos;
         StartCoroutine(caster.MyAttack.Fire(caster, dir));
     }
 
+    // 로봇 스폰 생성 신호 송신(테스트용)
+    public void SendSpawnRobotData()
+    {
+        SpawnRobotData data = new SpawnRobotData();
+
+        data.trash = GameManager.instance.MyCampNum;
+        
+        SpawnRobotPacket packet = new SpawnRobotPacket(data);
+
+
+        
+        networkManager.SendReliable<SpawnRobotData>(packet);
+        Debug.Log("미니언 만들라고 신호 보냈음.");
+    }
+    
     // 로봇 생성 신호를 서버로부터 수신하는 함수
     public void OnReceiveRobotSpawnPacket(PacketId id, byte[] data)
     {
         // 서버는, 주기적으로 Packet ID만 붙혀서 송신한다.
         // 로봇 스폰 코드
+        SpawnRobotPacket packet = new SpawnRobotPacket(data);
+        SpawnRobotData spawnData = packet.GetPacket();
+
+        Debug.Log(spawnData.trash + " 가 엔터 눌렀음.");
+
         StartCoroutine(SpawnRobots());
     }
 
-    public Robot MyRobot(int i)
+    public Robot FirstCampRobot(int i)
     {
-        return myRobots[i].GetComponent<Robot>();
+        return firstCampRobots[i].GetComponent<Robot>();
     }
 
-    public Robot EnemyRobot(int i)
+    public Robot SecondCampRobot(int i)
     {
-        return enemyRobots[i].GetComponent<Robot>();
+        return secondCampRobots[i].GetComponent<Robot>();
     }
 }

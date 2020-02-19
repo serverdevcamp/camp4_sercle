@@ -27,7 +27,7 @@ public class Robot : MonoBehaviour
     [SerializeField] private GameObject heal;
     [SerializeField] private GameObject frozen;
     [SerializeField] private GameObject burn;
-
+    [SerializeField] private GameObject muzzle;
 
     private NavMeshAgent agent;
 
@@ -68,6 +68,8 @@ public class Robot : MonoBehaviour
 
         agent = GetComponent<NavMeshAgent>();
         agent.destination = destinations[destFlag];
+
+        ShowMuzzleEffect(false);
     }
 
     private void FindNearestTarget()
@@ -125,7 +127,7 @@ public class Robot : MonoBehaviour
                 break;
             case State.CC:
                 SetAnimStateMap("HardCC");
-                
+                ShowMuzzleEffect(false);
                 break;
             default:
                 break;
@@ -184,6 +186,7 @@ public class Robot : MonoBehaviour
     // 20 02 10 Die 상황시 컴포넌트 비활성화
     private void OnDeadStateActivate()
     {
+        ShowMuzzleEffect(false);
         gameObject.GetComponent<CapsuleCollider>().enabled = false;
         gameObject.GetComponent<NavMeshAgent>().enabled = false;
         List<Canvas> canvasList = new List<Canvas>(transform.GetComponentsInChildren<Canvas>());
@@ -242,4 +245,19 @@ public class Robot : MonoBehaviour
             //    break;
         }
     }
+
+    // Muzzle 이펙트 활성화
+    public void ShowMuzzleEffect(bool flag)
+    {
+        // Muzzle ON
+        if (flag)
+        {
+            muzzle.SetActive(true);
+        }
+        else
+        {
+            muzzle.SetActive(false);
+        }
+    }
+
 }
