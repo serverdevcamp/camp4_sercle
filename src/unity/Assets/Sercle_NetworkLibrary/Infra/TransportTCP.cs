@@ -295,12 +295,12 @@ public class TransportTCP : MonoBehaviour
 				byte[] buffer = new byte[s_mtu];
 
 				int sendSize = m_sendQueue.Dequeue(ref buffer, buffer.Length);
-				m_socket.Send(buffer, sendSize, SocketFlags.None);
-				//while (sendSize > 0)
-				//{
-				//	m_socket.Send(buffer, sendSize, SocketFlags.None);
-				//	sendSize = m_sendQueue.Dequeue(ref buffer, buffer.Length);
-				//}
+				
+				while (sendSize > 0)
+				{
+					m_socket.Send(buffer, sendSize, SocketFlags.None);
+					sendSize = m_sendQueue.Dequeue(ref buffer, buffer.Length);
+				}
 			}
 		}
 		catch
@@ -329,9 +329,7 @@ public class TransportTCP : MonoBehaviour
 				else if (recvSize > 0)
 				{
 					m_recvQueue.Enqueue(buffer, recvSize);
-					
 				}
-				
 			}
 		}
 		catch

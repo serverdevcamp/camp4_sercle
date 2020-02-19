@@ -88,7 +88,7 @@ public class PacketQueue
 			Clear();
 			m_offset = 0;
 		}
-		Debug.Log(recvSize);
+		// Debug.Log(recvSize);
 		return recvSize;
 	}
 
