@@ -5,7 +5,7 @@ using System.Collections;
 // 모든 경우의 request, response, Data를 붙여야함.
 public enum PacketId
 {
-    SkillHitData = 0,
+    Nothing = 0,
     SkillData,
     MovingData,
     MatchingData,
@@ -22,6 +22,7 @@ public enum PacketId
     GameFinish, // HQ 가 파괴되었다는 데이터 패킷을 의미 no 14
     SpawnRobotsData,    // 로봇 생성 신호 no 15
     GameStart,  // 게임 시작 준비 되었다는 패킷. no 16
+    SkillHitData, //17
 };
 
 //매칭 패킷 데이터
@@ -349,7 +350,7 @@ public struct SkillHitData
         this.duration = duration;
         this.trash0 = 15;
         this.trash1 = 0;
-        this.trash3 = false;
+        this.trash2 = false;
     }
 }
 

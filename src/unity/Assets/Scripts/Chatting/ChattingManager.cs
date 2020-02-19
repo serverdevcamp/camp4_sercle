@@ -38,7 +38,7 @@ public class ChattingManager : MonoBehaviour
         Debug.Log("유저 : " + userInfo.userData.token);
         socket.Connect(address, port);
 
-        StartCoroutine(ChatTest());
+        // StartCoroutine(ChatTest());
     }
 
     void Update()

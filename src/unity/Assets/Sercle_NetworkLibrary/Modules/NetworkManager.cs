@@ -119,6 +119,9 @@ public class NetworkManager : MonoBehaviour
         byte[] packetData = new byte[data.Length - headerSize];
         Buffer.BlockCopy(data, headerSize, packetData, 0, packetData.Length);
 
+        // 예외처리
+        if (packetId >= 18 || packetId == 0) return;
+
         Debug.Log((cnt++)+" 수신한 패킷 ID : " + packetId + " " + (PacketId)packetId + " " + Time.time);
         
         // 등록된 적절한 receive함수 호출
