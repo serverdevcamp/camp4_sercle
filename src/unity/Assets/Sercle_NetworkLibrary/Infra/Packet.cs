@@ -994,8 +994,8 @@ public class SkillHitPacket : IPacket<SkillHitData>
             ret &= Serialize(packet.ccType);
             ret &= Serialize(packet.amount);
             ret &= Serialize(packet.duration);
-            for (int i = 0; i < 9; i++)
-                ret &= Serialize(packet.trash[i]);
+            ret &= Serialize(packet.trash0);
+            ret &= Serialize(packet.trash1);
             return ret;
         }
 
@@ -1014,13 +1014,8 @@ public class SkillHitPacket : IPacket<SkillHitData>
             ret &= Deserialize(ref element.ccType);
             ret &= Deserialize(ref element.amount);
             ret &= Deserialize(ref element.duration);
-
-            element.trash = new byte[9];
-
-
-            ret &= Deserialize(ref element.trash, 9);
-
-
+            ret &= Deserialize(ref element.trash0);
+            ret &= Deserialize(ref element.trash1);
 
             return ret;
         }

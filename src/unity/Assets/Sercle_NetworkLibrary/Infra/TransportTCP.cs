@@ -328,6 +328,7 @@ public class TransportTCP : MonoBehaviour
 				}
 				else if (recvSize > 0)
 				{
+					Debug.Log("사이즈는 : " + recvSize);
 					m_recvQueue.Enqueue(buffer, recvSize);
 				}
 			}
