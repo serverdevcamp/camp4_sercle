@@ -28226,6 +28226,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   masterVolumeSFX: 1
   masterVolumeBGM: 1
+  clips: []
 --- !u!4 &1337091523
 Transform:
   m_ObjectHideFlags: 0
