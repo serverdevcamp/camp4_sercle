@@ -25,7 +25,7 @@ public class Skill
     public float preDelay;
     public float postDelay;
     public float coolDown;
-    private float remainCool;
+    public float remainCool;
 
     [Header("Projectile Info")]
     public Projectile proj;

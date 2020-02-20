@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
+using System.Collections.Generic;
 
 // 패킷 데이터 식별용 열거형
 // 모든 경우의 request, response, Data를 붙여야함.
@@ -366,3 +368,25 @@ public struct SpawnRobotData
     public int trash;
 }
 
+// 스킬 세부 정보
+[System.Serializable]
+public struct SkillDetailJson
+{
+    public int skillNumber;
+    public int emergeDelay;
+    public int preDelay;
+    public int postDelay;
+    public int coolDown;
+    public int remainCool;
+    public int speed;
+    public int range;
+    public int size;
+    public TargetType targetType;
+    public TargetNum targetNum;
+    public List<SkillEffect> skillEffects;
+}
+
+public class SkillDetailJsonArray
+{
+    public SkillDetailJson[] skillinfo;
+}
