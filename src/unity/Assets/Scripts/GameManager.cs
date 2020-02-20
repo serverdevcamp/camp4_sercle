@@ -64,8 +64,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (readyToStart == false) return;
-        if (loadingCanvas.activeInHierarchy) loadingCanvas.SetActive(false);
+        if (loadingCanvas.activeInHierarchy == true) return;
         
         if (Input.GetKeyDown(KeyCode.Q))
         {
@@ -79,11 +78,7 @@ public class GameManager : MonoBehaviour
 
     private void GetHeroList()
     {
-        // 히어로 리스트를 가져오세요.
-        // if (myHeroes.Count == 0) Debug.LogError("히어로 리스트를 가져와라!!!!");
-
         StartCoroutine(GetHeroSkill());
-        
     }
 
     // Awake 까지 와서도 스킬매니저에 스킬이 안왔을 경우 대비해서 코루틴으로 설정.
@@ -118,6 +113,10 @@ public class GameManager : MonoBehaviour
 
             yield return new WaitForSeconds(0.3f);
         }
+
+        yield return new WaitForSeconds(5f);
+
+        loadingCanvas.SetActive(false);
     }
 
     public void RequestFire(int campNum, bool isRobot, int index, Vector3 pos, Vector3 dir)
