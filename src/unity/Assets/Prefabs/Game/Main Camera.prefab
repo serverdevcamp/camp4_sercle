@@ -115,6 +115,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultAngle: 55
+  maxAngle: 65
+  minAngle: 10
   defualtDis: 20
   maxDis: 50
   minDis: 3
