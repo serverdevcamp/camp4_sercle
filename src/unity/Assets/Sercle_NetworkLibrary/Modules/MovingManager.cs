@@ -28,7 +28,7 @@ public class MovingManager : MonoBehaviour
         // 네트워크 매니저 참조
         networkManager = transform.parent.GetComponent<NetworkManager>();
         // 이동 정보 수신함수 등록
-        networkManager.RegisterReceiveNotification(PacketId.MovingData, OnReceiveMovingPacket);
+        //networkManager.RegisterReceiveNotification(PacketId.MovingData, OnReceiveMovingPacket);
 
     }
 
