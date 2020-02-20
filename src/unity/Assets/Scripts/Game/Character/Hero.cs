@@ -25,7 +25,7 @@ public class Hero : MonoBehaviour
     private Dictionary<string, bool> stateMap = new Dictionary<string, bool>();
 
 
-    private void OnEnable()
+    public void Initialize(int skill)
     {
         heroAnim = GetComponent<Animator>();
         InitStateMap();
@@ -179,7 +179,7 @@ public class Hero : MonoBehaviour
     }
 
     // SkillManager에 저장되어있는 나의 스킬 번호를 토대로 스킬 정보 설정
-    private void SetSkillInfo()
+    private void SetSkillInfo(int num)
     {
 
         string jsonFile = Resources.Load<TextAsset>("Json/SkillInfoJson").ToString();
@@ -187,8 +187,7 @@ public class Hero : MonoBehaviour
         SkillInfoJsonArray skillArray;
         skillArray = JsonUtility.FromJson<SkillInfoJsonArray>(jsonFile);
 
-        // 이 캐릭터가 가질 스킬 번호
-        int num = GameManager.instance.MyCampNum == MatchingManager.instance.userInfo.userData.playerCamp ? SkillManager.instance.mySkills[index] : SkillManager.instance.enemySkills[index];
+
 
         // 스킬 이펙트 설정
         skill.skillEffectPrefab = Resources.Load<GameObject>(skillArray.skillInfo[num].skillEffectPath);

@@ -102,6 +102,7 @@ public class GameManager : MonoBehaviour
                     GameObject tmpHero = Instantiate(sampleHero, initPos, Quaternion.identity);
                     tmpHero.GetComponent<Hero>().Index = i;
                     tmpHero.GetComponent<Hero>().InitialPos = initPos;
+                    tmpHero.GetComponent<Hero>().Initialize(SkillManager.instance.firstCampSkills[i]);
                     firstCampHeroes.Add(tmpHero.GetComponent<Hero>());
 
                 }
@@ -114,6 +115,7 @@ public class GameManager : MonoBehaviour
                     GameObject tmpHero = Instantiate(sampleHero, initPos, Quaternion.identity);
                     tmpHero.GetComponent<Hero>().Index = i;
                     tmpHero.GetComponent<Hero>().InitialPos = initPos;
+                    tmpHero.GetComponent<Hero>().Initialize(SkillManager.instance.secondCampSkills[i]);
                     secondCampHeroes.Add(tmpHero.GetComponent<Hero>());
                 }
             }
