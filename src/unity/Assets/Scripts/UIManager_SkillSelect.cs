@@ -130,19 +130,11 @@ public class UIManager_SkillSelect : MonoBehaviour
 
     public void StartGame()
     {
-        //Debug.Log("게임 씬으로 넘어갑니다.");
         SendSelectionInfo();
-        // SceneManager.LoadScene("EQ_Test");
     }
 
     public void SendSelectionInfo()
     {
-        // 스킬 3개 선택 안했을 경우 나머지 스킬은 -1으로 채운다.
-        //for (int i = 0; i < selectedSkills.Count; i++)
-        //{
-        //    selectedSkillIndex.Add(-1);
-        //}
-
         SelectedSkillData data = new SelectedSkillData();
         data.skillIndex = new int[3];
 

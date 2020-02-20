@@ -7,10 +7,10 @@ public class SkillEffect
 {
     public StatusType statusType;
     public CCType ccType;
-    public float amount;
+    public int amount;
     public float duration;
 
-    public SkillEffect(StatusType statusType = StatusType.None, CCType ccType = CCType.None, float amount = 0, float duration = 0)
+    public SkillEffect(StatusType statusType = StatusType.None, CCType ccType = CCType.None, int amount = 0, float duration = 0)
     {
         this.statusType = statusType;
         this.ccType = ccType;

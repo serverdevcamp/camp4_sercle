@@ -62,7 +62,7 @@ public class SkillManager : MonoBehaviour
         networkManager.SendReliable<SkillData>(packet);
     }
 
-    public void SendLocalHitInfo(int campNumber, int index, int statusType, int ccType, float amount, float duration)
+    public void SendLocalHitInfo(int campNumber, int index, int statusType, int ccType, int amount, float duration)
     {
         SkillHitData data = new SkillHitData(campNumber, index, statusType, ccType, amount, duration, 0);
 

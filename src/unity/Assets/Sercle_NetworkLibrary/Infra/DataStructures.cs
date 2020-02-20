@@ -336,13 +336,13 @@ public struct SkillHitData
     public int index;
     public int statusType;
     public int ccType;
-    public float amount;
+    public int amount;
     public float duration;
     public float chp;
     public int trash1;
     public bool trash2;
 
-    public SkillHitData(int campNumber, int index, int statusType, int ccType, float amount, float duration, float chp)
+    public SkillHitData(int campNumber, int index, int statusType, int ccType, int amount, float duration, float chp)
     {
         this.campNumber = campNumber;
         this.index = index;

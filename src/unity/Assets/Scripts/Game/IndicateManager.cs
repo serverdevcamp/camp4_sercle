@@ -24,6 +24,7 @@ public class IndicateManager : MonoBehaviour
 
     private void StateAction()
     {
+        //Vector3 targetPos = new Vector3
         switch (state)
         {
             case State.None:
