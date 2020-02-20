@@ -317,7 +317,23 @@ public class TransportTCP : MonoBehaviour
 		{
 			while (m_isConnected && m_socket.Poll(0, SelectMode.SelectRead))
 			{
-				byte[] buffer = new byte[37];
+				byte[] sizeChecker = new byte[sizeof(int)];
+				
+				// 이 데이터 뭉치가 몇바이트의 길이를 가지고 있는지 체크
+				int checkSize = m_socket.Receive(sizeChecker, sizeChecker.Length, SocketFlags.None);
+				
+				if(checkSize == 0)
+				{
+					// 끊기.
+					Debug.Log("Disconnect recv from client.");
+					Disconnect();
+				}
+
+				Debug.Log("1차 수신, 수신한 사이즈는 " + checkSize + " 남은 길이는 " + BitConverter.ToInt32(sizeChecker, 0));
+
+
+				// 37 = packet Id + Datum 였으므로, data 길이정보인 sizeChecker에 int(4)를 더함.
+				byte[] buffer = new byte[BitConverter.ToInt32(sizeChecker, 0) + sizeof(int)];
 
 				int recvSize = m_socket.Receive(buffer, buffer.Length, SocketFlags.None);
 				if (recvSize == 0)
@@ -328,7 +344,7 @@ public class TransportTCP : MonoBehaviour
 				}
 				else if (recvSize > 0)
 				{
-					Debug.Log("사이즈는 : " + recvSize);
+					Debug.Log("2차 수신 사이즈는 : " + recvSize);
 					m_recvQueue.Enqueue(buffer, recvSize);
 				}
 			}

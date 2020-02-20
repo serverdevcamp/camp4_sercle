@@ -195,6 +195,10 @@ public class NetworkManager : MonoBehaviour
             // 모듈에서 사용할 헤더 정보를 생성합니다.
             PacketHeader header = new PacketHeader();
             HeaderSerializer serializer = new HeaderSerializer();
+
+            byte[] packetData = packet.GetData();   //움직임 정보 들은 데이터
+
+            header.packetSize = sizeof(int) + packetData.Length;    // 4 + 33 = 37
             //packetid = skill, moving 등등   moving은 2
             header.packetId = (int)packet.GetPacketId();
 
@@ -204,8 +208,7 @@ public class NetworkManager : MonoBehaviour
                 headerData = serializer.GetSerializedData();
             }
 
-            byte[] packetData = packet.GetData();   //움직임 정보 들은 데이
-            byte[] data = new byte[headerData.Length + packetData.Length];
+            byte[] data = new byte[headerData.Length + packetData.Length];  // (4 + 4) + 33 = 41
 
             int headerSize = Marshal.SizeOf(typeof(PacketHeader));
             Buffer.BlockCopy(headerData, 0, data, 0, headerSize);

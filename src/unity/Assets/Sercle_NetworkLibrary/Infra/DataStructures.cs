@@ -9,7 +9,7 @@ public enum PacketId
 {
     Nothing = 0,
     SkillData,
-    MovingData,
+    ChatData,   // 채팅에도 Packet id 붙힌다.
     MatchingData,
     MatchingResponse,
     MatchingDecision,
@@ -111,6 +111,8 @@ public struct MatchingDecisionData
 // Fix this : 네트워크에 사용할 구조체는 한곳에 몰아놓기.
 public struct PacketHeader
 {
+    // 이 패킷이 담고있는 데이터의 사이즈. packetSize = (패킷아이디 + 데이터)
+    public int packetSize;
     // 패킷 ID
     public int packetId;
 };
@@ -339,8 +341,6 @@ public struct SkillHitData
     public float amount;
     public float duration;
     public float chp;
-    public int trash1;
-    public bool trash2;
 
     public SkillHitData(int campNumber, int index, int statusType, int ccType, float amount, float duration, float chp)
     {
@@ -351,8 +351,6 @@ public struct SkillHitData
         this.amount = amount;
         this.duration = duration;
         this.chp = chp;
-        this.trash1 = 0;
-        this.trash2 = false;
     }
 }
 
