@@ -10,10 +10,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject buttonPrefab;
     [SerializeField] private GameObject skillPanel;
 
-    [Header("Skill Input Profile")]
-    [SerializeField] private Animator skill_Base;
-    [SerializeField] private Animator skill_Q;
-    [SerializeField] private Animator skill_W;
+    [Header("Skill Info")]
+    [SerializeField] private GameObject skillInfoPanel;
+    [SerializeField] private Text skillNameText;
+    [SerializeField] private Text skillHotKey;
+    [SerializeField] private Text skillDescriptionText;
 
     private List<GameObject> skillButtons = new List<GameObject>();
     private int heroCount;
@@ -27,44 +28,60 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         heroCount = GameManager.instance.GetMyHeroCount();
+        skillInfoPanel.SetActive(false);
 
         for (int i = 0; i < heroCount; i++)
         {
+            int num = new int();
+            num = i;
+            Hero myHero = GameManager.instance.GetMyHero(i);
             GameObject skillButton = Instantiate(buttonPrefab, skillPanel.transform);
-            skillButton.GetComponent<SkillButtonIndicator>().Initialize(GameManager.instance.GetMyHero(i));
+            skillButton.GetComponent<SkillButtonIndicator>().Initialize(
+                myHero,
+                (data) => ShowSkillInfo(myHero.GetSkill, num),
+                (data) => UnshowSkillInfo());
             skillButtons.Add(skillButton);
         }
 
         AlignSkillButtons();
     }
 
-    // 20 02 10 스킬 발동 버튼이 눌렸을 경우, 그 스킬의 UI를 약간 Scale up한다.
-    public void DisplaySkillInputAnimation(int skillNum)
+    private void AlignSkillButtons()
     {
-        switch (skillNum)
+        for (int i = 0; i < skillButtons.Count; i++)
         {
-            case 0:
-                skill_Base.SetTrigger("Input");
-                break;
-            case 1:
-                skill_Q.SetTrigger("Input");
-                break;
-            case 2:
-                skill_W.SetTrigger("Input");
-                break;
-            default:
-                break;
+            if (i >= 3)
+            {
+                Debug.LogError("스킬이 3개보다 많은 경우는 고려하지 않았습니다!");
+                continue;
+            }
+
+            RectTransform rect = skillButtons[i].GetComponent<RectTransform>();
+            rect.anchorMin = new Vector2(i * 0.5f, 0.5f);
+            rect.anchorMax = new Vector2(i * 0.5f, 0.5f);
+            rect.pivot = new Vector2(i * 0.5f, 0.5f);
+            if (i == 0) rect.anchoredPosition = new Vector2(25f, 0);
+            else if (i == 1) rect.anchoredPosition = new Vector2(0, 0);
+            else if (i == 2) rect.anchoredPosition = new Vector2(-25f, 0);
         }
     }
 
-    private void AlignSkillButtons()
+    private void ShowSkillInfo(Skill skill, int num)
     {
-        float buttonSizeX = 200;
-        float buttonSizeY = 200;
+        string hotKey = "?";
+        if (num == 0) hotKey = "Q";
+        else if (num == 1) hotKey = "W";
+        else if (num == 2) hotKey = "E";
 
-        for (int i = 0; i < skillButtons.Count; i++)
-        {
-            GetComponent<RectTransform>().anchoredPosition += new Vector2(i * buttonSizeX, 0);
-        }
+        skillNameText.text = skill.skillName;
+        skillDescriptionText.text = skill.description;
+        skillHotKey.text = "[" + hotKey + "]";
+
+        skillInfoPanel.SetActive(true);
+    }
+
+    private void UnshowSkillInfo()
+    {
+        skillInfoPanel.SetActive(false);
     }
 }
