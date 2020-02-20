@@ -22,8 +22,9 @@ public class GameManager : MonoBehaviour
     public Text tempWinnerText;
 
     // 양 단말 모두 게임씬으로 넘어와서 게임을 시작해도 되는지 판단하는 변수. readyToStart가 false면 일시정지, true면 정지 해제.
-    [SerializeField]
-    private bool readyToStart;
+    [SerializeField] private bool readyToStart;
+    [SerializeField] private GameObject loadingCanvasPrefab;
+    private GameObject loadingCanvas;
 
     // 각 단말이 게임씬으로 왔는지 체크하는 배열
     private bool[] enterGameScene = new bool[2];
@@ -56,10 +57,15 @@ public class GameManager : MonoBehaviour
 
         // 임시 승리 텍스트 안보이게 함.
         tempWinnerText.text = "";
+
+        loadingCanvas = Instantiate(loadingCanvasPrefab);
     }
 
     private void Update()
     {
+        if (readyToStart == false) return;
+        if (loadingCanvas.activeInHierarchy) loadingCanvas.SetActive(false);
+        
         if (Input.GetKeyDown(KeyCode.Q))
         {
             indicateManager.ActivateSkillIndicator(myHeroes[0]);

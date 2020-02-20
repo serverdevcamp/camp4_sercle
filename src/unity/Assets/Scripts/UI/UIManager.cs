@@ -68,7 +68,6 @@ public class UIManager : MonoBehaviour
 
     private void ShowSkillInfo(Skill skill, int num)
     {
-        Debug.Log(num);
         string hotKey = "?";
         if (num == 0) hotKey = "Q";
         else if (num == 1) hotKey = "W";

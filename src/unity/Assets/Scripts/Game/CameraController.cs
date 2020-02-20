@@ -6,18 +6,21 @@ using DG.Tweening;
 public class CameraController : MonoBehaviour
 {
     [SerializeField] private float defaultAngle;
+    [SerializeField] private float maxAngle;
+    [SerializeField] private float minAngle;
     [SerializeField] private float defualtDis;
     [SerializeField] private float maxDis;
     [SerializeField] private float minDis;
 
     [SerializeField] private float distance;
-    [SerializeField] private float angle;
+    [SerializeField] private Vector2 angle;
 
     private Vector3 targetPosition;
 
     private void Start()
     {
-        angle = defaultAngle;
+        angle.x = defaultAngle;
+        angle.y = GameManager.instance.MyCampNum == 1 ? 0 : 180;
         distance = defualtDis;
         
         targetPosition = Vector3.zero;
@@ -25,12 +28,12 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.LeftArrow)) targetPosition += new Vector3(-20, 0, 0) * Time.deltaTime;
-        if (Input.GetKey(KeyCode.RightArrow)) targetPosition += new Vector3(20, 0, 0) * Time.deltaTime;
-        if (Input.GetKey(KeyCode.UpArrow)) targetPosition += new Vector3(0, 0, 20) * Time.deltaTime;
-        if (Input.GetKey(KeyCode.DownArrow)) targetPosition += new Vector3(0, 0, -20) * Time.deltaTime;
+        if (Input.GetKey(KeyCode.LeftArrow)) targetPosition += new Vector3(-50, 0, 0) * Time.deltaTime;
+        if (Input.GetKey(KeyCode.RightArrow)) targetPosition += new Vector3(50, 0, 0) * Time.deltaTime;
+        if (Input.GetKey(KeyCode.UpArrow)) targetPosition += new Vector3(0, 0, 50) * Time.deltaTime;
+        if (Input.GetKey(KeyCode.DownArrow)) targetPosition += new Vector3(0, 0, -50) * Time.deltaTime;
 
-        transform.DORotate(new Vector3(angle, 0, 0), 0.3f);
-        transform.DOMove(targetPosition + new Vector3(0, Mathf.Sin(defaultAngle), -Mathf.Cos(defaultAngle)) * distance, 0.3f);
+        transform.DORotate(new Vector3(angle.x, angle.y, 0), 0.3f);
+        transform.DOMove(targetPosition - new Vector3(0, Mathf.Sin(angle.x), -Mathf.Cos(angle.x)) * distance, 0.1f).SetEase(Ease.Linear);
     }
 }
