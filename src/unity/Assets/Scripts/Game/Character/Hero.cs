@@ -24,7 +24,16 @@ public class Hero : MonoBehaviour
     // 상태 - 부울 딕셔너리
     private Dictionary<string, bool> stateMap = new Dictionary<string, bool>();
 
+    private void OnEnable()
+    {
+        // 등장 테스트용
 
+        //if(heroAnim == null)
+        //{
+        //    Initialize(0);
+        //}
+        //UseSkill(Vector3.zero, null); 
+    }
     public void Initialize(int skill)
     {
         heroAnim = GetComponent<Animator>();
