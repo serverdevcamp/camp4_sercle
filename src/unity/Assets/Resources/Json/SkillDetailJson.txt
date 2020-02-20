@@ -88,24 +88,31 @@
 							]
 		},{	
 			"skillNumber" : 4, 
-			"emergeDelay" : 0,
-			"preDelay" : 0,
-			"postDelay" : 0,
-			"coolDown" : 0,
+			"emergeDelay" : 1,
+			"preDelay" : 1,
+			"postDelay" : 1,
+			"coolDown" : 1,
 			"remainCool" : 0,
-			"speed" : 0,
-			"range" : 0,
-			"size" : 0,
-			"targetType" : 0,
-			"targetNum" : 0,
+			"speed" : 5,
+			"range" : 5,
+			"size" : 5,
+			"targetType" : 1,
+			"targetNum" : 1,
 			"skillEffects" :
 							[
 								{
 									"statusType" : 0,
-									"ccType" : 0,
-									"amount" : 0,
+									"ccType" : 1,
+									"amount" : -400,
+									"duration" : 0
+								},
+								{
+									"statusType" : 1,
+									"ccType" : 1,
+									"amount" : 400,
 									"duration" : 0
 								}
+
 							]
 		},{	
 			"skillNumber" : 5, 

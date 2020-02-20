@@ -1,15 +1,17 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &141398
+--- !u!1 &138156
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 441398}
-  - component: {fileID: 11441398}
-  - component: {fileID: 114737203318101522}
+  - component: {fileID: 438156}
+  - component: {fileID: 11436546}
+  - component: {fileID: 11436548}
+  - component: {fileID: 11436550}
   m_Layer: 0
   m_Name: Tesla_Wall
   m_TagString: Untagged
@@ -17,59 +19,67 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &441398
+--- !u!4 &438156
 Transform:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 141398}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 138156}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.581481, y: -0, z: 2.941357}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &11441398
+--- !u!114 &11436546
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 141398}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 138156}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c879c3d18edf0964aadef45fd9e38697, type: 3}
+  m_Script: {fileID: 11500000, guid: 6f9f0b82b6ced6f4b8a9175bf4a451aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Skill: {fileID: 138156, guid: ae844a8ea7e952143887027aa7be908e, type: 2}
-  Offset: -7
-  Distance: 3
---- !u!1001 &100100000
-Prefab:
-  m_ObjectHideFlags: 1
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications: []
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 141398}
-  m_IsPrefabAsset: 1
---- !u!114 &114737203318101522
+  Number: 5
+  Frequency: 1.2
+  FixRotation: 0
+  Normal: 0
+  FXSpawn: {fileID: 133860, guid: 3df99aafc5636d849a7e8c02091745fd, type: 3}
+  LifeTime: 0
+  TimeSpawn: 0.01
+  UseObjectForward: 1
+  Direction: {x: 0, y: 0, z: 1}
+  Noise: {x: 0, y: 0, z: 0}
+--- !u!114 &11436548
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 141398}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 138156}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aea3c196ff927664fac017e6ff812a54, type: 3}
+  m_Script: {fileID: 11500000, guid: 4b69c254cd7aac34cae94e53410c6ba9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LifeTime: 1
-  FadeTime: 1
-  SpawnAfterDead: {fileID: 0}
-  Particles: []
-  Faders: []
-  Renderers: []
-  Lights: []
+  Offset: {x: 0, y: 0.0005, z: 0}
+  Normal: 1
+  Mode: 1
+--- !u!114 &11436550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 138156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09295a57b4a9e704488d8b0db0e8bfb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Power: {x: 0, y: 0.1, z: 0}

@@ -28,11 +28,13 @@ public class Hero : MonoBehaviour
     {
         // 등장, 스킬 테스트용
 
-        //if (heroAnim == null)
-        //{
-        //    Initialize(0);
-        //}
-        //UseSkill(Vector3.zero, new Vector3(1.2f, 0, -.8f));
+        if (heroAnim == null)
+        {
+            Initialize(4);
+            InitialPos = new Vector3(10, 10, 10);
+        }
+
+        UseSkill(Vector3.zero, new Vector3(1.2f, 0, -.8f));
         //UseSkill(Vector3.zero, null);
     }
     public void Initialize(int skill)
@@ -108,10 +110,23 @@ public class Hero : MonoBehaviour
         // 투사체 생성
         state = State.Skill;
 
-
+        //ProjectileInfo info = new ProjectileInfo(GameManager.instance.MyCampNum, dir.HasValue ? dir.Value : transform.position, skill.speed, skill.range, skill.size, skill.targetType, skill.targetNum, skill.skillEffects);
+        ProjectileInfo info = new ProjectileInfo(1, dir.HasValue ? dir.Value : transform.position, skill.speed, skill.range, skill.size, skill.targetType, skill.targetNum, skill.skillEffects);
+        Projectile projectile = UnityEngine.Object.Instantiate(skill.proj, pos, Quaternion.identity);
+        projectile.Initialize(info);
 
         // 스킬이펙트 발동
         GameObject go = Instantiate(skill.skillEffectPrefab, pos, Quaternion.identity);
+        // 이펙트의 지속시간 조절할 수 있음.
+        //if (go.GetComponent<MagicalFX._FX_LifeTime>() != null)
+        //{ 
+        //    go.GetComponent<MagicalFX._FX_LifeTime>().LifeTime = ??;
+        //}
+        //else if(go.GetComponent<MagicalFX._FX_SpawnDirection>() != null)
+        //{
+        //    go.GetComponent<MagicalFX._FX_SpawnDirection>().LifeTime = ??;
+        //}
+
         if (dir.HasValue)
         {
             go.transform.LookAt(dir.Value + pos);
@@ -123,7 +138,7 @@ public class Hero : MonoBehaviour
 
         state = State.Disappear;
         // 퇴장하는 애니메이션과 효과
-        Instantiate(exitEffect, pos, Quaternion.Euler(-90, 0,0));
+        Instantiate(exitEffect, transform.position, Quaternion.Euler(-90, 0,0));
         
         yield return new WaitForSeconds(skill.postDelay);
 
