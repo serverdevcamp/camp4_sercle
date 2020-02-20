@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class SkillButtonIndicator : MonoBehaviour
 {
@@ -9,14 +10,21 @@ public class SkillButtonIndicator : MonoBehaviour
     [SerializeField] private Image skillImage;
 
     private Hero myHero;
+    private Skill mySkill;
 
-    public void Initialize(Hero hero)
+    public void Initialize(Hero hero, UnityEngine.Events.UnityAction<BaseEventData> enterAction)
     {
         myHero = hero;
-
-        Skill mySkill = myHero.GetSkill;
+        mySkill = myHero.GetSkill;
 
         skillImage.sprite = mySkill.Image;
+
+        EventTrigger trigger = GetComponent<EventTrigger>();
+
+        EventTrigger.Entry pointerEnter = new EventTrigger.Entry();
+        pointerEnter.eventID = EventTriggerType.PointerEnter;
+        pointerEnter.callback.AddListener(enterAction);
+        trigger.triggers.Add(pointerEnter);
     }
 
     private void Update()
@@ -26,8 +34,6 @@ public class SkillButtonIndicator : MonoBehaviour
 
     public void ActivateSkill()
     {
-        Skill mySkill = myHero.GetSkill;
-
         if (mySkill.RemainCool == 0)
         {
             Debug.Log("스킬을 활성화 합니다. 실제로는 아니지만... ㅋㅋ");
@@ -49,7 +55,6 @@ public class SkillButtonIndicator : MonoBehaviour
 
     private void ShowRemainCool()
     {
-        Skill mySkill = myHero.GetSkill;
         float value = 1 - mySkill.RemainCool / mySkill.coolDown;
         skillImage.fillAmount = value;
     }

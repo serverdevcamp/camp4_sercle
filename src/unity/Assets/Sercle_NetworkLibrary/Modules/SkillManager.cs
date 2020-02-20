@@ -64,7 +64,7 @@ public class SkillManager : MonoBehaviour
 
     public void SendLocalHitInfo(int campNumber, int index, int statusType, int ccType, float amount, float duration)
     {
-        SkillHitData data = new SkillHitData(campNumber, index, statusType, ccType, amount, duration);
+        SkillHitData data = new SkillHitData(campNumber, index, statusType, ccType, amount, duration, 0);
 
         SkillHitPacket packet = new SkillHitPacket(data);
 
