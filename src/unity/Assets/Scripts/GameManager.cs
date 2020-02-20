@@ -167,7 +167,7 @@ public class GameManager : MonoBehaviour
 
         SkillEffect effect = new SkillEffect((StatusType)statusType, (CCType)ccType, amount, duration);
 
-        target.Synchronize(chp);
+        //target.Synchronize(chp);
         target.Apply(effect);
     }
 
