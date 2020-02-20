@@ -150,7 +150,15 @@ public class UIManager_SkillSelect : MonoBehaviour
 
         for (int i = 0; i < 3; i++)
         {
-            data.skillIndex[i] = selectedSkills[i];
+            try
+            {
+                data.skillIndex[i] = selectedSkills[i];
+            }
+            catch
+            {
+                data.skillIndex[i] = 0;
+                Debug.Log("스킬 선택을 안했음으로 0번째 스킬을 넣습니다.");
+            }
         }
 
         SelectedSkillPacket packet = new SelectedSkillPacket(data);
