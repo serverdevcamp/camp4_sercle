@@ -91,7 +91,7 @@ public class GameManager : MonoBehaviour
             {
                 for (int i = 0; i < 3; i++)
                 {
-                    Vector3 initPos = new Vector3(999 + i * 10, 999, 999);
+                    Vector3 initPos = new Vector3(999 + i * 10, 10, 999);
                     GameObject tmpHero = Instantiate(sampleHero, initPos, Quaternion.identity);
                     tmpHero.GetComponent<Hero>().Index = i;
                     tmpHero.GetComponent<Hero>().InitialPos = initPos;
@@ -103,7 +103,7 @@ public class GameManager : MonoBehaviour
             {
                 for (int i = 0; i < 3; i++)
                 {
-                    Vector3 initPos = new Vector3(999 - (i + 1) * 10, 999, 999);
+                    Vector3 initPos = new Vector3(999 - (i + 1) * 10, 10, 999);
                     GameObject tmpHero = Instantiate(sampleHero, initPos, Quaternion.identity);
                     tmpHero.GetComponent<Hero>().Index = i;
                     tmpHero.GetComponent<Hero>().InitialPos = initPos;

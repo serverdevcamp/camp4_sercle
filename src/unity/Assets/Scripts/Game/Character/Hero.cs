@@ -190,8 +190,8 @@ public class Hero : MonoBehaviour
         skillArray = JsonUtility.FromJson<SkillInfoJsonArray>(jsonFile);
 
         // 이 캐릭터가 가질 스킬 번호
-        // int num = GameManager.instance.MyCampNum == MatchingManager.instance.userInfo.userData.playerCamp ? SkillManager.instance.mySkills[index] : SkillManager.instance.enemySkills[index];
-        int num = 2;
+        int num = GameManager.instance.MyCampNum == MatchingManager.instance.userInfo.userData.playerCamp ? SkillManager.instance.mySkills[index] : SkillManager.instance.enemySkills[index];
+
         // 스킬 이펙트 설정
         skill.skillEffectPrefab = Resources.Load<GameObject>(skillArray.skillInfo[num].skillEffectPath);
 
