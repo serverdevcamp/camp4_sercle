@@ -32,9 +32,14 @@ public class UIManager : MonoBehaviour
 
         for (int i = 0; i < heroCount; i++)
         {
+            int num = new int();
+            num = i;
             Hero myHero = GameManager.instance.GetMyHero(i);
             GameObject skillButton = Instantiate(buttonPrefab, skillPanel.transform);
-            skillButton.GetComponent<SkillButtonIndicator>().Initialize(myHero, (data)=>ShowSkillInfo(myHero.GetSkill, i));
+            skillButton.GetComponent<SkillButtonIndicator>().Initialize(
+                myHero,
+                (data) => ShowSkillInfo(myHero.GetSkill, num),
+                (data) => UnshowSkillInfo());
             skillButtons.Add(skillButton);
         }
 
@@ -43,9 +48,6 @@ public class UIManager : MonoBehaviour
 
     private void AlignSkillButtons()
     {
-        float buttonSizeX = 200;
-        float buttonSizeY = 200;
-
         for (int i = 0; i < skillButtons.Count; i++)
         {
             if (i >= 3)
@@ -66,6 +68,7 @@ public class UIManager : MonoBehaviour
 
     private void ShowSkillInfo(Skill skill, int num)
     {
+        Debug.Log(num);
         string hotKey = "?";
         if (num == 0) hotKey = "Q";
         else if (num == 1) hotKey = "W";
