@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class CharacterHealthBar : MonoBehaviour
 {
     [SerializeField] private Image bar;
-    [SerializeField] private Image stateImage;
+    [SerializeField] private Text state;
 
     private Robot robot;
 
@@ -25,13 +25,17 @@ public class CharacterHealthBar : MonoBehaviour
         transform.rotation = Camera.main.transform.rotation;
         bar.fillAmount = (float)robot.GetStatus.CHP / robot.GetStatus.MHP;
 
-        ShowState();
+        state.text = State();
     }
 
-    private void ShowState()
+    private string State()
     {
-        if (robot.GetState == Robot.State.Idle) stateImage.color = Color.clear;
-        else if (robot.GetState == Robot.State.Move) stateImage.color = Color.white;
-        else if (robot.GetState == Robot.State.Attack) stateImage.color = Color.red;
+        string str = "";
+
+        str += "name : " + transform.parent.name + System.Environment.NewLine;
+        str += "state : " + robot.GetState.ToString() + System.Environment.NewLine;
+        str += "CHP : " + robot.GetStatus.CHP;
+
+        return str;
     }
 }
