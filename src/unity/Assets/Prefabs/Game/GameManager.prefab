@@ -719,6 +719,7 @@ MonoBehaviour:
   myHeroes:
   - {fileID: 5205131819984006249, guid: 48b73a102491ef2458b1c11046c6d8ea, type: 3}
   enemyHeroes: []
+  sampleHero: {fileID: 0}
   tempWinnerText: {fileID: 0}
   readyToStart: 0
   loadingCanvasPrefab: {fileID: 4560362158869744633, guid: f3ff74a4c5106d740ae3399ff1757426,

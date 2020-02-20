@@ -9,9 +9,10 @@ public class Hero : MonoBehaviour
     public enum State { Idle, Appear, PreDelay, Skill, Disappear, CoolDown }
 
     [Header("Basic Info")]
-    [SerializeField] private int index;
+    [SerializeField] private int index; // 0 ~ 2.
     [SerializeField] private bool is1P;
     [SerializeField] private State state;
+    [SerializeField] private Vector3 initialPos;
 
     [Header("Skill Info")]
     [SerializeField] private Skill skill;
@@ -26,7 +27,7 @@ public class Hero : MonoBehaviour
     private Dictionary<string, bool> stateMap = new Dictionary<string, bool>();
 
 
-    private void Start()
+    private void OnEnable()
     {
         heroAnim = GetComponent<Animator>();
         InitStateMap();
@@ -38,9 +39,11 @@ public class Hero : MonoBehaviour
         AdjustAnimationSpeed();
     }
 
-    public int Index { get { return index; } }
+    public int Index { set { index = value; } get { return index; } }
     public State GetState { get { return state; } }
     public Skill GetSkill { get { return skill; } }
+    
+    public Vector3 InitialPos { get; set; }
 
     public void UseSkill(Vector3 pos, Vector3? dir)
     {
@@ -115,9 +118,9 @@ public class Hero : MonoBehaviour
         Instantiate(exitEffect, pos, Quaternion.Euler(-90, 0,0));
         
         yield return new WaitForSeconds(skill.postDelay);
-        
-        // 후딜레이 후 영웅을 없앰
-        transform.position = new Vector3(9999, 9999, 9999);
+
+        // 후딜레이 후 영웅을 초기 위치로 되돌림
+        transform.position = InitialPos;
         #endregion
 
         #region 쿨타임
@@ -180,26 +183,46 @@ public class Hero : MonoBehaviour
     // SkillManager에 저장되어있는 나의 스킬 번호를 토대로 스킬 정보 설정
     private void SetSkillInfo()
     {
-        int skillNumberOfThisHero = index; // SkillManager.instance.mySkills[index]; 임시로 index를 가지게끔함.
-
-        // 수신한 스킬 인덱스가 -1 (즉, 선택씬에서 스킬선택 안한경우) 에는, 아무것도 하지 않는다.
-        if (skillNumberOfThisHero == -1) return;
 
         string jsonFile = Resources.Load<TextAsset>("Json/SkillInfoJson").ToString();
 
         SkillInfoJsonArray skillArray;
         skillArray = JsonUtility.FromJson<SkillInfoJsonArray>(jsonFile);
 
+        // 이 캐릭터가 가질 스킬 번호
+        int num = GameManager.instance.MyCampNum == MatchingManager.instance.userInfo.userData.playerCamp ? SkillManager.instance.mySkills[index] : SkillManager.instance.enemySkills[index];
+
         // 스킬 이펙트 설정
-        skill.skillEffectPrefab = Resources.Load<GameObject>(skillArray.skillInfo[skillNumberOfThisHero].skillEffectPath);
+        skill.skillEffectPrefab = Resources.Load<GameObject>(skillArray.skillInfo[num].skillEffectPath);
 
         // 스킬 이미지 설정
-        skill.image = Resources.Load<Sprite>(skillArray.skillInfo[skillNumberOfThisHero].skillImagePath);
+        skill.image = Resources.Load<Sprite>(skillArray.skillInfo[num].skillImagePath);
 
         // 스킬 이름 설정
-        skill.skillName = skillArray.skillInfo[skillNumberOfThisHero].skillName;
+        skill.skillName = skillArray.skillInfo[num].skillName;
 
         // 스킬 설명 설정
-        skill.description = skillArray.skillInfo[skillNumberOfThisHero].skillDesc;
+        skill.description = skillArray.skillInfo[num].skillDesc;
+
+        // 스킬 세부정보
+        jsonFile = Resources.Load<TextAsset>("Json/SkillDetailJson").ToString();
+
+        SkillDetailJsonArray skillDetailArray;
+        skillDetailArray = JsonUtility.FromJson<SkillDetailJsonArray>(jsonFile);
+
+        // 세부 설정
+        skill.emergeDelay = skillDetailArray.skillinfo[num].emergeDelay;
+        skill.preDelay = skillDetailArray.skillinfo[num].preDelay;
+        skill.postDelay = skillDetailArray.skillinfo[num].postDelay;
+        skill.coolDown = skillDetailArray.skillinfo[num].coolDown;
+        skill.remainCool = skillDetailArray.skillinfo[num].remainCool;
+
+        // 투사체 설정
+        skill.speed = skillDetailArray.skillinfo[num].speed;
+        skill.range = skillDetailArray.skillinfo[num].range;
+        skill.size = skillDetailArray.skillinfo[num].size;
+        skill.targetType = skillDetailArray.skillinfo[num].targetType;
+        skill.targetNum = skillDetailArray.skillinfo[num].targetNum;
+        skill.skillEffects = skillDetailArray.skillinfo[num].skillEffects.ToList();
     }
 }

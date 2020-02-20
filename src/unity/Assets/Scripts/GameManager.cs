@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private List<Hero> myHeroes = new List<Hero>();
     [SerializeField] private List<Hero> enemyHeroes = new List<Hero>();
+    [SerializeField] private GameObject sampleHero;
 
     private RobotManager robotManager;
     private IndicateManager indicateManager;
@@ -79,7 +80,44 @@ public class GameManager : MonoBehaviour
     private void GetHeroList()
     {
         // 히어로 리스트를 가져오세요.
-        if (myHeroes.Count == 0) Debug.LogError("히어로 리스트를 가져와라!!!!");
+        // if (myHeroes.Count == 0) Debug.LogError("히어로 리스트를 가져와라!!!!");
+
+        StartCoroutine(GetHeroSkill());
+        
+    }
+
+    // Awake 까지 와서도 스킬매니저에 스킬이 안왔을 경우 대비해서 코루틴으로 설정.
+    private IEnumerator GetHeroSkill()
+    {
+        while (myHeroes.Count == 0 || enemyHeroes.Count == 0)
+        {
+
+            if (myHeroes.Count == 0 && SkillManager.instance.mySkills.Count > 0)
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    Vector3 initPos = new Vector3(999 + i * 10, 999, 999);
+                    GameObject tmpHero = Instantiate(sampleHero, initPos, Quaternion.identity);
+                    tmpHero.GetComponent<Hero>().Index = i;
+                    tmpHero.GetComponent<Hero>().InitialPos = initPos;
+                    myHeroes[i] = tmpHero.GetComponent<Hero>();
+
+                }
+            }
+            else if (enemyHeroes.Count == 0 && SkillManager.instance.enemySkills.Count > 0)
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    Vector3 initPos = new Vector3(999 - (i + 1) * 10, 999, 999);
+                    GameObject tmpHero = Instantiate(sampleHero, initPos, Quaternion.identity);
+                    tmpHero.GetComponent<Hero>().Index = i;
+                    tmpHero.GetComponent<Hero>().InitialPos = initPos;
+                    enemyHeroes[i] = tmpHero.GetComponent<Hero>();
+                }
+            }
+
+            yield return new WaitForSeconds(0.3f);
+        }
     }
 
     public void RequestFire(int campNum, bool isRobot, int index, Vector3 pos, Vector3 dir)
