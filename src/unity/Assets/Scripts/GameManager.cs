@@ -100,7 +100,7 @@ public class GameManager : MonoBehaviour
                     GameObject tmpHero = Instantiate(sampleHero, initPos, Quaternion.identity);
                     tmpHero.GetComponent<Hero>().Index = i;
                     tmpHero.GetComponent<Hero>().InitialPos = initPos;
-                    myHeroes[i] = tmpHero.GetComponent<Hero>();
+                    myHeroes.Add(tmpHero.GetComponent<Hero>());
 
                 }
             }
@@ -112,7 +112,7 @@ public class GameManager : MonoBehaviour
                     GameObject tmpHero = Instantiate(sampleHero, initPos, Quaternion.identity);
                     tmpHero.GetComponent<Hero>().Index = i;
                     tmpHero.GetComponent<Hero>().InitialPos = initPos;
-                    enemyHeroes[i] = tmpHero.GetComponent<Hero>();
+                    enemyHeroes.Add( tmpHero.GetComponent<Hero>());
                 }
             }
 
