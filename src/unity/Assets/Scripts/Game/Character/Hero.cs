@@ -29,7 +29,7 @@ public class Hero : MonoBehaviour
     {
         heroAnim = GetComponent<Animator>();
         InitStateMap();
-        SetSkillInfo();
+        SetSkillInfo(skill);
     }
 
     private void LateUpdate()
@@ -128,12 +128,6 @@ public class Hero : MonoBehaviour
         #endregion
 
         state = State.Idle;
-    }
-
-    private void Initialize(int num)
-    {
-        state = State.Idle;
-        skill.Initialize();
     }
 
     // 상태맵 초기화

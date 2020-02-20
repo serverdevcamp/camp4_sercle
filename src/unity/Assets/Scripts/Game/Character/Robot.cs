@@ -160,7 +160,13 @@ public class Robot : MonoBehaviour
     {
         if (effect.ccType != CCType.None) StartCoroutine(CCEffect(effect));
         else if (effect.duration != 0) StartCoroutine(TempEffect(effect));
-        else status.ChangeStat(effect.statusType, effect.amount);
+        else
+        {
+            if (effect.statusType != StatusType.CHP)
+            {
+                status.ChangeStat(effect.statusType, effect.amount);
+            }
+        }
     }
 
     /// <summary>
