@@ -125,8 +125,8 @@ class Lobby:
             try:
                 message = await reader.read(100)
                 if not message:
+                    self.remove(int(user_id))
                     break
-                    #self.remove()
                 await self.divide_process(int.from_bytes(message[0:4], byteorder='big'), message, writer, int(user_id))
             except Exception as e:
                 print(e)
@@ -203,5 +203,18 @@ class Lobby:
 
         async with server:
             await server.serve_forever()
+
+    # 접속 종료 유저 리스트 제거
+    def remove(self, user_id):
+        for user in self.matching_list:
+            if user[1] == user_id:
+                print(str(user[1]) + "님이 매칭 리스트에서 나가셨습니다.")
+                self.matching_list.remove(user)
+                break
+        for user in self.user_list:
+            if user[2] == user_id:
+                print(str(user[2]) + "님이 나가셨습니다.")
+                self.user_list.remove(user)
+                break
 
 server = Lobby()

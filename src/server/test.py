@@ -22,10 +22,9 @@ async def chatting_handle(reader, writer):  # 각 소켓
                 remove(client)
                 break
 
+            message = user_name + " : ".encode() + message
             print(message)
-
             for user in list_of_clients:
-                message = user_name + " : ".encode() + message
                 user[0].write(message)
                 await user[0].drain()
         except Exception as e:
