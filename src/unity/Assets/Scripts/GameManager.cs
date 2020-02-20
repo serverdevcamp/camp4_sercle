@@ -170,7 +170,7 @@ public class GameManager : MonoBehaviour
         {
            if(enterGameScene[i] == false)
             {
-                Debug.Log(i.ToString() + 1 + " 진영에서 아직 데이터 안보냄.");
+                Debug.Log((i + 1).ToString() + " 진영에서 아직 데이터 안보냄.");
                 check = true;
             }
         }

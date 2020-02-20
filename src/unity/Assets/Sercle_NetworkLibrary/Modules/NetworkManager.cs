@@ -120,7 +120,7 @@ public class NetworkManager : MonoBehaviour
         Buffer.BlockCopy(data, headerSize, packetData, 0, packetData.Length);
 
         // 예외처리
-        if (packetId >= 18 || packetId == 0) return;
+        if (packetId >= 18 || packetId <= 0) return;
 
         Debug.Log((cnt++)+" 수신한 패킷 ID : " + packetId + " " + (PacketId)packetId + " " + Time.time);
         
