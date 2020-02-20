@@ -106,12 +106,6 @@ public class ChattingManager : MonoBehaviour
             headerData = serializer.GetSerializedData();
         }
 
-        // 내 컴퓨터가 리틀엔디언이면 문자열 역전해서 보낸다.
-        if (m_endianness == Serializer.Endianness.LittleEndian)
-        {
-            Array.Reverse(buffer);
-        }
-
         int headerSize = Marshal.SizeOf(typeof(PacketHeader));
 
         byte[] data = new byte[headerData.Length + buffer.Length];
@@ -160,11 +154,6 @@ public class ChattingManager : MonoBehaviour
 
             byte[] packetData = new byte[buffer.Length - headerSize];
             Buffer.BlockCopy(buffer, headerSize, packetData, 0, packetData.Length);
-            
-            if (m_endianness == Serializer.Endianness.LittleEndian)
-            {
-                Array.Reverse(packetData);
-            }
 
             string msg = System.Text.Encoding.Default.GetString(packetData);
             Debug.Log("Recv data : " + msg);
