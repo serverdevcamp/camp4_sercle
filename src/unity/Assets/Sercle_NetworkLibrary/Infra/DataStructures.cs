@@ -370,7 +370,7 @@ public struct SpawnRobotData
 
 // 스킬 세부 정보
 [System.Serializable]
-public struct SkillDetailJson
+public class SkillDetailJson
 {
     public int skillNumber;
     public int emergeDelay;
@@ -388,5 +388,5 @@ public struct SkillDetailJson
 
 public class SkillDetailJsonArray
 {
-    public SkillDetailJson[] skillinfo;
+    public SkillDetailJson[] skillInfo;
 }

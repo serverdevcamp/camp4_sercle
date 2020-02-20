@@ -53,6 +53,7 @@ MonoBehaviour:
   index: 0
   is1P: 0
   state: 0
+  initialPos: {x: 0, y: 0, z: 0}
   skill:
     skillName: Test Name
     description: Test Description
@@ -63,7 +64,8 @@ MonoBehaviour:
     preDelay: 1
     postDelay: 1
     coolDown: 5
-    proj: {fileID: 0}
+    remainCool: 0
+    proj: {fileID: 6332989940410738062, guid: cba89610dbad6324f8f79a088b61d5d2, type: 3}
     speed: 0
     range: 0
     size: 10

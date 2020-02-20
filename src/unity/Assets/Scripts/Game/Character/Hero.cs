@@ -190,8 +190,8 @@ public class Hero : MonoBehaviour
         skillArray = JsonUtility.FromJson<SkillInfoJsonArray>(jsonFile);
 
         // 이 캐릭터가 가질 스킬 번호
-        int num = GameManager.instance.MyCampNum == MatchingManager.instance.userInfo.userData.playerCamp ? SkillManager.instance.mySkills[index] : SkillManager.instance.enemySkills[index];
-
+        // int num = GameManager.instance.MyCampNum == MatchingManager.instance.userInfo.userData.playerCamp ? SkillManager.instance.mySkills[index] : SkillManager.instance.enemySkills[index];
+        int num = 2;
         // 스킬 이펙트 설정
         skill.skillEffectPrefab = Resources.Load<GameObject>(skillArray.skillInfo[num].skillEffectPath);
 
@@ -209,20 +209,20 @@ public class Hero : MonoBehaviour
 
         SkillDetailJsonArray skillDetailArray;
         skillDetailArray = JsonUtility.FromJson<SkillDetailJsonArray>(jsonFile);
-
+        Debug.Log(jsonFile);
         // 세부 설정
-        skill.emergeDelay = skillDetailArray.skillinfo[num].emergeDelay;
-        skill.preDelay = skillDetailArray.skillinfo[num].preDelay;
-        skill.postDelay = skillDetailArray.skillinfo[num].postDelay;
-        skill.coolDown = skillDetailArray.skillinfo[num].coolDown;
-        skill.remainCool = skillDetailArray.skillinfo[num].remainCool;
+        skill.emergeDelay = skillDetailArray.skillInfo[num].emergeDelay;
+        skill.preDelay = skillDetailArray.skillInfo[num].preDelay;
+        skill.postDelay = skillDetailArray.skillInfo[num].postDelay;
+        skill.coolDown = skillDetailArray.skillInfo[num].coolDown;
+        skill.remainCool = skillDetailArray.skillInfo[num].remainCool;
 
         // 투사체 설정
-        skill.speed = skillDetailArray.skillinfo[num].speed;
-        skill.range = skillDetailArray.skillinfo[num].range;
-        skill.size = skillDetailArray.skillinfo[num].size;
-        skill.targetType = skillDetailArray.skillinfo[num].targetType;
-        skill.targetNum = skillDetailArray.skillinfo[num].targetNum;
-        skill.skillEffects = skillDetailArray.skillinfo[num].skillEffects.ToList();
+        skill.speed = skillDetailArray.skillInfo[num].speed;
+        skill.range = skillDetailArray.skillInfo[num].range;
+        skill.size = skillDetailArray.skillInfo[num].size;
+        skill.targetType = skillDetailArray.skillInfo[num].targetType;
+        skill.targetNum = skillDetailArray.skillInfo[num].targetNum;
+        skill.skillEffects = skillDetailArray.skillInfo[num].skillEffects.ToList();
     }
 }
