@@ -93,6 +93,9 @@ class Game:
             print("게임씬 입장 완료 : " + int.from_bytes(self.message[4:8], byteorder='big'))
             my_socket[0].send(message)
             opponent_socket[0].send(message)
+        elif packet_id == PacketId.spawn_robots.value:
+            my_socket[0].send(message)
+            opponent_socket[0].send(message)
         else:
             opponent_socket[0].send(message)
 
