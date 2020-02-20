@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 public class Robot : MonoBehaviour
 {
-    public enum State { Idle, Move, Attack, Skill, CC, Die }
+    public enum State { Idle, Move, Attack, CC, Die }
 
     [Header("Robot Info")]
     [SerializeField] private int index;
@@ -83,7 +83,7 @@ public class Robot : MonoBehaviour
         foreach (Collider coll in colls)
         {
             if (coll.gameObject == gameObject) continue;
-            if (campNum == coll.transform.GetComponent<Robot>().campNum) continue;
+            if (campNum == coll.transform.GetComponent<Robot>().CampNum) continue;
 
             if (target == null || Vector3.Distance(coll.transform.position, transform.position) < nearestDis)
             {
@@ -136,10 +136,10 @@ public class Robot : MonoBehaviour
 
     private void AttackActivate()
     {
+        if (CampNum != GameManager.instance.MyCampNum) return;
+
         Vector3 dir = target.transform.position - transform.position;
-        // 발사체 오브젝트 교체
-        // ChangeProjectile();
-        StartCoroutine(attack.Use(this, dir.normalized));
+        StartCoroutine(attack.Use(this, dir));
     }
 
     /// <summary>

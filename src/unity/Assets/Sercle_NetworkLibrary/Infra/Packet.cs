@@ -755,7 +755,7 @@ public class CharacterPacket : IPacket<CharacterData>
 
     public PacketId GetPacketId()
     {
-        return PacketId.CharacterData;
+        return PacketId.SkillData;
     }
 
     // 게임에서 사용할 패킷 데이터 획득
@@ -994,7 +994,9 @@ public class SkillHitPacket : IPacket<SkillHitData>
             ret &= Serialize(packet.ccType);
             ret &= Serialize(packet.amount);
             ret &= Serialize(packet.duration);
-
+            ret &= Serialize(packet.trash0);
+            ret &= Serialize(packet.trash1);
+            ret &= Serialize(packet.trash2);
             return ret;
         }
 
@@ -1013,6 +1015,9 @@ public class SkillHitPacket : IPacket<SkillHitData>
             ret &= Deserialize(ref element.ccType);
             ret &= Deserialize(ref element.amount);
             ret &= Deserialize(ref element.duration);
+            ret &= Deserialize(ref element.trash0);
+            ret &= Deserialize(ref element.trash1);
+            ret &= Deserialize(ref element.trash2);
 
             return ret;
         }

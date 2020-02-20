@@ -76,14 +76,6 @@ public class GameManager : MonoBehaviour
         if (myHeroes.Count == 0) Debug.LogError("히어로 리스트를 가져와라!!!!");
     }
 
-    // 2020 02 07 목적지와 현 위치의 거리를 보정한 원격 캐릭터의 속도 계산.
-    public float SetInterpolatedSpeed(int index, Vector3 destination)
-    {
-        //float prevTime = Vector3.Distance(enemyCharacters[index].GetComponent<Transform>().position, destination) / enemyCharacters[index].status.SPD;
-        //return (enemyCharacters[index].status.SPD) * (prevTime + SyncManager.instance.GetAvgRemoteRtt()) / prevTime;
-        return 0;
-    }
-
     public void RequestFire(int campNum, bool isRobot, int index, Vector3 pos, Vector3 dir)
     {
         SkillManager.instance.SendLocalSkillInfo(campNum, isRobot, index, pos, dir);

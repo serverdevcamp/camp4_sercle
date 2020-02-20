@@ -27,7 +27,7 @@ public class CharacterManager : MonoBehaviour
         // players[0] = gameobject,find("player0").getcomponent(characterData);
 
         // 캐릭터 정보 수신함수 등록
-        networkManager.RegisterReceiveNotification(PacketId.CharacterData, OnReceiveCharacterPacket);
+        networkManager.RegisterReceiveNotification(PacketId.SkillData, OnReceiveCharacterPacket);
 
         // 더미 
         CreateDummy(localPlayers);

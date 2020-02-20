@@ -5,7 +5,7 @@ using System.Collections;
 // 모든 경우의 request, response, Data를 붙여야함.
 public enum PacketId
 {
-    CharacterData = 0,
+    Nothing = 0,
     SkillData,
     MovingData,
     MatchingData,
@@ -20,9 +20,9 @@ public enum PacketId
     GameServerEnd,
     SelectedSkillData,  // 선택한 스킬 데이터 패킷을 의미, no 13
     GameFinish, // HQ 가 파괴되었다는 데이터 패킷을 의미 no 14
-    SkillHitData,
-    SpawnRobotsData,    // 로봇 생성 신호 no 16
-    GameStart,  // 게임 시작 준비 되었다는 패킷. no 17
+    SpawnRobotsData,    // 로봇 생성 신호 no 15
+    GameStart,  // 게임 시작 준비 되었다는 패킷. no 16
+    SkillHitData, //17
 };
 
 //매칭 패킷 데이터
@@ -336,6 +336,9 @@ public struct SkillHitData
     public int ccType;
     public float amount;
     public float duration;
+    public int trash0;
+    public int trash1;
+    public bool trash2;
 
     public SkillHitData(int campNumber, int index, int statusType, int ccType, float amount, float duration)
     {
@@ -345,6 +348,9 @@ public struct SkillHitData
         this.ccType = ccType;
         this.amount = amount;
         this.duration = duration;
+        this.trash0 = 15;
+        this.trash1 = 0;
+        this.trash2 = false;
     }
 }
 

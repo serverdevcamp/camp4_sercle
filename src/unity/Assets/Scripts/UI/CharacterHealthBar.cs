@@ -5,16 +5,16 @@ using UnityEngine.UI;
 
 public class CharacterHealthBar : MonoBehaviour
 {
-    [SerializeField] private RectTransform healthBar;
     [SerializeField] private Image bar;
+    [SerializeField] private Image stateImage;
 
-    private Robot character;
+    private Robot robot;
 
     private void Start()
     {
-        character = transform.parent.GetComponent<Robot>();
+        robot = transform.parent.GetComponent<Robot>();
 
-        if (character.CampNum != GameManager.instance.MyCampNum)
+        if (robot.CampNum != GameManager.instance.MyCampNum)
         {
             bar.color = new Color(255, 100, 100);
         }
@@ -22,7 +22,16 @@ public class CharacterHealthBar : MonoBehaviour
 
     private void Update()
     {
-        healthBar.rotation = Camera.main.transform.rotation;
-        bar.fillAmount = (float)character.GetStatus.CHP / character.GetStatus.MHP;
+        transform.rotation = Camera.main.transform.rotation;
+        bar.fillAmount = (float)robot.GetStatus.CHP / robot.GetStatus.MHP;
+
+        ShowState();
+    }
+
+    private void ShowState()
+    {
+        if (robot.GetState == Robot.State.Idle) stateImage.color = Color.clear;
+        else if (robot.GetState == Robot.State.Move) stateImage.color = Color.white;
+        else if (robot.GetState == Robot.State.Attack) stateImage.color = Color.red;
     }
 }

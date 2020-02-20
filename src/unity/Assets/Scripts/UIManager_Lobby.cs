@@ -52,6 +52,8 @@ public class UIManager_Lobby : MonoBehaviour
         matchWaitingPanel.SetActive(false);
 
         ShowProfile();
+
+        SoundManager.instance.PlayBGM("Lobby_BGM", .4f);
     }
 
     private void Update()

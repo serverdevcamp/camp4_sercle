@@ -86,14 +86,14 @@ public class RobotManager : MonoBehaviour
     {
         Robot caster = firstCampRobots[index].GetComponent<Robot>();
         caster.transform.position = pos;
-        StartCoroutine(caster.MyAttack.Fire(caster, dir));
+        StartCoroutine(caster.MyAttack.Fire(caster, dir, GameManager.instance.MyCampNum == 1));
     }
 
     public void SecondCampRobotFire(int index, Vector3 pos, Vector3 dir)
     {
         Robot caster = secondCampRobots[index].GetComponent<Robot>();
         caster.transform.position = pos;
-        StartCoroutine(caster.MyAttack.Fire(caster, dir));
+        StartCoroutine(caster.MyAttack.Fire(caster, dir, GameManager.instance.MyCampNum == 2));
     }
 
     // 로봇 스폰 생성 신호 송신(테스트용)

@@ -13,6 +13,9 @@ public class SkillManager : MonoBehaviour
     public List<int> mySkills = new List<int>();
     public List<int> enemySkills = new List<int>();
 
+    int hitCnt = 0;
+    int useCnt = 0;
+
     private void Awake()
     {
         if (instance == null) instance = this;
@@ -78,6 +81,7 @@ public class SkillManager : MonoBehaviour
 
         Vector3 pos = new Vector3(skill.posX, skill.posY, skill.posZ);
         Vector3 dir = new Vector3(skill.dirX, skill.dirY, skill.dirZ);
+        Debug.Log((useCnt++) + " 스킬 사용한 놈 : " + skill.campNumber + " 캠프의 " + skill.index);
 
         // 2020 02 01상대 단말의 로컬 캐릭터가 스킬 사용했다는 정보를 내 단말에서 수신 한것이므로, 내 단말의 상대 캐릭터가 스킬사용했다고 해줘야함.
         GameManager.instance.ApplyFire(skill.campNumber, skill.isRobot, skill.index, pos, dir);
@@ -88,7 +92,7 @@ public class SkillManager : MonoBehaviour
     {
         SkillHitPacket packet = new SkillHitPacket(data);
         SkillHitData hit = packet.GetPacket();
-
+        Debug.Log((hitCnt++) + " 피격 된 놈 : " + hit.campNumber + " 캠프의 " + hit.index);
         GameManager.instance.ApplySkillEffect(hit.campNumber, hit.index, hit.statusType, hit.ccType, hit.amount, hit.duration);
     } 
 

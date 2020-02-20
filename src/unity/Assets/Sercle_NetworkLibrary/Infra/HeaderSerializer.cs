@@ -32,7 +32,7 @@ public class HeaderSerializer : Serializer
 		}
 
 		// 데이터의 요소별로 디시리얼라이즈합니다.
-		int packetId = 0;
+		int packetId = 200;
 		ret &= Deserialize(ref packetId);
 		// Fix this : 책이랑 다름
 		serialized.packetId = (int)packetId;

@@ -79,6 +79,7 @@ public class MatchingManager : MonoBehaviour
     // 매칭 시작 버튼 클릭 함수
     public void MatchingRequest()
     {
+        SoundManager.instance.PlaySound("ButtonClick");
         SendLocalMatchingRequest();
         Debug.Log("매칭 해주세요 버튼 클릭");
     }
@@ -86,6 +87,7 @@ public class MatchingManager : MonoBehaviour
     // 매칭중이고 상대의 응답을 기다리는 중에 나타나는 '매칭취소' 버튼 클릭 함수
     public void MatchingCancel()
     {
+        SoundManager.instance.PlaySound("ButtonClick");
         Debug.Log("매칭 취소 하겠습니다 버튼 클릭 ");
         SendLocalMatchingCancel();
 
@@ -95,6 +97,7 @@ public class MatchingManager : MonoBehaviour
     // 매치메이킹 수락
     public void AccpetMatchMakingResult()
     {
+        SoundManager.instance.PlaySound("ButtonClick");
         Debug.Log("매칭 결과 수락 버튼 클릭");
         SendLocalMatchingAccept();
 
@@ -107,6 +110,7 @@ public class MatchingManager : MonoBehaviour
     // 매치메이킹 거절
     public void RefuseMatchMakingResult()
     {
+        SoundManager.instance.PlaySound("ButtonClick");
         Debug.Log("매칭 결과 거절 버튼 클릭");
         // 초기 로비 화면으로 돌아감
         SendLocalMatchingReject();
@@ -183,7 +187,7 @@ public class MatchingManager : MonoBehaviour
                 myInfo = packetData.myInfo;
                 //내 정보 상대 정보 저장.
                 //수락 여부 버튼 띄우기.
-
+                SoundManager.instance.PlaySound("Login_Lazer", 1f);
                 ChangeMatchingState(MatchingState.SelectMatchingResult);
             
             }
