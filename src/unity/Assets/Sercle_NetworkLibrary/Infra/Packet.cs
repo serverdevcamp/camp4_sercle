@@ -113,7 +113,6 @@ public class GameJoinPacket : IPacket<GameJoinData>
         {
             bool ret = true;
             ret &= Serialize(packet.id);
-            ret &= Serialize(packet.campNum);
             ret &= Serialize(packet.roomNum);
             return ret;
         }
@@ -125,7 +124,6 @@ public class GameJoinPacket : IPacket<GameJoinData>
             }
             bool ret = true;
             ret &= Deserialize(ref element.id);
-            ret &= Deserialize(ref element.campNum);
             ret &= Deserialize(ref element.roomNum);
             return ret;
         }

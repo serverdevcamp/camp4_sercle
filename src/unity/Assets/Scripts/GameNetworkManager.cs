@@ -37,7 +37,6 @@ public class GameNetworkManager : MonoBehaviour
     {
         GameJoinData gameJoinData = new GameJoinData();
         gameJoinData.id = int.Parse(userInfo.userData.id);
-        gameJoinData.campNum = userInfo.userData.playerCamp;
         gameJoinData.roomNum = userInfo.userData.roomNum;
 
         GameJoinPacket packet = new GameJoinPacket(gameJoinData);
