@@ -103,6 +103,10 @@ public class MatchingNetworkManager : MonoBehaviour
             PacketHeader header = new PacketHeader();
             HeaderSerializer serializer = new HeaderSerializer();
 
+            byte[] packetData = packet.GetData();   //움직임 정보 들은 데이터
+
+            header.packetSize = sizeof(int) + packetData.Length;
+
             //packetid = skill, moving 등등   moving은 2
             header.packetId = (int)packet.GetPacketId();
 
@@ -112,7 +116,7 @@ public class MatchingNetworkManager : MonoBehaviour
                 headerData = serializer.GetSerializedData();
             }
 
-            byte[] packetData = packet.GetData();   //움직임 정보 들은 데이터
+            
             byte[] data = new byte[headerData.Length + packetData.Length];
 
             int headerSize = Marshal.SizeOf(typeof(PacketHeader));

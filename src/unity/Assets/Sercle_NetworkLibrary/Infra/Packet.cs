@@ -200,7 +200,7 @@ public class MovingPacket : IPacket<MovingData>
 
     public PacketId GetPacketId()
     {
-        return PacketId.MovingData;
+        return PacketId.ChatData;
     }
 
     // 게임에서 사용할 패킷 데이터 획득
