@@ -75,6 +75,7 @@ public struct MatchingData
 public struct GameJoinData
 {
     public int id;
+    public int campNum;
     public int roomNum;
 }
 public struct MatchingCancelData
