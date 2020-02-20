@@ -995,6 +995,8 @@ public class SkillHitPacket : IPacket<SkillHitData>
             ret &= Serialize(packet.amount);
             ret &= Serialize(packet.duration);
             ret &= Serialize(packet.chp);
+            ret &= Serialize(packet.trash1);
+            ret &= Serialize(packet.trash2);
             return ret;
         }
 
@@ -1014,6 +1016,8 @@ public class SkillHitPacket : IPacket<SkillHitData>
             ret &= Deserialize(ref element.amount);
             ret &= Deserialize(ref element.duration);
             ret &= Deserialize(ref element.chp);
+            ret &= Deserialize(ref element.trash1);
+            ret &= Deserialize(ref element.trash2);
 
             return ret;
         }
