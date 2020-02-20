@@ -26,13 +26,14 @@ public class Hero : MonoBehaviour
 
     private void OnEnable()
     {
-        // 등장 테스트용
+        // 등장, 스킬 테스트용
 
-        //if(heroAnim == null)
+        //if (heroAnim == null)
         //{
         //    Initialize(0);
         //}
-        //UseSkill(Vector3.zero, null); 
+        //UseSkill(Vector3.zero, new Vector3(1.2f, 0, -.8f));
+        //UseSkill(Vector3.zero, null);
     }
     public void Initialize(int skill)
     {
@@ -69,8 +70,8 @@ public class Hero : MonoBehaviour
         state = State.Appear;
         // 등장하는 애니메이션과 효과
 
-        // 20 02 14 영웅의 위치를 pos + 10로 이동
-        GetComponent<Transform>().position = pos + new Vector3(0, 10, 0);
+        // 20 02 14 영웅의 위치를 pos + 10로 이동, 20 02 20 영웅이 한발자국 뒤로 물러나서 스킬 씀.
+        GetComponent<Transform>().position = pos + new Vector3(0, 10, 0) - 1.5f * (dir.HasValue ? dir.Value : Vector3.forward);
         if (dir.HasValue)
         {
             if(dir.Value != Vector3.zero)
