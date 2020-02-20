@@ -143,6 +143,15 @@ public class Robot : MonoBehaviour
     }
 
     /// <summary>
+    /// 서버에서 보내준 체력으로 이 로봇의 체력을 동기화 시킵니다.
+    /// </summary>
+    /// <param name="serverHP">서버에서 보내준 체력</param>
+    public void Synchronize(float serverHP)
+    {
+        GetStatus.ChangeStatTo(StatusType.CHP, serverHP);
+    }
+
+    /// <summary>
     /// 파라미터로 들어온 효과들을 자신에게 적용하는 함수.
     /// duration이 0이면 영구적, 아니라면 일시적으로 적용한다.
     /// </summary>

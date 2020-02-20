@@ -93,7 +93,7 @@ public class SkillManager : MonoBehaviour
         SkillHitPacket packet = new SkillHitPacket(data);
         SkillHitData hit = packet.GetPacket();
         Debug.Log((hitCnt++) + " 피격 된 놈 : " + hit.campNumber + " 캠프의 " + hit.index);
-        GameManager.instance.ApplySkillEffect(hit.campNumber, hit.index, hit.statusType, hit.ccType, hit.amount, hit.duration);
+        GameManager.instance.ApplySkillEffect(hit.campNumber, hit.index, hit.statusType, hit.ccType, hit.amount, hit.duration, hit.chp);
     } 
 
 
