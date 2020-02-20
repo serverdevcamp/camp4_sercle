@@ -14,6 +14,7 @@ public class Robot : MonoBehaviour
     [SerializeField] private int campNum;
     [SerializeField] private List<Vector3> destinations;
     [SerializeField] private int destFlag;
+    private bool isDead;
 
     [Header("Attack Info")]
     [SerializeField] private State state;
@@ -122,8 +123,12 @@ public class Robot : MonoBehaviour
                 AttackActivate();
                 break;
             case State.Die:
-                SetAnimStateMap("Die_" + Random.Range(0, 3).ToString());
-                OnDeadStateActivate();
+                if (!isDead)
+                {
+                    isDead = true;
+                    SetAnimStateMap("Die_" + Random.Range(0, 3).ToString());
+                    OnDeadStateActivate();
+                }
                 break;
             case State.CC:
                 SetAnimStateMap("HardCC");
