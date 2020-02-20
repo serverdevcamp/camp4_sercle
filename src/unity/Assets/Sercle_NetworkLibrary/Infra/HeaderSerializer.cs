@@ -11,8 +11,6 @@ public class HeaderSerializer : Serializer
 
 		// 각 요소를 사례로 시리얼라이즈합니다.
 		bool ret = true;
-
-		ret &= Serialize(data.packetSize);
 		ret &= Serialize((int)data.packetId);
 
 		if (ret == false)

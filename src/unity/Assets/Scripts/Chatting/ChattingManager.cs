@@ -8,7 +8,6 @@ using UnityEngine.UI;
 using System;
 using System.Text;
 using DG.Tweening;
-using System.Runtime.InteropServices;
 
 public class ChattingManager : MonoBehaviour
 {
@@ -31,7 +30,6 @@ public class ChattingManager : MonoBehaviour
     // msg prefab
     public GameObject msgPrefab;
 
-    private Serializer.Endianness m_endianness;
     void Start()
     {
         httpManager = new HTTPManager();
@@ -39,11 +37,6 @@ public class ChattingManager : MonoBehaviour
         socket = GetComponent<TransportTCP>();
         Debug.Log("유저 : " + userInfo.userData.token);
         socket.Connect(address, port);
-
-        // 엔디언을 판정합니다.
-        int val = 1;
-        byte[] conv = BitConverter.GetBytes(val);
-        m_endianness = (conv[0] == 1) ? Serializer.Endianness.LittleEndian : Serializer.Endianness.BigEndian;
 
         // StartCoroutine(ChatTest());
     }
@@ -93,37 +86,9 @@ public class ChattingManager : MonoBehaviour
     private void SendData(string msg)
     {
         byte[] buffer = System.Text.Encoding.UTF8.GetBytes(msg);
-
-        PacketHeader header = new PacketHeader();
-        HeaderSerializer serializer = new HeaderSerializer();
-
-        header.packetSize = sizeof(int) + buffer.Length;
-        header.packetId = (int)PacketId.ChatData;
-
-        byte[] headerData = null;
-        if(serializer.Serialize(header) == true)
-        {
-            headerData = serializer.GetSerializedData();
-        }
-
-        // 내 컴퓨터가 리틀엔디언이면 문자열 역전해서 보낸다.
-        if (m_endianness == Serializer.Endianness.LittleEndian)
-        {
-            Array.Reverse(buffer);
-        }
-
-        int headerSize = Marshal.SizeOf(typeof(PacketHeader));
-
-        byte[] data = new byte[headerData.Length + buffer.Length];
-
-        Buffer.BlockCopy(headerData, 0, data, 0, headerSize);
-        Buffer.BlockCopy(buffer, 0, data, headerSize, buffer.Length);
-
-        int sendSize = socket.Send(data, data.Length);
-
-        Debug.Log("유저 정보 전송완료," + " 보낸 양 : " + sendSize + " 헤더사이즈 : " + headerSize + " 채팅내용 길이 : " + buffer.Length);
+        socket.Send(buffer, buffer.Length);
+        Debug.Log("유저 정보 전송");
     }
-
     private bool CheckUser(string email, string token)
     {
         if (httpManager.UserCacheReq(email) == token)
@@ -144,31 +109,8 @@ public class ChattingManager : MonoBehaviour
  
         if(recvSize > 0)
         {
-            PacketHeader header = new PacketHeader();
-            HeaderSerializer serializer = new HeaderSerializer();
-
-            // 맨앞자리만 추출
-            serializer.Deserialize(buffer, ref header);
-
-            int packetId = (int)header.packetId;
-            int headerSize = sizeof(int);
-
-            if (packetId != (int)PacketId.ChatData)
-            {
-                Debug.LogError("패킷 아이디가 채팅이 아닙니다.");
-            }
-
-            byte[] packetData = new byte[buffer.Length - headerSize];
-            Buffer.BlockCopy(buffer, headerSize, packetData, 0, packetData.Length);
-            
-            if (m_endianness == Serializer.Endianness.LittleEndian)
-            {
-                Array.Reverse(packetData);
-            }
-
-            string msg = System.Text.Encoding.Default.GetString(packetData);
-            Debug.Log("Recv data : " + msg);
-
+            string msg = System.Text.Encoding.Default.GetString(buffer);
+            Debug.Log("Recv data : " + msg + msg);
             AddMessage(msg);
         }
     }
