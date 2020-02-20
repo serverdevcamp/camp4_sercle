@@ -9,8 +9,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    [SerializeField] private List<Hero> myHeroes = new List<Hero>();
-    [SerializeField] private List<Hero> enemyHeroes = new List<Hero>();
+    [SerializeField] private List<Hero> firstCampHeroes = new List<Hero>();
+    [SerializeField] private List<Hero> secondCampHeroes = new List<Hero>();
     [SerializeField] private GameObject sampleHero;
 
     private RobotManager robotManager;
@@ -68,11 +68,11 @@ public class GameManager : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            indicateManager.ActivateSkillIndicator(myHeroes[0]);
+            indicateManager.ActivateSkillIndicator(firstCampHeroes[0]);
         }
         if (Input.GetKeyDown(KeyCode.W))
         {
-            indicateManager.ActivateSkillIndicator(myHeroes[1]);
+            indicateManager.ActivateSkillIndicator(firstCampHeroes[1]);
         }
     }
 
@@ -84,10 +84,10 @@ public class GameManager : MonoBehaviour
     // Awake 까지 와서도 스킬매니저에 스킬이 안왔을 경우 대비해서 코루틴으로 설정.
     private IEnumerator GetHeroSkill()
     {
-        while (myHeroes.Count == 0 || enemyHeroes.Count == 0)
+        while (firstCampHeroes.Count == 0 || secondCampHeroes.Count == 0)
         {
 
-            if (myHeroes.Count == 0 && SkillManager.instance.mySkills.Count > 0)
+            if (firstCampHeroes.Count == 0 && SkillManager.instance.mySkills.Count > 0)
             {
                 for (int i = 0; i < 3; i++)
                 {
@@ -95,11 +95,11 @@ public class GameManager : MonoBehaviour
                     GameObject tmpHero = Instantiate(sampleHero, initPos, Quaternion.identity);
                     tmpHero.GetComponent<Hero>().Index = i;
                     tmpHero.GetComponent<Hero>().InitialPos = initPos;
-                    myHeroes.Add(tmpHero.GetComponent<Hero>());
+                    firstCampHeroes.Add(tmpHero.GetComponent<Hero>());
 
                 }
             }
-            else if (enemyHeroes.Count == 0 && SkillManager.instance.enemySkills.Count > 0)
+            else if (secondCampHeroes.Count == 0 && SkillManager.instance.enemySkills.Count > 0)
             {
                 for (int i = 0; i < 3; i++)
                 {
@@ -107,7 +107,7 @@ public class GameManager : MonoBehaviour
                     GameObject tmpHero = Instantiate(sampleHero, initPos, Quaternion.identity);
                     tmpHero.GetComponent<Hero>().Index = i;
                     tmpHero.GetComponent<Hero>().InitialPos = initPos;
-                    enemyHeroes.Add( tmpHero.GetComponent<Hero>());
+                    secondCampHeroes.Add( tmpHero.GetComponent<Hero>());
                 }
             }
 
@@ -129,12 +129,12 @@ public class GameManager : MonoBehaviour
         if (campNum == 1)
         {
             if (isRobot) robotManager.FirstCampRobotFire(index, pos, dir);
-            else myHeroes[index].UseSkill(pos, dir);
+            else firstCampHeroes[index].UseSkill(pos, dir);
         }
         else
         {
             if (isRobot) robotManager.SecondCampRobotFire(index, pos, dir);
-            else enemyHeroes[index].UseSkill(pos, dir);
+            else secondCampHeroes[index].UseSkill(pos, dir);
         }
     }
 
@@ -173,12 +173,12 @@ public class GameManager : MonoBehaviour
 
     public Hero GetMyHero(int i)
     {
-        return myHeroes[i];
+        return firstCampHeroes[i];
     }
 
     public int GetMyHeroCount()
     {
-        return myHeroes.Count;
+        return firstCampHeroes.Count;
     }
 
     // HQ가 파괴되었다는 패킷 수신 함수
