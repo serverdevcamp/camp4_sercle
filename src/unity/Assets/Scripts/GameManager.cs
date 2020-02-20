@@ -20,6 +20,18 @@ public class GameManager : MonoBehaviour
     public int MyCampNum { get { return myCampNum; } }
     public int EnemyCampNum { get { return myCampNum == 1 ? 2 : 1; } }
 
+    public Hero MyHero(int i)
+    {
+        if (MyCampNum == 1) return firstCampHeroes[i];
+        else return secondCampHeroes[i];
+    }
+
+    public Hero EnemyHero(int i)
+    {
+        if (EnemyCampNum == 1) return firstCampHeroes[i];
+        else return secondCampHeroes[i];
+    }
+
     public Text tempWinnerText;
 
     // 양 단말 모두 게임씬으로 넘어와서 게임을 시작해도 되는지 판단하는 변수. readyToStart가 false면 일시정지, true면 정지 해제.
@@ -66,14 +78,9 @@ public class GameManager : MonoBehaviour
     {
         if (loadingCanvas.activeInHierarchy == true) return;
         
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            indicateManager.ActivateSkillIndicator(firstCampHeroes[0]);
-        }
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            indicateManager.ActivateSkillIndicator(firstCampHeroes[1]);
-        }
+        if (Input.GetKeyDown(KeyCode.Q)) indicateManager.ActivateSkillIndicator(MyHero(0));
+        else if (Input.GetKeyDown(KeyCode.W)) indicateManager.ActivateSkillIndicator(MyHero(1));
+        else if (Input.GetKeyDown(KeyCode.E)) indicateManager.ActivateSkillIndicator(MyHero(2));
     }
 
     private void GetHeroList()
@@ -87,7 +94,7 @@ public class GameManager : MonoBehaviour
         while (firstCampHeroes.Count == 0 || secondCampHeroes.Count == 0)
         {
 
-            if (firstCampHeroes.Count == 0 && SkillManager.instance.mySkills.Count > 0)
+            if (firstCampHeroes.Count == 0 && SkillManager.instance.firstCampSkills.Count > 0)
             {
                 for (int i = 0; i < 3; i++)
                 {
@@ -99,7 +106,7 @@ public class GameManager : MonoBehaviour
 
                 }
             }
-            else if (secondCampHeroes.Count == 0 && SkillManager.instance.enemySkills.Count > 0)
+            else if (secondCampHeroes.Count == 0 && SkillManager.instance.secondCampSkills.Count > 0)
             {
                 for (int i = 0; i < 3; i++)
                 {
@@ -107,7 +114,7 @@ public class GameManager : MonoBehaviour
                     GameObject tmpHero = Instantiate(sampleHero, initPos, Quaternion.identity);
                     tmpHero.GetComponent<Hero>().Index = i;
                     tmpHero.GetComponent<Hero>().InitialPos = initPos;
-                    secondCampHeroes.Add( tmpHero.GetComponent<Hero>());
+                    secondCampHeroes.Add(tmpHero.GetComponent<Hero>());
                 }
             }
 

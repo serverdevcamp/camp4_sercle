@@ -10,9 +10,7 @@ public class Hero : MonoBehaviour
 
     [Header("Basic Info")]
     [SerializeField] private int index; // 0 ~ 2.
-    [SerializeField] private bool is1P;
     [SerializeField] private State state;
-    [SerializeField] private Vector3 initialPos;
 
     [Header("Skill Info")]
     [SerializeField] private Skill skill;

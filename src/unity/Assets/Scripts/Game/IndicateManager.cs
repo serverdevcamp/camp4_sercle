@@ -71,6 +71,9 @@ public class IndicateManager : MonoBehaviour
 
     public void ActivateSkillIndicator(Hero hero)
     {
+        Splats.CancelSpellIndicator();
+        Splats.CancelRangeIndicator();
+
         // 인디케이터의 상태를 skill에 알맞은 상태로 바꿉니다.
         nowHero = hero;
         Splats.GetRangeIndicator("Range").DefaultScale = nowHero.GetSkill.size;
