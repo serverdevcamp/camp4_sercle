@@ -83,6 +83,7 @@ public class UIManager_SkillSelect : MonoBehaviour
         currentSkill = skillNum;
         selectedSkillName.text = skill.skillInfo[skillNum].skillName;
         selectedSkillDescription.text = skill.skillInfo[skillNum].skillDesc;
+        SoundManager.instance.PlaySound("Selection_SkillIcon");
     }
 
     public void SelectSkill()
@@ -91,12 +92,14 @@ public class UIManager_SkillSelect : MonoBehaviour
         {
             selectedSkills.Add(currentSkill.Value);
             currentSkill = null;
+            SoundManager.instance.PlaySound("ButtonClick");
         }
     }
 
     private void DeleteSkill(int i)
     {
         selectedSkills.RemoveAt(i);
+        SoundManager.instance.PlaySound("ButtonClick");
     }
 
     private void ShowSelectedSkills()
@@ -130,6 +133,7 @@ public class UIManager_SkillSelect : MonoBehaviour
 
     public void StartGame()
     {
+        SoundManager.instance.PlaySound("ButtonClick");
         SendSelectionInfo();
     }
 
