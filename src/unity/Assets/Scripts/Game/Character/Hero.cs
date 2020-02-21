@@ -110,8 +110,8 @@ public class Hero : MonoBehaviour
         // 투사체 생성
         state = State.Skill;
 
-        //ProjectileInfo info = new ProjectileInfo(GameManager.instance.MyCampNum, dir.HasValue ? dir.Value : transform.position, skill.speed, skill.range, skill.size, skill.targetType, skill.targetNum, skill.skillEffects);
-        ProjectileInfo info = new ProjectileInfo(1, dir.HasValue ? dir.Value : transform.position, skill.speed, skill.range, skill.size, skill.targetType, skill.targetNum, skill.skillEffects);
+        ProjectileInfo info = new ProjectileInfo(GameManager.instance.MyCampNum, dir.HasValue ? dir.Value : transform.position, skill.speed, skill.range, skill.size, skill.targetType, skill.targetNum, skill.skillEffects);
+        //ProjectileInfo info = new ProjectileInfo(1, dir.HasValue ? dir.Value : transform.position, skill.speed, skill.range, skill.size, skill.targetType, skill.targetNum, skill.skillEffects);
         Projectile projectile = UnityEngine.Object.Instantiate(skill.proj, pos, Quaternion.identity);
         projectile.Initialize(info);
 
