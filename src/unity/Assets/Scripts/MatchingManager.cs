@@ -187,7 +187,7 @@ public class MatchingManager : MonoBehaviour
                 myInfo = packetData.myInfo;
                 //내 정보 상대 정보 저장.
                 //수락 여부 버튼 띄우기.
-                SoundManager.instance.PlaySound("Login_Lazer", 1f);
+                SoundManager.instance.PlaySound("Lobby_Matching", 1f);
                 ChangeMatchingState(MatchingState.SelectMatchingResult);
             
             }

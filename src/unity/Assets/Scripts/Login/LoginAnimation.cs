@@ -76,7 +76,7 @@ public class LoginAnimation : MonoBehaviour
     {
         for (int i = 0; i < Random.Range(5, 7); i++)
         {
-            SoundManager.instance.PlaySound("Login_Lazer", Random.Range(0.2f, 0.3f));
+            SoundManager.instance.PlaySound("Login_Laser", Random.Range(0.2f, 0.3f));
             yield return new WaitForSeconds(0.2f);
         }
     }

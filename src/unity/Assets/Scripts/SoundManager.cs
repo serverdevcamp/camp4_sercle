@@ -11,7 +11,9 @@ public class SoundManager : MonoBehaviour
     public float masterVolumeSFX = 1f;
     public float masterVolumeBGM = 1f;
     [SerializeField]
-    private AudioClip[] clips;
+    private AudioClip[] outGameClips;
+    [SerializeField]
+    private AudioClip[] inGameClips;
     // 음악 사전
     private Dictionary<string, AudioClip> audioClipDic;
 
@@ -50,8 +52,13 @@ public class SoundManager : MonoBehaviour
     private void RegisterAudioClips()
     {
         audioClipDic = new Dictionary<string, AudioClip>();
-        clips = Resources.LoadAll<AudioClip>("Audio");
-        foreach (var item in clips)
+        outGameClips = Resources.LoadAll<AudioClip>("Audio/OutGame");
+        inGameClips = Resources.LoadAll<AudioClip>("Audio/InGame");
+        foreach (var item in outGameClips)
+        {
+            audioClipDic.Add(item.name, item);
+        }
+        foreach(var item in inGameClips)
         {
             audioClipDic.Add(item.name, item);
         }
