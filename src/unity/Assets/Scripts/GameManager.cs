@@ -72,6 +72,9 @@ public class GameManager : MonoBehaviour
         tempWinnerText.text = "";
 
         loadingCanvas = Instantiate(loadingCanvasPrefab);
+
+        // BGM 실행.
+        SoundManager.instance.PlayBGM("Game_BGM", 0.5f);
     }
 
     private void Update()

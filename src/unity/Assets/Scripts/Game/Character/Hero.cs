@@ -110,8 +110,8 @@ public class Hero : MonoBehaviour
         // 투사체 생성
         state = State.Skill;
 
-        ProjectileInfo info = new ProjectileInfo(GameManager.instance.MyCampNum, dir.HasValue ? dir.Value : transform.position, skill.speed, skill.range, skill.size, skill.targetType, skill.targetNum, skill.skillEffects);
-        //ProjectileInfo info = new ProjectileInfo(1, dir.HasValue ? dir.Value : transform.position, skill.speed, skill.range, skill.size, skill.targetType, skill.targetNum, skill.skillEffects);
+        //ProjectileInfo info = new ProjectileInfo(GameManager.instance.MyCampNum, dir.HasValue ? dir.Value : transform.position, skill.speed, skill.range, skill.size, skill.targetType, skill.targetNum, skill.skillEffects);
+        ProjectileInfo info = new ProjectileInfo(1, dir.HasValue ? dir.Value : transform.position, skill.speed, skill.range, skill.size, skill.targetType, skill.targetNum, skill.skillEffects);
         Projectile projectile = UnityEngine.Object.Instantiate(skill.proj, pos, Quaternion.identity);
         projectile.Initialize(info);
 
@@ -225,7 +225,7 @@ public class Hero : MonoBehaviour
 
         SkillDetailJsonArray skillDetailArray;
         skillDetailArray = JsonUtility.FromJson<SkillDetailJsonArray>(jsonFile);
-        Debug.Log(jsonFile);
+        //Debug.Log(jsonFile);
         // 세부 설정
         skill.emergeDelay = skillDetailArray.skillInfo[num].emergeDelay;
         skill.preDelay = skillDetailArray.skillInfo[num].preDelay;
