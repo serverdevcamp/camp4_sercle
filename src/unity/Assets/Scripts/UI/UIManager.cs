@@ -27,14 +27,14 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        heroCount = GameManager.instance.GetMyHeroCount();
+        heroCount = 3;
         skillInfoPanel.SetActive(false);
 
         for (int i = 0; i < heroCount; i++)
         {
             int num = new int();
             num = i;
-            Hero myHero = GameManager.instance.GetMyHero(i);
+            Hero myHero = GameManager.instance.MyHero(i);
             GameObject skillButton = Instantiate(buttonPrefab, skillPanel.transform);
             skillButton.GetComponent<SkillButtonIndicator>().Initialize(
                 myHero,
