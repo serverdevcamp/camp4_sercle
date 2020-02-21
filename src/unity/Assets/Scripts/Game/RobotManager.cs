@@ -126,11 +126,29 @@ public class RobotManager : MonoBehaviour
 
     public Robot FirstCampRobot(int i)
     {
-        return firstCampRobots[i].GetComponent<Robot>();
+        try
+        {
+            return firstCampRobots[i].GetComponent<Robot>();
+        }
+        catch
+        {
+            Debug.Log("첫번째 유저의 " + i + "번째 로봇의 Robot.cs를 반환할 수 없습니다.");
+            Debug.Log("현재 첫번째 유저의 로봇 개수 : " + firstCampRobots.Count);
+            return null;
+        }
     }
 
     public Robot SecondCampRobot(int i)
     {
-        return secondCampRobots[i].GetComponent<Robot>();
+        try
+        {
+            return secondCampRobots[i].GetComponent<Robot>();
+        }
+        catch
+        {
+            Debug.Log("두번째 유저의 " + i + "번째 로봇의 Robot.cs를 반환할 수 없습니다.");
+            Debug.Log("현재 두번째 유저의 로봇 개수 : " + secondCampRobots.Count);
+            return null;
+        }
     }
 }

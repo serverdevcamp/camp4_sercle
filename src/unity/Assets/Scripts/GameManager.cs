@@ -176,18 +176,15 @@ public class GameManager : MonoBehaviour
 
         SkillEffect effect = new SkillEffect((StatusType)statusType, (CCType)ccType, amount, duration);
 
+        if (target == null)
+        {
+            Debug.Log("해당하는 타겟을 찾을 수 없습니다. 스킬 효과 적용을 무시합니다." + System.Environment.NewLine
+                + "타겟 정보 : " + tCampNum + "P의 " + tIndex + "번째 로봇" + System.Environment.NewLine
+                + "스킬 정보 : " + (StatusType)statusType + "스탯, " + (CCType)ccType + "CC 기, " + amount + "만큼 " + duration + "초 동안 변화");
+            return;
+        }
         target.Synchronize(chp);
         target.Apply(effect);
-    }
-
-    public Hero GetMyHero(int i)
-    {
-        return firstCampHeroes[i];
-    }
-
-    public int GetMyHeroCount()
-    {
-        return firstCampHeroes.Count;
     }
 
     // HQ가 파괴되었다는 패킷 수신 함수
