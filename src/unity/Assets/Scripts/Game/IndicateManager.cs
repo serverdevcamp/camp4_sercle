@@ -67,6 +67,8 @@ public class IndicateManager : MonoBehaviour
                 }
                 break;
         }
+
+        transform.position = new Vector3(transform.position.x, 1f, transform.position.z);
     }
 
     public void ActivateSkillIndicator(Hero hero)

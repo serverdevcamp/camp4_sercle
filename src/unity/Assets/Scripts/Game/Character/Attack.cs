@@ -95,7 +95,7 @@ public class Attack
     private ProjectileInfo ProjectileInfo(Robot caster, Vector3 dir)
     {
         List<SkillEffect> effects = new List<SkillEffect>();
-        effect.amount = -caster.GetStatus.ATK;
+        effect.amount = -(int)caster.GetStatus.ATK;
         effects.Add(effect);
 
         ProjectileInfo info = new ProjectileInfo(caster.CampNum, dir, speed, range, size, TargetType.Enemy, TargetNum.One, effects);

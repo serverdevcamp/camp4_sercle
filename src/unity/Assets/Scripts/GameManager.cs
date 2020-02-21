@@ -153,7 +153,7 @@ public class GameManager : MonoBehaviour
         int tIndex = target.Index;
         int statusType = (int)effect.statusType;
         int ccType = (int)effect.ccType;
-        float amount = effect.amount;
+        int amount = effect.amount;
         float duration = effect.duration;
 
         SkillManager.instance.SendLocalHitInfo(tCampNum, tIndex, statusType, ccType, amount, duration);
@@ -168,7 +168,7 @@ public class GameManager : MonoBehaviour
     /// <param name="ccType">효과에 담긴 CC 타입</param>
     /// <param name="amount">변화할 스테이터스의 양</param>
     /// <param name="duration">변화할 시간. 0이면 무제한</param>
-    public void ApplySkillEffect(int tCampNum, int tIndex, int statusType, int ccType, float amount, float duration, float chp)
+    public void ApplySkillEffect(int tCampNum, int tIndex, int statusType, int ccType, int amount, float duration, float chp)
     {
         Robot target;
         if (tCampNum == 1) target = robotManager.FirstCampRobot(tIndex);

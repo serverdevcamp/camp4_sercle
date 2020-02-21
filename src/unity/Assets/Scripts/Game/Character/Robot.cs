@@ -214,7 +214,7 @@ public class Robot : MonoBehaviour
         {
             canvasList[i].enabled = false;
         }
-        this.enabled = false;
+        //enabled = false;
     }
 
     // 상태맵 초기화

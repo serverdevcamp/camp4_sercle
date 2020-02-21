@@ -62,7 +62,7 @@ public class SkillManager : MonoBehaviour
         networkManager.SendReliable<SkillData>(packet);
     }
 
-    public void SendLocalHitInfo(int campNumber, int index, int statusType, int ccType, float amount, float duration)
+    public void SendLocalHitInfo(int campNumber, int index, int statusType, int ccType, int amount, float duration)
     {
         SkillHitData data = new SkillHitData(campNumber, index, statusType, ccType, amount, duration, 0);
 
@@ -92,8 +92,8 @@ public class SkillManager : MonoBehaviour
     {
         SkillHitPacket packet = new SkillHitPacket(data);
         SkillHitData hit = packet.GetPacket();
-        Debug.Log((hitCnt++) + " 피격 된 놈 : " + hit.campNumber + " 캠프의 " + hit.index);
-        GameManager.instance.ApplySkillEffect(hit.campNumber, hit.index, hit.statusType, hit.ccType, hit.amount, hit.duration, hit.chp);
+        Debug.Log((hitCnt++) + " 피격 된 놈 : " + hit.campNumber + " 캠프의 " + hit.index + " 서버 체력은 " + hit.serverHP);
+        GameManager.instance.ApplySkillEffect(hit.campNumber, hit.index, hit.statusType, hit.ccType, hit.amount, hit.duration, hit.serverHP);
     } 
 
 
