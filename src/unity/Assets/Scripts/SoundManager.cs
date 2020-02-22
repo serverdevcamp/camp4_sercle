@@ -17,6 +17,9 @@ public class SoundManager : MonoBehaviour
     // 음악 사전
     private Dictionary<string, AudioClip> audioClipDic;
 
+    // csv로 읽은 이펙트 사운드 사전 
+    private List<Dictionary<string, object>> effectDic;
+
     // 사운드 플레이어
     private AudioSource sfxPlayer;
     private AudioSource bgmPlayer;
@@ -41,12 +44,13 @@ public class SoundManager : MonoBehaviour
 
         RegisterAudioClips();
         InitPlayerSetting();
+        ReadCSV();
     }
 
-    // Start is called before the first frame update
-    void Start()
+    
+    private void ReadCSV()
     {
-     
+        effectDic = CSVReader.Read("Json/SkillSoundTableCsv");
     }
 
     private void RegisterAudioClips()
@@ -79,6 +83,23 @@ public class SoundManager : MonoBehaviour
             return;
         }
         sfxPlayer.PlayOneShot(audioClipDic[clipName], volume * masterVolumeSFX);
+    }
+
+    // sfx n회 재생.
+    public void IterateEffectSound(string skillNum, float volume = 1f)
+    {
+        string soundTitle = effectDic[int.Parse(skillNum)]["Title"].ToString();
+        int iterCount = (int)effectDic[int.Parse(skillNum)]["Iteration"];
+        StartCoroutine(PlaySFX(soundTitle, volume, iterCount));
+    }
+
+    private IEnumerator PlaySFX(string clipName, float volume = 1f, int iter = 1)
+    {
+        for(int i = 0; i < iter; i++)
+        {
+            PlaySound(clipName, volume);
+            yield return new WaitForSeconds(0.15f);
+        }
     }
 
     // bgm 재생

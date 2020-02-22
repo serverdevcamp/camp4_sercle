@@ -14,6 +14,7 @@ public class Skill
     public enum State { Idle, Ready, CoolDown }
 
     [Header("Basic Info")]
+    public int skillNum;
     public string skillName;
     public string description;
     public Sprite image;
