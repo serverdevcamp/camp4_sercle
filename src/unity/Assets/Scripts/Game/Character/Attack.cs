@@ -66,6 +66,7 @@ public class Attack
                 projectile.Initialize(info);
 
                 caster.ShowMuzzleEffect(true);
+                SoundManager.instance.PlaySound("RobotAttack", 0.1f);
             }
             #endregion
         }

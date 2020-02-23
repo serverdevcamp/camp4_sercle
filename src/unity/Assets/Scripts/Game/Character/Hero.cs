@@ -28,13 +28,13 @@ public class Hero : MonoBehaviour
 
     private void OnEnable()
     {
-        //// 등장, 스킬 테스트용
+        ////// 등장, 스킬 테스트용
         //heroAnim = GetComponent<Animator>();
         //SetSkillInfo(testSkillNumber); 
         //InitialPos = new Vector3(10, 10, 10);
 
         //UseSkill(Vector3.zero, new Vector3(1.2f, 0, -.8f));
-        ////UseSkill(Vector3.zero, null);
+        //////UseSkill(Vector3.zero, null);
     }
     public void Initialize(int skill)
     {
@@ -119,22 +119,15 @@ public class Hero : MonoBehaviour
         projectile.Initialize(info);
 
         // 스킬이펙트 발동
-        GameObject go = Instantiate(skill.skillEffectPrefab, pos, Quaternion.identity);
-        // 이펙트의 지속시간 조절할 수 있음.
-        //if (go.GetComponent<MagicalFX._FX_LifeTime>() != null)
-        //{ 
-        //    go.GetComponent<MagicalFX._FX_LifeTime>().LifeTime = ??;
-        //}
-        //else if(go.GetComponent<MagicalFX._FX_SpawnDirection>() != null)
-        //{
-        //    go.GetComponent<MagicalFX._FX_SpawnDirection>().LifeTime = ??;
-        //}
-
-        if (dir.HasValue)
+        if(skill.skillEffectPrefab is null)
         {
-            go.transform.LookAt(dir.Value + pos);
+            skill.skillEffectPrefab = Resources.Load<GameObject>("SkillEffect/MagicEffect");
         }
-       
+        GameObject go = Instantiate(skill.skillEffectPrefab, pos, skill.skillEffectPrefab.transform.rotation);
+        if (dir.HasValue)
+        {   if(skill.skillNum != 16 && skill.skillNum != 17 && skill.skillNum != 18)
+                go.transform.LookAt(dir.Value + pos);
+        }
         #endregion
 
         #region 퇴장

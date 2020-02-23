@@ -24,9 +24,14 @@ public class Robot : MonoBehaviour
 
     [Header("Effects")]
     [SerializeField] private GameObject stun;
-    [SerializeField] private GameObject curse;
+    [SerializeField] private GameObject sleep;
+    [SerializeField] private GameObject armored;
+    [SerializeField] private GameObject repel;
+    [SerializeField] private GameObject wild;
+    [SerializeField] private GameObject superCharge;
     [SerializeField] private GameObject heal;
     [SerializeField] private GameObject frozen;
+    [SerializeField] private GameObject cursed;
     [SerializeField] private GameObject burn;
     [SerializeField] private GameObject muzzle;
 
