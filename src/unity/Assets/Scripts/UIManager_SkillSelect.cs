@@ -169,7 +169,7 @@ public class UIManager_SkillSelect : MonoBehaviour
         {
             Debug.Log("게임 씬으로 넘어갑니다.");
             // 씬 이동
-            SceneManager.LoadScene("EQ_Test");
+            SceneManager.LoadScene(3);
         }
     }
 }
