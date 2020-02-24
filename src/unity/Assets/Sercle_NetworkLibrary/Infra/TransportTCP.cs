@@ -32,6 +32,9 @@ public class TransportTCP : MonoBehaviour
 	// 접속 플래그.
 	private bool m_isConnected = false;
 
+    // 씬 이름
+    private string sceneName;
+
 	//
 	// 이벤트 관련 멤버 변수.
 	//
@@ -65,7 +68,9 @@ public class TransportTCP : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-	}
+        sceneName = SceneManager.GetActiveScene().name;
+
+    }
 
 	// 대기 시작.
 	public bool StartServer(int port, int connectionNum)
@@ -317,8 +322,8 @@ public class TransportTCP : MonoBehaviour
 		try
 		{
 			while (m_isConnected && m_socket.Poll(0, SelectMode.SelectRead))
-			{
-                if (SceneManager.GetActiveScene().name == "Game")
+            {
+                if (sceneName == "Game")
                 {
                     int gameBufferSize = 37;
 
@@ -345,6 +350,7 @@ public class TransportTCP : MonoBehaviour
                 }
                 else
                 {
+                    Debug.Log("게임씬아님요");
                     byte[] buffer = new byte[1024];
                     int recvSize = m_socket.Receive(buffer, buffer.Length, SocketFlags.None);
                     if (recvSize == 0)
@@ -359,8 +365,8 @@ public class TransportTCP : MonoBehaviour
                         m_recvQueue.Enqueue(buffer, recvSize);
                     }
                 }
-				
-			}
+
+            }
 		}
 		catch
 		{
