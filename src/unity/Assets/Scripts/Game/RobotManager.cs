@@ -80,6 +80,7 @@ public class RobotManager : MonoBehaviour
         firstCampRobot.GetComponent<Robot>().InitialSetting(robotNum, 1, linePos);
         firstCampRobots.Add(firstCampRobot);
 
+        robotNum = secondCampRobots.Count;
         GameObject secondCampRobot = Instantiate(robotPrefab, linePos[count - 1], Quaternion.identity);
         secondCampRobot.name = "Second Camp Robot " + robotNum;
         secondCampRobot.GetComponent<Robot>().InitialSetting(robotNum, 2, linePos);
