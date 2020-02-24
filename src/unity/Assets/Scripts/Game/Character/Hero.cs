@@ -114,8 +114,8 @@ public class Hero : MonoBehaviour
         ProjectileInfo info = new ProjectileInfo(GameManager.instance.MyCampNum, dir.HasValue ? dir.Value : transform.position, skill.speed, skill.range, skill.size, skill.targetType, skill.targetNum, skill.skillEffects);
         
         // 아래는 테스트용
-        //ProjectileInfo info = new ProjectileInfo(1, dir.HasValue ? dir.Value : transform.position, skill.speed, skill.range, skill.size, skill.targetType, skill.targetNum, skill.skillEffects);
-        Projectile projectile = UnityEngine.Object.Instantiate(skill.proj, pos, Quaternion.identity);
+        // ProjectileInfo info = new ProjectileInfo(1, dir.HasValue ? dir.Value : transform.position, skill.speed, skill.range, skill.size, skill.targetType, skill.targetNum, skill.skillEffects);
+        Projectile projectile = UnityEngine.Object.Instantiate(skill.proj, pos + new Vector3(0, 0.7f, 0), Quaternion.identity);
         projectile.Initialize(info);
 
         // 스킬이펙트 발동
@@ -162,8 +162,8 @@ public class Hero : MonoBehaviour
         stateMap.Add("Fire_0", false);
         stateMap.Add("Fire_1", false);
         stateMap.Add("Fire_2", false);
-        stateMap.Add("PostDelay", false);
-        stateMap.Add("Die", false);
+        //stateMap.Add("PostDelay", false);
+        //stateMap.Add("Die", false);
     }
 
     // 상태맵에서 원하는 상태만 True로 전환
