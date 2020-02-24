@@ -18,7 +18,7 @@ public class CharacterHealthBar : MonoBehaviour
 
         if (robot.CampNum != GameManager.instance.MyCampNum)
         {
-            bar.color = new Color(255, 100, 100);
+            bar.color = new Color(1, 0.4f, 0.4f);
         }
 
         myHpRatio = 1f;
