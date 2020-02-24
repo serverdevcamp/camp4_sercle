@@ -20,7 +20,6 @@ public class RobotManager : MonoBehaviour
 
     private List<GameObject> firstCampRobots = new List<GameObject>();
     private List<GameObject> secondCampRobots = new List<GameObject>();
-    private int robotNum = 1;
 
     private NetworkManager networkManager;
 
@@ -74,6 +73,8 @@ public class RobotManager : MonoBehaviour
     private void SpawnRobotPair(List<Vector3> linePos)
     {
         int count = linePos.Count;
+        int robotNum = firstCampRobots.Count;
+        if (robotNum >= 3) return;
 
         GameObject firstCampRobot = Instantiate(robotPrefab, linePos[0], Quaternion.identity);
         firstCampRobot.name = "First Camp Robot " + robotNum;
@@ -84,8 +85,6 @@ public class RobotManager : MonoBehaviour
         secondCampRobot.name = "Second Camp Robot " + robotNum;
         secondCampRobot.GetComponent<Robot>().InitialSetting(robotNum, 2, linePos);
         secondCampRobots.Add(secondCampRobot);
-        
-        robotNum += 1;
     }
 
     private List<Vector3> LinePos(List<Transform> line)
