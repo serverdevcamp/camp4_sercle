@@ -5,6 +5,9 @@ using UnityEngine.AI;
 
 public class RobotManager : MonoBehaviour
 {
+    [SerializeField] private GameObject HQ_Camp1;
+    [SerializeField] private GameObject HQ_Camp2;
+
     [Header("Line Pos")]
     [SerializeField] private List<Transform> line1;
     [SerializeField] private List<Transform> line2;
@@ -17,13 +20,14 @@ public class RobotManager : MonoBehaviour
 
     private List<GameObject> firstCampRobots = new List<GameObject>();
     private List<GameObject> secondCampRobots = new List<GameObject>();
-    private int robotNum = 0;
 
     private NetworkManager networkManager;
 
     private void Awake()
     {
         networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
+        firstCampRobots.Add(HQ_Camp1);
+        secondCampRobots.Add(HQ_Camp2);
     }
 
     private void Start()
@@ -46,9 +50,9 @@ public class RobotManager : MonoBehaviour
     {
         for (int i = 0; i < waveSize; i++)
         {
-            SpawnRobotPair(LinePos(line1));
+            //SpawnRobotPair(LinePos(line1));
             SpawnRobotPair(LinePos(line2));
-            SpawnRobotPair(LinePos(line3));
+            //SpawnRobotPair(LinePos(line3));
 
             yield return new WaitForSeconds(0.5f);
         }
@@ -69,6 +73,7 @@ public class RobotManager : MonoBehaviour
     private void SpawnRobotPair(List<Vector3> linePos)
     {
         int count = linePos.Count;
+        int robotNum = firstCampRobots.Count;
 
         GameObject firstCampRobot = Instantiate(robotPrefab, linePos[0], Quaternion.identity);
         firstCampRobot.name = "First Camp Robot " + robotNum;
@@ -79,8 +84,6 @@ public class RobotManager : MonoBehaviour
         secondCampRobot.name = "Second Camp Robot " + robotNum;
         secondCampRobot.GetComponent<Robot>().InitialSetting(robotNum, 2, linePos);
         secondCampRobots.Add(secondCampRobot);
-        
-        robotNum += 1;
     }
 
     private List<Vector3> LinePos(List<Transform> line)
