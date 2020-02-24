@@ -20,7 +20,7 @@ public class Hero : MonoBehaviour
 
     [Header("Miscellaneous Effect")]
     [SerializeField] private GameObject exitEffect;
-
+    [SerializeField] private List<GameObject> appearance;
     public int testSkillNumber;
 
     // 상태 - 부울 딕셔너리
@@ -239,5 +239,11 @@ public class Hero : MonoBehaviour
         skill.targetType = skillDetailArray.skillInfo[num].targetType;
         skill.targetNum = skillDetailArray.skillInfo[num].targetNum;
         skill.skillEffects = skillDetailArray.skillInfo[num].skillEffects.ToList();
+    }
+
+
+    public void SetAppearance(int index)
+    {
+        appearance[index].SetActive(true);
     }
 }
