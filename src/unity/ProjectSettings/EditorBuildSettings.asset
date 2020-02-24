@@ -15,6 +15,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Skill Select.unity
     guid: 7b222f8d84bd4164db69910fc9ff2ee2
   - enabled: 1
-    path: Assets/Scenes/EQ_Test.unity
+    path: Assets/Scenes/Game.unity
     guid: d60dbed23d410c64788a22dbdb79d094
   m_configObjects: {}
