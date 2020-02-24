@@ -328,25 +328,18 @@ public class TransportTCP : MonoBehaviour
                     int gameBufferSize = 37;
 
                     byte[] buffer = new byte[gameBufferSize];
-
-                    int cnt = 0;
-                    while (cnt < gameBufferSize)
+                    int recvSize = m_socket.Receive(buffer, buffer.Length, SocketFlags.None);
+                    if (recvSize == 0)
                     {
-                        int recvSize = m_socket.Receive(buffer, cnt, 1, SocketFlags.None);
-                        if (recvSize == 0)
-                        {
-                            // 끊기.
-                            Debug.Log("Disconnect recv from client.");
-                            Disconnect();
-                        }
-                        cnt += recvSize;
-                        if (cnt == 37)
-                        {
-                            break;
-                        }
+                        // 끊기.
+                        Debug.Log("Disconnect recv from client.");
+                        Disconnect();
                     }
-                    Debug.Log("(게임씬)사이즈는 : " + cnt);
-                    m_recvQueue.Enqueue(buffer, cnt);
+                    else if (recvSize > 0)
+                    {
+                        Debug.Log("(게임)사이즈는 : " + recvSize);
+                        m_recvQueue.Enqueue(buffer, recvSize);
+                    }
                 }
                 else
                 {
