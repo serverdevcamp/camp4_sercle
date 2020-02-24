@@ -5,6 +5,9 @@ using UnityEngine.AI;
 
 public class RobotManager : MonoBehaviour
 {
+    [SerializeField] private GameObject HQ_Camp1;
+    [SerializeField] private GameObject HQ_Camp2;
+
     [Header("Line Pos")]
     [SerializeField] private List<Transform> line1;
     [SerializeField] private List<Transform> line2;
@@ -17,13 +20,15 @@ public class RobotManager : MonoBehaviour
 
     private List<GameObject> firstCampRobots = new List<GameObject>();
     private List<GameObject> secondCampRobots = new List<GameObject>();
-    private int robotNum = 0;
+    private int robotNum = 1;
 
     private NetworkManager networkManager;
 
     private void Awake()
     {
         networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
+        firstCampRobots.Add(HQ_Camp1);
+        secondCampRobots.Add(HQ_Camp2);
     }
 
     private void Start()
