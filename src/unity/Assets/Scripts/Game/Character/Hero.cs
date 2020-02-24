@@ -21,21 +21,20 @@ public class Hero : MonoBehaviour
     [Header("Miscellaneous Effect")]
     [SerializeField] private GameObject exitEffect;
 
+    public int testSkillNumber;
+
     // 상태 - 부울 딕셔너리
     private Dictionary<string, bool> stateMap = new Dictionary<string, bool>();
 
     private void OnEnable()
     {
-        // 등장, 스킬 테스트용
+        ////// 등장, 스킬 테스트용
+        //heroAnim = GetComponent<Animator>();
+        //SetSkillInfo(testSkillNumber); 
+        //InitialPos = new Vector3(10, 10, 10);
 
-        if (heroAnim == null)
-        {
-            Initialize(4);
-            InitialPos = new Vector3(10, 10, 10);
-        }
-
-        UseSkill(Vector3.zero, new Vector3(1.2f, 0, -.8f));
-        //UseSkill(Vector3.zero, null);
+        //UseSkill(Vector3.zero, new Vector3(1.2f, 0, -.8f));
+        //////UseSkill(Vector3.zero, null);
     }
     public void Initialize(int skill)
     {
@@ -94,6 +93,7 @@ public class Hero : MonoBehaviour
         {
             rig.AddForce(-this.transform.up * 300f, ForceMode.Impulse);
         }
+        SoundManager.instance.PlaySound("HeroEmergence");
 
         // 착지 후 멋져보이게 n초 대기
         yield return new WaitForSeconds(skill.emergeDelay);
@@ -106,32 +106,28 @@ public class Hero : MonoBehaviour
 
         // 스킬 사용
         SetAnimStateMap("Fire_" + randomSkillMotion.ToString());
+        SoundManager.instance.IterateEffectSound(skill.skillNum.ToString(), 1f);
 
         // 투사체 생성
         state = State.Skill;
 
-        //ProjectileInfo info = new ProjectileInfo(GameManager.instance.MyCampNum, dir.HasValue ? dir.Value : transform.position, skill.speed, skill.range, skill.size, skill.targetType, skill.targetNum, skill.skillEffects);
-        ProjectileInfo info = new ProjectileInfo(1, dir.HasValue ? dir.Value : transform.position, skill.speed, skill.range, skill.size, skill.targetType, skill.targetNum, skill.skillEffects);
+        ProjectileInfo info = new ProjectileInfo(GameManager.instance.MyCampNum, dir.HasValue ? dir.Value : transform.position, skill.speed, skill.range, skill.size, skill.targetType, skill.targetNum, skill.skillEffects);
+        
+        // 아래는 테스트용
+        //ProjectileInfo info = new ProjectileInfo(1, dir.HasValue ? dir.Value : transform.position, skill.speed, skill.range, skill.size, skill.targetType, skill.targetNum, skill.skillEffects);
         Projectile projectile = UnityEngine.Object.Instantiate(skill.proj, pos, Quaternion.identity);
         projectile.Initialize(info);
 
         // 스킬이펙트 발동
-        GameObject go = Instantiate(skill.skillEffectPrefab, pos, Quaternion.identity);
-        // 이펙트의 지속시간 조절할 수 있음.
-        //if (go.GetComponent<MagicalFX._FX_LifeTime>() != null)
-        //{ 
-        //    go.GetComponent<MagicalFX._FX_LifeTime>().LifeTime = ??;
-        //}
-        //else if(go.GetComponent<MagicalFX._FX_SpawnDirection>() != null)
-        //{
-        //    go.GetComponent<MagicalFX._FX_SpawnDirection>().LifeTime = ??;
-        //}
-
-        if (dir.HasValue)
+        if(skill.skillEffectPrefab is null)
         {
-            go.transform.LookAt(dir.Value + pos);
+            skill.skillEffectPrefab = Resources.Load<GameObject>("SkillEffect/MagicEffect");
         }
-       
+        GameObject go = Instantiate(skill.skillEffectPrefab, pos, skill.skillEffectPrefab.transform.rotation);
+        if (dir.HasValue)
+        {   if(skill.skillNum != 16 && skill.skillNum != 17 && skill.skillNum != 18)
+                go.transform.LookAt(dir.Value + pos);
+        }
         #endregion
 
         #region 퇴장
@@ -219,6 +215,9 @@ public class Hero : MonoBehaviour
 
         // 스킬 설명 설정
         skill.description = skillArray.skillInfo[num].skillDesc;
+
+        // 스킬 번호 설정
+        skill.skillNum = skillArray.skillInfo[num].skillNumber;
 
         // 스킬 세부정보
         jsonFile = Resources.Load<TextAsset>("Json/SkillDetailJson").ToString();

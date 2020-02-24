@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour
         loadingCanvas = Instantiate(loadingCanvasPrefab);
 
         // BGM 실행.
-        SoundManager.instance.PlayBGM("Game_BGM", 0.5f);
+        SoundManager.instance.PlayBGM("Game_BGM", 0.2f);
     }
 
     private void Update()
@@ -206,6 +206,9 @@ public class GameManager : MonoBehaviour
         {
             tempWinnerText.text = "THE WINNER IS OPPONENT TT";
         }
+
+        SoundManager.instance.StopBGM();
+        SoundManager.instance.PlaySound("DestroyHQ");
     }
 
     // 양 클라이언트에서 동일한 타이밍으로 게임 시작을 위한, 게임시작 패킷 수신 함수

@@ -304,7 +304,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   masterVolumeSFX: 1
   masterVolumeBGM: 1
-  clips: []
+  outGameClips: []
+  inGameClips: []
 --- !u!82 &125920304
 AudioSource:
   m_ObjectHideFlags: 0
