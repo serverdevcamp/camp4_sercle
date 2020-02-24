@@ -84,14 +84,14 @@ public class RobotManager : MonoBehaviour
 
     public void FirstCampRobotFire(int index, Vector3 pos, Vector3 dir)
     {
-        Robot caster = firstCampRobots[index].GetComponent<Robot>();
+        Robot caster = FirstCampRobot(index);
         caster.transform.position = pos;
         StartCoroutine(caster.MyAttack.Fire(caster, dir, GameManager.instance.MyCampNum == 1));
     }
 
     public void SecondCampRobotFire(int index, Vector3 pos, Vector3 dir)
     {
-        Robot caster = secondCampRobots[index].GetComponent<Robot>();
+        Robot caster = SecondCampRobot(index);
         caster.transform.position = pos;
         StartCoroutine(caster.MyAttack.Fire(caster, dir, GameManager.instance.MyCampNum == 2));
     }
