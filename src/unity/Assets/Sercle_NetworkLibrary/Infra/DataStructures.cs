@@ -327,6 +327,15 @@ public struct GameFinishData
 {
     // 어느 진영이 승리했는지
     public int winnerCamp;
+    // 패딩
+    public bool trash0;
+    public int trash1;
+    public int trash2;
+    public int trash3;
+    public int trash4;
+    public int trash5;
+    public int trash6;
+    public int trash7;
 }
 
 // 스킬 투사체에 맞았을 때 전송하는 데이터
@@ -360,6 +369,15 @@ public struct SkillHitData
 public struct GameStartData
 {
     public int campNumber;
+    // padding
+    public bool trash0;
+    public int trash1;
+    public int trash2;
+    public int trash3;
+    public int trash4;
+    public int trash5;
+    public int trash6;
+    public int trash7;
 }
 
 // 로봇 스폰 데이터

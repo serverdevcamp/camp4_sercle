@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+using UnityEngine.SceneManagement;
 
 public class TransportTCP : MonoBehaviour
 {
@@ -130,7 +131,7 @@ public class TransportTCP : MonoBehaviour
 		try
 		{
 			m_socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-			m_socket.NoDelay = true;
+			m_socket.NoDelay = false;
 			m_socket.SendBufferSize = 0;
 			m_socket.Connect(address, port);
 			ret = LaunchThread(port);
@@ -317,20 +318,48 @@ public class TransportTCP : MonoBehaviour
 		{
 			while (m_isConnected && m_socket.Poll(0, SelectMode.SelectRead))
 			{
-				byte[] buffer = new byte[37];
+                if (SceneManager.GetActiveScene().name == "Game")
+                {
+                    int gameBufferSize = 37;
 
-				int recvSize = m_socket.Receive(buffer, buffer.Length, SocketFlags.None);
-				if (recvSize == 0)
-				{
-					// 끊기.
-					Debug.Log("Disconnect recv from client.");
-					Disconnect();
-				}
-				else if (recvSize > 0)
-				{
-					Debug.Log("사이즈는 : " + recvSize);
-					m_recvQueue.Enqueue(buffer, recvSize);
-				}
+                    byte[] buffer = new byte[gameBufferSize];
+
+                    int cnt = 0;
+                    while (cnt < gameBufferSize)
+                    {
+                        int recvSize = m_socket.Receive(buffer, cnt, 1, SocketFlags.None);
+                        if (recvSize == 0)
+                        {
+                            // 끊기.
+                            Debug.Log("Disconnect recv from client.");
+                            Disconnect();
+                        }
+                        cnt += recvSize;
+                        if (cnt == 37)
+                        {
+                            break;
+                        }
+                    }
+                    Debug.Log("(게임씬)사이즈는 : " + cnt);
+                    m_recvQueue.Enqueue(buffer, cnt);
+                }
+                else
+                {
+                    byte[] buffer = new byte[1024];
+                    int recvSize = m_socket.Receive(buffer, buffer.Length, SocketFlags.None);
+                    if (recvSize == 0)
+                    {
+                        // 끊기.
+                        Debug.Log("Disconnect recv from client.");
+                        Disconnect();
+                    }
+                    else if (recvSize > 0)
+                    {
+                        Debug.Log("사이즈는 : " + recvSize);
+                        m_recvQueue.Enqueue(buffer, recvSize);
+                    }
+                }
+				
 			}
 		}
 		catch
