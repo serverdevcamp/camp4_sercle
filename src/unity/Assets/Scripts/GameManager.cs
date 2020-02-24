@@ -114,7 +114,7 @@ public class GameManager : MonoBehaviour
                 secondCampHeroes.Add(tmpHero.GetComponent<Hero>());
             }
         }
-        loadingCanvas.SetActive(false);
+        // loadingCanvas.SetActive(false);
     }
 
     public void RequestFire(int campNum, bool isRobot, int index, Vector3 pos, Vector3 dir)
