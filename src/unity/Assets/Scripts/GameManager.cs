@@ -86,48 +86,34 @@ public class GameManager : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.E)) indicateManager.ActivateSkillIndicator(MyHero(2));
     }
 
+    // SkillManager에 있는 스킬 가져오는 함수.
     private void GetHeroList()
     {
-        StartCoroutine(GetHeroSkill());
-    }
-
-    // Awake 까지 와서도 스킬매니저에 스킬이 안왔을 경우 대비해서 코루틴으로 설정.
-    private IEnumerator GetHeroSkill()
-    {
-        while (firstCampHeroes.Count == 0 || secondCampHeroes.Count == 0)
+        if (SkillManager.instance.firstCampSkills.Count > 0)
         {
-
-            if (firstCampHeroes.Count == 0 && SkillManager.instance.firstCampSkills.Count > 0)
+            for (int i = 0; i < 3; i++)
             {
-                for (int i = 0; i < 3; i++)
-                {
-                    Vector3 initPos = new Vector3(999 + i * 10, 10, 999);
-                    GameObject tmpHero = Instantiate(sampleHero, initPos, Quaternion.identity);
-                    tmpHero.GetComponent<Hero>().Index = i;
-                    tmpHero.GetComponent<Hero>().InitialPos = initPos;
-                    tmpHero.GetComponent<Hero>().Initialize(SkillManager.instance.firstCampSkills[i]);
-                    firstCampHeroes.Add(tmpHero.GetComponent<Hero>());
+                Vector3 initPos = new Vector3(999 + i * 10, 10, 999);
+                GameObject tmpHero = Instantiate(sampleHero, initPos, Quaternion.identity);
+                tmpHero.GetComponent<Hero>().Index = i;
+                tmpHero.GetComponent<Hero>().InitialPos = initPos;
+                tmpHero.GetComponent<Hero>().Initialize(SkillManager.instance.firstCampSkills[i]);
+                firstCampHeroes.Add(tmpHero.GetComponent<Hero>());
 
-                }
             }
-            else if (secondCampHeroes.Count == 0 && SkillManager.instance.secondCampSkills.Count > 0)
-            {
-                for (int i = 0; i < 3; i++)
-                {
-                    Vector3 initPos = new Vector3(999 - (i + 1) * 10, 10, 999);
-                    GameObject tmpHero = Instantiate(sampleHero, initPos, Quaternion.identity);
-                    tmpHero.GetComponent<Hero>().Index = i;
-                    tmpHero.GetComponent<Hero>().InitialPos = initPos;
-                    tmpHero.GetComponent<Hero>().Initialize(SkillManager.instance.secondCampSkills[i]);
-                    secondCampHeroes.Add(tmpHero.GetComponent<Hero>());
-                }
-            }
-
-            yield return new WaitForSeconds(0.3f);
         }
-
-        yield return new WaitForSeconds(5f);
-
+        if (SkillManager.instance.secondCampSkills.Count > 0)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                Vector3 initPos = new Vector3(999 - (i + 1) * 10, 10, 999);
+                GameObject tmpHero = Instantiate(sampleHero, initPos, Quaternion.identity);
+                tmpHero.GetComponent<Hero>().Index = i;
+                tmpHero.GetComponent<Hero>().InitialPos = initPos;
+                tmpHero.GetComponent<Hero>().Initialize(SkillManager.instance.secondCampSkills[i]);
+                secondCampHeroes.Add(tmpHero.GetComponent<Hero>());
+            }
+        }
         loadingCanvas.SetActive(false);
     }
 
