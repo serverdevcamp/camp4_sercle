@@ -54,6 +54,18 @@ public class RobotManager : MonoBehaviour
         }
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        foreach (Transform pos in line1) Gizmos.DrawSphere(pos.position, 1f);
+
+        Gizmos.color = Color.yellow;
+        foreach (Transform pos in line2) Gizmos.DrawSphere(pos.position, 1f);
+
+        Gizmos.color = Color.blue;
+        foreach (Transform pos in line3) Gizmos.DrawSphere(pos.position, 1f);
+    }
+
     private void SpawnRobotPair(List<Vector3> linePos)
     {
         int count = linePos.Count;

@@ -275,9 +275,9 @@ MonoBehaviour:
     curHp: 0
     spd: 0
     atk: 0
-    def: 0
+    def: 50
     cc: 0
-  is1P: 0
+  campNum: 0
   destinations: []
   destFlag: 0
   state: 0
@@ -300,10 +300,16 @@ MonoBehaviour:
     range: 0
     size: 0
   stun: {fileID: 0}
-  curse: {fileID: 0}
+  sleep: {fileID: 0}
+  armored: {fileID: 0}
+  repel: {fileID: 0}
+  wild: {fileID: 0}
+  superCharge: {fileID: 0}
   heal: {fileID: 0}
   frozen: {fileID: 0}
+  cursed: {fileID: 0}
   burn: {fileID: 0}
+  muzzle: {fileID: 0}
 --- !u!1 &6872865005498835712
 GameObject:
   m_ObjectHideFlags: 0
