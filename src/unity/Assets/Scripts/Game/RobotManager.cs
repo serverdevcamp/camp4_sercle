@@ -74,7 +74,6 @@ public class RobotManager : MonoBehaviour
     {
         int count = linePos.Count;
         int robotNum = firstCampRobots.Count;
-        if (robotNum >= 3) return;
 
         GameObject firstCampRobot = Instantiate(robotPrefab, linePos[0], Quaternion.identity);
         firstCampRobot.name = "First Camp Robot " + robotNum;
