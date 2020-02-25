@@ -83,6 +83,7 @@ public class UIManager_SkillSelect : MonoBehaviour
         currentSkill = skillNum;
         selectedSkillName.text = skill.skillInfo[skillNum].skillName;
         selectedSkillDescription.text = skill.skillInfo[skillNum].skillDesc;
+        SoundManager.instance.PlaySound("Selection_SkillIcon");
     }
 
     public void SelectSkill()
@@ -91,12 +92,14 @@ public class UIManager_SkillSelect : MonoBehaviour
         {
             selectedSkills.Add(currentSkill.Value);
             currentSkill = null;
+            SoundManager.instance.PlaySound("ButtonClick");
         }
     }
 
     private void DeleteSkill(int i)
     {
         selectedSkills.RemoveAt(i);
+        SoundManager.instance.PlaySound("ButtonClick");
     }
 
     private void ShowSelectedSkills()
@@ -130,19 +133,12 @@ public class UIManager_SkillSelect : MonoBehaviour
 
     public void StartGame()
     {
-        //Debug.Log("게임 씬으로 넘어갑니다.");
+        SoundManager.instance.PlaySound("ButtonClick");
         SendSelectionInfo();
-        // SceneManager.LoadScene("EQ_Test");
     }
 
     public void SendSelectionInfo()
     {
-        // 스킬 3개 선택 안했을 경우 나머지 스킬은 -1으로 채운다.
-        //for (int i = 0; i < selectedSkills.Count; i++)
-        //{
-        //    selectedSkillIndex.Add(-1);
-        //}
-
         SelectedSkillData data = new SelectedSkillData();
         data.skillIndex = new int[3];
 
@@ -150,7 +146,15 @@ public class UIManager_SkillSelect : MonoBehaviour
 
         for (int i = 0; i < 3; i++)
         {
-            data.skillIndex[i] = selectedSkills[i];
+            try
+            {
+                data.skillIndex[i] = selectedSkills[i];
+            }
+            catch
+            {
+                data.skillIndex[i] = 0;
+                Debug.Log("스킬 선택을 안했음으로 0번째 스킬을 넣습니다.");
+            }
         }
 
         SelectedSkillPacket packet = new SelectedSkillPacket(data);
@@ -161,11 +165,11 @@ public class UIManager_SkillSelect : MonoBehaviour
     private void CheckSelectionProgress()
     {
         // 서로의 스킬 선택 정보를 수신한 경우
-        if(SkillManager.instance.mySkills.Count > 0 && SkillManager.instance.enemySkills.Count > 0)
+        if(SkillManager.instance.firstCampSkills.Count > 0 && SkillManager.instance.secondCampSkills.Count > 0)
         {
             Debug.Log("게임 씬으로 넘어갑니다.");
             // 씬 이동
-            SceneManager.LoadScene("EQ_Test");
+            SceneManager.LoadScene(3);
         }
     }
 }

@@ -1,0 +1,434 @@
+{
+	"skillInfo" :	
+	[
+		{	
+			"skillNumber" : 0, 
+			"emergeDelay" : 0,
+			"preDelay" : 0,
+			"postDelay" : 0,
+			"coolDown" : 0,
+			"remainCool" : 0,
+			"speed" : 10,
+			"range" : 6,
+			"size" : 35,
+			"targetType" : 0,
+			"targetNum" : 0,
+			"skillEffects" :
+							[
+								{
+									"statusType" : 0,
+									"ccType" : 0,
+									"amount" : 0,
+									"duration" : 0
+								}
+							]
+		},
+		{	
+			"skillNumber" : 1, 
+			"emergeDelay" : 0,
+			"preDelay" : 0,
+			"postDelay" : 0,
+			"coolDown" : 0,
+			"remainCool" : 0,
+			"speed" : 10,
+			"range" : 8,
+			"size" : 35,
+			"targetType" : 0,
+			"targetNum" : 0,
+			"skillEffects" :
+							[
+								{
+									"statusType" : 0,
+									"ccType" : 0,
+									"amount" : 0,
+									"duration" : 0
+								}
+							]
+		},{	
+			"skillNumber" : 2, 
+			"emergeDelay" : 0,
+			"preDelay" : 0,
+			"postDelay" : 0,
+			"coolDown" : 0,
+			"remainCool" : 0,
+			"speed" : 10,
+			"range" : 3,
+			"size" : 35,
+			"targetType" : 0,
+			"targetNum" : 0,
+			"skillEffects" :
+							[
+								{
+									"statusType" : 0,
+									"ccType" : 0,
+									"amount" : 0,
+									"duration" : 0
+								}
+							]
+		},{	
+			"skillNumber" : 3, 
+			"emergeDelay" : 0,
+			"preDelay" : 0,
+			"postDelay" : 0,
+			"coolDown" : 0,
+			"remainCool" : 0,
+			"speed" : 7,
+			"range" : 5,
+			"size" : 30,
+			"targetType" : 0,
+			"targetNum" : 0,
+			"skillEffects" :
+							[
+								{
+									"statusType" : 0,
+									"ccType" : 0,
+									"amount" : 0,
+									"duration" : 0
+								}
+							]
+		},{	
+			"skillNumber" : 4, 
+			"emergeDelay" : 1,
+			"preDelay" : 1,
+			"postDelay" : 1,
+			"coolDown" : 1,
+			"remainCool" : 0,
+			"speed" : 10,
+			"range" : 3,
+			"size" : 30,
+			"targetType" : 1,
+			"targetNum" : 1,
+			"skillEffects" :
+							[
+								{
+									"statusType" : 0,
+									"ccType" : 1,
+									"amount" : -400,
+									"duration" : 0
+								},
+								{
+									"statusType" : 1,
+									"ccType" : 1,
+									"amount" : 400,
+									"duration" : 0
+								}
+
+							]
+		},{	
+			"skillNumber" : 5, 
+			"emergeDelay" : 0,
+			"preDelay" : 0,
+			"postDelay" : 0,
+			"coolDown" : 0,
+			"remainCool" : 0,
+			"speed" : 1,
+			"range" : 0,
+			"size" : 50,
+			"targetType" : 0,
+			"targetNum" : 0,
+			"skillEffects" :
+							[
+								{
+									"statusType" : 0,
+									"ccType" : 0,
+									"amount" : 0,
+									"duration" : 0
+								}
+							]
+		},{	
+			"skillNumber" : 6, 
+			"emergeDelay" : 0,
+			"preDelay" : 0,
+			"postDelay" : 0,
+			"coolDown" : 0,
+			"remainCool" : 0,
+			"speed" : 1,
+			"range" : 0,
+			"size" : 50,
+			"targetType" : 0,
+			"targetNum" : 0,
+			"skillEffects" :
+							[
+								{
+									"statusType" : 0,
+									"ccType" : 0,
+									"amount" : 0,
+									"duration" : 0
+								}
+							]
+		},{	
+			"skillNumber" : 7, 
+			"emergeDelay" : 0,
+			"preDelay" : 0,
+			"postDelay" : 0,
+			"coolDown" : 0,
+			"remainCool" : 0,
+			"speed" : 7,
+			"range" : 4,
+			"size" : 30,
+			"targetType" : 0,
+			"targetNum" : 0,
+			"skillEffects" :
+							[
+								{
+									"statusType" : 0,
+									"ccType" : 0,
+									"amount" : 0,
+									"duration" : 0
+								}
+							]
+		},{	
+			"skillNumber" : 8, 
+			"emergeDelay" : 0,
+			"preDelay" : 0,
+			"postDelay" : 0,
+			"coolDown" : 0,
+			"remainCool" : 0,
+			"speed" : 1,
+			"range" : 0,
+			"size" : 400,
+			"targetType" : 0,
+			"targetNum" : 0,
+			"skillEffects" :
+							[
+								{
+									"statusType" : 0,
+									"ccType" : 0,
+									"amount" : 0,
+									"duration" : 0
+								}
+							]
+		},{	
+			"skillNumber" : 9, 
+			"emergeDelay" : 0,
+			"preDelay" : 0,
+			"postDelay" : 0,
+			"coolDown" : 0,
+			"remainCool" : 0,
+			"speed" : 1,
+			"range" : 0,
+			"size" : 300,
+			"targetType" : 0,
+			"targetNum" : 0,
+			"skillEffects" :
+							[
+								{
+									"statusType" : 0,
+									"ccType" : 0,
+									"amount" : 0,
+									"duration" : 0
+								}
+							]
+		},{	
+			"skillNumber" : 10, 
+			"emergeDelay" : 0,
+			"preDelay" : 0,
+			"postDelay" : 0,
+			"coolDown" : 0,
+			"remainCool" : 0,
+			"speed" : 1,
+			"range" : 0,
+			"size" : 300,
+			"targetType" : 0,
+			"targetNum" : 0,
+			"skillEffects" :
+							[
+								{
+									"statusType" : 0,
+									"ccType" : 0,
+									"amount" : 0,
+									"duration" : 0
+								}
+							]
+		},{	
+			"skillNumber" : 11, 
+			"emergeDelay" : 0,
+			"preDelay" : 0,
+			"postDelay" : 0,
+			"coolDown" : 0,
+			"remainCool" : 0,
+			"speed" : 1,
+			"range" : 0,
+			"size" : 300,
+			"targetType" : 0,
+			"targetNum" : 0,
+			"skillEffects" :
+							[
+								{
+									"statusType" : 0,
+									"ccType" : 0,
+									"amount" : 0,
+									"duration" : 0
+								}
+							]
+		},{	
+			"skillNumber" : 12, 
+			"emergeDelay" : 0,
+			"preDelay" : 0,
+			"postDelay" : 0,
+			"coolDown" : 0,
+			"remainCool" : 0,
+			"speed" : 7,
+			"range" : 4,
+			"size" : 30,
+			"targetType" : 0,
+			"targetNum" : 0,
+			"skillEffects" :
+							[
+								{
+									"statusType" : 0,
+									"ccType" : 0,
+									"amount" : 0,
+									"duration" : 0
+								}
+							]
+		},{	
+			"skillNumber" : 13, 
+			"emergeDelay" : 0,
+			"preDelay" : 0,
+			"postDelay" : 0,
+			"coolDown" : 0,
+			"remainCool" : 0,
+			"speed" : 7,
+			"range" : 5,
+			"size" : 30,
+			"targetType" : 0,
+			"targetNum" : 0,
+			"skillEffects" :
+							[
+								{
+									"statusType" : 0,
+									"ccType" : 0,
+									"amount" : 0,
+									"duration" : 0
+								}
+							]
+		},{	
+			"skillNumber" : 14, 
+			"emergeDelay" : 0,
+			"preDelay" : 0,
+			"postDelay" : 0,
+			"coolDown" : 0,
+			"remainCool" : 0,
+			"speed" : 4,
+			"range" : 4,
+			"size" : 30,
+			"targetType" : 0,
+			"targetNum" : 0,
+			"skillEffects" :
+							[
+								{
+									"statusType" : 0,
+									"ccType" : 0,
+									"amount" : 0,
+									"duration" : 0
+								}
+							]
+		},{	
+			"skillNumber" : 15, 
+			"emergeDelay" : 0,
+			"preDelay" : 0,
+			"postDelay" : 0,
+			"coolDown" : 0,
+			"remainCool" : 0,
+			"speed" : 1,
+			"range" : 0,
+			"size" : 300,
+			"targetType" : 0,
+			"targetNum" : 0,
+			"skillEffects" :
+							[
+								{
+									"statusType" : 0,
+									"ccType" : 0,
+									"amount" : 0,
+									"duration" : 0
+								}
+							]
+		},{	
+			"skillNumber" : 16, 
+			"emergeDelay" : 0,
+			"preDelay" : 0,
+			"postDelay" : 0,
+			"coolDown" : 0,
+			"remainCool" : 0,
+			"speed" : 1,
+			"range" : 0,
+			"size" : 100,
+			"targetType" : 0,
+			"targetNum" : 0,
+			"skillEffects" :
+							[
+								{
+									"statusType" : 0,
+									"ccType" : 0,
+									"amount" : 0,
+									"duration" : 0
+								}
+							]
+		},{	
+			"skillNumber" : 17, 
+			"emergeDelay" : 0,
+			"preDelay" : 0,
+			"postDelay" : 0,
+			"coolDown" : 0,
+			"remainCool" : 0,
+			"speed" : 1,
+			"range" : 0,
+			"size" : 220,
+			"targetType" : 0,
+			"targetNum" : 0,
+			"skillEffects" :
+							[
+								{
+									"statusType" : 0,
+									"ccType" : 0,
+									"amount" : 0,
+									"duration" : 0
+								}
+							]
+		},{	
+			"skillNumber" : 18, 
+			"emergeDelay" : 0,
+			"preDelay" : 0,
+			"postDelay" : 0,
+			"coolDown" : 0,
+			"remainCool" : 0,
+			"speed" : 1,
+			"range" : 0,
+			"size" : 150,
+			"targetType" : 0,
+			"targetNum" : 0,
+			"skillEffects" :
+							[
+								{
+									"statusType" : 0,
+									"ccType" : 0,
+									"amount" : 0,
+									"duration" : 0
+								}
+							]
+		},{	
+			"skillNumber" : 19, 
+			"emergeDelay" : 0,
+			"preDelay" : 0,
+			"postDelay" : 0,
+			"coolDown" : 0,
+			"remainCool" : 0,
+			"speed" : 1,
+			"range" : 0,
+			"size" : 100,
+			"targetType" : 0,
+			"targetNum" : 0,
+			"skillEffects" :
+							[
+								{
+									"statusType" : 0,
+									"ccType" : 0,
+									"amount" : 0,
+									"duration" : 0
+								}
+							]
+		}
+	]			
+}

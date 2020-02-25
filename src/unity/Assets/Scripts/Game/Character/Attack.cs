@@ -66,6 +66,7 @@ public class Attack
                 projectile.Initialize(info);
 
                 caster.ShowMuzzleEffect(true);
+                SoundManager.instance.PlaySound("RobotAttack", 0.1f);
             }
             #endregion
         }
@@ -95,7 +96,7 @@ public class Attack
     private ProjectileInfo ProjectileInfo(Robot caster, Vector3 dir)
     {
         List<SkillEffect> effects = new List<SkillEffect>();
-        effect.amount = -caster.GetStatus.ATK;
+        effect.amount = -(int)caster.GetStatus.ATK;
         effects.Add(effect);
 
         ProjectileInfo info = new ProjectileInfo(caster.CampNum, dir, speed, range, size, TargetType.Enemy, TargetNum.One, effects);

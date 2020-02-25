@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class CharacterHealthBar : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class CharacterHealthBar : MonoBehaviour
     [SerializeField] private Text state;
 
     private Robot robot;
+    private float myHpRatio;
 
     private void Start()
     {
@@ -16,14 +18,20 @@ public class CharacterHealthBar : MonoBehaviour
 
         if (robot.CampNum != GameManager.instance.MyCampNum)
         {
-            bar.color = new Color(255, 100, 100);
+            bar.color = new Color(1, 0.4f, 0.4f);
         }
+
+        myHpRatio = 1f;
     }
 
     private void Update()
     {
         transform.rotation = Camera.main.transform.rotation;
-        bar.fillAmount = (float)robot.GetStatus.CHP / robot.GetStatus.MHP;
+        myHpRatio = (float)robot.GetStatus.CHP / robot.GetStatus.MHP;
+        if (bar.fillAmount != myHpRatio)
+        {
+            DOTween.To(() => bar.fillAmount, x => bar.fillAmount = x, myHpRatio, 1f);
+        }
 
         state.text = State();
     }

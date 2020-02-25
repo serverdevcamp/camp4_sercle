@@ -114,9 +114,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48c7f9516a91cfc4ca0d2fef4f8b1de1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultAngle: 45
-  defualtDis: 15
+  defaultAngle: 55
+  maxAngle: 65
+  minAngle: 10
+  defualtDis: 20
   maxDis: 50
   minDis: 3
   distance: 18
-  angle: 0
+  angle: {x: 0, y: 0}

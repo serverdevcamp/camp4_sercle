@@ -9,8 +9,7 @@ public class Hero : MonoBehaviour
     public enum State { Idle, Appear, PreDelay, Skill, Disappear, CoolDown }
 
     [Header("Basic Info")]
-    [SerializeField] private int index;
-    [SerializeField] private bool is1P;
+    [SerializeField] private int index; // 0 ~ 2.
     [SerializeField] private State state;
 
     [Header("Skill Info")]
@@ -21,16 +20,27 @@ public class Hero : MonoBehaviour
 
     [Header("Miscellaneous Effect")]
     [SerializeField] private GameObject exitEffect;
+    [SerializeField] private List<GameObject> appearance;
+    public int testSkillNumber;
 
     // 상태 - 부울 딕셔너리
     private Dictionary<string, bool> stateMap = new Dictionary<string, bool>();
 
+    private void OnEnable()
+    {
+        ////// 등장, 스킬 테스트용
+        //heroAnim = GetComponent<Animator>();
+        //SetSkillInfo(testSkillNumber); 
+        //InitialPos = new Vector3(10, 10, 10);
 
-    private void Start()
+        //UseSkill(Vector3.zero, new Vector3(1.2f, 0, -.8f));
+        //////UseSkill(Vector3.zero, null);
+    }
+    public void Initialize(int skill)
     {
         heroAnim = GetComponent<Animator>();
         InitStateMap();
-        SetSkillInfo();
+        SetSkillInfo(skill);
     }
 
     private void LateUpdate()
@@ -38,9 +48,11 @@ public class Hero : MonoBehaviour
         AdjustAnimationSpeed();
     }
 
-    public int Index { get { return index; } }
+    public int Index { set { index = value; } get { return index; } }
     public State GetState { get { return state; } }
     public Skill GetSkill { get { return skill; } }
+    
+    public Vector3 InitialPos { get; set; }
 
     public void UseSkill(Vector3 pos, Vector3? dir)
     {
@@ -59,8 +71,8 @@ public class Hero : MonoBehaviour
         state = State.Appear;
         // 등장하는 애니메이션과 효과
 
-        // 20 02 14 영웅의 위치를 pos + 10로 이동
-        GetComponent<Transform>().position = pos + new Vector3(0, 10, 0);
+        // 20 02 14 영웅의 위치를 pos + 10로 이동, 20 02 20 영웅이 한발자국 뒤로 물러나서 스킬 씀.
+        GetComponent<Transform>().position = pos + new Vector3(0, 10, 0) - 1.5f * (dir.HasValue ? dir.Value : Vector3.forward);
         if (dir.HasValue)
         {
             if(dir.Value != Vector3.zero)
@@ -81,6 +93,7 @@ public class Hero : MonoBehaviour
         {
             rig.AddForce(-this.transform.up * 300f, ForceMode.Impulse);
         }
+        SoundManager.instance.PlaySound("HeroEmergence");
 
         // 착지 후 멋져보이게 n초 대기
         yield return new WaitForSeconds(skill.emergeDelay);
@@ -93,31 +106,40 @@ public class Hero : MonoBehaviour
 
         // 스킬 사용
         SetAnimStateMap("Fire_" + randomSkillMotion.ToString());
+        SoundManager.instance.IterateEffectSound(skill.skillNum.ToString(), 1f);
 
         // 투사체 생성
         state = State.Skill;
 
-
+        ProjectileInfo info = new ProjectileInfo(GameManager.instance.MyCampNum, dir.HasValue ? dir.Value : transform.position, skill.speed, skill.range, skill.size, skill.targetType, skill.targetNum, skill.skillEffects);
+        
+        // 아래는 테스트용
+        // ProjectileInfo info = new ProjectileInfo(1, dir.HasValue ? dir.Value : transform.position, skill.speed, skill.range, skill.size, skill.targetType, skill.targetNum, skill.skillEffects);
+        Projectile projectile = UnityEngine.Object.Instantiate(skill.proj, pos + new Vector3(0, 0.7f, 0), Quaternion.identity);
+        projectile.Initialize(info);
 
         // 스킬이펙트 발동
-        GameObject go = Instantiate(skill.skillEffectPrefab, pos, Quaternion.identity);
-        if (dir.HasValue)
+        if(skill.skillEffectPrefab is null)
         {
-            go.transform.LookAt(dir.Value + pos);
+            skill.skillEffectPrefab = Resources.Load<GameObject>("SkillEffect/MagicEffect");
         }
-       
+        GameObject go = Instantiate(skill.skillEffectPrefab, pos, skill.skillEffectPrefab.transform.rotation);
+        if (dir.HasValue)
+        {   if(skill.skillNum != 16 && skill.skillNum != 17 && skill.skillNum != 18)
+                go.transform.LookAt(dir.Value + pos);
+        }
         #endregion
 
         #region 퇴장
 
         state = State.Disappear;
         // 퇴장하는 애니메이션과 효과
-        Instantiate(exitEffect, pos, Quaternion.Euler(-90, 0,0));
+        Instantiate(exitEffect, transform.position, Quaternion.Euler(-90, 0,0));
         
         yield return new WaitForSeconds(skill.postDelay);
-        
-        // 후딜레이 후 영웅을 없앰
-        transform.position = new Vector3(9999, 9999, 9999);
+
+        // 후딜레이 후 영웅을 초기 위치로 되돌림
+        transform.position = InitialPos;
         #endregion
 
         #region 쿨타임
@@ -127,12 +149,6 @@ public class Hero : MonoBehaviour
         #endregion
 
         state = State.Idle;
-    }
-
-    private void Initialize(int num)
-    {
-        state = State.Idle;
-        skill.Initialize();
     }
 
     // 상태맵 초기화
@@ -146,8 +162,8 @@ public class Hero : MonoBehaviour
         stateMap.Add("Fire_0", false);
         stateMap.Add("Fire_1", false);
         stateMap.Add("Fire_2", false);
-        stateMap.Add("PostDelay", false);
-        stateMap.Add("Die", false);
+        //stateMap.Add("PostDelay", false);
+        //stateMap.Add("Die", false);
     }
 
     // 상태맵에서 원하는 상태만 True로 전환
@@ -178,28 +194,56 @@ public class Hero : MonoBehaviour
     }
 
     // SkillManager에 저장되어있는 나의 스킬 번호를 토대로 스킬 정보 설정
-    private void SetSkillInfo()
+    private void SetSkillInfo(int num)
     {
-        int skillNumberOfThisHero = index; // SkillManager.instance.mySkills[index]; 임시로 index를 가지게끔함.
-
-        // 수신한 스킬 인덱스가 -1 (즉, 선택씬에서 스킬선택 안한경우) 에는, 아무것도 하지 않는다.
-        if (skillNumberOfThisHero == -1) return;
 
         string jsonFile = Resources.Load<TextAsset>("Json/SkillInfoJson").ToString();
 
         SkillInfoJsonArray skillArray;
         skillArray = JsonUtility.FromJson<SkillInfoJsonArray>(jsonFile);
 
+
+
         // 스킬 이펙트 설정
-        skill.skillEffectPrefab = Resources.Load<GameObject>(skillArray.skillInfo[skillNumberOfThisHero].skillEffectPath);
+        skill.skillEffectPrefab = Resources.Load<GameObject>(skillArray.skillInfo[num].skillEffectPath);
 
         // 스킬 이미지 설정
-        skill.image = Resources.Load<Sprite>(skillArray.skillInfo[skillNumberOfThisHero].skillImagePath);
+        skill.image = Resources.Load<Sprite>(skillArray.skillInfo[num].skillImagePath);
 
         // 스킬 이름 설정
-        skill.skillName = skillArray.skillInfo[skillNumberOfThisHero].skillName;
+        skill.skillName = skillArray.skillInfo[num].skillName;
 
         // 스킬 설명 설정
-        skill.description = skillArray.skillInfo[skillNumberOfThisHero].skillDesc;
+        skill.description = skillArray.skillInfo[num].skillDesc;
+
+        // 스킬 번호 설정
+        skill.skillNum = skillArray.skillInfo[num].skillNumber;
+
+        // 스킬 세부정보
+        jsonFile = Resources.Load<TextAsset>("Json/SkillDetailJson").ToString();
+
+        SkillDetailJsonArray skillDetailArray;
+        skillDetailArray = JsonUtility.FromJson<SkillDetailJsonArray>(jsonFile);
+        //Debug.Log(jsonFile);
+        // 세부 설정
+        skill.emergeDelay = skillDetailArray.skillInfo[num].emergeDelay;
+        skill.preDelay = skillDetailArray.skillInfo[num].preDelay;
+        skill.postDelay = skillDetailArray.skillInfo[num].postDelay;
+        skill.coolDown = skillDetailArray.skillInfo[num].coolDown;
+        skill.remainCool = skillDetailArray.skillInfo[num].remainCool;
+
+        // 투사체 설정
+        skill.speed = skillDetailArray.skillInfo[num].speed;
+        skill.range = skillDetailArray.skillInfo[num].range;
+        skill.size = skillDetailArray.skillInfo[num].size;
+        skill.targetType = skillDetailArray.skillInfo[num].targetType;
+        skill.targetNum = skillDetailArray.skillInfo[num].targetNum;
+        skill.skillEffects = skillDetailArray.skillInfo[num].skillEffects.ToList();
+    }
+
+
+    public void SetAppearance(int index)
+    {
+        appearance[index].SetActive(true);
     }
 }

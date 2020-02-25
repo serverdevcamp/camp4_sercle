@@ -9,8 +9,9 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    [SerializeField] private List<Hero> myHeroes = new List<Hero>();
-    [SerializeField] private List<Hero> enemyHeroes = new List<Hero>();
+    [SerializeField] private List<Hero> firstCampHeroes = new List<Hero>();
+    [SerializeField] private List<Hero> secondCampHeroes = new List<Hero>();
+    [SerializeField] private GameObject sampleHero;
 
     private RobotManager robotManager;
     private IndicateManager indicateManager;
@@ -19,11 +20,24 @@ public class GameManager : MonoBehaviour
     public int MyCampNum { get { return myCampNum; } }
     public int EnemyCampNum { get { return myCampNum == 1 ? 2 : 1; } }
 
+    public Hero MyHero(int i)
+    {
+        if (MyCampNum == 1) return firstCampHeroes[i];
+        else return secondCampHeroes[i];
+    }
+
+    public Hero EnemyHero(int i)
+    {
+        if (EnemyCampNum == 1) return firstCampHeroes[i];
+        else return secondCampHeroes[i];
+    }
+
     public Text tempWinnerText;
 
     // 양 단말 모두 게임씬으로 넘어와서 게임을 시작해도 되는지 판단하는 변수. readyToStart가 false면 일시정지, true면 정지 해제.
-    [SerializeField]
-    private bool readyToStart;
+    [SerializeField] private bool readyToStart;
+    [SerializeField] private GameObject loadingCanvasPrefab;
+    private GameObject loadingCanvas;
 
     // 각 단말이 게임씬으로 왔는지 체크하는 배열
     private bool[] enterGameScene = new bool[2];
@@ -36,17 +50,17 @@ public class GameManager : MonoBehaviour
         if (instance == null) instance = this;
         else Destroy(gameObject);
 
+        robotManager = GetComponentInChildren<RobotManager>();
+        indicateManager = GetComponentInChildren<IndicateManager>();
+
+        networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
+        myCampNum = GameObject.Find("DataObject").GetComponent<UserInfo>().userData.playerCamp;
+
         GetHeroList();
     }
 
     private void Start()
     {
-        robotManager = GetComponentInChildren<RobotManager>();
-        indicateManager = GetComponentInChildren<IndicateManager>();
-        networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
-
-        myCampNum = GameObject.Find("DataObject").GetComponent<UserInfo>().userData.playerCamp;
-
         // 네트워크 매니저에 게임 종료, 시작 패킷 수신함수 등록
         networkManager.RegisterReceiveNotification(PacketId.GameFinish, OnReceiveGameFinishPacket);
         networkManager.RegisterReceiveNotification(PacketId.GameStart, OnReceiveGameStartPacket);
@@ -56,24 +70,50 @@ public class GameManager : MonoBehaviour
 
         // 임시 승리 텍스트 안보이게 함.
         tempWinnerText.text = "";
+
+        loadingCanvas = Instantiate(loadingCanvasPrefab);
+
+        // BGM 실행.
+        SoundManager.instance.PlayBGM("Game_BGM", 0.2f);
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            indicateManager.ActivateSkillIndicator(myHeroes[0]);
-        }
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            indicateManager.ActivateSkillIndicator(myHeroes[1]);
-        }
+        if (loadingCanvas.activeInHierarchy == true) return;
+        
+        if (Input.GetKeyDown(KeyCode.Q)) indicateManager.ActivateSkillIndicator(MyHero(0));
+        else if (Input.GetKeyDown(KeyCode.W)) indicateManager.ActivateSkillIndicator(MyHero(1));
+        else if (Input.GetKeyDown(KeyCode.E)) indicateManager.ActivateSkillIndicator(MyHero(2));
     }
 
+    // SkillManager에 있는 스킬 가져오는 함수.
     private void GetHeroList()
     {
-        // 히어로 리스트를 가져오세요.
-        if (myHeroes.Count == 0) Debug.LogError("히어로 리스트를 가져와라!!!!");
+        if (SkillManager.instance.firstCampSkills.Count > 0)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                Vector3 initPos = new Vector3(999 + i * 10, 10, 999);
+                GameObject tmpHero = Instantiate(sampleHero, initPos, Quaternion.identity);
+                tmpHero.GetComponent<Hero>().Index = i;
+                tmpHero.GetComponent<Hero>().InitialPos = initPos;
+                tmpHero.GetComponent<Hero>().Initialize(SkillManager.instance.firstCampSkills[i]);
+                firstCampHeroes.Add(tmpHero.GetComponent<Hero>());
+
+            }
+        }
+        if (SkillManager.instance.secondCampSkills.Count > 0)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                Vector3 initPos = new Vector3(999 - (i + 1) * 10, 10, 999);
+                GameObject tmpHero = Instantiate(sampleHero, initPos, Quaternion.identity);
+                tmpHero.GetComponent<Hero>().Index = i;
+                tmpHero.GetComponent<Hero>().InitialPos = initPos;
+                tmpHero.GetComponent<Hero>().Initialize(SkillManager.instance.secondCampSkills[i]);
+                secondCampHeroes.Add(tmpHero.GetComponent<Hero>());
+            }
+        }
     }
 
     public void RequestFire(int campNum, bool isRobot, int index, Vector3 pos, Vector3 dir)
@@ -86,12 +126,12 @@ public class GameManager : MonoBehaviour
         if (campNum == 1)
         {
             if (isRobot) robotManager.FirstCampRobotFire(index, pos, dir);
-            else myHeroes[index].UseSkill(pos, dir);
+            else firstCampHeroes[index].UseSkill(pos, dir);
         }
         else
         {
             if (isRobot) robotManager.SecondCampRobotFire(index, pos, dir);
-            else enemyHeroes[index].UseSkill(pos, dir);
+            else secondCampHeroes[index].UseSkill(pos, dir);
         }
     }
 
@@ -101,7 +141,7 @@ public class GameManager : MonoBehaviour
         int tIndex = target.Index;
         int statusType = (int)effect.statusType;
         int ccType = (int)effect.ccType;
-        float amount = effect.amount;
+        int amount = effect.amount;
         float duration = effect.duration;
 
         SkillManager.instance.SendLocalHitInfo(tCampNum, tIndex, statusType, ccType, amount, duration);
@@ -116,7 +156,7 @@ public class GameManager : MonoBehaviour
     /// <param name="ccType">효과에 담긴 CC 타입</param>
     /// <param name="amount">변화할 스테이터스의 양</param>
     /// <param name="duration">변화할 시간. 0이면 무제한</param>
-    public void ApplySkillEffect(int tCampNum, int tIndex, int statusType, int ccType, float amount, float duration)
+    public void ApplySkillEffect(int tCampNum, int tIndex, int statusType, int ccType, int amount, float duration, float chp)
     {
         Robot target;
         if (tCampNum == 1) target = robotManager.FirstCampRobot(tIndex);
@@ -124,17 +164,15 @@ public class GameManager : MonoBehaviour
 
         SkillEffect effect = new SkillEffect((StatusType)statusType, (CCType)ccType, amount, duration);
 
+        if (target == null)
+        {
+            Debug.Log("해당하는 타겟을 찾을 수 없습니다. 스킬 효과 적용을 무시합니다." + System.Environment.NewLine
+                + "타겟 정보 : " + tCampNum + "P의 " + tIndex + "번째 로봇" + System.Environment.NewLine
+                + "스킬 정보 : " + (StatusType)statusType + "스탯, " + (CCType)ccType + "CC 기, " + amount + "만큼 " + duration + "초 동안 변화");
+            return;
+        }
+        target.Synchronize(chp);
         target.Apply(effect);
-    }
-
-    public Hero GetMyHero(int i)
-    {
-        return myHeroes[i];
-    }
-
-    public int GetMyHeroCount()
-    {
-        return myHeroes.Count;
     }
 
     // HQ가 파괴되었다는 패킷 수신 함수
@@ -153,6 +191,9 @@ public class GameManager : MonoBehaviour
         {
             tempWinnerText.text = "THE WINNER IS OPPONENT TT";
         }
+
+        SoundManager.instance.StopBGM();
+        SoundManager.instance.PlaySound("DestroyHQ");
     }
 
     // 양 클라이언트에서 동일한 타이밍으로 게임 시작을 위한, 게임시작 패킷 수신 함수

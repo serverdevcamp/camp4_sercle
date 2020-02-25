@@ -22,13 +22,13 @@ public class LoadingCanvasController : MonoBehaviour
 
         if (GameManager.instance.MyCampNum == 1)
         {
-            firstCampSkills = SkillManager.instance.mySkills;
-            secondCampSkills = SkillManager.instance.enemySkills;
+            firstCampSkills = SkillManager.instance.firstCampSkills;
+            secondCampSkills = SkillManager.instance.secondCampSkills;
         }
         else
         {
-            firstCampSkills = SkillManager.instance.enemySkills;
-            secondCampSkills = SkillManager.instance.mySkills;
+            firstCampSkills = SkillManager.instance.secondCampSkills;
+            secondCampSkills = SkillManager.instance.firstCampSkills;
         }
         
 

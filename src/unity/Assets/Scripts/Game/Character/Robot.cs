@@ -14,6 +14,7 @@ public class Robot : MonoBehaviour
     [SerializeField] private int campNum;
     [SerializeField] private List<Vector3> destinations;
     [SerializeField] private int destFlag;
+    private bool isDead;
 
     [Header("Attack Info")]
     [SerializeField] private State state;
@@ -23,9 +24,14 @@ public class Robot : MonoBehaviour
 
     [Header("Effects")]
     [SerializeField] private GameObject stun;
-    [SerializeField] private GameObject curse;
+    [SerializeField] private GameObject sleep;
+    [SerializeField] private GameObject armored;
+    [SerializeField] private GameObject repel;
+    [SerializeField] private GameObject wild;
+    [SerializeField] private GameObject superCharge;
     [SerializeField] private GameObject heal;
     [SerializeField] private GameObject frozen;
+    [SerializeField] private GameObject cursed;
     [SerializeField] private GameObject burn;
     [SerializeField] private GameObject muzzle;
 
@@ -122,8 +128,12 @@ public class Robot : MonoBehaviour
                 AttackActivate();
                 break;
             case State.Die:
-                SetAnimStateMap("Die_" + Random.Range(0, 3).ToString());
-                OnDeadStateActivate();
+                if (!isDead)
+                {
+                    isDead = true;
+                    SetAnimStateMap("Die_" + Random.Range(0, 3).ToString());
+                    OnDeadStateActivate();
+                }
                 break;
             case State.CC:
                 SetAnimStateMap("HardCC");
@@ -143,6 +153,15 @@ public class Robot : MonoBehaviour
     }
 
     /// <summary>
+    /// 서버에서 보내준 체력으로 이 로봇의 체력을 동기화 시킵니다.
+    /// </summary>
+    /// <param name="serverHP">서버에서 보내준 체력</param>
+    public void Synchronize(float serverHP)
+    {
+        GetStatus.ChangeStatTo(StatusType.CHP, serverHP);
+    }
+
+    /// <summary>
     /// 파라미터로 들어온 효과들을 자신에게 적용하는 함수.
     /// duration이 0이면 영구적, 아니라면 일시적으로 적용한다.
     /// </summary>
@@ -151,7 +170,13 @@ public class Robot : MonoBehaviour
     {
         if (effect.ccType != CCType.None) StartCoroutine(CCEffect(effect));
         else if (effect.duration != 0) StartCoroutine(TempEffect(effect));
-        else status.ChangeStat(effect.statusType, effect.amount);
+        else
+        {
+            if (effect.statusType != StatusType.CHP)
+            {
+                status.ChangeStat(effect.statusType, effect.amount);
+            }
+        }
     }
 
     /// <summary>
@@ -194,7 +219,7 @@ public class Robot : MonoBehaviour
         {
             canvasList[i].enabled = false;
         }
-        this.enabled = false;
+        //enabled = false;
     }
 
     // 상태맵 초기화

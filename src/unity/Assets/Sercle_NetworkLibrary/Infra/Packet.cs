@@ -926,6 +926,14 @@ public class GameFinishPacket : IPacket<GameFinishData>
         {
             bool ret = true;
             ret &= Serialize(packet.winnerCamp);
+            ret &= Serialize(packet.trash0);
+            ret &= Serialize(packet.trash1);
+            ret &= Serialize(packet.trash2);
+            ret &= Serialize(packet.trash3);
+            ret &= Serialize(packet.trash4);
+            ret &= Serialize(packet.trash5);
+            ret &= Serialize(packet.trash6);
+            ret &= Serialize(packet.trash7);
 
             return ret;
         }
@@ -940,6 +948,14 @@ public class GameFinishPacket : IPacket<GameFinishData>
 
             bool ret = true;
             ret &= Deserialize(ref element.winnerCamp);
+            ret &= Deserialize(ref element.trash0);
+            ret &= Deserialize(ref element.trash1);
+            ret &= Deserialize(ref element.trash2);
+            ret &= Deserialize(ref element.trash3);
+            ret &= Deserialize(ref element.trash4);
+            ret &= Deserialize(ref element.trash5);
+            ret &= Deserialize(ref element.trash6);
+            ret &= Deserialize(ref element.trash7);
 
             return ret;
         }
@@ -994,7 +1010,7 @@ public class SkillHitPacket : IPacket<SkillHitData>
             ret &= Serialize(packet.ccType);
             ret &= Serialize(packet.amount);
             ret &= Serialize(packet.duration);
-            ret &= Serialize(packet.chp);
+            ret &= Serialize(packet.serverHP);
             ret &= Serialize(packet.trash1);
             ret &= Serialize(packet.trash2);
             return ret;
@@ -1015,7 +1031,7 @@ public class SkillHitPacket : IPacket<SkillHitData>
             ret &= Deserialize(ref element.ccType);
             ret &= Deserialize(ref element.amount);
             ret &= Deserialize(ref element.duration);
-            ret &= Deserialize(ref element.chp);
+            ret &= Deserialize(ref element.serverHP);
             ret &= Deserialize(ref element.trash1);
             ret &= Deserialize(ref element.trash2);
 
@@ -1066,6 +1082,14 @@ public class GameStartPacket : IPacket<GameStartData>
         {
             bool ret = true;
             ret &= Serialize(packet.campNumber);
+            ret &= Serialize(packet.trash0);
+            ret &= Serialize(packet.trash1);
+            ret &= Serialize(packet.trash2);
+            ret &= Serialize(packet.trash3);
+            ret &= Serialize(packet.trash4);
+            ret &= Serialize(packet.trash5);
+            ret &= Serialize(packet.trash6);
+            ret &= Serialize(packet.trash7);
 
             return ret;
         }
@@ -1080,6 +1104,14 @@ public class GameStartPacket : IPacket<GameStartData>
 
             bool ret = true;
             ret &= Deserialize(ref element.campNumber);
+            ret &= Deserialize(ref element.trash0);
+            ret &= Deserialize(ref element.trash1);
+            ret &= Deserialize(ref element.trash2);
+            ret &= Deserialize(ref element.trash3);
+            ret &= Deserialize(ref element.trash4);
+            ret &= Deserialize(ref element.trash5);
+            ret &= Deserialize(ref element.trash6);
+            ret &= Deserialize(ref element.trash7);
 
             return ret;
         }

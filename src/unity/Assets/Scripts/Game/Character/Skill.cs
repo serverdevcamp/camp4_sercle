@@ -14,6 +14,7 @@ public class Skill
     public enum State { Idle, Ready, CoolDown }
 
     [Header("Basic Info")]
+    public int skillNum;
     public string skillName;
     public string description;
     public Sprite image;
@@ -25,7 +26,7 @@ public class Skill
     public float preDelay;
     public float postDelay;
     public float coolDown;
-    private float remainCool;
+    public float remainCool;
 
     [Header("Projectile Info")]
     public Projectile proj;

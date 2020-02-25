@@ -5,6 +5,9 @@ using UnityEngine.AI;
 
 public class RobotManager : MonoBehaviour
 {
+    [SerializeField] private GameObject HQ_Camp1;
+    [SerializeField] private GameObject HQ_Camp2;
+
     [Header("Line Pos")]
     [SerializeField] private List<Transform> line1;
     [SerializeField] private List<Transform> line2;
@@ -17,13 +20,14 @@ public class RobotManager : MonoBehaviour
 
     private List<GameObject> firstCampRobots = new List<GameObject>();
     private List<GameObject> secondCampRobots = new List<GameObject>();
-    private int robotNum = 0;
 
     private NetworkManager networkManager;
 
     private void Awake()
     {
         networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
+        firstCampRobots.Add(HQ_Camp1);
+        secondCampRobots.Add(HQ_Camp2);
     }
 
     private void Start()
@@ -54,9 +58,22 @@ public class RobotManager : MonoBehaviour
         }
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        foreach (Transform pos in line1) Gizmos.DrawSphere(pos.position, 1f);
+
+        Gizmos.color = Color.yellow;
+        foreach (Transform pos in line2) Gizmos.DrawSphere(pos.position, 1f);
+
+        Gizmos.color = Color.blue;
+        foreach (Transform pos in line3) Gizmos.DrawSphere(pos.position, 1f);
+    }
+
     private void SpawnRobotPair(List<Vector3> linePos)
     {
         int count = linePos.Count;
+        int robotNum = firstCampRobots.Count;
 
         GameObject firstCampRobot = Instantiate(robotPrefab, linePos[0], Quaternion.identity);
         firstCampRobot.name = "First Camp Robot " + robotNum;
@@ -67,8 +84,6 @@ public class RobotManager : MonoBehaviour
         secondCampRobot.name = "Second Camp Robot " + robotNum;
         secondCampRobot.GetComponent<Robot>().InitialSetting(robotNum, 2, linePos);
         secondCampRobots.Add(secondCampRobot);
-        
-        robotNum += 1;
     }
 
     private List<Vector3> LinePos(List<Transform> line)
@@ -84,14 +99,14 @@ public class RobotManager : MonoBehaviour
 
     public void FirstCampRobotFire(int index, Vector3 pos, Vector3 dir)
     {
-        Robot caster = firstCampRobots[index].GetComponent<Robot>();
+        Robot caster = FirstCampRobot(index);
         caster.transform.position = pos;
         StartCoroutine(caster.MyAttack.Fire(caster, dir, GameManager.instance.MyCampNum == 1));
     }
 
     public void SecondCampRobotFire(int index, Vector3 pos, Vector3 dir)
     {
-        Robot caster = secondCampRobots[index].GetComponent<Robot>();
+        Robot caster = SecondCampRobot(index);
         caster.transform.position = pos;
         StartCoroutine(caster.MyAttack.Fire(caster, dir, GameManager.instance.MyCampNum == 2));
     }
@@ -126,11 +141,29 @@ public class RobotManager : MonoBehaviour
 
     public Robot FirstCampRobot(int i)
     {
-        return firstCampRobots[i].GetComponent<Robot>();
+        try
+        {
+            return firstCampRobots[i].GetComponent<Robot>();
+        }
+        catch
+        {
+            Debug.Log("첫번째 유저의 " + i + "번째 로봇의 Robot.cs를 반환할 수 없습니다.");
+            Debug.Log("현재 첫번째 유저의 로봇 개수 : " + firstCampRobots.Count);
+            return null;
+        }
     }
 
     public Robot SecondCampRobot(int i)
     {
-        return secondCampRobots[i].GetComponent<Robot>();
+        try
+        {
+            return secondCampRobots[i].GetComponent<Robot>();
+        }
+        catch
+        {
+            Debug.Log("두번째 유저의 " + i + "번째 로봇의 Robot.cs를 반환할 수 없습니다.");
+            Debug.Log("현재 두번째 유저의 로봇 개수 : " + secondCampRobots.Count);
+            return null;
+        }
     }
 }

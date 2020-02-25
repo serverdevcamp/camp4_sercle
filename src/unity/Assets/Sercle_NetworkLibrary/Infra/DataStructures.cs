@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
+using System.Collections.Generic;
 
 // 패킷 데이터 식별용 열거형
 // 모든 경우의 request, response, Data를 붙여야함.
@@ -325,6 +327,15 @@ public struct GameFinishData
 {
     // 어느 진영이 승리했는지
     public int winnerCamp;
+    // 패딩
+    public bool trash0;
+    public int trash1;
+    public int trash2;
+    public int trash3;
+    public int trash4;
+    public int trash5;
+    public int trash6;
+    public int trash7;
 }
 
 // 스킬 투사체에 맞았을 때 전송하는 데이터
@@ -334,13 +345,13 @@ public struct SkillHitData
     public int index;
     public int statusType;
     public int ccType;
-    public float amount;
+    public int amount;
     public float duration;
-    public float chp;
+    public int serverHP;
     public int trash1;
     public bool trash2;
 
-    public SkillHitData(int campNumber, int index, int statusType, int ccType, float amount, float duration, float chp)
+    public SkillHitData(int campNumber, int index, int statusType, int ccType, int amount, float duration, int serverHP)
     {
         this.campNumber = campNumber;
         this.index = index;
@@ -348,7 +359,7 @@ public struct SkillHitData
         this.ccType = ccType;
         this.amount = amount;
         this.duration = duration;
-        this.chp = chp;
+        this.serverHP = serverHP;
         this.trash1 = 0;
         this.trash2 = false;
     }
@@ -358,6 +369,15 @@ public struct SkillHitData
 public struct GameStartData
 {
     public int campNumber;
+    // padding
+    public bool trash0;
+    public int trash1;
+    public int trash2;
+    public int trash3;
+    public int trash4;
+    public int trash5;
+    public int trash6;
+    public int trash7;
 }
 
 // 로봇 스폰 데이터
@@ -366,3 +386,25 @@ public struct SpawnRobotData
     public int trash;
 }
 
+// 스킬 세부 정보
+[System.Serializable]
+public class SkillDetailJson
+{
+    public int skillNumber;
+    public int emergeDelay;
+    public int preDelay;
+    public int postDelay;
+    public int coolDown;
+    public int remainCool;
+    public int speed;
+    public int range;
+    public int size;
+    public TargetType targetType;
+    public TargetNum targetNum;
+    public List<SkillEffect> skillEffects;
+}
+
+public class SkillDetailJsonArray
+{
+    public SkillDetailJson[] skillInfo;
+}

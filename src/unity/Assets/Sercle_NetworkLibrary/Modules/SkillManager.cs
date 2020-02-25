@@ -10,8 +10,8 @@ public class SkillManager : MonoBehaviour
     private NetworkManager networkManager;
 
     // 스킬 선택 씬에서 선택한 스킬 번호 리스트
-    public List<int> mySkills = new List<int>();
-    public List<int> enemySkills = new List<int>();
+    public List<int> firstCampSkills = new List<int>();
+    public List<int> secondCampSkills = new List<int>();
 
     int hitCnt = 0;
     int useCnt = 0;
@@ -62,9 +62,9 @@ public class SkillManager : MonoBehaviour
         networkManager.SendReliable<SkillData>(packet);
     }
 
-    public void SendLocalHitInfo(int campNumber, int index, int statusType, int ccType, float amount, float duration)
+    public void SendLocalHitInfo(int campNumber, int index, int statusType, int ccType, int amount, float duration)
     {
-        SkillHitData data = new SkillHitData(campNumber, index, statusType, ccType, amount, duration);
+        SkillHitData data = new SkillHitData(campNumber, index, statusType, ccType, amount, duration, 0);
 
         SkillHitPacket packet = new SkillHitPacket(data);
 
@@ -92,8 +92,8 @@ public class SkillManager : MonoBehaviour
     {
         SkillHitPacket packet = new SkillHitPacket(data);
         SkillHitData hit = packet.GetPacket();
-        Debug.Log((hitCnt++) + " 피격 된 놈 : " + hit.campNumber + " 캠프의 " + hit.index);
-        GameManager.instance.ApplySkillEffect(hit.campNumber, hit.index, hit.statusType, hit.ccType, hit.amount, hit.duration);
+        Debug.Log((hitCnt++) + " 피격 된 놈 : " + hit.campNumber + " 캠프의 " + hit.index + " 서버 체력은 " + hit.serverHP);
+        GameManager.instance.ApplySkillEffect(hit.campNumber, hit.index, hit.statusType, hit.ccType, hit.amount, hit.duration, hit.serverHP);
     } 
 
 
@@ -104,17 +104,17 @@ public class SkillManager : MonoBehaviour
         SelectedSkillData skillInfo = packet.GetPacket();
 
         // 스킬 번호 리스트에 추가
-        if(skillInfo.userCamp == MatchingManager.instance.userInfo.userData.playerCamp)
+        if(skillInfo.userCamp == 1)
         {
-            mySkills.Add(skillInfo.skillIndex[0]);
-            mySkills.Add(skillInfo.skillIndex[1]);
-            mySkills.Add(skillInfo.skillIndex[2]);
+            firstCampSkills.Add(skillInfo.skillIndex[0]);
+            firstCampSkills.Add(skillInfo.skillIndex[1]);
+            firstCampSkills.Add(skillInfo.skillIndex[2]);
         }
         else
         {
-            enemySkills.Add(skillInfo.skillIndex[0]);
-            enemySkills.Add(skillInfo.skillIndex[1]);
-            enemySkills.Add(skillInfo.skillIndex[2]);
+            secondCampSkills.Add(skillInfo.skillIndex[0]);
+            secondCampSkills.Add(skillInfo.skillIndex[1]);
+            secondCampSkills.Add(skillInfo.skillIndex[2]);
         }
     }
 }

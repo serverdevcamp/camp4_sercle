@@ -167,10 +167,15 @@ MonoBehaviour:
     range: 15
     size: 0
   stun: {fileID: 109262, guid: 1472da0a2d38fc04b84905b1786db6ea, type: 3}
-  curse: {fileID: 0}
-  heal: {fileID: 0}
-  frozen: {fileID: 0}
-  burn: {fileID: 0}
+  sleep: {fileID: 159116, guid: d989fd626cd4ffb409ab0952be005a03, type: 3}
+  armored: {fileID: 141982, guid: afa24af717f990947b81b3b4faf4abcd, type: 3}
+  repel: {fileID: 158878, guid: 39bd182e2ee97ee4ba131bc3e0b07839, type: 3}
+  wild: {fileID: 147144, guid: 4a556b5b7007c7848b4dd980eba0572c, type: 3}
+  superCharge: {fileID: 108402, guid: a39e92a514361014c882d56f0c3bd678, type: 3}
+  heal: {fileID: 168018, guid: bb8adcf66d05c784abd64e5275b9354b, type: 3}
+  frozen: {fileID: 191168, guid: 702124a728c14f948bb013c7fbd498a0, type: 3}
+  cursed: {fileID: 175164, guid: 0b4a81f2c40d54a4a89d65b2f8762c42, type: 3}
+  burn: {fileID: 164578, guid: 8e6ea88d207a90c40bf4d680909a27f5, type: 3}
   muzzle: {fileID: 2953690790583538689}
 --- !u!114 &-9059464624282514437
 MonoBehaviour:

@@ -51,9 +51,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   index: 0
-  is1P: 0
   state: 0
   skill:
+    skillNum: 0
     skillName: Test Name
     description: Test Description
     image: {fileID: 0}
@@ -63,7 +63,8 @@ MonoBehaviour:
     preDelay: 1
     postDelay: 1
     coolDown: 5
-    proj: {fileID: 0}
+    remainCool: 0
+    proj: {fileID: 6332989940410738062, guid: cba89610dbad6324f8f79a088b61d5d2, type: 3}
     speed: 0
     range: 0
     size: 10
@@ -76,6 +77,7 @@ MonoBehaviour:
       duration: 0
   heroAnim: {fileID: 0}
   exitEffect: {fileID: 183168, guid: 8ae3b38ace1bbc64bb1875bf0c8755ee, type: 3}
+  testSkillNumber: 4
 --- !u!54 &1373854859352326414
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -91,7 +93,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!135 &4643393509131224788
 SphereCollider:
   m_ObjectHideFlags: 0
