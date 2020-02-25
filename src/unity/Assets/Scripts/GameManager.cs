@@ -243,8 +243,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator GoBackToLobby()
     {
         yield return new WaitForSeconds(5f);
-        Destroy(GameObject.Find("GameNetworkManager").gameObject);
-        Destroy(GameObject.Find("SkillManager").gameObject);
+        Destroy(GameObject.Find("NetworkManager").gameObject);
         MatchingManager.instance.MatchState = MatchingManager.MatchingState.Nothing;
         SceneManager.LoadScene("Lobby");
     }
