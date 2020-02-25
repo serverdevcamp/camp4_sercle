@@ -12,10 +12,11 @@ public struct ProjectileInfo
     public TargetType targetType;
     public TargetNum targetNum;
     public List<SkillEffect> skillEffects;
+    public int heroSkillNum;
 
     public ProjectileInfo(int casterCampNum, Vector3 direction, float speed, float range,
                         float size, TargetType targetType, TargetNum targetNum,
-                        List<SkillEffect> skillEffects)
+                        List<SkillEffect> skillEffects, int heroSkillNum = -1)
     {
         this.casterCampNum = casterCampNum;
         this.direction = direction;
@@ -25,6 +26,7 @@ public struct ProjectileInfo
         this.targetType = targetType;
         this.targetNum = targetNum;
         this.skillEffects = skillEffects;
+        this.heroSkillNum = heroSkillNum;
     }
 }
 
@@ -38,6 +40,7 @@ public class Projectile : MonoBehaviour
     [SerializeField] private TargetType targetType;
     [SerializeField] private TargetNum targetNum;
     [SerializeField] private List<SkillEffect> skillEffects;
+    [SerializeField] private int skillNumber;
 
     public void Initialize(ProjectileInfo info)
     {
@@ -49,6 +52,7 @@ public class Projectile : MonoBehaviour
         targetType = info.targetType;
         targetNum = info.targetNum;
         skillEffects = info.skillEffects;
+        skillNumber = info.heroSkillNum;
     }
 
     private void FixedUpdate()
@@ -71,11 +75,22 @@ public class Projectile : MonoBehaviour
 
         if (IsValidTargetType(target) == false) return;
 
+        if(skillNumber >= 0)
+        {
+            Debug.Log(skillNumber + " 스킬에 맞았습니다.");
+        }
+
+        bool isEffectActivated = false;
+
         foreach(SkillEffect effect in skillEffects)
         {
             GameManager.instance.RequestSkillEffect(target, effect);
-            // 투사체 히트 이펙트 적용
-            // target.GetComponent<EffectController>().OnHitVFX(effect, caster.index);
+            if (!isEffectActivated)
+            {
+                // 투사체 히트 이펙트 적용
+                target.ShowHitEffect(skillNumber, effect);
+                isEffectActivated = true;
+            }
         }
         if (targetNum == TargetNum.One) Destroy(gameObject);
     }

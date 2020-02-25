@@ -23,16 +23,8 @@ public class Robot : MonoBehaviour
     [SerializeField] private Attack attack;
 
     [Header("Effects")]
-    [SerializeField] private GameObject stun;
-    [SerializeField] private GameObject sleep;
-    [SerializeField] private GameObject armored;
-    [SerializeField] private GameObject repel;
-    [SerializeField] private GameObject wild;
-    [SerializeField] private GameObject superCharge;
-    [SerializeField] private GameObject heal;
-    [SerializeField] private GameObject frozen;
-    [SerializeField] private GameObject cursed;
-    [SerializeField] private GameObject burn;
+    [SerializeField] private List<GameObject> hitEffects;
+
     [SerializeField] private GameObject muzzle;
 
     private NavMeshAgent agent;
@@ -213,7 +205,6 @@ public class Robot : MonoBehaviour
     private IEnumerator CCEffect(SkillEffect effect)
     {
         status.ApplyCC(effect.ccType);
-        CreateCCEffectByType(effect);
 
         yield return new WaitForSeconds(effect.duration);
 
@@ -268,19 +259,16 @@ public class Robot : MonoBehaviour
         }
     }
 
-    // CC기의 Type에 따라 이펙트 생성
-    private void CreateCCEffectByType(SkillEffect effect)
+    // 피격된 skill number에 따라 적절한 이펙트 생성
+    public void ShowHitEffect(int skillNumber, SkillEffect effect)
     {
-        switch (effect.ccType)
-        {
-            case CCType.Stun:
-                GameObject go = Instantiate(stun, transform.position, Quaternion.identity);
-                // 스턴 스킬의 지속시간을 life time으로 지정.
-                go.GetComponent<MagicalFX._FX_LifeTime>().LifeTime = effect.duration;
-                break;
-            //case CCType.Curse:
-            //    break;
-        }
+        if (skillNumber - 8 < 0) return;
+
+        GameObject go = Instantiate(hitEffects[skillNumber - 8], transform.position, Quaternion.identity);
+
+        if (go != null)
+            // 스턴 스킬의 지속시간을 life time으로 지정.
+            go.GetComponent<MagicalFX.FX_LifeTime>().LifeTime = effect.duration;
     }
 
     // Muzzle 이펙트 활성화
