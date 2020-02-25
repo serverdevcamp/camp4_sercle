@@ -267,8 +267,10 @@ public class Robot : MonoBehaviour
         GameObject go = Instantiate(hitEffects[skillNumber - 8], transform.position, Quaternion.identity);
 
         if (go != null)
-            // 스턴 스킬의 지속시간을 life time으로 지정.
-            go.GetComponent<MagicalFX.FX_LifeTime>().LifeTime = effect.duration;
+        {
+            // 버프,디버프 스킬의 지속시간을 life time으로 지정.
+            go.GetComponent<MagicalFX.FX_LifeTime>().LifeTime = effect.duration <= 0 ? 1 : effect.duration;
+        }
     }
 
     // Muzzle 이펙트 활성화
