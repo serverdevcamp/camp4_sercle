@@ -21,21 +21,26 @@ public class GameEndUIController : MonoBehaviour
 
         endText.text = "";
         panel.anchoredPosition += new Vector2(0, -1000);
-        gadget.anchoredPosition += new Vector2(1000, 0);
-        leftKnob.anchoredPosition += new Vector2(-1000, 0);
-        rightKnob.anchoredPosition += new Vector2(1000, 0);
+        gadget.anchoredPosition += new Vector2(2000, 0);
+        leftKnob.anchoredPosition += new Vector2(-1500, 0);
+        rightKnob.anchoredPosition += new Vector2(1500, 0);
 
         Sequence endGame = DOTween.Sequence();
         endGame.Append(panel.DOMove(panelPos, 1f).SetEase(Ease.OutQuart));
-        endGame.Append(gadget.DOMove(gadgetPos, 1f).SetEase(Ease.InOutElastic));
-        endGame.Insert(1, leftKnob.DOMove(leftKnobPos, 1f).SetEase(Ease.InElastic));
-        endGame.Insert(1, rightKnob.DOMove(rightKnobPos, 1f).SetEase(Ease.InElastic));
+        endGame.Append(gadget.DOMove(gadgetPos, 0.6f).SetEase(Ease.InExpo));
+        endGame.Insert(1, leftKnob.DOMove(leftKnobPos, 0.6f).SetEase(Ease.InExpo));
+        endGame.Insert(1, rightKnob.DOMove(rightKnobPos, 0.6f).SetEase(Ease.InExpo));
         endGame.AppendCallback(() => TextChange(win));
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.G)) Initialize(true);
     }
 
     private void TextChange(bool win)
     {
-        if (win) endText.DOText("V I C T O R Y", 3f).SetEase(Ease.Linear);
-        else endText.DOText("D E F E A T", 3f).SetEase(Ease.Linear);
+        if (win) endText.DOText("V I C T O R Y", 1f).SetEase(Ease.Linear);
+        else endText.DOText("D E F E A T", 1f).SetEase(Ease.Linear);
     }
 }
