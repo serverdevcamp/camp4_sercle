@@ -4,21 +4,21 @@
 		{	
 			"skillNumber" : 0, 
 			"skillName" : "Fire_SpikeFissure",
-			"skillDesc" : "아이스스피어가 땅에서 부터 솟아 오릅니다.",
+			"skillDesc" : "용암스피어가 땅에서 부터 솟아 오릅니다. 250의 피해.",
 			"skillImagePath" : "SkillImage/Fire_SpikeFissure",
 			"skillEffectPath" : "SkillEffect/Fire_SpikeFissure"
 		},
 		{	
 			"skillNumber" : 1, 
 			"skillName" : "Ice_PathSpike",
-			"skillDesc" : "다크스피어 땅에서 부터 솟아 오릅니다.",
+			"skillDesc" : "아이스스피어 땅에서 부터 솟아 오릅니다. 180의 피해. 피격된 적은 2초간 빙결상태에 걸립니다.",
 			"skillImagePath" : "SkillImage/Ice_PathSpike",
 			"skillEffectPath" : "SkillEffect/Ice_PathSpike"
 		},
 		{	
 			"skillNumber" : 2, 
 			"skillName" : "Dark_Spike",
-			"skillDesc" : "파이어스피어 위에서 부터 솟아 오릅니다.",
+			"skillDesc" : "다크스피어 위에서 부터 솟아 오릅니다.250의 피해. 피격된 적은 1초간 공격력이 20 감소합니다.",
 			"skillImagePath" : "SkillImage/Dark_Spike",
 			"skillEffectPath" : "SkillEffect/Dark_Spike"
 		},

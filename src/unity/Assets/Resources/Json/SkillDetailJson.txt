@@ -8,17 +8,17 @@
 			"postDelay" : 1,
 			"coolDown" : 1,
 			"remainCool" : 0,
-			"speed" : 10,
+			"speed" : 20,
 			"range" : 6,
 			"size" : 1,
-			"targetType" : 0,
-			"targetNum" : 0,
+			"targetType" : 1,
+			"targetNum" : 1,
 			"skillEffects" :
 							[
 								{
-									"statusType" : 0,
+									"statusType" : 2,
 									"ccType" : 0,
-									"amount" : 0,
+									"amount" : -250,
 									"duration" : 0
 								}
 							]
@@ -30,18 +30,24 @@
 			"postDelay" : 1,
 			"coolDown" : 1,
 			"remainCool" : 0,
-			"speed" : 10,
+			"speed" : 20,
 			"range" : 8,
 			"size" : 1,
-			"targetType" : 0,
-			"targetNum" : 0,
+			"targetType" : 1,
+			"targetNum" : 1,
 			"skillEffects" :
 							[
 								{
-									"statusType" : 0,
+									"statusType" : 2,
 									"ccType" : 0,
-									"amount" : 0,
+									"amount" : -180,
 									"duration" : 0
+								},
+								{
+									"statusType" : 3,
+									"ccType" : 0,
+									"amount" : -5,
+									"duration" : 2
 								}
 							]
 		},{	
@@ -51,18 +57,24 @@
 			"postDelay" : 1,
 			"coolDown" : 1,
 			"remainCool" : 0,
-			"speed" : 10,
+			"speed" : 20,
 			"range" : 3,
 			"size" : 1,
-			"targetType" : 0,
-			"targetNum" : 0,
+			"targetType" : 1,
+			"targetNum" : 1,
 			"skillEffects" :
 							[
 								{
-									"statusType" : 0,
+									"statusType" : 2,
 									"ccType" : 0,
-									"amount" : 0,
+									"amount" : -250,
 									"duration" : 0
+								},
+								{
+									"statusType" : 4,
+									"ccType" : 0,
+									"amount" : -20,
+									"duration" : 1
 								}
 							]
 		},{	
@@ -72,17 +84,17 @@
 			"postDelay" : 1,
 			"coolDown" : 1,
 			"remainCool" : 0,
-			"speed" : 7,
+			"speed" : 4,
 			"range" : 5,
 			"size" : 1,
-			"targetType" : 0,
-			"targetNum" : 0,
+			"targetType" : 1,
+			"targetNum" : 1,
 			"skillEffects" :
 							[
 								{
-									"statusType" : 0,
+									"statusType" : 2,
 									"ccType" : 0,
-									"amount" : 0,
+									"amount" : -210,
 									"duration" : 0
 								}
 							]
@@ -101,18 +113,17 @@
 			"skillEffects" :
 							[
 								{
-									"statusType" : 0,
+									"statusType" : 2,
 									"ccType" : 1,
-									"amount" : -400,
+									"amount" : -150,
 									"duration" : 0
 								},
 								{
-									"statusType" : 1,
+									"statusType" : 3,
 									"ccType" : 1,
-									"amount" : 400,
-									"duration" : 0
+									"amount" : -3,
+									"duration" : 1
 								}
-
 							]
 		},{	
 			"skillNumber" : 5, 
@@ -124,14 +135,14 @@
 			"speed" : 1,
 			"range" : 0,
 			"size" : 2,
-			"targetType" : 0,
-			"targetNum" : 0,
+			"targetType" : 1,
+			"targetNum" : 1,
 			"skillEffects" :
 							[
 								{
-									"statusType" : 0,
+									"statusType" : 2,
 									"ccType" : 0,
-									"amount" : 0,
+									"amount" : -250,
 									"duration" : 0
 								}
 							]
@@ -145,15 +156,21 @@
 			"speed" : 1,
 			"range" : 0,
 			"size" : 2,
-			"targetType" : 0,
-			"targetNum" : 0,
+			"targetType" : 1,
+			"targetNum" : 1,
 			"skillEffects" :
 							[
 								{
-									"statusType" : 0,
+									"statusType" : 2,
 									"ccType" : 0,
-									"amount" : 0,
+									"amount" : -200,
 									"duration" : 0
+								},
+								{
+									"statusType" : 3,
+									"ccType" : 0,
+									"amount" : -5,
+									"duration" : 2
 								}
 							]
 		},{	
@@ -166,14 +183,14 @@
 			"speed" : 7,
 			"range" : 4,
 			"size" : 1,
-			"targetType" : 0,
-			"targetNum" : 0,
+			"targetType" : 1,
+			"targetNum" : 1,
 			"skillEffects" :
 							[
 								{
-									"statusType" : 0,
+									"statusType" : 2,
 									"ccType" : 0,
-									"amount" : 0,
+									"amount" : -200,
 									"duration" : 0
 								}
 							]
@@ -187,14 +204,14 @@
 			"speed" : 1,
 			"range" : 0,
 			"size" : 2,
-			"targetType" : 0,
-			"targetNum" : 0,
+			"targetType" : 1,
+			"targetNum" : 1,
 			"skillEffects" :
 							[
 								{
-									"statusType" : 0,
+									"statusType" : 2,
 									"ccType" : 0,
-									"amount" : 0,
+									"amount" : -200,
 									"duration" : 0
 								}
 							]
