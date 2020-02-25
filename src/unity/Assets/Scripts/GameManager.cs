@@ -4,6 +4,7 @@ using UnityEngine;
 using Werewolf.StatusIndicators.Components;
 // 임시 승리 텍스트를 띄우기 위한 UI 사용
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -95,6 +96,8 @@ public class GameManager : MonoBehaviour
             {
                 Vector3 initPos = new Vector3(999 + i * 10, 10, 999);
                 GameObject tmpHero = Instantiate(sampleHero, initPos, Quaternion.identity);
+                tmpHero.GetComponent<Transform>().rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+
                 tmpHero.GetComponent<Hero>().Index = i;
                 tmpHero.GetComponent<Hero>().InitialPos = initPos;
                 tmpHero.GetComponent<Hero>().Initialize(SkillManager.instance.firstCampSkills[i]);
@@ -108,6 +111,7 @@ public class GameManager : MonoBehaviour
             {
                 Vector3 initPos = new Vector3(999 - (i + 1) * 10, 10, 999);
                 GameObject tmpHero = Instantiate(sampleHero, initPos, Quaternion.identity);
+                tmpHero.GetComponent<Transform>().rotation = Quaternion.Euler(new Vector3(0, 0, 0));
                 tmpHero.GetComponent<Hero>().Index = i;
                 tmpHero.GetComponent<Hero>().InitialPos = initPos;
                 tmpHero.GetComponent<Hero>().Initialize(SkillManager.instance.secondCampSkills[i]);
@@ -194,6 +198,9 @@ public class GameManager : MonoBehaviour
 
         SoundManager.instance.StopBGM();
         SoundManager.instance.PlaySound("DestroyHQ");
+
+        // n 초 뒤에 로비씬으로 이동.
+        StartCoroutine(GoBackToLobby());
     }
 
     // 양 클라이언트에서 동일한 타이밍으로 게임 시작을 위한, 게임시작 패킷 수신 함수
@@ -231,5 +238,12 @@ public class GameManager : MonoBehaviour
         data.campNumber = MyCampNum;
         networkManager.SendReliable<GameStartData>(new GameStartPacket(data));
         Debug.Log(myCampNum.ToString() + " 게임씬 입장 데이터 전송 완료");
+    }
+
+    private IEnumerator GoBackToLobby()
+    {
+        yield return new WaitForSeconds(5f);
+        Destroy(GameObject.Find("GameNetworkManager").gameObject);
+        SceneManager.LoadScene("Lobby");
     }
 }
