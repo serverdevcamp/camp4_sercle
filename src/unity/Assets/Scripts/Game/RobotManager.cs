@@ -42,7 +42,6 @@ public class RobotManager : MonoBehaviour
         {
             Debug.Log("엔터 누름");
             SendSpawnRobotData();
-            //StartCoroutine(SpawnRobots());
         }
     }
 
@@ -50,9 +49,9 @@ public class RobotManager : MonoBehaviour
     {
         for (int i = 0; i < waveSize; i++)
         {
-            //SpawnRobotPair(LinePos(line1));
+            SpawnRobotPair(LinePos(line1));
             SpawnRobotPair(LinePos(line2));
-            //SpawnRobotPair(LinePos(line3));
+            SpawnRobotPair(LinePos(line3));
 
             yield return new WaitForSeconds(0.5f);
         }

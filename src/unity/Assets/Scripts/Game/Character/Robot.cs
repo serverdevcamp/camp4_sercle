@@ -121,6 +121,16 @@ public class Robot : MonoBehaviour
             case State.Move:
                 SetAnimStateMap("Moving");
                 agent.speed = status.SPD;
+                if (agent.remainingDistance <= 1)
+                {
+                    if (destFlag == 0 || destFlag == destinations.Count)
+                    {
+                        Debug.Log(campNum + "P의 " + index + "번째 로봇이 최종 목적지에 도달했습니다.");
+                        break;
+                    }
+                    destFlag = campNum == 1 ? destFlag++ : destFlag--;
+                    agent.destination = destinations[destFlag];
+                }
                 break;
             case State.Attack:
                 SetAnimStateMap("Skill_0");
