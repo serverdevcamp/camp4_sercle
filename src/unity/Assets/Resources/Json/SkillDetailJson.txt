@@ -3,14 +3,14 @@
 	[
 		{	
 			"skillNumber" : 0, 
-			"emergeDelay" : 0,
-			"preDelay" : 0,
-			"postDelay" : 0,
-			"coolDown" : 0,
+			"emergeDelay" : 1,
+			"preDelay" : 1,
+			"postDelay" : 1,
+			"coolDown" : 1,
 			"remainCool" : 0,
 			"speed" : 10,
 			"range" : 6,
-			"size" : 35,
+			"size" : 1,
 			"targetType" : 0,
 			"targetNum" : 0,
 			"skillEffects" :
@@ -25,14 +25,14 @@
 		},
 		{	
 			"skillNumber" : 1, 
-			"emergeDelay" : 0,
-			"preDelay" : 0,
-			"postDelay" : 0,
-			"coolDown" : 0,
+			"emergeDelay" : 1,
+			"preDelay" : 1,
+			"postDelay" : 1,
+			"coolDown" : 1,
 			"remainCool" : 0,
 			"speed" : 10,
 			"range" : 8,
-			"size" : 35,
+			"size" : 1,
 			"targetType" : 0,
 			"targetNum" : 0,
 			"skillEffects" :
@@ -46,14 +46,14 @@
 							]
 		},{	
 			"skillNumber" : 2, 
-			"emergeDelay" : 0,
-			"preDelay" : 0,
-			"postDelay" : 0,
-			"coolDown" : 0,
+			"emergeDelay" : 1,
+			"preDelay" : 1,
+			"postDelay" : 1,
+			"coolDown" : 1,
 			"remainCool" : 0,
 			"speed" : 10,
 			"range" : 3,
-			"size" : 35,
+			"size" : 1,
 			"targetType" : 0,
 			"targetNum" : 0,
 			"skillEffects" :
@@ -67,14 +67,14 @@
 							]
 		},{	
 			"skillNumber" : 3, 
-			"emergeDelay" : 0,
-			"preDelay" : 0,
-			"postDelay" : 0,
-			"coolDown" : 0,
+			"emergeDelay" : 1,
+			"preDelay" : 1,
+			"postDelay" : 1,
+			"coolDown" : 1,
 			"remainCool" : 0,
 			"speed" : 7,
 			"range" : 5,
-			"size" : 30,
+			"size" : 1,
 			"targetType" : 0,
 			"targetNum" : 0,
 			"skillEffects" :
@@ -95,7 +95,7 @@
 			"remainCool" : 0,
 			"speed" : 10,
 			"range" : 3,
-			"size" : 30,
+			"size" : 1,
 			"targetType" : 1,
 			"targetNum" : 1,
 			"skillEffects" :
@@ -116,14 +116,14 @@
 							]
 		},{	
 			"skillNumber" : 5, 
-			"emergeDelay" : 0,
-			"preDelay" : 0,
-			"postDelay" : 0,
-			"coolDown" : 0,
+			"emergeDelay" : 1,
+			"preDelay" : 1,
+			"postDelay" : 1,
+			"coolDown" : 1,
 			"remainCool" : 0,
 			"speed" : 1,
 			"range" : 0,
-			"size" : 50,
+			"size" : 2,
 			"targetType" : 0,
 			"targetNum" : 0,
 			"skillEffects" :
@@ -137,14 +137,14 @@
 							]
 		},{	
 			"skillNumber" : 6, 
-			"emergeDelay" : 0,
-			"preDelay" : 0,
-			"postDelay" : 0,
-			"coolDown" : 0,
+			"emergeDelay" : 1,
+			"preDelay" : 1,
+			"postDelay" : 1,
+			"coolDown" : 1,
 			"remainCool" : 0,
 			"speed" : 1,
 			"range" : 0,
-			"size" : 50,
+			"size" : 2,
 			"targetType" : 0,
 			"targetNum" : 0,
 			"skillEffects" :
@@ -158,14 +158,14 @@
 							]
 		},{	
 			"skillNumber" : 7, 
-			"emergeDelay" : 0,
-			"preDelay" : 0,
-			"postDelay" : 0,
-			"coolDown" : 0,
+			"emergeDelay" : 1,
+			"preDelay" : 1,
+			"postDelay" : 1,
+			"coolDown" : 1,
 			"remainCool" : 0,
 			"speed" : 7,
 			"range" : 4,
-			"size" : 30,
+			"size" : 1,
 			"targetType" : 0,
 			"targetNum" : 0,
 			"skillEffects" :
@@ -179,14 +179,14 @@
 							]
 		},{	
 			"skillNumber" : 8, 
-			"emergeDelay" : 0,
-			"preDelay" : 0,
-			"postDelay" : 0,
-			"coolDown" : 0,
+			"emergeDelay" : 1,
+			"preDelay" : 1,
+			"postDelay" : 1,
+			"coolDown" : 1,
 			"remainCool" : 0,
 			"speed" : 1,
 			"range" : 0,
-			"size" : 400,
+			"size" : 2,
 			"targetType" : 0,
 			"targetNum" : 0,
 			"skillEffects" :
@@ -200,14 +200,14 @@
 							]
 		},{	
 			"skillNumber" : 9, 
-			"emergeDelay" : 0,
-			"preDelay" : 0,
-			"postDelay" : 0,
-			"coolDown" : 0,
+			"emergeDelay" : 1,
+			"preDelay" : 1,
+			"postDelay" : 1,
+			"coolDown" : 1,
 			"remainCool" : 0,
 			"speed" : 1,
 			"range" : 0,
-			"size" : 300,
+			"size" : 5,
 			"targetType" : 0,
 			"targetNum" : 0,
 			"skillEffects" :
@@ -221,14 +221,14 @@
 							]
 		},{	
 			"skillNumber" : 10, 
-			"emergeDelay" : 0,
-			"preDelay" : 0,
-			"postDelay" : 0,
-			"coolDown" : 0,
+			"emergeDelay" : 1,
+			"preDelay" : 1,
+			"postDelay" : 1,
+			"coolDown" : 1,
 			"remainCool" : 0,
 			"speed" : 1,
 			"range" : 0,
-			"size" : 300,
+			"size" : 5,
 			"targetType" : 0,
 			"targetNum" : 0,
 			"skillEffects" :
@@ -242,14 +242,14 @@
 							]
 		},{	
 			"skillNumber" : 11, 
-			"emergeDelay" : 0,
-			"preDelay" : 0,
-			"postDelay" : 0,
-			"coolDown" : 0,
+			"emergeDelay" : 1,
+			"preDelay" : 1,
+			"postDelay" : 1,
+			"coolDown" : 1,
 			"remainCool" : 0,
 			"speed" : 1,
 			"range" : 0,
-			"size" : 300,
+			"size" : 5,
 			"targetType" : 0,
 			"targetNum" : 0,
 			"skillEffects" :
@@ -263,14 +263,14 @@
 							]
 		},{	
 			"skillNumber" : 12, 
-			"emergeDelay" : 0,
-			"preDelay" : 0,
-			"postDelay" : 0,
-			"coolDown" : 0,
+			"emergeDelay" : 1,
+			"preDelay" : 1,
+			"postDelay" : 1,
+			"coolDown" : 1,
 			"remainCool" : 0,
 			"speed" : 7,
 			"range" : 4,
-			"size" : 30,
+			"size" : 1,
 			"targetType" : 0,
 			"targetNum" : 0,
 			"skillEffects" :
@@ -284,14 +284,14 @@
 							]
 		},{	
 			"skillNumber" : 13, 
-			"emergeDelay" : 0,
-			"preDelay" : 0,
-			"postDelay" : 0,
-			"coolDown" : 0,
+			"emergeDelay" : 1,
+			"preDelay" : 1,
+			"postDelay" : 1,
+			"coolDown" : 1,
 			"remainCool" : 0,
 			"speed" : 7,
 			"range" : 5,
-			"size" : 30,
+			"size" : 1,
 			"targetType" : 0,
 			"targetNum" : 0,
 			"skillEffects" :
@@ -305,14 +305,14 @@
 							]
 		},{	
 			"skillNumber" : 14, 
-			"emergeDelay" : 0,
-			"preDelay" : 0,
-			"postDelay" : 0,
-			"coolDown" : 0,
+			"emergeDelay" : 1,
+			"preDelay" : 1,
+			"postDelay" : 1,
+			"coolDown" : 1,
 			"remainCool" : 0,
 			"speed" : 4,
 			"range" : 4,
-			"size" : 30,
+			"size" : 1,
 			"targetType" : 0,
 			"targetNum" : 0,
 			"skillEffects" :
@@ -326,14 +326,14 @@
 							]
 		},{	
 			"skillNumber" : 15, 
-			"emergeDelay" : 0,
-			"preDelay" : 0,
-			"postDelay" : 0,
-			"coolDown" : 0,
+			"emergeDelay" : 1,
+			"preDelay" : 1,
+			"postDelay" : 1,
+			"coolDown" : 1,
 			"remainCool" : 0,
 			"speed" : 1,
 			"range" : 0,
-			"size" : 300,
+			"size" : 5,
 			"targetType" : 0,
 			"targetNum" : 0,
 			"skillEffects" :
@@ -347,14 +347,14 @@
 							]
 		},{	
 			"skillNumber" : 16, 
-			"emergeDelay" : 0,
-			"preDelay" : 0,
-			"postDelay" : 0,
-			"coolDown" : 0,
+			"emergeDelay" : 1,
+			"preDelay" : 1,
+			"postDelay" : 1,
+			"coolDown" : 1,
 			"remainCool" : 0,
 			"speed" : 1,
 			"range" : 0,
-			"size" : 100,
+			"size" : 4,
 			"targetType" : 0,
 			"targetNum" : 0,
 			"skillEffects" :
@@ -368,14 +368,14 @@
 							]
 		},{	
 			"skillNumber" : 17, 
-			"emergeDelay" : 0,
-			"preDelay" : 0,
-			"postDelay" : 0,
-			"coolDown" : 0,
+			"emergeDelay" : 1,
+			"preDelay" : 1,
+			"postDelay" : 1,
+			"coolDown" : 1,
 			"remainCool" : 0,
 			"speed" : 1,
 			"range" : 0,
-			"size" : 220,
+			"size" : 3,
 			"targetType" : 0,
 			"targetNum" : 0,
 			"skillEffects" :
@@ -389,14 +389,14 @@
 							]
 		},{	
 			"skillNumber" : 18, 
-			"emergeDelay" : 0,
-			"preDelay" : 0,
-			"postDelay" : 0,
-			"coolDown" : 0,
+			"emergeDelay" : 1,
+			"preDelay" : 1,
+			"postDelay" : 1,
+			"coolDown" : 1,
 			"remainCool" : 0,
 			"speed" : 1,
 			"range" : 0,
-			"size" : 150,
+			"size" : 4,
 			"targetType" : 0,
 			"targetNum" : 0,
 			"skillEffects" :
@@ -410,14 +410,14 @@
 							]
 		},{	
 			"skillNumber" : 19, 
-			"emergeDelay" : 0,
-			"preDelay" : 0,
-			"postDelay" : 0,
-			"coolDown" : 0,
+			"emergeDelay" : 1,
+			"preDelay" : 1,
+			"postDelay" : 1,
+			"coolDown" : 1,
 			"remainCool" : 0,
 			"speed" : 1,
 			"range" : 0,
-			"size" : 100,
+			"size" : 4,
 			"targetType" : 0,
 			"targetNum" : 0,
 			"skillEffects" :

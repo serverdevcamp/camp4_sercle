@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cb191564baa79f478c394c0303956ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  caster: {fileID: 0}
+  casterCampNum: 0
   direction: {x: 0, y: 0, z: 0}
   speed: 0
   range: 0

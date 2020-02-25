@@ -64,7 +64,7 @@ MonoBehaviour:
     postDelay: 1
     coolDown: 5
     remainCool: 0
-    proj: {fileID: 6332989940410738062, guid: cba89610dbad6324f8f79a088b61d5d2, type: 3}
+    proj: {fileID: 6332989940410738062, guid: c8de4f3885d189d43944ce0a947f7af1, type: 3}
     speed: 0
     range: 0
     size: 10
@@ -77,6 +77,7 @@ MonoBehaviour:
       duration: 0
   heroAnim: {fileID: 0}
   exitEffect: {fileID: 183168, guid: 8ae3b38ace1bbc64bb1875bf0c8755ee, type: 3}
+  appearance: []
   testSkillNumber: 4
 --- !u!54 &1373854859352326414
 Rigidbody:
