@@ -17,6 +17,15 @@ class GamePacketId(Enum):
     opponent_end = 1
 
 
+class StatusType(Enum):
+    no = 0
+    mhp = 1
+    chp = 2
+    spd = 3
+    atk = 4
+    dfs = 5
+
+
 class GameJoinData:
     def __init__(self, message):
         self.message = message
@@ -24,7 +33,7 @@ class GameJoinData:
     def deserialize(self):
         packet_id = int.from_bytes(self.message[0:4], byteorder='big')
         user_id = int.from_bytes(self.message[4:8], byteorder='big')
-        room_num = int.from_bytes(self.message[8:12], byteorder='big')
+        room_num = int.from_bytes(self.message[12:16], byteorder='big')
 
         packet = [packet_id, user_id, room_num]
         return packet
@@ -47,7 +56,7 @@ class SpawnRobotData:
 
     def serialize(self):
         packet = self.data[0].to_bytes(4, byteorder='big') + \
-                 self.data[1].to_bytes(4, byteorder='big')
+                 self.data[1].to_bytes(33, byteorder='big')
         return packet
 
 
@@ -81,17 +90,44 @@ class GameFinishData:
 
 # 스킬 히트 데이터 중계
 class SkillHitData:
-    def __init__(self, message):
-        self.message = message
+    def __init__(self, *args, **kwargs):
+        if kwargs['num'] == 1:
+            self.message = kwargs['message']
+        else:
+            self.data = [
+                         kwargs['packet_id'],
+                         kwargs['camp_num'],
+                         kwargs['index'],
+                         kwargs['status_type'],
+                         kwargs['cc_type'],
+                         kwargs['amount'],
+                         kwargs['duration'],
+                         kwargs['server_hp'],
+                         0]
+
+    def serialize(self):
+        print("체력 : " + str(self.data[7]))
+        packet = self.data[0].to_bytes(4, byteorder='big') + \
+                 self.data[1].to_bytes(4, byteorder='big') + \
+                 self.data[2].to_bytes(4, byteorder='big') + \
+                 self.data[3].to_bytes(4, byteorder='big') + \
+                 self.data[4].to_bytes(4, byteorder='big') + \
+                 self.data[5].to_bytes(4, byteorder='big', signed=True) + \
+                 self.data[6].to_bytes(4, byteorder='big') + \
+                 self.data[7].to_bytes(4, byteorder='big', signed=True) + \
+                 self.data[8].to_bytes(5, byteorder='big')
+        return packet
 
     def deserialize(self):
         packet_id = int.from_bytes(self.message[0:4], byteorder='big')
-        index = int.from_bytes(self.message[4:8], byteorder='big')
-        status_type = int.from_bytes(self.message[8:12], byteorder='big')
-        cc_type = int.from_bytes(self.message[12:16], byteorder='big')
-        amount = int.from_bytes(self.message[16:20], byteorder='big')
-        duration = int.from_bytes(self.message[20:24], byteorder='big')
-        packet = [packet_id, index, status_type, cc_type, amount, duration]
+        camp_num = int.from_bytes(self.message[4:8], byteorder='big')
+        index = int.from_bytes(self.message[8:12], byteorder='big')
+        status_type = int.from_bytes(self.message[12:16], byteorder='big')
+        cc_type = int.from_bytes(self.message[16:20], byteorder='big')
+        amount = int.from_bytes(self.message[20:24], byteorder='big', signed=True)
+        duration = int.from_bytes(self.message[24:28], byteorder='big')
+        server_hp = int.from_bytes(self.message[28:32], byteorder='big', signed=True)
+        packet = [packet_id, camp_num, index, status_type, cc_type, amount, duration, server_hp]
         return packet
 
 
