@@ -121,6 +121,18 @@ public class Robot : MonoBehaviour
             case State.Move:
                 SetAnimStateMap("Moving");
                 agent.speed = status.SPD;
+                if (agent.remainingDistance <= 1)
+                {
+                    if (campNum == 1 && destFlag < destinations.Count - 1)
+                    {
+                        destFlag += 1;
+                    }
+                    else if(campNum == 2 && destFlag > 0)
+                    {
+                        destFlag -= 1;
+                    }
+                    agent.destination = destinations[destFlag];
+                }
                 break;
             case State.Attack:
                 SetAnimStateMap("Skill_0");

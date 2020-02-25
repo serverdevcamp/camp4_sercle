@@ -7,7 +7,6 @@ using DG.Tweening;
 public class CharacterHealthBar : MonoBehaviour
 {
     [SerializeField] private Image bar;
-    [SerializeField] private Text state;
 
     private Robot robot;
     private float myHpRatio;
@@ -32,18 +31,5 @@ public class CharacterHealthBar : MonoBehaviour
         {
             DOTween.To(() => bar.fillAmount, x => bar.fillAmount = x, myHpRatio, 1f);
         }
-
-        state.text = State();
-    }
-
-    private string State()
-    {
-        string str = "";
-
-        str += "name : " + transform.parent.name + System.Environment.NewLine;
-        str += "state : " + robot.GetState.ToString() + System.Environment.NewLine;
-        str += "CHP : " + robot.GetStatus.CHP;
-
-        return str;
     }
 }
