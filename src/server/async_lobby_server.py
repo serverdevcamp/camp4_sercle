@@ -19,7 +19,6 @@ class Lobby:
         self.accept_dic = {}
 
         print("start matching queue")
-        #start_new_thread(self.matching_queue_thread, ())
         asyncio.run(self.main())
 
     # 매칭 잡힘

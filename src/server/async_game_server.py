@@ -50,9 +50,17 @@ class Game:
                 message = await reader.read(37)
                 if int.from_bytes(message[0:4], byteorder='big') != PacketId.select_skill.value:
                     while len(message) < 37:
+                        next_msg = await reader.read(37-len(message))
+                        if not next_msg:
+                            self.game_wait_dic.pop(room_num)
+                            self.game_end_dic[room_num] = GAME_END
+                            self.remove(my_id)
+                            await self.opponent_remove(opponent_id)
+                            break
                         message = message + await reader.read(37-len(message))
 
                 if not message:
+                    print("유저 게임 끝 또는 한명 나")
                     self.game_wait_dic.pop(room_num)
                     self.game_end_dic[room_num] = GAME_END
                     self.remove(my_id)
@@ -61,6 +69,7 @@ class Game:
                 await self.divide_packet(message, [writer, my_id], [opponent_writer, opponent_id], room_num)
             except Exception as e:
                 print("에러 : " + str(e))
+                break
 
     async def divide_packet(self, message, my_writer, opponent_writer, room_num):
         packet_id = int.from_bytes(message[0:4], byteorder='big')
@@ -83,7 +92,6 @@ class Game:
             if len(message) < 37:
                 return 0
             print("스킬 사용 : " + str(message))
-            print("왜나와 : " + str(len(message)))
             my_writer[0].write(message)
             await my_writer[0].drain()
             opponent_writer[0].write(message)
@@ -118,12 +126,12 @@ class Game:
 
     async def skill_hit(self, packet, my_writer, opponent_writer, room_num):
         # (packet_id,  camp_num,  index,  status_type,  cc_type,  amount,  duration)
-        # chp일경우 amount만큼의 데미지를 dic에서 깎아 server_hp에 저장후 패킷 전
+        # chp일경우 amount만큼의 데미지를 dic에서 깎아 server_hp에 저장후 패킷 전송
         if packet[3] == StatusType.chp.value:
             print("HP : " + str(packet[5]))
             self.game_data_dic[room_num][packet[1]]['monster'][packet[2]] += packet[5]
             print("진영 : " + str(packet[1]) +
-                  " 미송니언 : " + str(packet[2]) +
+                  " 미니언 : " + str(packet[2]) +
                   "의 HP" +
                   str(self.game_data_dic[room_num][packet[1]]['monster'][packet[2]]))
 
@@ -161,21 +169,20 @@ class Game:
             while self.game_end_dic[room_num] != GAME_END:
                 await asyncio.sleep(5.0)
                 print(str(room_num) + "번 방 몬스터 생성")
-                for i in range(10):
+                for i in range(5):
                     await asyncio.sleep(0.8)
 
-                    # 1P 플레이어에 몬스터 생성 패킷 전송
-                    self.game_data_dic[room_num][1]['monster'][monster_num] = MONSTER_HP
+                    for j in range(3):
+                        # 1P 플레이어에 몬스터 생성 패킷 전송
+                        self.game_data_dic[room_num][1]['monster'][monster_num] = MONSTER_HP
+                        # 2P 플레이어에 몬스터 생성 패킷 전송
+                        self.game_data_dic[room_num][2]['monster'][monster_num] = MONSTER_HP
+                        # 몬스터 번호 증가
+                        monster_num += 1
                     my_writer[0].write(message)
                     await my_writer[0].drain()
-
-                    # 2P 플레이어에 몬스터 생성 패킷 전송
-                    self.game_data_dic[room_num][2]['monster'][monster_num] = MONSTER_HP
                     opponent_writer[0].write(message)
                     await opponent_writer[0].drain()
-                    # 몬스터 번호 증가
-
-                    monster_num += 1
                 num = num + 1
                 if num == 2:
                     break
