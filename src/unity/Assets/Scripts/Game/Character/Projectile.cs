@@ -84,7 +84,7 @@ public class Projectile : MonoBehaviour
         {
             GameManager.instance.RequestSkillEffect(target, effect);
             // 투사체 히트 이펙트 적용
-            // target.GetComponent<EffectController>().OnHitVFX(effect, caster.index);
+            target.ShowHitEffect(skillNumber, effect);
         }
         if (targetNum == TargetNum.One) Destroy(gameObject);
     }
