@@ -262,12 +262,9 @@ public class Robot : MonoBehaviour
     // 피격된 skill number에 따라 적절한 이펙트 생성
     public void ShowHitEffect(int skillNumber, SkillEffect effect)
     {
-        // 수정해야함1
-        GameObject go = null;
-
         if (skillNumber - 8 < 0) return;
 
-        go = Instantiate(hitEffects[skillNumber - 8], transform.position, Quaternion.identity);
+        GameObject go = Instantiate(hitEffects[skillNumber - 8], transform.position, Quaternion.identity);
 
         if (go != null)
             // 스턴 스킬의 지속시간을 life time으로 지정.

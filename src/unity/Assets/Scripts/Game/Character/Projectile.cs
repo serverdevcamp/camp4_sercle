@@ -80,11 +80,17 @@ public class Projectile : MonoBehaviour
             Debug.Log(skillNumber + " 스킬에 맞았습니다.");
         }
 
+        bool isEffectActivated = false;
+
         foreach(SkillEffect effect in skillEffects)
         {
             GameManager.instance.RequestSkillEffect(target, effect);
-            // 투사체 히트 이펙트 적용
-            target.ShowHitEffect(skillNumber, effect);
+            if (!isEffectActivated)
+            {
+                // 투사체 히트 이펙트 적용
+                target.ShowHitEffect(skillNumber, effect);
+                isEffectActivated = true;
+            }
         }
         if (targetNum == TargetNum.One) Destroy(gameObject);
     }
