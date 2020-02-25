@@ -24,47 +24,51 @@ class Lobby:
 
     # 매칭 잡힘
     async def matching_catch_thread(self, my_write, opponent_write):
-        print("유저id : " + str(my_write[1]) + str(opponent_write[1]))
-        response = MatchingResponseData(PacketId.matching_response.value,
-                                        MatchingPacketId.matching_catch.value,
-                                        MatchingResult.success.value,
-                                        my_write[1]).serialize()
-        my_write[0].write(response)
-        await my_write[0].drain()
+        try:
+            print("유저id : " + str(my_write[1]) + str(opponent_write[1]))
+            response = MatchingResponseData(PacketId.matching_response.value,
+                                            MatchingPacketId.matching_catch.value,
+                                            MatchingResult.success.value,
+                                            my_write[1]).serialize()
+            my_write[0].write(response)
+            await my_write[0].drain()
 
-        response = MatchingResponseData(PacketId.matching_response.value,
-                                        MatchingPacketId.matching_catch.value,
-                                        MatchingResult.success.value,
-                                        opponent_write[1]).serialize()
-        opponent_write[0].write(response)
-        await opponent_write[0].drain()
+            response = MatchingResponseData(PacketId.matching_response.value,
+                                            MatchingPacketId.matching_catch.value,
+                                            MatchingResult.success.value,
+                                            opponent_write[1]).serialize()
+            opponent_write[0].write(response)
+            await opponent_write[0].drain()
 
-        times = 0
-        while times < 20:
-            await asyncio.sleep(0.3)
-            # 둘다  매칭 수락함.
-            print("시간 대기중 : " + str(self.accept_dic[my_write[1]]) + "  " + str(self.accept_dic[opponent_write[1]]))
-            if self.accept_dic[my_write[1]] == 1 and self.accept_dic[opponent_write[1]] == 1:
-                await self.accept_response(my_write, opponent_write)
-                return 0
-            times += 1
+            times = 0
+            while times < 20:
+                await asyncio.sleep(0.3)
+                # 둘다  매칭 수락함.
+                print("시간 대기중 : " + str(self.accept_dic[my_write[1]]) + "  " + str(self.accept_dic[opponent_write[1]]))
+                if self.accept_dic[my_write[1]] == 1 and self.accept_dic[opponent_write[1]] == 1:
+                    await self.accept_response(my_write, opponent_write)
+                    return 0
+                times += 1
 
-        # 10초가 지나면
-        # 내가 수락 상대방 거절
-        if self.accept_dic[my_write[1]] == 1 and (self.accept_dic[opponent_write[1]] == 0 or
-                                                  self.accept_dic[opponent_write[1]] == -1):
-            await self.retry_request_matching(my_write[0])
-            await self.reject_response(opponent_write[0])
+            # 10초가 지나면
+            # 내가 수락 상대방 거절
+            if self.accept_dic[my_write[1]] == 1 and (self.accept_dic[opponent_write[1]] == 0 or
+                                                      self.accept_dic[opponent_write[1]] == -1):
+                await self.retry_request_matching(my_write[0])
+                await self.reject_response(opponent_write[0])
 
-        # 내가 거절 상대방 수락
-        elif self.accept_dic[opponent_write[1]] == 1 and (self.accept_dic[my_write[1]] == 0 or
-                                                          self.accept_dic[my_write[1]] == -1):
-            await self.retry_request_matching(opponent_write[0])
-            await self.reject_response(my_write[0])
-        # 둘다 거절
-        else:
-            await self.reject_response(my_write[0])
-            await self.reject_response(opponent_write[0])
+            # 내가 거절 상대방 수락
+            elif self.accept_dic[opponent_write[1]] == 1 and (self.accept_dic[my_write[1]] == 0 or
+                                                              self.accept_dic[my_write[1]] == -1):
+                await self.retry_request_matching(opponent_write[0])
+                await self.reject_response(my_write[0])
+            # 둘다 거절
+            else:
+                await self.reject_response(my_write[0])
+                await self.reject_response(opponent_write[0])
+        except Exception as e:
+            print("매칭 도중 유저 나감")
+            self.matching_remove(my_write, opponent_write)
 
     # 매칭 쓰레드
     async def matching_queue_thread(self):
@@ -165,6 +169,7 @@ class Lobby:
                                             MatchingPacketId.matching_response.value,
                                             MatchingResult.success.value,
                                             user_id).serialize()
+            print("matching regist")
             writer.write(response)
             await writer.drain()
         elif match_type == RETRY_MATCH:              # 상대방이 거절한 유저 재매칭 메세지 전송
@@ -217,4 +222,10 @@ class Lobby:
                 self.user_list.remove(user)
                 break
 
+    def matching_remove(self, my, opponent):
+        for user in self.matching_list:
+            if user[1] == my or user[1] == opponent:
+                print(str(user[1]) + "님이 매칭 리스트에서 나가셨습니다.")
+                self.matching_list.remove(user)
+                break
 server = Lobby()
