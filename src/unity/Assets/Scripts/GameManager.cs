@@ -33,8 +33,6 @@ public class GameManager : MonoBehaviour
         else return secondCampHeroes[i];
     }
 
-    public Text tempWinnerText;
-
     // 양 단말 모두 게임씬으로 넘어와서 게임을 시작해도 되는지 판단하는 변수. readyToStart가 false면 일시정지, true면 정지 해제.
     [SerializeField] private bool readyToStart;
     [SerializeField] private GameObject loadingCanvasPrefab;
@@ -68,9 +66,6 @@ public class GameManager : MonoBehaviour
 
         // 게임 시작할 준비가 되었다는 패킷 송신
         SendReadyToStartGamePacket();
-
-        // 임시 승리 텍스트 안보이게 함.
-        tempWinnerText.text = "";
 
         loadingCanvas = Instantiate(loadingCanvasPrefab);
 
@@ -191,22 +186,19 @@ public class GameManager : MonoBehaviour
         // 승리 진영과 자신의 진영이 일치할경우, 승리 판정.
         if (userInfo.userData.playerCamp == winnerData.winnerCamp)
         {
-            tempWinnerText.text = "THE WINNER IS : ME ^^";
-
             // 승리 결과 기록
             httpManager.UpdateUserWinReq(userInfo.userData.id, true);
         }
         // 패배 판정
         else
         {
-            tempWinnerText.text = "THE WINNER IS OPPONENT TT";
-
             // 패배 결과 기록
             httpManager.UpdateUserWinReq(userInfo.userData.id, false);
         }
 
-        SoundManager.instance.StopBGM();
-        SoundManager.instance.PlaySound("DestroyHQ");
+        bool win = userInfo.userData.playerCamp == winnerData.winnerCamp;
+
+        UIManager.instance.ActivateGameEnd(win);
 
         // Flask 서버에 업적 업데이트 및 점수 업데이트.
         httpManager.UpdateAchieveReq(userInfo.userData.id, userInfo.userPlayData);

@@ -493,6 +493,8 @@ MonoBehaviour:
   buttonPrefab: {fileID: 3966005223456132652, guid: ecd362418c105bd498a85699151380f3,
     type: 3}
   skillPanel: {fileID: 8739734824448272959}
+  gameEndPanelPrefab: {fileID: 833167212052904097, guid: 4951ca7b60d8b194c92b8632a5022892,
+    type: 3}
   skillInfoPanel: {fileID: 7201908703635119066}
   skillNameText: {fileID: 6656532411525256056}
   skillHotKey: {fileID: 4378626151823298698}

@@ -854,7 +854,6 @@ MonoBehaviour:
   firstCampHeroes: []
   secondCampHeroes: []
   sampleHero: {fileID: 100850, guid: 5f7557b78c05a6841b6991fd9ac6855d, type: 3}
-  tempWinnerText: {fileID: 0}
   readyToStart: 0
   loadingCanvasPrefab: {fileID: 4560362158869744633, guid: f3ff74a4c5106d740ae3399ff1757426,
     type: 3}
