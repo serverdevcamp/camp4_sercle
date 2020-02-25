@@ -72,7 +72,7 @@ public class Hero : MonoBehaviour
         // 등장하는 애니메이션과 효과
 
         // 20 02 14 영웅의 위치를 pos + 10로 이동, 20 02 20 영웅이 한발자국 뒤로 물러나서 스킬 씀.
-        GetComponent<Transform>().position = pos + new Vector3(0, 10, 0) - 1.5f * (dir.HasValue ? dir.Value : Vector3.forward);
+        GetComponent<Transform>().position = pos + new Vector3(0, 10, 0) - 1.5f * (dir.HasValue ? dir.Value.normalized : Vector3.forward);
         if (dir.HasValue)
         {
             if(dir.Value != Vector3.zero)
