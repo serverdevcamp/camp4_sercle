@@ -185,19 +185,31 @@ public class GameManager : MonoBehaviour
         GameFinishPacket packet = new GameFinishPacket(data);
         GameFinishData winnerData = packet.GetPacket();
 
+        HTTPManager httpManager = new HTTPManager();
+        UserInfo userInfo = GameObject.Find("DataObject").GetComponent<UserInfo>();
+
         // 승리 진영과 자신의 진영이 일치할경우, 승리 판정.
-        if (GameObject.Find("DataObject").GetComponent<UserInfo>().userData.playerCamp == winnerData.winnerCamp)
+        if (userInfo.userData.playerCamp == winnerData.winnerCamp)
         {
             tempWinnerText.text = "THE WINNER IS : ME ^^";
+
+            // 승리 결과 기록
+            httpManager.UpdateUserWinReq(userInfo.userData.id, true);
         }
         // 패배 판정
         else
         {
             tempWinnerText.text = "THE WINNER IS OPPONENT TT";
+
+            // 패배 결과 기록
+            httpManager.UpdateUserWinReq(userInfo.userData.id, false);
         }
 
         SoundManager.instance.StopBGM();
         SoundManager.instance.PlaySound("DestroyHQ");
+
+        // Flask 서버에 업적 업데이트 및 점수 업데이트.
+        httpManager.UpdateAchieveReq(userInfo.userData.id, userInfo.userPlayData);
 
         // n 초 뒤에 로비씬으로 이동.
         StartCoroutine(GoBackToLobby());
@@ -240,6 +252,7 @@ public class GameManager : MonoBehaviour
         Debug.Log(myCampNum.ToString() + " 게임씬 입장 데이터 전송 완료");
     }
 
+    // 게임 종료시, 게임씬에서 로비로 복귀한다.
     private IEnumerator GoBackToLobby()
     {
         yield return new WaitForSeconds(5f);
