@@ -33,8 +33,6 @@ public class GameManager : MonoBehaviour
         else return secondCampHeroes[i];
     }
 
-    public Text tempWinnerText;
-
     // 양 단말 모두 게임씬으로 넘어와서 게임을 시작해도 되는지 판단하는 변수. readyToStart가 false면 일시정지, true면 정지 해제.
     [SerializeField] private bool readyToStart;
     [SerializeField] private GameObject loadingCanvasPrefab;
@@ -68,9 +66,6 @@ public class GameManager : MonoBehaviour
 
         // 게임 시작할 준비가 되었다는 패킷 송신
         SendReadyToStartGamePacket();
-
-        // 임시 승리 텍스트 안보이게 함.
-        tempWinnerText.text = "";
 
         loadingCanvas = Instantiate(loadingCanvasPrefab);
 
@@ -185,19 +180,8 @@ public class GameManager : MonoBehaviour
         GameFinishPacket packet = new GameFinishPacket(data);
         GameFinishData winnerData = packet.GetPacket();
 
-        // 승리 진영과 자신의 진영이 일치할경우, 승리 판정.
-        if (GameObject.Find("DataObject").GetComponent<UserInfo>().userData.playerCamp == winnerData.winnerCamp)
-        {
-            tempWinnerText.text = "THE WINNER IS : ME ^^";
-        }
-        // 패배 판정
-        else
-        {
-            tempWinnerText.text = "THE WINNER IS OPPONENT TT";
-        }
-
-        SoundManager.instance.StopBGM();
-        SoundManager.instance.PlaySound("DestroyHQ");
+        bool win = GameObject.Find("DataObject").GetComponent<UserInfo>().userData.playerCamp == winnerData.winnerCamp;
+        UIManager.instance.ActivateGameEnd(win);
 
         // n 초 뒤에 로비씬으로 이동.
         StartCoroutine(GoBackToLobby());

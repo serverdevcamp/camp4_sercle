@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private GameObject buttonPrefab;
     [SerializeField] private GameObject skillPanel;
+    [SerializeField] private GameObject gameEndPanelPrefab;
 
     [Header("Skill Info")]
     [SerializeField] private GameObject skillInfoPanel;
@@ -83,5 +84,15 @@ public class UIManager : MonoBehaviour
     private void UnshowSkillInfo()
     {
         skillInfoPanel.SetActive(false);
+    }
+
+    public void ActivateGameEnd(bool win)
+    {
+        SoundManager.instance.StopBGM();
+
+        GameObject gameEndPanel = Instantiate(gameEndPanelPrefab, transform);
+        gameEndPanel.GetComponent<GameEndUIController>().Initialize(win);
+
+        SoundManager.instance.PlaySound("DestroyHQ");
     }
 }
