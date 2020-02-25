@@ -244,6 +244,8 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(5f);
         Destroy(GameObject.Find("GameNetworkManager").gameObject);
+        Destroy(GameObject.Find("SkillManager").gameObject);
+        MatchingManager.instance.MatchState = MatchingManager.MatchingState.Nothing;
         SceneManager.LoadScene("Lobby");
     }
 }
