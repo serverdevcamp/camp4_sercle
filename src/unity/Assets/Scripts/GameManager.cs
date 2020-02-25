@@ -183,20 +183,9 @@ public class GameManager : MonoBehaviour
         HTTPManager httpManager = new HTTPManager();
         UserInfo userInfo = GameObject.Find("DataObject").GetComponent<UserInfo>();
 
-        // 승리 진영과 자신의 진영이 일치할경우, 승리 판정.
-        if (userInfo.userData.playerCamp == winnerData.winnerCamp)
-        {
-            // 승리 결과 기록
-            httpManager.UpdateUserWinReq(userInfo.userData.id, true);
-        }
-        // 패배 판정
-        else
-        {
-            // 패배 결과 기록
-            httpManager.UpdateUserWinReq(userInfo.userData.id, false);
-        }
-
         bool win = userInfo.userData.playerCamp == winnerData.winnerCamp;
+
+        httpManager.UpdateUserWinReq(userInfo.userData.id, win);
 
         UIManager.instance.ActivateGameEnd(win);
 
