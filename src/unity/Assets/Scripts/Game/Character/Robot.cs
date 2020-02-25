@@ -123,12 +123,14 @@ public class Robot : MonoBehaviour
                 agent.speed = status.SPD;
                 if (agent.remainingDistance <= 1)
                 {
-                    if (destFlag == 0 || destFlag == destinations.Count)
+                    if (campNum == 1 && destFlag < destinations.Count - 1)
                     {
-                        Debug.Log(campNum + "P의 " + index + "번째 로봇이 최종 목적지에 도달했습니다.");
-                        break;
+                        destFlag += 1;
                     }
-                    destFlag = campNum == 1 ? destFlag++ : destFlag--;
+                    else if(campNum == 2 && destFlag > 0)
+                    {
+                        destFlag -= 1;
+                    }
                     agent.destination = destinations[destFlag];
                 }
                 break;
