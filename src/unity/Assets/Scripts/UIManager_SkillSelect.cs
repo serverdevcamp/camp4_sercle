@@ -26,6 +26,8 @@ public class UIManager_SkillSelect : MonoBehaviour
 
     private SkillInfoJsonArray skill;
 
+    public bool isSelectionFinished;
+
     private void Start()
     {
         InstantiateSkillButton();
@@ -133,6 +135,7 @@ public class UIManager_SkillSelect : MonoBehaviour
 
     public void StartGame()
     {
+        isSelectionFinished = true;
         SoundManager.instance.PlaySound("ButtonClick");
         SendSelectionInfo();
     }
