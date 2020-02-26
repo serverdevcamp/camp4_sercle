@@ -9,13 +9,14 @@ public struct ProjectileInfo
     public float speed;
     public float range;
     public float size;
+    public float activeDelay;
     public TargetType targetType;
     public TargetNum targetNum;
     public List<SkillEffect> skillEffects;
     public int heroSkillNum;
 
     public ProjectileInfo(int casterCampNum, Vector3 direction, float speed, float range,
-                        float size, TargetType targetType, TargetNum targetNum,
+                        float size, float activeDelay, TargetType targetType, TargetNum targetNum,
                         List<SkillEffect> skillEffects, int heroSkillNum = -1)
     {
         this.casterCampNum = casterCampNum;
@@ -23,6 +24,7 @@ public struct ProjectileInfo
         this.speed = speed;
         this.range = range;
         this.size = size;
+        this.activeDelay = activeDelay;
         this.targetType = targetType;
         this.targetNum = targetNum;
         this.skillEffects = skillEffects;
@@ -37,10 +39,13 @@ public class Projectile : MonoBehaviour
     [SerializeField] private Vector3 direction;
     [SerializeField] private float speed;
     [SerializeField] private float range;
+    [SerializeField] private float activeDelay;
     [SerializeField] private TargetType targetType;
     [SerializeField] private TargetNum targetNum;
     [SerializeField] private List<SkillEffect> skillEffects;
     [SerializeField] private int skillNumber;
+
+    private bool isActive = false;
 
     public void Initialize(ProjectileInfo info)
     {
@@ -48,15 +53,23 @@ public class Projectile : MonoBehaviour
         direction = info.direction;
         speed = info.speed;
         range = info.range;
+        activeDelay = info.activeDelay;
         transform.localScale = Vector3.one * info.size;
         targetType = info.targetType;
         targetNum = info.targetNum;
         skillEffects = info.skillEffects;
         skillNumber = info.heroSkillNum;
     }
+    private void Start()
+    {
+        GetComponent<BoxCollider>().enabled = false;
+        StartCoroutine(WaitForActivate());
+    }
 
     private void FixedUpdate()
     {
+        if (isActive == false) return;
+
         if (range > 0)
         {
             transform.position += direction * speed * Time.fixedDeltaTime;
@@ -101,5 +114,22 @@ public class Projectile : MonoBehaviour
         if (targetType == TargetType.Enemy && casterCampNum != target.CampNum) return true;
 
         return false;
+    }
+
+    private IEnumerator WaitForActivate()
+    {
+        if (activeDelay == 0)
+        {
+            isActive = true;
+            GetComponent<BoxCollider>().enabled = true;
+            yield break;
+        }
+
+        isActive = false;
+
+        yield return new WaitForSeconds(activeDelay);
+
+        isActive = true;
+        GetComponent<BoxCollider>().enabled = true;
     }
 }

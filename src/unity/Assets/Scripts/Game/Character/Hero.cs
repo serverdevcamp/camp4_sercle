@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using Werewolf.StatusIndicators.Components;
 
 public class Hero : MonoBehaviour
 {
@@ -28,13 +27,13 @@ public class Hero : MonoBehaviour
 
     private void OnEnable()
     {
-        ////// 등장, 스킬 테스트용
+        //// 등장, 스킬 테스트용
         //heroAnim = GetComponent<Animator>();
-        //SetSkillInfo(testSkillNumber); 
+        //SetSkillInfo(testSkillNumber);
         //InitialPos = new Vector3(10, 10, 10);
 
         //UseSkill(Vector3.zero, new Vector3(1.2f, 0, -.8f));
-        //////UseSkill(Vector3.zero, null);
+        ////UseSkill(Vector3.zero, null);
     }
     public void Initialize(int skill)
     {
@@ -69,6 +68,7 @@ public class Hero : MonoBehaviour
 
         #region 등장
         state = State.Appear;
+        skill.remainCool = skill.coolDown;
         // 등장하는 애니메이션과 효과
 
         // 20 02 14 영웅의 위치를 pos + 10로 이동, 20 02 20 영웅이 한발자국 뒤로 물러나서 스킬 씀.
@@ -107,16 +107,8 @@ public class Hero : MonoBehaviour
         // 스킬 사용
         SetAnimStateMap("Fire_" + randomSkillMotion.ToString());
         SoundManager.instance.IterateEffectSound(skill.skillNum.ToString(), 1f);
-
-        // 투사체 생성
-        state = State.Skill;
-
-        ProjectileInfo info = new ProjectileInfo(GameManager.instance.MyCampNum, dir.HasValue ? dir.Value : transform.position, skill.speed, skill.range, skill.size, skill.targetType, skill.targetNum, skill.skillEffects, skill.skillNum);
         
-        // 아래는 테스트용
-        // ProjectileInfo info = new ProjectileInfo(1, dir.HasValue ? dir.Value : transform.position, skill.speed, skill.range, skill.size, skill.targetType, skill.targetNum, skill.skillEffects);
-        Projectile projectile = UnityEngine.Object.Instantiate(skill.proj, pos + new Vector3(0, 0.7f, 0), Quaternion.identity);
-        projectile.Initialize(info);
+        state = State.Skill;
 
         // 스킬이펙트 발동
         if(skill.skillEffectPrefab is null)
@@ -127,6 +119,20 @@ public class Hero : MonoBehaviour
         if (dir.HasValue)
         {   if(skill.skillNum != 16 && skill.skillNum != 17 && skill.skillNum != 18)
                 go.transform.LookAt(dir.Value + pos);
+        }
+
+        yield return new WaitForSeconds(skill.projDelay);
+
+        // 투사체 생성
+        for (int i = 0; i < skill.tickCount; i++)
+        {
+            float activeDelay = i * skill.tickDelay;
+            ProjectileInfo info = new ProjectileInfo(GameManager.instance.MyCampNum, dir.HasValue ? dir.Value : transform.position, skill.speed, skill.range, skill.size, activeDelay, skill.targetType, skill.targetNum, skill.skillEffects, skill.skillNum);
+
+            // 아래는 테스트용
+            // ProjectileInfo info = new ProjectileInfo(1, dir.HasValue ? dir.Value : transform.position, skill.speed, skill.range, skill.size, activeDelay, skill.targetType, skill.targetNum, skill.skillEffects);
+            Projectile projectile = Instantiate(skill.proj, pos + new Vector3(0, 0.7f, 0), Quaternion.identity);
+            projectile.Initialize(info);
         }
         #endregion
 
@@ -144,8 +150,14 @@ public class Hero : MonoBehaviour
 
         #region 쿨타임
         state = State.CoolDown;
-        yield return new WaitForSeconds(skill.coolDown);
+        
+        while (skill.remainCool > 0)
+        {
+            yield return new WaitForFixedUpdate();
+            skill.remainCool -= Time.fixedDeltaTime;
+        }
 
+        skill.remainCool = 0;
         #endregion
 
         state = State.Idle;
@@ -228,14 +240,17 @@ public class Hero : MonoBehaviour
         // 세부 설정
         skill.emergeDelay = skillDetailArray.skillInfo[num].emergeDelay;
         skill.preDelay = skillDetailArray.skillInfo[num].preDelay;
+        skill.projDelay = skillDetailArray.skillInfo[num].projDelay;
         skill.postDelay = skillDetailArray.skillInfo[num].postDelay;
         skill.coolDown = skillDetailArray.skillInfo[num].coolDown;
-        skill.remainCool = skillDetailArray.skillInfo[num].remainCool;
+        skill.remainCool = 0;
 
         // 투사체 설정
         skill.speed = skillDetailArray.skillInfo[num].speed;
         skill.range = skillDetailArray.skillInfo[num].range;
         skill.size = skillDetailArray.skillInfo[num].size;
+        skill.tickCount = skillDetailArray.skillInfo[num].tickCount;
+        skill.tickDelay = skillDetailArray.skillInfo[num].tickDelay;
         skill.targetType = skillDetailArray.skillInfo[num].targetType;
         skill.targetNum = skillDetailArray.skillInfo[num].targetNum;
         skill.skillEffects = skillDetailArray.skillInfo[num].skillEffects.ToList();

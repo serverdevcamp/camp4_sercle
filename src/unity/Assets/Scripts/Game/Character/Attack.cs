@@ -99,7 +99,7 @@ public class Attack
         effect.amount = -(int)caster.GetStatus.ATK;
         effects.Add(effect);
 
-        ProjectileInfo info = new ProjectileInfo(caster.CampNum, dir, speed, range, size, TargetType.Enemy, TargetNum.One, effects);
+        ProjectileInfo info = new ProjectileInfo(caster.CampNum, dir, speed, range, size, 0, TargetType.Enemy, TargetNum.One, effects);
         return info;
     }
 }
