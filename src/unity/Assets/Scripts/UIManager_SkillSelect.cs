@@ -135,9 +135,13 @@ public class UIManager_SkillSelect : MonoBehaviour
 
     public void StartGame()
     {
-        isSelectionFinished = true;
         SoundManager.instance.PlaySound("ButtonClick");
-        SendSelectionInfo();
+
+        // 서버에 1번만 전송하도록 설정.
+        if (!isSelectionFinished)
+            SendSelectionInfo();
+
+        isSelectionFinished = true;
     }
 
     public void SendSelectionInfo()
