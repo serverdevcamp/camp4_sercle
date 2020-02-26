@@ -207,7 +207,7 @@ public class GameManager : MonoBehaviour
         userInfo.userPlayData.achievescore = 0;
         userInfo.userPlayData.victory = 0;
         userInfo.userPlayData.lose = 0;
-        userInfo.userPlayData.death = 0;
+        userInfo.userPlayData.death = 1;
         userInfo.userPlayData.imageid = 0;
 
         userInfo.userPlayData.kill = killCount;
