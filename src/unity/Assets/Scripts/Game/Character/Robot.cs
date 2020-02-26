@@ -270,7 +270,9 @@ public class Robot : MonoBehaviour
     {
         if (skillNumber - 8 < 0) return;
 
-        GameObject go = Instantiate(hitEffects[skillNumber - 8], transform.position, Quaternion.identity);
+        GameObject go = Instantiate(hitEffects[skillNumber - 8], Vector3.zero, Quaternion.identity);
+
+        go.transform.SetParent(this.transform);
 
         if (go != null)
         {
