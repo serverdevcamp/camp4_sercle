@@ -20,7 +20,7 @@ public class SkillButtonIndicator : MonoBehaviour
         myHero = hero;
         mySkill = myHero.GetSkill;
 
-        skillImage.sprite = mySkill.Image;
+        skillImage.sprite = mySkill.image;
 
         EventTrigger trigger = GetComponent<EventTrigger>();
 
@@ -42,7 +42,7 @@ public class SkillButtonIndicator : MonoBehaviour
 
     private void ShowRemainCool()
     {
-        float value = 1 - mySkill.RemainCool / mySkill.coolDown;
+        float value = 1 - mySkill.remainCool / mySkill.coolDown;
         skillImage.fillAmount = value;
     }
 }

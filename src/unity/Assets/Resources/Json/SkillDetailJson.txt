@@ -5,12 +5,14 @@
 			"skillNumber" : 0, 
 			"emergeDelay" : 1,
 			"preDelay" : 1,
+			"projDelay" : 0,
 			"postDelay" : 1,
-			"coolDown" : 1,
-			"remainCool" : 0,
+			"coolDown" : 8,
 			"speed" : 20,
 			"range" : 6,
 			"size" : 1,
+			"tickCount" : 1,
+			"tickDelay" : 0,
 			"targetType" : 1,
 			"targetNum" : 1,
 			"skillEffects" :
@@ -18,7 +20,7 @@
 								{
 									"statusType" : 2,
 									"ccType" : 0,
-									"amount" : -250,
+									"amount" : -300,
 									"duration" : 0
 								}
 							]
@@ -27,12 +29,14 @@
 			"skillNumber" : 1, 
 			"emergeDelay" : 1,
 			"preDelay" : 1,
+			"projDelay" : 0,
 			"postDelay" : 1,
-			"coolDown" : 1,
-			"remainCool" : 0,
+			"coolDown" : 8,
 			"speed" : 20,
 			"range" : 8,
 			"size" : 1,
+			"tickCount" : 1,
+			"tickDelay" : 0,
 			"targetType" : 1,
 			"targetNum" : 1,
 			"skillEffects" :
@@ -46,20 +50,22 @@
 								{
 									"statusType" : 3,
 									"ccType" : 0,
-									"amount" : -5,
-									"duration" : 2
+									"amount" : -4,
+									"duration" : 5
 								}
 							]
 		},{	
 			"skillNumber" : 2, 
 			"emergeDelay" : 1,
 			"preDelay" : 1,
+			"projDelay" : 0,
 			"postDelay" : 1,
-			"coolDown" : 1,
-			"remainCool" : 0,
+			"coolDown" : 8,
 			"speed" : 20,
 			"range" : 3,
 			"size" : 1,
+			"tickCount" : 1,
+			"tickDelay" : 0,
 			"targetType" : 1,
 			"targetNum" : 1,
 			"skillEffects" :
@@ -73,7 +79,7 @@
 								{
 									"statusType" : 4,
 									"ccType" : 0,
-									"amount" : -20,
+									"amount" : -30,
 									"duration" : 1
 								}
 							]
@@ -81,12 +87,14 @@
 			"skillNumber" : 3, 
 			"emergeDelay" : 1,
 			"preDelay" : 1,
+			"projDelay" : 0.6,
 			"postDelay" : 1,
-			"coolDown" : 1,
-			"remainCool" : 0,
-			"speed" : 4,
+			"coolDown" : 7,
+			"speed" : 12,
 			"range" : 5,
 			"size" : 1,
+			"tickCount" : 1,
+			"tickDelay" : 0,
 			"targetType" : 1,
 			"targetNum" : 1,
 			"skillEffects" :
@@ -94,7 +102,7 @@
 								{
 									"statusType" : 2,
 									"ccType" : 0,
-									"amount" : -210,
+									"amount" : -220,
 									"duration" : 0
 								}
 							]
@@ -102,12 +110,14 @@
 			"skillNumber" : 4, 
 			"emergeDelay" : 1,
 			"preDelay" : 1,
+			"projDelay" : 0,
 			"postDelay" : 1,
-			"coolDown" : 1,
-			"remainCool" : 0,
-			"speed" : 10,
+			"coolDown" : 7,
+			"speed" : 15,
 			"range" : 3,
 			"size" : 1,
+			"tickCount" : 5,
+			"tickDelay" : 0.4,
 			"targetType" : 1,
 			"targetNum" : 1,
 			"skillEffects" :
@@ -115,26 +125,28 @@
 								{
 									"statusType" : 2,
 									"ccType" : 1,
-									"amount" : -150,
+									"amount" : -40,
 									"duration" : 0
 								},
 								{
-									"statusType" : 3,
+									"statusType" : 4,
 									"ccType" : 1,
-									"amount" : -3,
-									"duration" : 1
+									"amount" : -8,
+									"duration" : 0
 								}
 							]
 		},{	
 			"skillNumber" : 5, 
 			"emergeDelay" : 1,
 			"preDelay" : 1,
+			"projDelay" : 0.85,
 			"postDelay" : 1,
-			"coolDown" : 1,
-			"remainCool" : 0,
+			"coolDown" : 6,
 			"speed" : 1,
 			"range" : 0,
 			"size" : 2,
+			"tickCount" : 1,
+			"tickDelay" : 0,
 			"targetType" : 1,
 			"targetNum" : 1,
 			"skillEffects" :
@@ -150,12 +162,14 @@
 			"skillNumber" : 6, 
 			"emergeDelay" : 1,
 			"preDelay" : 1,
+			"projDelay" : 0.85,
 			"postDelay" : 1,
-			"coolDown" : 1,
-			"remainCool" : 0,
+			"coolDown" : 6,
 			"speed" : 1,
 			"range" : 0,
 			"size" : 2,
+			"tickCount" : 1,
+			"tickDelay" : 0,
 			"targetType" : 1,
 			"targetNum" : 1,
 			"skillEffects" :
@@ -169,20 +183,22 @@
 								{
 									"statusType" : 3,
 									"ccType" : 0,
-									"amount" : -5,
-									"duration" : 2
+									"amount" : -3,
+									"duration" : 0
 								}
 							]
 		},{	
 			"skillNumber" : 7, 
 			"emergeDelay" : 1,
 			"preDelay" : 1,
+			"projDelay" : 0,
 			"postDelay" : 1,
-			"coolDown" : 1,
-			"remainCool" : 0,
-			"speed" : 7,
+			"coolDown" : 7,
+			"speed" : 20,
 			"range" : 4,
 			"size" : 1,
+			"tickCount" : 7,
+			"tickDelay" : 0.5,
 			"targetType" : 1,
 			"targetNum" : 1,
 			"skillEffects" :
@@ -190,7 +206,7 @@
 								{
 									"statusType" : 2,
 									"ccType" : 0,
-									"amount" : -200,
+									"amount" : -40,
 									"duration" : 0
 								}
 							]
@@ -198,20 +214,22 @@
 			"skillNumber" : 8, 
 			"emergeDelay" : 1,
 			"preDelay" : 1,
+			"projDelay" : 0,
 			"postDelay" : 1,
-			"coolDown" : 1,
-			"remainCool" : 0,
+			"coolDown" : 4,
 			"speed" : 1,
 			"range" : 0,
 			"size" : 2,
-			"targetType" : 1,
+			"tickCount" : 1,
+			"tickDelay" : 0,
+			"targetType" : 0,
 			"targetNum" : 1,
 			"skillEffects" :
 							[
 								{
 									"statusType" : 2,
 									"ccType" : 0,
-									"amount" : -200,
+									"amount" : 200,
 									"duration" : 0
 								}
 							]
@@ -219,83 +237,97 @@
 			"skillNumber" : 9, 
 			"emergeDelay" : 1,
 			"preDelay" : 1,
+			"projDelay" : 0,
 			"postDelay" : 1,
-			"coolDown" : 1,
-			"remainCool" : 0,
+			"coolDown" : 5,
 			"speed" : 1,
 			"range" : 0,
 			"size" : 5,
+			"tickCount" : 1,
+			"tickDelay" : 0,
 			"targetType" : 0,
 			"targetNum" : 0,
 			"skillEffects" :
 							[
 								{
-									"statusType" : 0,
+									"statusType" : 4,
 									"ccType" : 0,
-									"amount" : 0,
-									"duration" : 0
+									"amount" : 80,
+									"duration" : 5
 								}
 							]
 		},{	
 			"skillNumber" : 10, 
 			"emergeDelay" : 1,
 			"preDelay" : 1,
+			"projDelay" : 0,
 			"postDelay" : 1,
-			"coolDown" : 1,
-			"remainCool" : 0,
+			"coolDown" : 4,
 			"speed" : 1,
 			"range" : 0,
 			"size" : 5,
+			"tickCount" : 1,
+			"tickDelay" : 0,
 			"targetType" : 0,
 			"targetNum" : 0,
 			"skillEffects" :
 							[
 								{
-									"statusType" : 0,
+									"statusType" : 4,
 									"ccType" : 0,
-									"amount" : 0,
-									"duration" : 0
+									"amount" : 5,
+									"duration" : 4
 								}
 							]
 		},{	
 			"skillNumber" : 11, 
 			"emergeDelay" : 1,
 			"preDelay" : 1,
+			"projDelay" : 0,
 			"postDelay" : 1,
-			"coolDown" : 1,
-			"remainCool" : 0,
+			"coolDown" : 5,
 			"speed" : 1,
 			"range" : 0,
 			"size" : 5,
+			"tickCount" : 1,
+			"tickDelay" : 0,
 			"targetType" : 0,
 			"targetNum" : 0,
 			"skillEffects" :
 							[
 								{
-									"statusType" : 0,
+									"statusType" : 5,
 									"ccType" : 0,
-									"amount" : 0,
-									"duration" : 0
+									"amount" : 100,
+									"duration" : 8
 								}
 							]
 		},{	
 			"skillNumber" : 12, 
 			"emergeDelay" : 1,
 			"preDelay" : 1,
+			"projDelay" : 0,
 			"postDelay" : 1,
-			"coolDown" : 1,
-			"remainCool" : 0,
-			"speed" : 7,
+			"coolDown" : 9,
+			"speed" : 15,
 			"range" : 4,
 			"size" : 1,
-			"targetType" : 0,
-			"targetNum" : 0,
+			"tickCount" : 1,
+			"tickDelay" : 0,
+			"targetType" : 1,
+			"targetNum" : 1,
 			"skillEffects" :
 							[
 								{
 									"statusType" : 0,
-									"ccType" : 0,
+									"ccType" : 1,
 									"amount" : 0,
+									"duration" : 3
+								},
+								{
+									"statusType" : 2,
+									"ccType" : 0,
+									"amount" : -20,
 									"duration" : 0
 								}
 							]
@@ -303,20 +335,28 @@
 			"skillNumber" : 13, 
 			"emergeDelay" : 1,
 			"preDelay" : 1,
+			"projDelay" : 0,
 			"postDelay" : 1,
-			"coolDown" : 1,
-			"remainCool" : 0,
-			"speed" : 7,
+			"coolDown" : 9,
+			"speed" : 15,
 			"range" : 5,
 			"size" : 1,
-			"targetType" : 0,
-			"targetNum" : 0,
+			"tickCount" : 1,
+			"tickDelay" : 0,
+			"targetType" : 1,
+			"targetNum" : 1,
 			"skillEffects" :
 							[
 								{
-									"statusType" : 0,
+									"statusType" : 3,
 									"ccType" : 0,
-									"amount" : 0,
+									"amount" : -5,
+									"duration" : 5
+								},
+								{
+									"statusType" : 2,
+									"ccType" : 0,
+									"amount" : -30,
 									"duration" : 0
 								}
 							]
@@ -324,20 +364,28 @@
 			"skillNumber" : 14, 
 			"emergeDelay" : 1,
 			"preDelay" : 1,
+			"projDelay" : 0.8,
 			"postDelay" : 1,
-			"coolDown" : 1,
-			"remainCool" : 0,
-			"speed" : 4,
+			"coolDown" : 8,
+			"speed" : 10,
 			"range" : 4,
 			"size" : 1,
-			"targetType" : 0,
-			"targetNum" : 0,
+			"tickCount" : 5,
+			"tickDelay" : 0.4,
+			"targetType" : 1,
+			"targetNum" : 1,
 			"skillEffects" :
 							[
 								{
-									"statusType" : 0,
+									"statusType" : 2,
 									"ccType" : 0,
-									"amount" : 0,
+									"amount" : -20,
+									"duration" : 0
+								},
+								{
+									"statusType" : 5,
+									"ccType" : 0,
+									"amount" : -10,
 									"duration" : 0
 								}
 							]
@@ -345,41 +393,63 @@
 			"skillNumber" : 15, 
 			"emergeDelay" : 1,
 			"preDelay" : 1,
+			"projDelay" : 0,
 			"postDelay" : 1,
-			"coolDown" : 1,
-			"remainCool" : 0,
+			"coolDown" : 10,
 			"speed" : 1,
 			"range" : 0,
 			"size" : 5,
+			"tickCount" : 1,
+			"tickDelay" : 0,
 			"targetType" : 0,
 			"targetNum" : 0,
 			"skillEffects" :
 							[
 								{
 									"statusType" : 0,
-									"ccType" : 0,
+									"ccType" : 1,
 									"amount" : 0,
-									"duration" : 0
+									"duration" : 3
+								},
+								{
+									"statusType" : 5,
+									"ccType" : 0,
+									"amount" : -20,
+									"duration" : 3
 								}
 							]
 		},{	
 			"skillNumber" : 16, 
 			"emergeDelay" : 1,
 			"preDelay" : 1,
+			"projDelay" : 0,
 			"postDelay" : 1,
-			"coolDown" : 1,
-			"remainCool" : 0,
+			"coolDown" : 8,
 			"speed" : 1,
 			"range" : 0,
 			"size" : 4,
-			"targetType" : 0,
-			"targetNum" : 0,
+			"tickCount" : 10,
+			"tickDelay" : 0.4,
+			"targetType" : 1,
+			"targetNum" : 1,
 			"skillEffects" :
 							[
 								{
-									"statusType" : 0,
+									"statusType" : 2,
 									"ccType" : 0,
-									"amount" : 0,
+									"amount" : -10,
+									"duration" : 0
+								},
+								{
+									"statusType" : 4,
+									"ccType" : 0,
+									"amount" : -5,
+									"duration" : 0
+								},
+								{
+									"statusType" : 5,
+									"ccType" : 0,
+									"amount" : -5,
 									"duration" : 0
 								}
 							]
@@ -387,20 +457,22 @@
 			"skillNumber" : 17, 
 			"emergeDelay" : 1,
 			"preDelay" : 1,
+			"projDelay" : 0,
 			"postDelay" : 1,
-			"coolDown" : 1,
-			"remainCool" : 0,
+			"coolDown" : 7,
 			"speed" : 1,
 			"range" : 0,
-			"size" : 3,
-			"targetType" : 0,
-			"targetNum" : 0,
+			"size" : 5,
+			"tickCount" : 12,
+			"tickDelay" : 0.4,
+			"targetType" : 1,
+			"targetNum" : 1,
 			"skillEffects" :
 							[
 								{
-									"statusType" : 0,
+									"statusType" : 2,
 									"ccType" : 0,
-									"amount" : 0,
+									"amount" : -25,
 									"duration" : 0
 								}
 							]
@@ -408,20 +480,28 @@
 			"skillNumber" : 18, 
 			"emergeDelay" : 1,
 			"preDelay" : 1,
+			"projDelay" : 0,
 			"postDelay" : 1,
-			"coolDown" : 1,
-			"remainCool" : 0,
+			"coolDown" : 9,
 			"speed" : 1,
 			"range" : 0,
-			"size" : 4,
-			"targetType" : 0,
-			"targetNum" : 0,
+			"size" : 3,
+			"tickCount" : 10,
+			"tickDelay" : 0.4,
+			"targetType" : 1,
+			"targetNum" : 1,
 			"skillEffects" :
 							[
 								{
-									"statusType" : 0,
+									"statusType" : 1,
 									"ccType" : 0,
-									"amount" : 0,
+									"amount" : -20,
+									"duration" : 0
+								},
+								{
+									"statusType" : 2,
+									"ccType" : 0,
+									"amount" : -20,
 									"duration" : 0
 								}
 							]
@@ -429,20 +509,40 @@
 			"skillNumber" : 19, 
 			"emergeDelay" : 1,
 			"preDelay" : 1,
+			"projDelay" : 0,
 			"postDelay" : 1,
-			"coolDown" : 1,
-			"remainCool" : 0,
+			"coolDown" : 10,
 			"speed" : 1,
 			"range" : 0,
-			"size" : 4,
+			"size" : 2,
+			"tickCount" : 1,
+			"tickDelay" : 0,
 			"targetType" : 0,
 			"targetNum" : 0,
 			"skillEffects" :
 							[
 								{
-									"statusType" : 0,
+									"statusType" : 1,
 									"ccType" : 0,
-									"amount" : 0,
+									"amount" : 1000,
+									"duration" : 500
+								},
+								{
+									"statusType" : 2,
+									"ccType" : 0,
+									"amount" : 1000,
+									"duration" : 0
+								},
+								{
+									"statusType" : 3,
+									"ccType" : 0,
+									"amount" : 40,
+									"duration" : 0
+								},
+								{
+									"statusType" : 4,
+									"ccType" : 0,
+									"amount" : 40,
 									"duration" : 0
 								}
 							]

@@ -3,141 +3,141 @@
 	[
 		{	
 			"skillNumber" : 0, 
-			"skillName" : "Fire_SpikeFissure",
-			"skillDesc" : "용암스피어가 땅에서 부터 솟아 오릅니다. 250의 피해.",
+			"skillName" : "Fire SpikeFissure",
+			"skillDesc" : "직선 방향으로 화염 가시 지대를 생성합니다. 피격된 적군은 300의 피해를 받습니다.",
 			"skillImagePath" : "SkillImage/Fire_SpikeFissure",
 			"skillEffectPath" : "SkillEffect/Fire_SpikeFissure"
 		},
 		{	
 			"skillNumber" : 1, 
-			"skillName" : "Ice_PathSpike",
-			"skillDesc" : "아이스스피어 땅에서 부터 솟아 오릅니다. 180의 피해. 피격된 적은 2초간 빙결상태에 걸립니다.",
+			"skillName" : "Ice PathSpike",
+			"skillDesc" : "직선 방향으로 얼음 가시 지대를 생성합니다. 피격된 적군은 180의 피해를 받고 5초동안 이동속도가 4 감소합니다.",
 			"skillImagePath" : "SkillImage/Ice_PathSpike",
 			"skillEffectPath" : "SkillEffect/Ice_PathSpike"
 		},
 		{	
 			"skillNumber" : 2, 
-			"skillName" : "Dark_Spike",
-			"skillDesc" : "다크스피어 위에서 부터 솟아 오릅니다.250의 피해. 피격된 적은 1초간 공격력이 20 감소합니다.",
+			"skillName" : "Dark Spike",
+			"skillDesc" : "직선 방향으로 암흑 가시 지대를 생성합니다. 피격된 적군은 250의 피해를 받고 1초 동안 공격력이 30 감소합니다.",
 			"skillImagePath" : "SkillImage/Dark_Spike",
 			"skillEffectPath" : "SkillEffect/Dark_Spike"
 		},
 		{	
 			"skillNumber" : 3, 
-			"skillName" : "Hell_SpikeParty",
-			"skillDesc" : "라이트닝스피어 땅에서 부터 솟아 오릅니다.",
+			"skillName" : "Hell SpikeParty",
+			"skillDesc" : "직선 방향으로 하늘에서 화염창을 떨어뜨립니다. 피격된 적군은 220의 피해를 받습니다.",
 			"skillImagePath" : "SkillImage/Hell_SpikeParty",
 			"skillEffectPath" : "SkillEffect/Hell_SpikeParty"
 		},
 		{	
 			"skillNumber" : 4, 
-			"skillName" : "Tesla_Wall",
-			"skillDesc" : "라이트닝스피어 땅에서 부터 솟아 오릅니다.",
+			"skillName" : "Tesla Wall",
+			"skillDesc" : "직선 방향으로 전자기 벽을 생성합니다. 범위 안의 모든 적군은 0.4초마다 40의 피해를 받고 공격력이 8 감소합니다.",
 			"skillImagePath" : "SkillImage/Tesla_Wall",
 			"skillEffectPath" : "SkillEffect/Tesla_Wall"
 		},
 		{	
 			"skillNumber" : 5, 
-			"skillName" : "Fire_Meteor",
-			"skillDesc" : "라이트닝스피어 땅에서 부터 솟아 오릅니다.",
+			"skillName" : "Fire Meteor",
+			"skillDesc" : "화염 운석을 떨어뜨립니다. 피격된 적군은 250의 피해를 받습니다.",
 			"skillImagePath" : "SkillImage/Fire_Meteor",
 			"skillEffectPath" : "SkillEffect/Fire_Meteor"
 		},
 		{	
 			"skillNumber" : 6, 
-			"skillName" : "Ice_Shard",
-			"skillDesc" : "라이트닝스피어 땅에서 부터 솟아 오릅니다.",
+			"skillName" : "Ice Shard",
+			"skillDesc" : "얼음 운석을 떨어뜨립니다. 피격된 적군은 200의 피해를 받고 이동속도가 3 감소합니다.",
 			"skillImagePath" : "SkillImage/Ice_Shard",
 			"skillEffectPath" : "SkillEffect/Ice_Shard"
 		},
 		{	
 			"skillNumber" : 7, 
-			"skillName" : "Hell_FlameFissure",
-			"skillDesc" : "라이트닝스피어 땅에서 부터 솟아 오릅니다.",
+			"skillName" : "Hell FlameFissure",
+			"skillDesc" : "직선 방향으로 화산 분출합니다. 범위 안의 모든 적군은 0.5초마다 40의 피해를 받습니다.",
 			"skillImagePath" : "SkillImage/Hell_FlameFissure",
 			"skillEffectPath" : "SkillEffect/Hell_FlameFissure"
 		},
 		{	
 			"skillNumber" : 8, 
-			"skillName" : "Heiling",
-			"skillDesc" : "라이트닝스피어 땅에서 부터 솟아 오릅니다.",
+			"skillName" : "Healing",
+			"skillDesc" : "범위 안의 모든 아군의 체력을 200 회복시킵니다.",
 			"skillImagePath" : "SkillImage/Heiling",
 			"skillEffectPath" : "SkillEffect/Heiling"
 		},
 		{	
 			"skillNumber" : 9, 
 			"skillName" : "SuperCharge",
-			"skillDesc" : "라이트닝스피어 땅에서 부터 솟아 오릅니다.",
+			"skillDesc" : "범위 안의 모든 아군의 공격력을 5초 동안 80 증가시킵니다.",
 			"skillImagePath" : "SkillImage/SuperCharge",
 			"skillEffectPath" : "SkillEffect/SuperCharge"
 		},
 		{	
 			"skillNumber" : 10, 
 			"skillName" : "Wild",
-			"skillDesc" : "라이트닝스피어 땅에서 부터 솟아 오릅니다.",
+			"skillDesc" : "범위 안의 모든 아군의 이동 속도를 4초 동안 5 증가시킵니다.",
 			"skillImagePath" : "SkillImage/Wild",
 			"skillEffectPath" : "SkillEffect/Wild"
 		},
 		{	
 			"skillNumber" : 11, 
 			"skillName" : "Armored",
-			"skillDesc" : "라이트닝스피어 땅에서 부터 솟아 오릅니다.",
+			"skillDesc" : "범위 안의 모든 아군의 방어력을 8초 동안 100 증가시킵니다.",
 			"skillImagePath" : "SkillImage/Armored",
 			"skillEffectPath" : "SkillEffect/Armored"
 		},
 		{	
 			"skillNumber" : 12, 
 			"skillName" : "Earth_Fissure",
-			"skillDesc" : "라이트닝스피어 땅에서 부터 솟아 오릅니다.",
+			"skillDesc" : "직선 방향. 피격된 적군은 20의 피해를 받고 3초동안 기절 상태가 됩니다. 기절 상태인 유닛은 공격, 이동 할 수 없습니다.",
 			"skillImagePath" : "SkillImage/Earth_Fissure",
 			"skillEffectPath" : "SkillEffect/Earth_Fissure"
 		},
 		{	
 			"skillNumber" : 13, 
 			"skillName" : "Ice_Fissure",
-			"skillDesc" : "라이트닝스피어 땅에서 부터 솟아 오릅니다.",
+			"skillDesc" : "직선 방향. 피격된 적군은 30의 피해를 받고 5초동안 빙결 상태가 됩니다. 빙결 상태인 유닛은 이동 할 수 없습니다.",
 			"skillImagePath" : "SkillImage/Ice_Fissure",
 			"skillEffectPath" : "SkillEffect/Ice_Fissure"
 		},
 		{	
 			"skillNumber" : 14, 
-			"skillName" : "Soul_Fissure",
-			"skillDesc" : "라이트닝스피어 땅에서 부터 솟아 오릅니다.",
+			"skillName" : "Soul Fissure",
+			"skillDesc" : "직선 방향. 범위 안의 모든 적군은 0.4초마다 20의 피해를 받고 방어력이 10 감소합니다.",
 			"skillImagePath" : "SkillImage/Soul_Fissure",
 			"skillEffectPath" : "SkillEffect/Soul_Fissure"
 		},
 		{	
 			"skillNumber" : 15, 
 			"skillName" : "Sleep",
-			"skillDesc" : "라이트닝스피어 땅에서 부터 솟아 오릅니다.",
+			"skillDesc" : "범위 안의 모든 적군을 3초동안 수면 상태에 빠뜨립니다. 수면 상태인 유닛은 공격, 이동을 할 수 없고 방어력이 20 감소합니다.",
 			"skillImagePath" : "SkillImage/Sleep",
 			"skillEffectPath" : "SkillEffect/Sleep"
 		},
 		{	
 			"skillNumber" : 16, 
-			"skillName" : "Poison_GreenArea",
-			"skillDesc" : "라이트닝스피어 땅에서 부터 솟아 오릅니다.",
+			"skillName" : "Poison GreenArea",
+			"skillDesc" : "독지대를 생성합니다. 범위 안의 모든 적군은 0.4초마다 10의 피해를 받고 공격력 5, 방어력 5가 감소합니다.",
 			"skillImagePath" : "SkillImage/Poison_GreenArea",
 			"skillEffectPath" : "SkillEffect/Poison_GreenArea"
 		},
 		{	
 			"skillNumber" : 17, 
-			"skillName" : "Hell_Area",
-			"skillDesc" : "라이트닝스피어 땅에서 부터 솟아 오릅니다.",
+			"skillName" : "Hell Area",
+			"skillDesc" : "불마법진을 생성합니다. 범위 안의 모든 적군은 0.4초마다 25의 피해를 받습니다.",
 			"skillImagePath" : "SkillImage/Hell_Area",
 			"skillEffectPath" : "SkillEffect/Hell_Area"
 		},
 		{	
 			"skillNumber" : 18, 
-			"skillName" : "Dark_Summon",
-			"skillDesc" : "라이트닝스피어 땅에서 부터 솟아 오릅니다.",
+			"skillName" : "Dark Summon",
+			"skillDesc" : "흑마법진을 생성합니다. 범위 안의 모든 적군은 0.4초마다 최대 체력이 20씩 감소합니다.",
 			"skillImagePath" : "SkillImage/Dark_Summon",
 			"skillEffectPath" : "SkillEffect/Dark_Summon"
 		},
 		{	
 			"skillNumber" : 19, 
 			"skillName" : "Repel",
-			"skillDesc" : "라이트닝스피어 땅에서 부터 솟아 오릅니다.",
+			"skillDesc" : "아군 하나에게 강력한 보호막을 씌웁니다. 해당 아군의 최대체력은 1000이 증가하고 40의 추가 공격력, 40의 추가 방어력을 얻습니다.",
 			"skillImagePath" : "SkillImage/Repel",
 			"skillEffectPath" : "SkillEffect/Repel"
 		}
