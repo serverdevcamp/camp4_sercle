@@ -391,14 +391,16 @@ public struct SpawnRobotData
 public class SkillDetailJson
 {
     public int skillNumber;
-    public int emergeDelay;
-    public int preDelay;
-    public int postDelay;
-    public int coolDown;
-    public int remainCool;
+    public float emergeDelay;
+    public float preDelay;
+    public float projDelay;
+    public float postDelay;
+    public float coolDown;
     public int speed;
     public int range;
     public int size;
+    public int tickCount;
+    public float tickDelay;
     public TargetType targetType;
     public TargetNum targetNum;
     public List<SkillEffect> skillEffects;

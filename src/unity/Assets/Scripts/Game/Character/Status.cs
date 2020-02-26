@@ -55,9 +55,11 @@ public class Status
                 break;
             case StatusType.SPD:
                 spd += amount;
+                if (spd < 0) spd = 0;
                 break;
             case StatusType.ATK:
                 atk += amount;
+                if (atk < 0) atk = 0;
                 break;
             case StatusType.DEF:
                 def += amount;

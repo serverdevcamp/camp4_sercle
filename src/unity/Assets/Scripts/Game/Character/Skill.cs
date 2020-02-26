@@ -11,19 +11,17 @@ public enum TargetNum { One, All }
 [System.Serializable]
 public class Skill
 {
-    public enum State { Idle, Ready, CoolDown }
-
     [Header("Basic Info")]
     public int skillNum;
     public string skillName;
     public string description;
     public Sprite image;
     public GameObject skillEffectPrefab;
-    public State state;
 
     [Header("Time")]
     public float emergeDelay;   // 등장한 후 등장 포즈 취하는 시간
     public float preDelay;
+    public float projDelay;
     public float postDelay;
     public float coolDown;
     public float remainCool;
@@ -33,17 +31,9 @@ public class Skill
     public float speed;
     public float range;
     public float size;
+    public int tickCount;
+    public float tickDelay;
     public TargetType targetType;
     public TargetNum targetNum;
     public List<SkillEffect> skillEffects;
-
-    public float RemainCool { get { return remainCool; } }
-    public Sprite Image { get { return image; } }
-
-
-    public void Initialize()
-    {
-        state = State.Idle;
-        remainCool = 0f;
-    }
 }
