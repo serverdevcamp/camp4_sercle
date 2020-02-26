@@ -69,8 +69,9 @@ public class Hero : MonoBehaviour
         #region 등장
         state = State.Appear;
         skill.remainCool = skill.coolDown;
-        // 등장하는 애니메이션과 효과
 
+        // 등장하는 애니메이션과 효과
+        transform.rotation = Quaternion.Euler(Vector3.zero);
         // 20 02 14 영웅의 위치를 pos + 10로 이동, 20 02 20 영웅이 한발자국 뒤로 물러나서 스킬 씀.
         GetComponent<Transform>().position = pos + new Vector3(0, 10, 0) - 1.5f * (dir.HasValue ? dir.Value.normalized : Vector3.forward);
         if (dir.HasValue)
@@ -146,6 +147,7 @@ public class Hero : MonoBehaviour
 
         // 후딜레이 후 영웅을 초기 위치로 되돌림
         transform.position = InitialPos;
+        transform.rotation = Quaternion.Euler(Vector3.zero);
         #endregion
 
         #region 쿨타임
