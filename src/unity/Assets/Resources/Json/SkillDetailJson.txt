@@ -401,7 +401,7 @@
 			"size" : 5,
 			"tickCount" : 1,
 			"tickDelay" : 0,
-			"targetType" : 0,
+			"targetType" : 1,
 			"targetNum" : 0,
 			"skillEffects" :
 							[
