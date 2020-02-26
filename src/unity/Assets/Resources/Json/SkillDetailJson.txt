@@ -3,7 +3,7 @@
 	[
 		{	
 			"skillNumber" : 0, 
-			"emergeDelay" : 1,
+			"emergeDelay" : 0.6,
 			"preDelay" : 1,
 			"projDelay" : 0,
 			"postDelay" : 1,
@@ -27,7 +27,7 @@
 		},
 		{	
 			"skillNumber" : 1, 
-			"emergeDelay" : 1,
+			"emergeDelay" : 0.5,
 			"preDelay" : 1,
 			"projDelay" : 0,
 			"postDelay" : 1,
@@ -56,8 +56,8 @@
 							]
 		},{	
 			"skillNumber" : 2, 
-			"emergeDelay" : 1,
-			"preDelay" : 1,
+			"emergeDelay" : 0.7,
+			"preDelay" : 0.8,
 			"projDelay" : 0,
 			"postDelay" : 1,
 			"coolDown" : 8,
@@ -85,8 +85,8 @@
 							]
 		},{	
 			"skillNumber" : 3, 
-			"emergeDelay" : 1,
-			"preDelay" : 1,
+			"emergeDelay" : 0.5,
+			"preDelay" : 0.8,
 			"projDelay" : 0.6,
 			"postDelay" : 1,
 			"coolDown" : 7,
@@ -108,7 +108,7 @@
 							]
 		},{	
 			"skillNumber" : 4, 
-			"emergeDelay" : 1,
+			"emergeDelay" : 0.6,
 			"preDelay" : 1,
 			"projDelay" : 0,
 			"postDelay" : 1,
@@ -137,8 +137,8 @@
 							]
 		},{	
 			"skillNumber" : 5, 
-			"emergeDelay" : 1,
-			"preDelay" : 1,
+			"emergeDelay" : 0.6,
+			"preDelay" : 0.8,
 			"projDelay" : 0.85,
 			"postDelay" : 1,
 			"coolDown" : 6,
@@ -160,8 +160,8 @@
 							]
 		},{	
 			"skillNumber" : 6, 
-			"emergeDelay" : 1,
-			"preDelay" : 1,
+			"emergeDelay" : 0.7,
+			"preDelay" : 0.9,
 			"projDelay" : 0.85,
 			"postDelay" : 1,
 			"coolDown" : 6,
@@ -189,7 +189,7 @@
 							]
 		},{	
 			"skillNumber" : 7, 
-			"emergeDelay" : 1,
+			"emergeDelay" : 0.7,
 			"preDelay" : 1,
 			"projDelay" : 0,
 			"postDelay" : 1,
@@ -212,8 +212,8 @@
 							]
 		},{	
 			"skillNumber" : 8, 
-			"emergeDelay" : 1,
-			"preDelay" : 1,
+			"emergeDelay" : 0.5,
+			"preDelay" : 0.7,
 			"projDelay" : 0,
 			"postDelay" : 1,
 			"coolDown" : 4,
@@ -235,8 +235,8 @@
 							]
 		},{	
 			"skillNumber" : 9, 
-			"emergeDelay" : 1,
-			"preDelay" : 1,
+			"emergeDelay" : 0.6,
+			"preDelay" : 0.5,
 			"projDelay" : 0,
 			"postDelay" : 1,
 			"coolDown" : 5,
@@ -258,8 +258,8 @@
 							]
 		},{	
 			"skillNumber" : 10, 
-			"emergeDelay" : 1,
-			"preDelay" : 1,
+			"emergeDelay" : 0.6,
+			"preDelay" : 0.8,
 			"projDelay" : 0,
 			"postDelay" : 1,
 			"coolDown" : 4,
@@ -281,8 +281,8 @@
 							]
 		},{	
 			"skillNumber" : 11, 
-			"emergeDelay" : 1,
-			"preDelay" : 1,
+			"emergeDelay" : 0.8,
+			"preDelay" : 0.5,
 			"projDelay" : 0,
 			"postDelay" : 1,
 			"coolDown" : 5,
@@ -304,8 +304,8 @@
 							]
 		},{	
 			"skillNumber" : 12, 
-			"emergeDelay" : 1,
-			"preDelay" : 1,
+			"emergeDelay" : 0.5,
+			"preDelay" : 0.6,
 			"projDelay" : 0,
 			"postDelay" : 1,
 			"coolDown" : 9,
@@ -333,8 +333,8 @@
 							]
 		},{	
 			"skillNumber" : 13, 
-			"emergeDelay" : 1,
-			"preDelay" : 1,
+			"emergeDelay" : 0.5,
+			"preDelay" : 0.7,
 			"projDelay" : 0,
 			"postDelay" : 1,
 			"coolDown" : 9,
@@ -362,8 +362,8 @@
 							]
 		},{	
 			"skillNumber" : 14, 
-			"emergeDelay" : 1,
-			"preDelay" : 1,
+			"emergeDelay" : 0.6,
+			"preDelay" : 0.5,
 			"projDelay" : 0.8,
 			"postDelay" : 1,
 			"coolDown" : 8,
@@ -391,8 +391,8 @@
 							]
 		},{	
 			"skillNumber" : 15, 
-			"emergeDelay" : 1,
-			"preDelay" : 1,
+			"emergeDelay" : 0.7,
+			"preDelay" : 0.8,
 			"projDelay" : 0,
 			"postDelay" : 1,
 			"coolDown" : 10,
@@ -420,8 +420,8 @@
 							]
 		},{	
 			"skillNumber" : 16, 
-			"emergeDelay" : 1,
-			"preDelay" : 1,
+			"emergeDelay" : 0.6,
+			"preDelay" : 0.7,
 			"projDelay" : 0,
 			"postDelay" : 1,
 			"coolDown" : 8,
@@ -455,8 +455,8 @@
 							]
 		},{	
 			"skillNumber" : 17, 
-			"emergeDelay" : 1,
-			"preDelay" : 1,
+			"emergeDelay" : 0.7,
+			"preDelay" : 0.7,
 			"projDelay" : 0,
 			"postDelay" : 1,
 			"coolDown" : 7,
@@ -478,8 +478,8 @@
 							]
 		},{	
 			"skillNumber" : 18, 
-			"emergeDelay" : 1,
-			"preDelay" : 1,
+			"emergeDelay" : 0.7,
+			"preDelay" : 0.4,
 			"projDelay" : 0,
 			"postDelay" : 1,
 			"coolDown" : 9,
@@ -507,8 +507,8 @@
 							]
 		},{	
 			"skillNumber" : 19, 
-			"emergeDelay" : 1,
-			"preDelay" : 1,
+			"emergeDelay" : 0.6,
+			"preDelay" : 0.4,
 			"projDelay" : 0,
 			"postDelay" : 1,
 			"coolDown" : 10,
