@@ -186,10 +186,10 @@ RectTransform:
   m_Father: {fileID: 6948350205723580717}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 75.3}
-  m_SizeDelta: {x: 320, y: 150}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: 0, y: 100}
+  m_SizeDelta: {x: -100, y: 250}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &8668264859035226028
 CanvasRenderer:
@@ -219,12 +219,12 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 3bfa694a882b2f140bf1c9c3f0a13ae8, type: 3}
-    m_FontSize: 23
+    m_FontSize: 25
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 2
-    m_MaxSize: 40
-    m_Alignment: 3
+    m_MaxSize: 25
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -3277,6 +3277,7 @@ MonoBehaviour:
     type: 3}
   selectedSkillPrefab: {fileID: 6613910522392333290, guid: 522a5c6f661ef4c43a926b6461ee7f72,
     type: 3}
+  isSelectionFinished: 0
 --- !u!1 &6948350206633026891
 GameObject:
   m_ObjectHideFlags: 0
