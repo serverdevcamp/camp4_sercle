@@ -64,12 +64,12 @@ public class Attack
 
                 Projectile projectile = UnityEngine.Object.Instantiate(proj, spawnPos, Quaternion.identity);
                 projectile.Initialize(info);
-
-                caster.ShowMuzzleEffect(true);
-                SoundManager.instance.PlaySound("RobotAttack", 0.1f);
             }
             #endregion
         }
+
+        caster.ShowMuzzleEffect(true);
+        SoundManager.instance.PlaySound("RobotAttack", 0.1f);
 
         #region Wait for Post Delay
         yield return new WaitForSeconds(postDelay);
