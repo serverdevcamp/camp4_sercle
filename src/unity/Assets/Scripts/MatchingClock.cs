@@ -41,7 +41,6 @@ public class MatchingClock : MonoBehaviour
         {
             matchingTime += Time.deltaTime;
             timeText.text = matchingTime.ToString("0");
-            timeText.transform.rotation = Quaternion.identity;
             if (oldTime != timeText.text)
             {
                 SoundManager.instance.PlaySound("Lobby_Timer", 0.8f);
@@ -52,7 +51,6 @@ public class MatchingClock : MonoBehaviour
         {
             matchingTime -= Time.deltaTime;
             timeText.text = matchingTime.ToString("0");
-            timeText.transform.rotation = Quaternion.identity;
             if (oldTime != timeText.text)
             {
                 // 10초 이하로 남았을 때 재촉 사운드 재생.
@@ -71,7 +69,8 @@ public class MatchingClock : MonoBehaviour
                 transform.GetComponentInParent<UIManager_SkillSelect>().StartGame();
             }
         }
-        
+
+        timeText.transform.rotation = Quaternion.identity;
     }
 
     private void OnDisable()
