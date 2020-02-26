@@ -21,6 +21,11 @@ public class GameManager : MonoBehaviour
     public int MyCampNum { get { return myCampNum; } }
     public int EnemyCampNum { get { return myCampNum == 1 ? 2 : 1; } }
 
+    [Header("DataCount")]
+    [SerializeField] private int killCount; // 죽인 로봇의 개수
+    [SerializeField] private float damageCount; // 상대 로봇에게 가한 데미지 총량
+    
+
     public Hero MyHero(int i)
     {
         if (MyCampNum == 1) return firstCampHeroes[i];
@@ -71,6 +76,9 @@ public class GameManager : MonoBehaviour
 
         // BGM 실행.
         SoundManager.instance.PlayBGM("Game_BGM", 0.2f);
+
+        killCount = 0;
+        damageCount = 0;
     }
 
     private void Update()
@@ -172,6 +180,12 @@ public class GameManager : MonoBehaviour
         }
         target.Synchronize(chp);
         target.Apply(effect);
+
+        // 상대 로봇에게 가한 damage를 게임매니저에 저장.
+        if ((StatusType)statusType == StatusType.CHP && tCampNum != MyCampNum)
+        {
+            if (amount < 0) IncDamageCount(-amount);
+        }
     }
 
     // HQ가 파괴되었다는 패킷 수신 함수
@@ -189,6 +203,16 @@ public class GameManager : MonoBehaviour
 
         UIManager.instance.ActivateGameEnd(win);
 
+        // 서버에 보낼 게임 정보 업데이트
+        userInfo.userPlayData.achievescore = 0;
+        userInfo.userPlayData.victory = 0;
+        userInfo.userPlayData.lose = 0;
+        userInfo.userPlayData.death = 0;
+        userInfo.userPlayData.imageid = 0;
+
+        userInfo.userPlayData.kill = killCount;
+        userInfo.userPlayData.damage = (int)damageCount;
+        
         // Flask 서버에 업적 업데이트 및 점수 업데이트.
         httpManager.UpdateAchieveReq(userInfo.userData.id, userInfo.userPlayData);
 
@@ -240,5 +264,17 @@ public class GameManager : MonoBehaviour
         Destroy(GameObject.Find("NetworkManager").gameObject);
         MatchingManager.instance.MatchState = MatchingManager.MatchingState.Nothing;
         SceneManager.LoadScene("Lobby");
+    }
+
+    // KillCount증가
+    public void IncKillCount()
+    {
+        killCount++;
+    }
+
+    // Demage Count 증가
+    public void IncDamageCount(float amount)
+    {
+        damageCount += amount;
     }
 }
