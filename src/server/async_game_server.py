@@ -167,7 +167,7 @@ class Game:
         message = SpawnRobotData(PacketId.spawn_robots.value, 0).serialize()
         try:
             while self.game_end_dic[room_num] != GAME_END:
-                await asyncio.sleep(5.0)
+                await asyncio.sleep(7.0)
                 print(str(room_num) + "번 방 몬스터 생성")
                 for i in range(5):
                     await asyncio.sleep(0.8)
@@ -183,9 +183,6 @@ class Game:
                     await my_writer[0].drain()
                     opponent_writer[0].write(message)
                     await opponent_writer[0].drain()
-                num = num + 1
-                if num == 2:
-                    break
                 # 게임이 끝났다는 플래그를 넣어야함.
         except Exception as e:
             print("게임 도중 에러 : " + str(e))
